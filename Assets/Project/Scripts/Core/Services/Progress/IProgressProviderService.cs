@@ -4,7 +4,7 @@ namespace UndergroundFortress.Scripts.Core.Services.Progress
 {
     public interface IProgressProviderService : IService
     {
-        public CharacterCharacteristics CharacterCharacteristics { get; }
+        public CharacterStats PlayerStats { get; }
         public PlayerProgress LoadProgress();
         public void SaveProgress();
     }

@@ -12,10 +12,11 @@ namespace UndergroundFortress.Scripts.Core.Services.StaticData
         private UIStaticData _ui; 
             
         private MainMenuStaticData _mainMenu;
-        private CharacterStaticData _character;
-        
+        private PlayerStaticData _player;
+
         private LevelStaticData _level;
-        
+        private EnemyStaticData _enemy;
+
         public void Load()
         {
             _ui = Resources
@@ -23,11 +24,13 @@ namespace UndergroundFortress.Scripts.Core.Services.StaticData
             
             _mainMenu = Resources
                 .Load<MainMenuStaticData>(ConstantPaths.MAIN_MENU_DATA_PATH);
-            _character = Resources
-                .Load<CharacterStaticData>(ConstantPaths.CHARACTER_DATA_PATH);
+            _player = Resources
+                .Load<PlayerStaticData>(ConstantPaths.PLAYER_DATA_PATH);
             
             _level = Resources
                 .Load<LevelStaticData>(ConstantPaths.LEVEL_DATA_PATH);
+            _enemy = Resources
+                .Load<EnemyStaticData>(ConstantPaths.ENEMY_DATA_PATH);
         }
 
         public UIStaticData ForUI() => 
@@ -35,10 +38,12 @@ namespace UndergroundFortress.Scripts.Core.Services.StaticData
 
         public MainMenuStaticData ForMainMenu() => 
             _mainMenu;
-        public CharacterStaticData ForCharacter() => 
-            _character;
+        public PlayerStaticData ForPlayer() => 
+            _player;
 
         public LevelStaticData ForLevel() => 
             _level;
+        public EnemyStaticData ForEnemy() => 
+            _enemy;
     }
 }

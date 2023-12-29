@@ -4,8 +4,8 @@ using UndergroundFortress.Scripts.Core.Services.GameStateMachine;
 using UndergroundFortress.Scripts.Core.Services.GameStateMachine.States;
 using UndergroundFortress.Scripts.Core.Services.StaticData;
 using UndergroundFortress.Scripts.Gameplay.Character;
-using UndergroundFortress.Scripts.Gameplay.Characteristics;
 using UndergroundFortress.Scripts.Gameplay.StaticData;
+using UndergroundFortress.Scripts.Gameplay.Stats;
 
 namespace UndergroundFortress.Scripts.Core.Services.Progress
 {
@@ -14,9 +14,9 @@ namespace UndergroundFortress.Scripts.Core.Services.Progress
         private readonly IStaticDataService _staticDataService;
         private readonly IGameStateMachine _gameStateMachine;
 
-        private CharacterCharacteristics _characterCharacteristics;
+        private CharacterStats _playerStats;
 
-        public CharacterCharacteristics CharacterCharacteristics => _characterCharacteristics;
+        public CharacterStats PlayerStats => _playerStats;
 
         public ProgressProviderService(IStaticDataService staticDataService,
             IGameStateMachine gameStateMachine)
@@ -28,21 +28,21 @@ namespace UndergroundFortress.Scripts.Core.Services.Progress
         public PlayerProgress LoadProgress()
         {
             Debug.Log("Loaded progress.");
-            _characterCharacteristics = LoadingPlayerData();
+            _playerStats = LoadingPlayerData();
 
             _gameStateMachine.Enter<LoadSceneState>();
             
             return new PlayerProgress();
         }
         
-        private CharacterCharacteristics LoadingPlayerData()
+        private CharacterStats LoadingPlayerData()
         {
-            CharacterStaticData characterStaticData = _staticDataService.ForCharacter();
-            CharacterCharacteristics characterCharacteristics = new CharacterCharacteristics(
-                characterStaticData.mainCharacteristics,
-                new RealtimeCharacteristics(characterStaticData.mainCharacteristics.maxStamina, 10, 10, 13));
+            PlayerStaticData playerStaticData = _staticDataService.ForPlayer();
+            CharacterStats characterStats = new CharacterStats(
+                playerStaticData.mainStats,
+                new CurrentStats(100, 100));
 
-            return characterCharacteristics;
+            return characterStats;
         }
 
         public void SaveProgress()

@@ -9,6 +9,7 @@ namespace UndergroundFortress.Scripts.Core.Services.StaticData
         public UIStaticData ForUI();
         public MainMenuStaticData ForMainMenu();
         public LevelStaticData ForLevel();
-        public CharacterStaticData ForCharacter();
+        public PlayerStaticData ForPlayer();
+        public EnemyStaticData ForEnemy();
     }
 }

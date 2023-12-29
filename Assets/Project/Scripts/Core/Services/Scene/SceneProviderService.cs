@@ -100,10 +100,11 @@ namespace UndergroundFortress.Scripts.Core.Services.Scene
             InitializerLevel  initializerLevel = new GameObject().AddComponent<InitializerLevel>();
             initializerLevel.name = nameof(InitializerLevel);
             initializerLevel.Construct(this,
+                _staticDataService,
                 _gameplayFactory,
                 _uiFactory,
                 _staticDataService.ForLevel(),
-                _progressProviderService.CharacterCharacteristics);
+                _progressProviderService.PlayerStats);
             initializerLevel.Initialize();
 
             Debug.Log("Level scene loaded.");

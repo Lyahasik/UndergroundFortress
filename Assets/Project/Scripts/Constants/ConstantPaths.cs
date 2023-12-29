@@ -5,8 +5,9 @@ namespace UndergroundFortress.Scripts.Constants
         public const string UI_DATA_PATH = "StaticData/UIData";
         
         public const string MAIN_MENU_DATA_PATH = "StaticData/MainMenuData";
-        public const string CHARACTER_DATA_PATH = "StaticData/CharacterData";
-        
+        public const string PLAYER_DATA_PATH = "StaticData/PlayerData";
+
         public const string LEVEL_DATA_PATH = "StaticData/LevelData";
+        public const string ENEMY_DATA_PATH = "StaticData/EnemyData";
     }
 }
