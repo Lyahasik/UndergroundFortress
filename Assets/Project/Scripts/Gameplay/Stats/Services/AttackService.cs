@@ -16,7 +16,7 @@ namespace UndergroundFortress.Scripts.Gameplay.Stats.Services
             CurrentStats currentStats = characterStats.CurrentStats;
             
             currentStats.Health = Math.Clamp(currentStats.Health - damage, 0, mainStats.health);
-            Debug.Log($"Damage { damage } for enemy. Current health { currentStats.Health }");
+            characterStats.Update();
 
             TryDead(characterStats);
         }

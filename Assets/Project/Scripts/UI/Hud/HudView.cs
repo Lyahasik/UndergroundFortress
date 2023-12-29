@@ -2,12 +2,17 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using UndergroundFortress.Scripts.Core.Services.Scene;
+using UndergroundFortress.Scripts.Testing;
 
 namespace UndergroundFortress.Scripts.UI.Hud
 {
     public class HudView : MonoBehaviour
     {
         [SerializeField] private Button buttonMenu;
+
+        //Testing
+        public StatsView playerStatsView;
+        public StatsView enemyStatsView;
 
         private ISceneProviderService _sceneProviderService;
 

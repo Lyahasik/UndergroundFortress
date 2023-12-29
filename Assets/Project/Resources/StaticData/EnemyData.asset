@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainStats:
     health: 50
-    healthRecoveryRate: 0
+    healthRecoveryRate: 5
     stamina: 0
     staminaRecoveryRate: 0
     staminaCost: 0

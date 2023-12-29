@@ -52,10 +52,10 @@ namespace UndergroundFortress.Scripts.Gameplay
                 
             HudView hudView = CreateHUD();
 
-            CreateGameplay();
+            CreateGameplay(hudView);
         }
 
-        private void CreateGameplay()
+        private void CreateGameplay(HudView hudView)
         {
             Canvas gameplayCanvas = _gameplayFactory.CreateGameplayCanvas();
             
@@ -65,6 +65,9 @@ namespace UndergroundFortress.Scripts.Gameplay
                 new CurrentStats(enemyStaticData.mainStats.health, enemyStaticData.mainStats.stamina));
             
             _gameplayServicesContainer.Single<IStatsRestorationService>().AddStats(_enemyStats);
+            
+            hudView.playerStatsView.Construct(_playerStats);
+            hudView.enemyStatsView.Construct(_enemyStats);
 
             AttackArea attackArea = _gameplayFactory.CreateAttackArea(gameplayCanvas.transform);
             attackArea.Construct(

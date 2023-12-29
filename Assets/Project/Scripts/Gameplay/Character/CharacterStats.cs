@@ -1,4 +1,6 @@
-﻿using UndergroundFortress.Scripts.Gameplay.Stats;
+﻿using System;
+
+using UndergroundFortress.Scripts.Gameplay.Stats;
 
 namespace UndergroundFortress.Scripts.Gameplay.Character
 {
@@ -7,6 +9,11 @@ namespace UndergroundFortress.Scripts.Gameplay.Character
         private MainStats _mainStats;
         private CurrentStats _currentStats;
 
+        public event Action<CharacterStats> OnUpdate;
+
+        public MainStats MainStats => _mainStats;
+        public CurrentStats CurrentStats => _currentStats;
+
         public CharacterStats(MainStats mainStats,
             CurrentStats currentStats)
         {
@@ -14,7 +21,9 @@ namespace UndergroundFortress.Scripts.Gameplay.Character
             _currentStats = currentStats;
         }
 
-        public MainStats MainStats => _mainStats;
-        public CurrentStats CurrentStats => _currentStats;
+        public void Update()
+        {
+            OnUpdate?.Invoke(this);
+        }
     }
 }

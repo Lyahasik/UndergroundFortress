@@ -53,7 +53,7 @@ namespace UndergroundFortress.Scripts.Gameplay.Stats.Services
 
             stats.CurrentStats.Health =
                 Math.Clamp(stats.CurrentStats.Health + stats.MainStats.healthRecoveryRate, 0, stats.MainStats.health);
-            Debug.Log($"Restore health: {stats.CurrentStats.Health}");
+            stats.Update();
         }
     }
 }
