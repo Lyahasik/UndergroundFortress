@@ -12,6 +12,7 @@ namespace UndergroundFortress.Scripts.Core.Services.StaticData
         private UIStaticData _ui; 
             
         private MainMenuStaticData _mainMenu;
+        private CharacterStaticData _character;
         
         private LevelStaticData _level;
         
@@ -22,6 +23,8 @@ namespace UndergroundFortress.Scripts.Core.Services.StaticData
             
             _mainMenu = Resources
                 .Load<MainMenuStaticData>(ConstantPaths.MAIN_MENU_DATA_PATH);
+            _character = Resources
+                .Load<CharacterStaticData>(ConstantPaths.CHARACTER_DATA_PATH);
             
             _level = Resources
                 .Load<LevelStaticData>(ConstantPaths.LEVEL_DATA_PATH);
@@ -32,6 +35,8 @@ namespace UndergroundFortress.Scripts.Core.Services.StaticData
 
         public MainMenuStaticData ForMainMenu() => 
             _mainMenu;
+        public CharacterStaticData ForCharacter() => 
+            _character;
 
         public LevelStaticData ForLevel() => 
             _level;

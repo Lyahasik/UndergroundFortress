@@ -7,6 +7,7 @@ using UndergroundFortress.Scripts.Core.Services.Factories.Gameplay;
 using UndergroundFortress.Scripts.Core.Services.Factories.UI;
 using UndergroundFortress.Scripts.Core.Services.GameStateMachine;
 using UndergroundFortress.Scripts.Core.Services.GameStateMachine.States;
+using UndergroundFortress.Scripts.Core.Services.Progress;
 using UndergroundFortress.Scripts.Core.Services.StaticData;
 using UndergroundFortress.Scripts.Gameplay;
 using UndergroundFortress.Scripts.UI.MainMenu;
@@ -19,9 +20,10 @@ namespace UndergroundFortress.Scripts.Core.Services.Scene
         private readonly IUIFactory _uiFactory;
         private readonly IGameplayFactory _gameplayFactory;
         private readonly IStaticDataService _staticDataService;
+        private readonly IProgressProviderService _progressProviderService;
 
         private ServicesContainer _match3ServicesContainer;
-        
+
         private string _nameNewActiveScene;
 
         private bool _isMainMenuInit;
@@ -29,12 +31,14 @@ namespace UndergroundFortress.Scripts.Core.Services.Scene
         public SceneProviderService(IGameStateMachine gameStateMachine,
             IUIFactory uiFactory,
             IGameplayFactory gameplayFactory,
-            IStaticDataService staticDataService)
+            IStaticDataService staticDataService,
+            IProgressProviderService progressProviderService)
         {
             _gameStateMachine = gameStateMachine;
             _uiFactory = uiFactory;
             _gameplayFactory = gameplayFactory;
             _staticDataService = staticDataService;
+            _progressProviderService = progressProviderService;
         }
 
         public void LoadMainScene()
@@ -95,7 +99,11 @@ namespace UndergroundFortress.Scripts.Core.Services.Scene
 
             InitializerLevel  initializerLevel = new GameObject().AddComponent<InitializerLevel>();
             initializerLevel.name = nameof(InitializerLevel);
-            initializerLevel.Construct(this, _gameplayFactory, _uiFactory, _staticDataService.ForLevel());
+            initializerLevel.Construct(this,
+                _gameplayFactory,
+                _uiFactory,
+                _staticDataService.ForLevel(),
+                _progressProviderService.CharacterCharacteristics);
             initializerLevel.Initialize();
 
             Debug.Log("Level scene loaded.");

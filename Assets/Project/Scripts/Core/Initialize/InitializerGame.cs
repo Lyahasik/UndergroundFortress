@@ -32,19 +32,27 @@ namespace UndergroundFortress.Scripts.Core.Initialize
             RegisterStaticDataService();
 
             GameStateMachine gameStateMachine = new GameStateMachine();
-            _servicesContainer.Register<IProgressProviderService>(new ProgressProviderService(gameStateMachine));
-            _servicesContainer.Register<IRealtimeProgressService>(new RealtimeProgressService());
+            _servicesContainer.Register<IProgressProviderService>(
+                new ProgressProviderService(
+                    _servicesContainer.Single<IStaticDataService>(),
+                    gameStateMachine));
+            _servicesContainer.Register<IRealtimeProgressService>(
+                new RealtimeProgressService());
             
-            _servicesContainer.Register<IUIFactory>(new UIFactory(
-                _servicesContainer.Single<IStaticDataService>()));
-            _servicesContainer.Register<IGameplayFactory>(new GameplayFactory(
-                _servicesContainer.Single<IStaticDataService>()));
+            _servicesContainer.Register<IUIFactory>(
+                new UIFactory(
+                    _servicesContainer.Single<IStaticDataService>()));
+            _servicesContainer.Register<IGameplayFactory>(
+                new GameplayFactory(
+                    _servicesContainer.Single<IStaticDataService>()));
 
-            _servicesContainer.Register<ISceneProviderService>(new SceneProviderService(
-                gameStateMachine,
-                _servicesContainer.Single<IUIFactory>(),
-                _servicesContainer.Single<IGameplayFactory>(),
-                _servicesContainer.Single<IStaticDataService>()));
+            _servicesContainer.Register<ISceneProviderService>(
+                new SceneProviderService(
+                    gameStateMachine,
+                    _servicesContainer.Single<IUIFactory>(),
+                    _servicesContainer.Single<IGameplayFactory>(),
+                    _servicesContainer.Single<IStaticDataService>(),
+                    _servicesContainer.Single<IProgressProviderService>()));
             
             LoadingCurtain curtain = CreateLoadingCurtain();
             GameData gameData = GameDataCreate(curtain, _servicesContainer);

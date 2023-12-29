@@ -1,5 +1,7 @@
 using UnityEngine;
 
+using UndergroundFortress.Scripts.Gameplay.Character;
+
 using UndergroundFortress.Scripts.UI.Hud;
 
 namespace UndergroundFortress.Scripts.Gameplay.StaticData
@@ -8,5 +10,8 @@ namespace UndergroundFortress.Scripts.Gameplay.StaticData
     public class LevelStaticData : ScriptableObject
     {
         public HudView hudViewPrefab;
+
+        public Canvas gameplayCanvas;
+        public AttackArea attackArea;
     }
 }
