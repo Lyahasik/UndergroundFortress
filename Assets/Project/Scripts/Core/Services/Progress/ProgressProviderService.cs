@@ -40,7 +40,7 @@ namespace UndergroundFortress.Scripts.Core.Services.Progress
             PlayerStaticData playerStaticData = _staticDataService.ForPlayer();
             CharacterStats characterStats = new CharacterStats(
                 playerStaticData.mainStats,
-                new CurrentStats(100, 100));
+                new CurrentStats(playerStaticData.mainStats.health, playerStaticData.mainStats.stamina));
 
             return characterStats;
         }

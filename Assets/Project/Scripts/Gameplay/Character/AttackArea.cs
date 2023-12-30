@@ -36,7 +36,7 @@ namespace UndergroundFortress.Scripts.Gameplay.Character
             if (!_checkerCurrentStatsService.IsEnoughStamina(_playerStats))
                 return;
             
-            _attackService.Attack(_enemyStats, _playerStats.MainStats.damage);
+            _attackService.Attack(_playerStats, _enemyStats);
         }
     }
 }

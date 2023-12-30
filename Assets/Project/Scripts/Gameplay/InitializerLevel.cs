@@ -64,6 +64,7 @@ namespace UndergroundFortress.Scripts.Gameplay
                 enemyStaticData.mainStats,
                 new CurrentStats(enemyStaticData.mainStats.health, enemyStaticData.mainStats.stamina));
             
+            _gameplayServicesContainer.Single<IStatsRestorationService>().AddStats(_playerStats);
             _gameplayServicesContainer.Single<IStatsRestorationService>().AddStats(_enemyStats);
             
             hudView.playerStatsView.Construct(_playerStats);
@@ -92,8 +93,11 @@ namespace UndergroundFortress.Scripts.Gameplay
             
             _gameplayServicesContainer.Register<ICheckerCurrentStatsService>(
                 new CheckerCurrentStatsService());
+            _gameplayServicesContainer.Register<IStatsWasteService>(
+                new StatsWasteService());
             _gameplayServicesContainer.Register<IAttackService>(
-                new AttackService());
+                new AttackService(
+                    _gameplayServicesContainer.Single<IStatsWasteService>()));
 
             RegisterStatsRestorationService();
         }

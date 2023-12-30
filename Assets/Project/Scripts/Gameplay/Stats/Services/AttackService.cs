@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 using UndergroundFortress.Scripts.Gameplay.Character;
 
@@ -7,23 +6,24 @@ namespace UndergroundFortress.Scripts.Gameplay.Stats.Services
 {
     public class AttackService : IAttackService
     {
-        private CharacterStats _playerStats;
-        private CharacterStats _enemyStats;
+        private readonly IStatsWasteService _statsWasteService;
 
-        public void Attack(CharacterStats characterStats, float damage)
+        public AttackService(IStatsWasteService statsWasteService)
         {
-            MainStats mainStats = characterStats.MainStats;
-            CurrentStats currentStats = characterStats.CurrentStats;
-            
-            currentStats.Health = Math.Clamp(currentStats.Health - damage, 0, mainStats.health);
-            characterStats.Update();
-
-            TryDead(characterStats);
+            _statsWasteService = statsWasteService;
         }
 
-        private void TryDead(CharacterStats characterStats)
+        public void Attack(CharacterStats statsAttacking, CharacterStats statsDefending)
         {
-            if (characterStats.CurrentStats.Health != 0)
+            _statsWasteService.WasteHealth(statsDefending, statsAttacking.MainStats.damage);
+            _statsWasteService.WasteStamina(statsAttacking, statsAttacking.MainStats.staminaCost);
+
+            TryDead(statsDefending);
+        }
+
+        private void TryDead(CharacterStats statsCharacter)
+        {
+            if (statsCharacter.CurrentStats.Health != 0)
                 return;
             
             Debug.Log("Enemy dead.");

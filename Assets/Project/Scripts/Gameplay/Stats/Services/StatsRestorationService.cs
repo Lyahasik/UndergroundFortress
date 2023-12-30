@@ -41,6 +41,7 @@ namespace UndergroundFortress.Scripts.Gameplay.Stats.Services
             foreach (CharacterStats stats in _statCharacters)
             {
                 RestoreHealth(stats);
+                RestoreStamina(stats);
             }
 
             _nextRestoreTime = Time.time + ConstantValues.DELAY_RESTORE_STATS;
@@ -48,11 +49,21 @@ namespace UndergroundFortress.Scripts.Gameplay.Stats.Services
 
         private void RestoreHealth(CharacterStats stats)
         {
-            if (stats.CurrentStats.Health == stats.MainStats.health)
+            if (stats.CurrentStats.Health >= stats.MainStats.health)
                 return;
 
             stats.CurrentStats.Health =
                 Math.Clamp(stats.CurrentStats.Health + stats.MainStats.healthRecoveryRate, 0, stats.MainStats.health);
+            stats.Update();
+        }
+
+        private void RestoreStamina(CharacterStats stats)
+        {
+            if (stats.CurrentStats.Stamina >= stats.MainStats.stamina)
+                return;
+
+            stats.CurrentStats.Stamina =
+                Math.Clamp(stats.CurrentStats.Stamina + stats.MainStats.staminaRecoveryRate, 0, stats.MainStats.stamina);
             stats.Update();
         }
     }
