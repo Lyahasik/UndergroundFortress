@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 using UndergroundFortress.Scripts.Gameplay.Character;
 
@@ -15,7 +16,10 @@ namespace UndergroundFortress.Scripts.Gameplay.Stats.Services
 
         public void Attack(CharacterStats statsAttacking, CharacterStats statsDefending)
         {
-            _statsWasteService.WasteHealth(statsDefending, statsAttacking.MainStats.damage);
+            float damage = statsAttacking.MainStats.damage - statsDefending.MainStats.defense;
+            damage = Math.Clamp(damage, 0, float.MaxValue);
+            
+            _statsWasteService.WasteHealth(statsDefending, damage);
             _statsWasteService.WasteStamina(statsAttacking, statsAttacking.MainStats.staminaCost);
 
             TryDead(statsDefending);

@@ -16,5 +16,8 @@ namespace UndergroundFortress.Scripts.Gameplay.Stats
         
         [Space]
         public float damage;
+
+        [Space]
+        public float defense;
     }
 }
