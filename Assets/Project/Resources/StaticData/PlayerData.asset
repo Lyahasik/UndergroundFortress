@@ -25,3 +25,6 @@ MonoBehaviour:
     crit: 50
     parry: 0
     critDamage: 0.5
+    block: 0
+    breakThrough: 50
+    blockAttackDamage: 0

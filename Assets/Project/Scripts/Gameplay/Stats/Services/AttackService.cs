@@ -27,6 +27,7 @@ namespace UndergroundFortress.Scripts.Gameplay.Stats.Services
             float damage = statsAttacking.MainStats.damage - statsDefending.MainStats.defense;
             damage = Math.Clamp(damage, 0, float.MaxValue);
 
+            TryBreakThrough(statsAttacking, statsDefending, ref damage);
             TryApplyCrit(statsAttacking, statsDefending, ref damage);
             
             _statsWasteService.WasteHealth(statsDefending, (int) damage);
@@ -43,6 +44,17 @@ namespace UndergroundFortress.Scripts.Gameplay.Stats.Services
             float result = Random.Range(0f, ConstantValues.MAX_PROBABILITY);
 
             return result >= probabilityMiss;
+        }
+
+        private void TryBreakThrough(CharacterStats statsAttacking, CharacterStats statsDefending, ref float damage)
+        {
+            float probabilityBlock = statsDefending.MainStats.block - statsAttacking.MainStats.breakThrough;
+            probabilityBlock = Math.Clamp(probabilityBlock, 0, statsDefending.MainStats.block);
+
+            float result = Random.Range(0f, ConstantValues.MAX_PROBABILITY);
+
+            if (result < probabilityBlock)
+                damage -= damage * statsDefending.MainStats.blockAttackDamage;
         }
 
         private void TryApplyCrit(CharacterStats statsAttacking, CharacterStats statsDefending, ref float damage)

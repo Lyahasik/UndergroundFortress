@@ -28,5 +28,10 @@ namespace UndergroundFortress.Scripts.Gameplay.Stats
         public float crit;
         public float parry;
         public float critDamage;
+
+        [Space]
+        public float block;
+        public float breakThrough;
+        public float blockAttackDamage;
     }
 }

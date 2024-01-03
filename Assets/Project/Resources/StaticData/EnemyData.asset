@@ -20,8 +20,11 @@ MonoBehaviour:
     staminaCost: 0
     damage: 0
     defense: 10
-    dodge: 75
+    dodge: 0
     accuracy: 0
     crit: 0
-    parry: 25
+    parry: 100
     critDamage: 0
+    block: 75
+    breakThrough: 0
+    blockAttackDamage: 0.4
