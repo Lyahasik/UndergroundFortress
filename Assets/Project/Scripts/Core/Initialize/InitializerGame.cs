@@ -2,6 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 using UndergroundFortress.Scripts.Core.Services;
+using UndergroundFortress.Scripts.Core.Services.Characters;
 using UndergroundFortress.Scripts.Core.Services.Factories.Gameplay;
 using UndergroundFortress.Scripts.Core.Services.Factories.UI;
 using UndergroundFortress.Scripts.Core.Services.GameStateMachine;
@@ -32,9 +33,13 @@ namespace UndergroundFortress.Scripts.Core.Initialize
             RegisterStaticDataService();
 
             GameStateMachine gameStateMachine = new GameStateMachine();
+            
+            _servicesContainer.Register<ICharacterDressingService>(
+                new CharacterDressingService());
             _servicesContainer.Register<IProgressProviderService>(
                 new ProgressProviderService(
                     _servicesContainer.Single<IStaticDataService>(),
+                    _servicesContainer.Single<ICharacterDressingService>(),
                     gameStateMachine));
             _servicesContainer.Register<IRealtimeProgressService>(
                 new RealtimeProgressService());

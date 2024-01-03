@@ -9,5 +9,7 @@ namespace UndergroundFortress.Scripts.Constants
 
         public const string LEVEL_DATA_PATH = "StaticData/LevelData";
         public const string ENEMY_DATA_PATH = "StaticData/EnemyData";
+        
+        public const string ITEMS_DATA_PATH = "StaticData/Items/";
     }
 }

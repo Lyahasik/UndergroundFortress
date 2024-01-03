@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 using UndergroundFortress.Scripts.Gameplay.StaticData;
 using UndergroundFortress.Scripts.MainMenu.StaticData;
 using UndergroundFortress.Scripts.UI.StaticData;
@@ -11,5 +13,6 @@ namespace UndergroundFortress.Scripts.Core.Services.StaticData
         public LevelStaticData ForLevel();
         public PlayerStaticData ForPlayer();
         public EnemyStaticData ForEnemy();
+        List<ItemStaticData> ForItems();
     }
 }
