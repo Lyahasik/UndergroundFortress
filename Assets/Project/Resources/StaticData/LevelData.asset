@@ -15,3 +15,5 @@ MonoBehaviour:
   hudViewPrefab: {fileID: 8248891911705102734, guid: 073bd9816efa23744b122ab9897901ee, type: 3}
   gameplayCanvas: {fileID: 8550929980087478797, guid: 488c3a2932aea0f4c8ffc4544eb85a2d, type: 3}
   attackArea: {fileID: 6605593681225319175, guid: 2073283339ed4f74eb535e84aa53f82b, type: 3}
+  player: {fileID: 3478147631888320721, guid: d738b982e00623c4aa820668777ad499, type: 3}
+  enemy: {fileID: 373140914564335326, guid: 2af187f85a3832e4ab5a1dcfdf59c78a, type: 3}

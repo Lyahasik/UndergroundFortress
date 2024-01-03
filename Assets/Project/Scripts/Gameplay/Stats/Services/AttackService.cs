@@ -19,8 +19,11 @@ namespace UndergroundFortress.Scripts.Gameplay.Stats.Services
             _statsWasteService = statsWasteService;
         }
 
-        public void Attack(CharacterStats statsAttacking, CharacterStats statsDefending)
+        public void Attack(CharacterData dataAttacking, CharacterData dataDefending)
         {
+            CharacterStats statsAttacking = dataAttacking.Stats;
+            CharacterStats statsDefending = dataDefending.Stats;
+            
             if (!TryHit(statsAttacking, statsDefending))
                 return;
             
@@ -33,7 +36,10 @@ namespace UndergroundFortress.Scripts.Gameplay.Stats.Services
             _statsWasteService.WasteHealth(statsDefending, (int) damage);
             _statsWasteService.WasteStamina(statsAttacking, statsAttacking.MainStats.staminaCost);
 
-            TryDead(statsDefending);
+            if (TryDead(statsDefending))
+                return;
+
+            TryStun(statsAttacking, dataDefending);
         }
 
         private bool TryHit(CharacterStats statsAttacking, CharacterStats statsDefending)
@@ -68,12 +74,24 @@ namespace UndergroundFortress.Scripts.Gameplay.Stats.Services
                 damage *= OneIntegerValue + statsAttacking.MainStats.critDamage;
         }
 
-        private void TryDead(CharacterStats statsCharacter)
+        private void TryStun(CharacterStats statsAttacking, CharacterData dataDefending)
+        {
+            float probabilityStun = statsAttacking.MainStats.stun - dataDefending.Stats.MainStats.strength;
+            probabilityStun = Math.Clamp(probabilityStun, 0, statsAttacking.MainStats.stun);
+
+            float result = Random.Range(0f, ConstantValues.MAX_PROBABILITY);
+            
+            if (result < probabilityStun)
+                dataDefending.Stunned.Activate(statsAttacking.MainStats.stunDuration);
+        }
+
+        private bool TryDead(CharacterStats statsCharacter)
         {
             if (statsCharacter.CurrentStats.Health != 0)
-                return;
+                return false;
             
             Debug.Log("Enemy dead.");
+            return true;
         }
     }
 }

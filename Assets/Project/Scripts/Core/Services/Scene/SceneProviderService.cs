@@ -103,7 +103,6 @@ namespace UndergroundFortress.Scripts.Core.Services.Scene
                 _staticDataService,
                 _gameplayFactory,
                 _uiFactory,
-                _staticDataService.ForLevel(),
                 _progressProviderService.PlayerStats);
             initializerLevel.Initialize();
 

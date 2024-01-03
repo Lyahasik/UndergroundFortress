@@ -28,3 +28,6 @@ MonoBehaviour:
     block: 0
     breakThrough: 50
     blockAttackDamage: 0
+    stun: 75
+    strength: 0
+    stunDuration: 2

@@ -25,6 +25,9 @@ MonoBehaviour:
     crit: 0
     parry: 100
     critDamage: 0
-    block: 75
+    block: 0
     breakThrough: 0
     blockAttackDamage: 0.4
+    stun: 0
+    strength: 0
+    stunDuration: 0

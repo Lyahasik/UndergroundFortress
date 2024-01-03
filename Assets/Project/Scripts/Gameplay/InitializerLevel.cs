@@ -19,11 +19,12 @@ namespace UndergroundFortress.Scripts.Gameplay
         private IStaticDataService _staticDataService;
         private IGameplayFactory _gameplayFactory;
         private IUIFactory _uiFactory;
-        private LevelStaticData _levelStaticData;
         private CharacterStats _playerStats;
 
         private ServicesContainer _gameplayServicesContainer;
-        
+
+        private CharacterData _playerData;
+        private CharacterData _enemyData;
         private CharacterStats _enemyStats;
 
         private void OnDestroy()
@@ -35,14 +36,12 @@ namespace UndergroundFortress.Scripts.Gameplay
             IStaticDataService staticDataService,
             IGameplayFactory gameplayFactory,
             IUIFactory uiFactory,
-            LevelStaticData levelStaticData,
             CharacterStats playerStats)
         {
             _sceneProviderService = sceneProviderService;
             _staticDataService = staticDataService;
             _gameplayFactory = gameplayFactory;
             _uiFactory = uiFactory;
-            _levelStaticData = levelStaticData;
             _playerStats = playerStats;
         }
 
@@ -59,10 +58,15 @@ namespace UndergroundFortress.Scripts.Gameplay
         {
             Canvas gameplayCanvas = _gameplayFactory.CreateGameplayCanvas();
             
+            _playerData = _gameplayFactory.CreatePlayer(gameplayCanvas.transform);
+            _playerData.Construct(_playerStats);
+            
             EnemyStaticData enemyStaticData = _staticDataService.ForEnemy();
             _enemyStats = new CharacterStats(
                 enemyStaticData.mainStats,
                 new CurrentStats(enemyStaticData.mainStats.health, enemyStaticData.mainStats.stamina));
+            _enemyData = _gameplayFactory.CreateEnemy(gameplayCanvas.transform);
+            _enemyData.Construct(_enemyStats);
             
             _gameplayServicesContainer.Single<IStatsRestorationService>().AddStats(_playerStats);
             _gameplayServicesContainer.Single<IStatsRestorationService>().AddStats(_enemyStats);
@@ -72,8 +76,8 @@ namespace UndergroundFortress.Scripts.Gameplay
 
             AttackArea attackArea = _gameplayFactory.CreateAttackArea(gameplayCanvas.transform);
             attackArea.Construct(
-                _playerStats,
-                _enemyStats,
+                _playerData,
+                _enemyData,
                 _gameplayServicesContainer.Single<ICheckerCurrentStatsService>(),
                 _gameplayServicesContainer.Single<IAttackService>());
         }

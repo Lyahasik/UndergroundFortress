@@ -8,5 +8,7 @@ namespace UndergroundFortress.Scripts.Core.Services.Factories.Gameplay
     {
         public Canvas CreateGameplayCanvas();
         public AttackArea CreateAttackArea(Transform parent);
+        public CharacterData CreatePlayer(Transform parent);
+        public CharacterData CreateEnemy(Transform parent);
     }
 }

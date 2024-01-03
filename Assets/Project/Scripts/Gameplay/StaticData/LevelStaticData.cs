@@ -11,7 +11,10 @@ namespace UndergroundFortress.Scripts.Gameplay.StaticData
     {
         public HudView hudViewPrefab;
 
+        [Space]
         public Canvas gameplayCanvas;
         public AttackArea attackArea;
+        public CharacterData player;
+        public CharacterData enemy;
     }
 }

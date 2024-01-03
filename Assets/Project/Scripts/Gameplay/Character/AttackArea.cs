@@ -9,19 +9,19 @@ namespace UndergroundFortress.Scripts.Gameplay.Character
     [RequireComponent(typeof(Image))]
     public class AttackArea : MonoBehaviour, IPointerDownHandler
     {
-        private CharacterStats _playerStats;
-        private CharacterStats _enemyStats;
+        private CharacterData _playerData;
+        private CharacterData _enemyData;
 
         private ICheckerCurrentStatsService _checkerCurrentStatsService;
         private IAttackService _attackService;
 
-        public void Construct(CharacterStats playerStats,
-            CharacterStats enemyStats,
+        public void Construct(CharacterData playerData,
+            CharacterData enemyData,
             ICheckerCurrentStatsService checkerCurrentStatsService,
             IAttackService attackService)
         {
-            _playerStats = playerStats;
-            _enemyStats = enemyStats;
+            _playerData = playerData;
+            _enemyData = enemyData;
             _checkerCurrentStatsService = checkerCurrentStatsService;
             _attackService = attackService;
         }
@@ -33,10 +33,10 @@ namespace UndergroundFortress.Scripts.Gameplay.Character
 
         private void Attack()
         {
-            if (!_checkerCurrentStatsService.IsEnoughStamina(_playerStats))
+            if (!_checkerCurrentStatsService.IsEnoughStamina(_playerData.Stats))
                 return;
             
-            _attackService.Attack(_playerStats, _enemyStats);
+            _attackService.Attack(_playerData, _enemyData);
         }
     }
 }

@@ -2,11 +2,10 @@ using UnityEngine;
 
 using UndergroundFortress.Scripts.Core.Services.StaticData;
 using UndergroundFortress.Scripts.Gameplay.Character;
-using UndergroundFortress.Scripts.Gameplay.StaticData;
 
 namespace UndergroundFortress.Scripts.Core.Services.Factories.Gameplay
 {
-    public class GameplayFactory : IGameplayFactory
+    public class GameplayFactory : Factory, IGameplayFactory
     {
         private readonly IStaticDataService _staticDataService;
 
@@ -15,18 +14,16 @@ namespace UndergroundFortress.Scripts.Core.Services.Factories.Gameplay
             _staticDataService = staticDataService;
         }
 
-        public Canvas CreateGameplayCanvas()
-        {
-            LevelStaticData levelData = _staticDataService.ForLevel();
+        public Canvas CreateGameplayCanvas() => 
+            PrefabInstantiate(_staticDataService.ForLevel().gameplayCanvas);
 
-            return Object.Instantiate(levelData.gameplayCanvas);
-        }
+        public AttackArea CreateAttackArea(Transform parent) => 
+            PrefabInstantiate(_staticDataService.ForLevel().attackArea, parent);
 
-        public AttackArea CreateAttackArea(Transform parent)
-        {
-            LevelStaticData levelData = _staticDataService.ForLevel();
+        public CharacterData CreatePlayer(Transform parent) => 
+            PrefabInstantiate(_staticDataService.ForLevel().player, parent);
 
-            return Object.Instantiate(levelData.attackArea, parent);
-        }
+        public CharacterData CreateEnemy(Transform parent) => 
+            PrefabInstantiate(_staticDataService.ForLevel().enemy, parent);
     }
 }

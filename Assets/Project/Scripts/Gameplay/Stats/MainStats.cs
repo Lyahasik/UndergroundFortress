@@ -33,5 +33,10 @@ namespace UndergroundFortress.Scripts.Gameplay.Stats
         public float block;
         public float breakThrough;
         public float blockAttackDamage;
+
+        [Space]
+        public float stun;
+        public float strength;
+        public float stunDuration;
     }
 }

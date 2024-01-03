@@ -5,6 +5,6 @@ namespace UndergroundFortress.Scripts.Gameplay.Stats.Services
 {
     public interface IAttackService : IService
     {
-        public void Attack(CharacterStats statsAttacking, CharacterStats statsDefending);
+        public void Attack(CharacterData dataAttacking, CharacterData dataDefending);
     }
 }
