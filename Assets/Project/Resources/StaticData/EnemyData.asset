@@ -22,3 +22,6 @@ MonoBehaviour:
     defense: 10
     dodge: 75
     accuracy: 0
+    crit: 0
+    parry: 25
+    critDamage: 0

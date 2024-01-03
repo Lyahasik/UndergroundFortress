@@ -19,3 +19,9 @@ MonoBehaviour:
     staminaRecoveryRate: 1
     staminaCost: 3
     damage: 13
+    defense: 0
+    dodge: 0
+    accuracy: 50
+    crit: 50
+    parry: 0
+    critDamage: 0.5

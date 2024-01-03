@@ -10,6 +10,8 @@ namespace UndergroundFortress.Scripts.Gameplay.Stats.Services
 {
     public class AttackService : IAttackService
     {
+        private const float OneIntegerValue = 1f;
+        
         private readonly IStatsWasteService _statsWasteService;
 
         public AttackService(IStatsWasteService statsWasteService)
@@ -24,8 +26,10 @@ namespace UndergroundFortress.Scripts.Gameplay.Stats.Services
             
             float damage = statsAttacking.MainStats.damage - statsDefending.MainStats.defense;
             damage = Math.Clamp(damage, 0, float.MaxValue);
+
+            TryApplyCrit(statsAttacking, statsDefending, ref damage);
             
-            _statsWasteService.WasteHealth(statsDefending, damage);
+            _statsWasteService.WasteHealth(statsDefending, (int) damage);
             _statsWasteService.WasteStamina(statsAttacking, statsAttacking.MainStats.staminaCost);
 
             TryDead(statsDefending);
@@ -38,8 +42,18 @@ namespace UndergroundFortress.Scripts.Gameplay.Stats.Services
 
             float result = Random.Range(0f, ConstantValues.MAX_PROBABILITY);
 
-            Debug.Log($"{probabilityMiss} : {result} - {result >= probabilityMiss}");
             return result >= probabilityMiss;
+        }
+
+        private void TryApplyCrit(CharacterStats statsAttacking, CharacterStats statsDefending, ref float damage)
+        {
+            float probabilityCrit = statsAttacking.MainStats.crit - statsDefending.MainStats.parry;
+            probabilityCrit = Math.Clamp(probabilityCrit, 0, statsAttacking.MainStats.crit);
+
+            float result = Random.Range(0f, ConstantValues.MAX_PROBABILITY);
+
+            if (result >= probabilityCrit)
+                damage *= OneIntegerValue + statsAttacking.MainStats.critDamage;
         }
 
         private void TryDead(CharacterStats statsCharacter)

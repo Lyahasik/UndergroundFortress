@@ -23,5 +23,10 @@ namespace UndergroundFortress.Scripts.Gameplay.Stats
         [Space]
         public float dodge;
         public float accuracy;
+
+        [Space]
+        public float crit;
+        public float parry;
+        public float critDamage;
     }
 }
