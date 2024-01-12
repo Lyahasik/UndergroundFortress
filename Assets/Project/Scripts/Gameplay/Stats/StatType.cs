@@ -1,7 +1,9 @@
-﻿namespace UndergroundFortress.Scripts.Gameplay.Stats
+﻿namespace UndergroundFortress.Gameplay.Stats
 {
     public enum StatType
     {
+        Empty = 0,
+        
         Health = 1,
         HealthRecoveryRate,
         

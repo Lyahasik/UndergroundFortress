@@ -1,14 +1,12 @@
-using System.Collections.Generic;
+using UndergroundFortress.Core.Progress;
+using UndergroundFortress.Gameplay.Character;
 
-using UndergroundFortress.Scripts.Gameplay.Character;
-using UndergroundFortress.Scripts.Gameplay.StaticData;
-
-namespace UndergroundFortress.Scripts.Core.Services.Progress
+namespace UndergroundFortress.Core.Services.Progress
 {
     public interface IProgressProviderService : IService
     {
         public CharacterStats PlayerStats { get; }
-        public List<ItemStaticData> PlayerItems { get; }
+        public ProgressData ProgressData { get; }
         public void LoadProgress();
         public void SaveProgress();
     }

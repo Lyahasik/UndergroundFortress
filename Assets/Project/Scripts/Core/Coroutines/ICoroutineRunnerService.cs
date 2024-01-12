@@ -1,9 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
-using UndergroundFortress.Scripts.Core.Services;
+using UndergroundFortress.Core.Services;
 
-namespace UndergroundFortress.Scripts.Core.Coroutines
+namespace UndergroundFortress.Core.Coroutines
 {
     public interface ICoroutineRunnerService : IService
     {

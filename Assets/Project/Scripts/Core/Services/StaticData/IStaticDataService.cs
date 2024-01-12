@@ -1,18 +1,19 @@
 using System.Collections.Generic;
 
-using UndergroundFortress.Scripts.Gameplay.StaticData;
-using UndergroundFortress.Scripts.MainMenu.StaticData;
-using UndergroundFortress.Scripts.UI.StaticData;
+using UndergroundFortress.Gameplay.StaticData;
+using UndergroundFortress.UI.MainMenu.StaticData;
+using UndergroundFortress.UI.StaticData;
 
-namespace UndergroundFortress.Scripts.Core.Services.StaticData
+namespace UndergroundFortress.Core.Services.StaticData
 {
     public interface IStaticDataService : IService
     {
         public UIStaticData ForUI();
         public MainMenuStaticData ForMainMenu();
         public LevelStaticData ForLevel();
-        public PlayerStaticData ForPlayer();
-        public EnemyStaticData ForEnemy();
-        List<ItemStaticData> ForItems();
+        public CharacterStaticData ForPlayer();
+        public CharacterStaticData ForEnemy();
+        public List<StatStaticData> ForStats();
+        public List<EquipmentStaticData> ForEquipments();
     }
 }

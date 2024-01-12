@@ -1,17 +1,18 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-using UndergroundFortress.Scripts.Core.Services;
-using UndergroundFortress.Scripts.Core.Services.Factories.Gameplay;
-using UndergroundFortress.Scripts.Core.Services.Factories.UI;
-using UndergroundFortress.Scripts.Core.Services.Scene;
-using UndergroundFortress.Scripts.Core.Services.StaticData;
-using UndergroundFortress.Scripts.Gameplay.Character;
-using UndergroundFortress.Scripts.Gameplay.StaticData;
-using UndergroundFortress.Scripts.Gameplay.Stats;
-using UndergroundFortress.Scripts.Gameplay.Stats.Services;
-using UndergroundFortress.Scripts.UI.Hud;
+using UndergroundFortress.Core.Services;
+using UndergroundFortress.Core.Services.Factories.Gameplay;
+using UndergroundFortress.Core.Services.Factories.UI;
+using UndergroundFortress.Core.Services.Scene;
+using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Gameplay.Character;
+using UndergroundFortress.Gameplay.Items.Equipment;
+using UndergroundFortress.Gameplay.StaticData;
+using UndergroundFortress.Gameplay.Stats.Services;
+using UndergroundFortress.UI.Hud;
 
-namespace UndergroundFortress.Scripts.Gameplay
+namespace UndergroundFortress.Gameplay
 {
     public class InitializerLevel : MonoBehaviour
     {
@@ -59,14 +60,13 @@ namespace UndergroundFortress.Scripts.Gameplay
             Canvas gameplayCanvas = _gameplayFactory.CreateGameplayCanvas();
             
             _playerData = _gameplayFactory.CreatePlayer(gameplayCanvas.transform);
-            _playerData.Construct(_playerStats);
+            _playerData.Construct(_playerStats, new List<EquipmentData>());
             
-            EnemyStaticData enemyStaticData = _staticDataService.ForEnemy();
-            _enemyStats = new CharacterStats(
-                enemyStaticData.mainStats,
-                new CurrentStats(enemyStaticData.mainStats.health, enemyStaticData.mainStats.stamina));
+            CharacterStaticData enemyStaticData = _staticDataService.ForEnemy();
+            _enemyStats = new CharacterStats();
+            _enemyStats.Initialize(enemyStaticData);
             _enemyData = _gameplayFactory.CreateEnemy(gameplayCanvas.transform);
-            _enemyData.Construct(_enemyStats);
+            _enemyData.Construct(_enemyStats, new List<EquipmentData>());
             
             _gameplayServicesContainer.Single<IStatsRestorationService>().AddStats(_playerStats);
             _gameplayServicesContainer.Single<IStatsRestorationService>().AddStats(_enemyStats);

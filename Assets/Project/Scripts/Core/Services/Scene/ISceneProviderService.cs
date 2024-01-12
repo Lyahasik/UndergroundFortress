@@ -1,4 +1,4 @@
-namespace UndergroundFortress.Scripts.Core.Services.Scene
+namespace UndergroundFortress.Core.Services.Scene
 {
     public interface ISceneProviderService : IService
     {

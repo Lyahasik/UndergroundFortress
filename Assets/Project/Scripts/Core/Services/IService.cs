@@ -1,4 +1,4 @@
-namespace UndergroundFortress.Scripts.Core.Services
+namespace UndergroundFortress.Core.Services
 {
     public interface IService {}
 }

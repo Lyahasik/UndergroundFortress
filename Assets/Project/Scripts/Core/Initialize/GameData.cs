@@ -1,10 +1,10 @@
 using UnityEngine;
 
-using UndergroundFortress.Scripts.Core.Coroutines;
-using UndergroundFortress.Scripts.Core.Services;
-using UndergroundFortress.Scripts.UI.Loading;
+using UndergroundFortress.Core.Coroutines;
+using UndergroundFortress.Core.Services;
+using UndergroundFortress.UI.Loading;
 
-namespace UndergroundFortress.Scripts.Core.Initialize
+namespace UndergroundFortress.Core.Initialize
 {
     public class GameData : MonoBehaviour
     {

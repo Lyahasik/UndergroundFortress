@@ -1,9 +1,9 @@
 using UnityEngine;
 
-using UndergroundFortress.Scripts.Core.Coroutines;
-using UndergroundFortress.Scripts.UI.Loading;
+using UndergroundFortress.Core.Coroutines;
+using UndergroundFortress.UI.Loading;
 
-namespace UndergroundFortress.Scripts.Core.Services.GameStateMachine.States
+namespace UndergroundFortress.Core.Services.GameStateMachine.States
 {
     public class LoadSceneState : IState
     {

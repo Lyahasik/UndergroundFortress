@@ -1,10 +1,10 @@
 using System.Collections;
 using UnityEngine;
 
-using UndergroundFortress.Scripts.Core.Coroutines;
-using UndergroundFortress.Scripts.UI.StaticData;
+using UndergroundFortress.Core.Coroutines;
+using UndergroundFortress.UI.StaticData;
 
-namespace UndergroundFortress.Scripts.UI.Loading
+namespace UndergroundFortress.UI.Loading
 {
     public class LoadingCurtain : MonoBehaviour
     {

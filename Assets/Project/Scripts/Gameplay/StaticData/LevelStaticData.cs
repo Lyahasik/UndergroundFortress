@@ -1,10 +1,9 @@
 using UnityEngine;
 
-using UndergroundFortress.Scripts.Gameplay.Character;
+using UndergroundFortress.Gameplay.Character;
+using UndergroundFortress.UI.Hud;
 
-using UndergroundFortress.Scripts.UI.Hud;
-
-namespace UndergroundFortress.Scripts.Gameplay.StaticData
+namespace UndergroundFortress.Gameplay.StaticData
 {
     [CreateAssetMenu(fileName = "LevelData", menuName = "Static data/Level")]
     public class LevelStaticData : ScriptableObject

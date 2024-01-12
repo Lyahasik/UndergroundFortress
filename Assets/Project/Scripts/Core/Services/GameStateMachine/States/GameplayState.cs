@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UndergroundFortress.Scripts.Core.Services.GameStateMachine.States
+namespace UndergroundFortress.Core.Services.GameStateMachine.States
 {
     public class GameplayState : IState
     {

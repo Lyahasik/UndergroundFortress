@@ -1,9 +1,9 @@
 using UnityEngine;
 
-using UndergroundFortress.Scripts.Core.Services.StaticData;
-using UndergroundFortress.Scripts.Gameplay.Character;
+using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Gameplay.Character;
 
-namespace UndergroundFortress.Scripts.Core.Services.Factories.Gameplay
+namespace UndergroundFortress.Core.Services.Factories.Gameplay
 {
     public class GameplayFactory : Factory, IGameplayFactory
     {

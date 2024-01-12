@@ -1,11 +1,15 @@
-using UndergroundFortress.Scripts.UI.Hud;
-using UndergroundFortress.Scripts.UI.MainMenu;
+using UndergroundFortress.UI.Craft;
+using UndergroundFortress.UI.Hud;
+using UndergroundFortress.UI.Information;
+using UndergroundFortress.UI.MainMenu;
 
-namespace UndergroundFortress.Scripts.Core.Services.Factories.UI
+namespace UndergroundFortress.Core.Services.Factories.UI
 {
     public interface IUIFactory : IService
     {
         public MainMenuView CreateMainMenu();
+        public InformationView CreateInformation();
+        public CraftView CreateCraft();
         public HudView CreateHUD();
     }
 }

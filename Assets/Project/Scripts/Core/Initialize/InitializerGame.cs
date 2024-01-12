@@ -1,18 +1,19 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-using UndergroundFortress.Scripts.Core.Services;
-using UndergroundFortress.Scripts.Core.Services.Characters;
-using UndergroundFortress.Scripts.Core.Services.Factories.Gameplay;
-using UndergroundFortress.Scripts.Core.Services.Factories.UI;
-using UndergroundFortress.Scripts.Core.Services.GameStateMachine;
-using UndergroundFortress.Scripts.Core.Services.GameStateMachine.States;
-using UndergroundFortress.Scripts.Core.Services.Progress;
-using UndergroundFortress.Scripts.Core.Services.Scene;
-using UndergroundFortress.Scripts.Core.Services.StaticData;
-using UndergroundFortress.Scripts.UI.Loading;
+using UndergroundFortress.Core.Services;
+using UndergroundFortress.Core.Services.Characters;
+using UndergroundFortress.Core.Services.Factories.Gameplay;
+using UndergroundFortress.Core.Services.Factories.UI;
+using UndergroundFortress.Core.Services.GameStateMachine;
+using UndergroundFortress.Core.Services.GameStateMachine.States;
+using UndergroundFortress.Core.Services.Progress;
+using UndergroundFortress.Core.Services.Scene;
+using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Gameplay.Craft.Services;
+using UndergroundFortress.UI.Loading;
 
-namespace UndergroundFortress.Scripts.Core.Initialize
+namespace UndergroundFortress.Core.Initialize
 {
     public class InitializerGame : MonoBehaviour
     {
@@ -50,6 +51,9 @@ namespace UndergroundFortress.Scripts.Core.Initialize
             _servicesContainer.Register<IGameplayFactory>(
                 new GameplayFactory(
                     _servicesContainer.Single<IStaticDataService>()));
+            _servicesContainer.Register<ICraftService>(
+                new CraftService(
+                    _servicesContainer.Single<IStaticDataService>()));
 
             _servicesContainer.Register<ISceneProviderService>(
                 new SceneProviderService(
@@ -57,7 +61,8 @@ namespace UndergroundFortress.Scripts.Core.Initialize
                     _servicesContainer.Single<IUIFactory>(),
                     _servicesContainer.Single<IGameplayFactory>(),
                     _servicesContainer.Single<IStaticDataService>(),
-                    _servicesContainer.Single<IProgressProviderService>()));
+                    _servicesContainer.Single<IProgressProviderService>(),
+                    _servicesContainer.Single<ICraftService>()));
             
             LoadingCurtain curtain = CreateLoadingCurtain();
             GameData gameData = GameDataCreate(curtain, _servicesContainer);

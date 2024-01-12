@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UndergroundFortress.Scripts.Core.Services.Factories
+namespace UndergroundFortress.Core.Services.Factories
 {
     public abstract class Factory
     {

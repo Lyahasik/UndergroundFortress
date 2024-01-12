@@ -1,81 +1,54 @@
 ﻿using System.Collections.Generic;
 
-using UndergroundFortress.Scripts.Gameplay.Character;
-using UndergroundFortress.Scripts.Gameplay.StaticData;
-using UndergroundFortress.Scripts.Gameplay.Stats;
+using UndergroundFortress.Gameplay.Character;
+using UndergroundFortress.Gameplay.Items;
+using UndergroundFortress.Gameplay.Items.Equipment;
+using UndergroundFortress.Gameplay.Stats;
 
-namespace UndergroundFortress.Scripts.Core.Services.Characters
+namespace UndergroundFortress.Core.Services.Characters
 {
     public class CharacterDressingService : ICharacterDressingService
     {
-        private delegate void ActionRef<T1, T2>(ref T1 currentValue, in T2 value);
-        
-        public void DressThePlayer(CharacterStats characterStats, List<ItemStaticData> items)
+        public void DressThePlayer(CharacterData characterData, List<EquipmentData> items)
         {
-            foreach (ItemStaticData item in items)
+            foreach (EquipmentData item in items)
             {
-                PutOnAnItem(characterStats, item);
+                PutOnAnItem(characterData, item);
             }
         }
 
-        public void PutOnAnItem(CharacterStats characterStats, ItemStaticData itemData)
+        public void PutOnAnItem(CharacterData characterData, EquipmentData itemData)
         {
-            foreach (StatData statData in itemData.stats)
+            foreach (StatItemData statData in itemData.AdditionalStats)
             {
-                ChangeStat(characterStats, statData.type, statData.value, UpStat);
-            }
-        }
-
-        public void RemoveAnItem(CharacterStats characterStats, ItemStaticData itemData)
-        {
-            foreach (StatData statData in itemData.stats)
-            {
-                ChangeStat(characterStats, statData.type, statData.value, DownStat);
-            }
-        }
-
-        private void ChangeStat(CharacterStats characterStats,
-            StatType statType,
-            float statValue,
-            ActionRef<float, float> changeMethod)
-        {
-            switch (statType)
-            {
-                case StatType.Health:
-                    changeMethod(ref characterStats.MainStats.health, statValue);
-                    break;
-                case StatType.HealthRecoveryRate:
-                    changeMethod(ref characterStats.MainStats.healthRecoveryRate, statValue);
-                    break;
+                switch (statData.Type)
+                {
+                    case StatType.Health:
+                        characterData.Stats.UpHealth(statData.Value);
+                        break;
                 
-                case StatType.Stamina:
-                    changeMethod(ref characterStats.MainStats.stamina, statValue);
-                    break;
-                case StatType.StaminaRecoveryRate:
-                    changeMethod(ref characterStats.MainStats.staminaRecoveryRate, statValue);
-                    break;
-                case StatType.StaminaCost:
-                    changeMethod(ref characterStats.MainStats.staminaCost, statValue);
-                    break;
-                
-                case StatType.Damage:
-                    changeMethod(ref characterStats.MainStats.damage, statValue);
-                    break;
-                
-                case StatType.Defense:
-                    changeMethod(ref characterStats.MainStats.defense, statValue);
-                    break;
+                    default:
+                        characterData.Stats.UpStat(statData.Type, statData.Value);
+                        break;
+                }
             }
         }
 
-        private void UpStat(ref float currentValue, in float value)
+        public void RemoveAnItem(CharacterData characterData, EquipmentData itemData)
         {
-            currentValue += value;
-        }
-
-        private void DownStat(ref float currentValue, in float value)
-        {
-            currentValue -= value;
+            foreach (StatItemData statData in itemData.AdditionalStats)
+            {
+                switch (statData.Type)
+                {
+                    case StatType.Health:
+                        characterData.Stats.DownHealth(statData.Value);
+                        break;
+                
+                    default:
+                        characterData.Stats.DownStat(statData.Type, statData.Value);
+                        break;
+                }
+            }
         }
     }
 }

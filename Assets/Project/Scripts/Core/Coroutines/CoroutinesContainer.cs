@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UndergroundFortress.Scripts.Core.Coroutines
+namespace UndergroundFortress.Core.Coroutines
 {
     public class CoroutinesContainer : MonoBehaviour, ICoroutineRunnerService {}
 }

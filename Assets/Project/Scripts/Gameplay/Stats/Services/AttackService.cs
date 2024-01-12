@@ -1,12 +1,12 @@
 ﻿using System;
 using UnityEngine;
 
-using UndergroundFortress.Scripts.Constants;
-using UndergroundFortress.Scripts.Gameplay.Character;
+using UndergroundFortress.Constants;
+using UndergroundFortress.Gameplay.Character;
 
 using Random = UnityEngine.Random;
 
-namespace UndergroundFortress.Scripts.Gameplay.Stats.Services
+namespace UndergroundFortress.Gameplay.Stats.Services
 {
     public class AttackService : IAttackService
     {
@@ -27,14 +27,14 @@ namespace UndergroundFortress.Scripts.Gameplay.Stats.Services
             if (!TryHit(statsAttacking, statsDefending))
                 return;
             
-            float damage = statsAttacking.MainStats.damage - statsDefending.MainStats.defense;
+            float damage = statsAttacking.MainStats[StatType.Damage] - statsDefending.MainStats[StatType.Defense];
             damage = Math.Clamp(damage, 0, float.MaxValue);
 
             TryBreakThrough(statsAttacking, statsDefending, ref damage);
             TryApplyCrit(statsAttacking, statsDefending, ref damage);
             
             _statsWasteService.WasteHealth(statsDefending, (int) damage);
-            _statsWasteService.WasteStamina(statsAttacking, statsAttacking.MainStats.staminaCost);
+            _statsWasteService.WasteStamina(statsAttacking, statsAttacking.MainStats[StatType.StaminaCost]);
 
             if (TryDead(statsDefending))
                 return;
@@ -44,8 +44,9 @@ namespace UndergroundFortress.Scripts.Gameplay.Stats.Services
 
         private bool TryHit(CharacterStats statsAttacking, CharacterStats statsDefending)
         {
-            float probabilityMiss = statsDefending.MainStats.dodge - statsAttacking.MainStats.accuracy;
-            probabilityMiss = Math.Clamp(probabilityMiss, 0, statsDefending.MainStats.dodge);
+            float probabilityMiss
+                = statsDefending.MainStats[StatType.Dodge] - statsAttacking.MainStats[StatType.Accuracy];
+            probabilityMiss = Math.Clamp(probabilityMiss, 0, statsDefending.MainStats[StatType.Dodge]);
 
             float result = Random.Range(0f, ConstantValues.MAX_PROBABILITY);
 
@@ -54,35 +55,38 @@ namespace UndergroundFortress.Scripts.Gameplay.Stats.Services
 
         private void TryBreakThrough(CharacterStats statsAttacking, CharacterStats statsDefending, ref float damage)
         {
-            float probabilityBlock = statsDefending.MainStats.block - statsAttacking.MainStats.breakThrough;
-            probabilityBlock = Math.Clamp(probabilityBlock, 0, statsDefending.MainStats.block);
+            float probabilityBlock =
+                statsDefending.MainStats[StatType.Block] - statsAttacking.MainStats[StatType.BreakThrough];
+            probabilityBlock = Math.Clamp(probabilityBlock, 0, statsDefending.MainStats[StatType.Block]);
 
             float result = Random.Range(0f, ConstantValues.MAX_PROBABILITY);
 
             if (result < probabilityBlock)
-                damage -= damage * statsDefending.MainStats.blockAttackDamage;
+                damage -= damage * statsDefending.MainStats[StatType.BlockAttackDamage];
         }
 
         private void TryApplyCrit(CharacterStats statsAttacking, CharacterStats statsDefending, ref float damage)
         {
-            float probabilityCrit = statsAttacking.MainStats.crit - statsDefending.MainStats.parry;
-            probabilityCrit = Math.Clamp(probabilityCrit, 0, statsAttacking.MainStats.crit);
+            float probabilityCrit =
+                statsAttacking.MainStats[StatType.Crit] - statsDefending.MainStats[StatType.Parry];
+            probabilityCrit = Math.Clamp(probabilityCrit, 0, statsAttacking.MainStats[StatType.Crit]);
 
             float result = Random.Range(0f, ConstantValues.MAX_PROBABILITY);
 
             if (result >= probabilityCrit)
-                damage *= OneIntegerValue + statsAttacking.MainStats.critDamage;
+                damage *= OneIntegerValue + statsAttacking.MainStats[StatType.CritDamage];
         }
 
         private void TryStun(CharacterStats statsAttacking, CharacterData dataDefending)
         {
-            float probabilityStun = statsAttacking.MainStats.stun - dataDefending.Stats.MainStats.strength;
-            probabilityStun = Math.Clamp(probabilityStun, 0, statsAttacking.MainStats.stun);
+            float probabilityStun =
+                statsAttacking.MainStats[StatType.Stun] - dataDefending.Stats.MainStats[StatType.Strength];
+            probabilityStun = Math.Clamp(probabilityStun, 0, statsAttacking.MainStats[StatType.Stun]);
 
             float result = Random.Range(0f, ConstantValues.MAX_PROBABILITY);
             
             if (result < probabilityStun)
-                dataDefending.Stunned.Activate(statsAttacking.MainStats.stunDuration);
+                dataDefending.Stunned.Activate(statsAttacking.MainStats[StatType.StunDuration]);
         }
 
         private bool TryDead(CharacterStats statsCharacter)

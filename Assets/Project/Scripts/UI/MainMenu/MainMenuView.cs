@@ -1,24 +1,27 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-using UndergroundFortress.Scripts.Constants;
-using UndergroundFortress.Scripts.Core.Services.Scene;
+using UndergroundFortress.Constants;
+using UndergroundFortress.Core.Services.Scene;
+using UndergroundFortress.UI.Craft;
 
-namespace UndergroundFortress.Scripts.UI.MainMenu
+namespace UndergroundFortress.UI.MainMenu
 {
     public class MainMenuView : MonoBehaviour
     {
-        private ISceneProviderService _sceneProviderService;
-        
+        [SerializeField] private Button buttonCraft;
         [SerializeField] private Button buttonStartGame;
+
+        private ISceneProviderService _sceneProviderService;
 
         public void Construct(ISceneProviderService sceneProviderService)
         {
             _sceneProviderService = sceneProviderService;
         }
 
-        public void Initialize()
+        public void Initialize(CraftView craftView)
         {
+            buttonCraft.onClick.AddListener(craftView.Activate);
             buttonStartGame.onClick.AddListener(LoadLevel);
         }
 

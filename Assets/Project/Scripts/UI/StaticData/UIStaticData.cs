@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UndergroundFortress.Scripts.UI.StaticData
+namespace UndergroundFortress.UI.StaticData
 {
     [CreateAssetMenu(fileName = "UIData", menuName = "Static data/UI")]
     public class UIStaticData : ScriptableObject

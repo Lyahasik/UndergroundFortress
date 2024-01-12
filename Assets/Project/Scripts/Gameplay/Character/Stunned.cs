@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UndergroundFortress.Scripts.Gameplay.Character
+namespace UndergroundFortress.Gameplay.Character
 {
     public class Stunned : MonoBehaviour
     {

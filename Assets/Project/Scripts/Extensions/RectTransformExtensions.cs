@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace UndergroundFortress.Scripts.Extensions
+namespace UndergroundFortress.Extensions
 {
     public static class RectTransformExtensions
     {

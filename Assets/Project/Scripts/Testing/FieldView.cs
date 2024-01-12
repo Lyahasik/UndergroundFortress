@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace UndergroundFortress.Scripts.Testing
+namespace UndergroundFortress.Testing
 {
     public class FieldView : MonoBehaviour
     {

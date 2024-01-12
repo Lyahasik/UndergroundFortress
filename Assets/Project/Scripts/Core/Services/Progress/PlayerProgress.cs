@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UndergroundFortress.Scripts.Core.Services.Progress
+namespace UndergroundFortress.Core.Services.Progress
 {
     [Serializable]
     public class PlayerProgress

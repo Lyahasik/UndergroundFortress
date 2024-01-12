@@ -1,8 +1,8 @@
 using UnityEngine;
 
-using UndergroundFortress.Scripts.Gameplay.Character;
+using UndergroundFortress.Gameplay.Character;
 
-namespace UndergroundFortress.Scripts.Core.Services.Factories.Gameplay
+namespace UndergroundFortress.Core.Services.Factories.Gameplay
 {
     public interface IGameplayFactory : IService
     {

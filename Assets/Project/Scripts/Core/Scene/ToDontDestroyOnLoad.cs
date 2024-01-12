@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UndergroundFortress.Scripts.Core.Scene
+namespace UndergroundFortress.Core.Scene
 {
     public class ToDontDestroyOnLoad : MonoBehaviour
     {

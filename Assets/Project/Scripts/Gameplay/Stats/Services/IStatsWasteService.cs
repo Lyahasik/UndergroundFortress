@@ -1,7 +1,7 @@
-﻿using UndergroundFortress.Scripts.Core.Services;
-using UndergroundFortress.Scripts.Gameplay.Character;
+﻿using UndergroundFortress.Core.Services;
+using UndergroundFortress.Gameplay.Character;
 
-namespace UndergroundFortress.Scripts.Gameplay.Stats.Services
+namespace UndergroundFortress.Gameplay.Stats.Services
 {
     public interface IStatsWasteService : IService
     {

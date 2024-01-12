@@ -1,8 +1,9 @@
 using UnityEngine;
 
-using UndergroundFortress.Scripts.Gameplay.Character;
+using UndergroundFortress.Gameplay.Character;
+using UndergroundFortress.Gameplay.Stats;
 
-namespace UndergroundFortress.Scripts.Testing
+namespace UndergroundFortress.Testing
 {
     public class StatsView : MonoBehaviour
     {
@@ -27,25 +28,29 @@ namespace UndergroundFortress.Scripts.Testing
 
         public void Construct(CharacterStats stats)
         {
-            stats.OnUpdate += UpdateValues;
             UpdateValues(stats);
+            stats.OnUpdateCurrent += UpdateCurrentValues;
         }
 
         private void UpdateValues(CharacterStats stats)
         {
-            //Main
-            health.UpdateValues(nameof(stats.MainStats.health), stats.MainStats.health.ToString());
-            healthRecoveryRate.UpdateValues(nameof(stats.MainStats.healthRecoveryRate),
-                stats.MainStats.healthRecoveryRate.ToString());
+            health.UpdateValues(StatType.Health.ToString(), stats.MainStats[StatType.Health].ToString());
+            healthRecoveryRate.UpdateValues(StatType.HealthRecoveryRate.ToString(),
+                stats.MainStats[StatType.HealthRecoveryRate].ToString());
 
-            stamina.UpdateValues(nameof(stats.MainStats.stamina), stats.MainStats.stamina.ToString());
-            staminaRecoveryRate.UpdateValues(nameof(stats.MainStats.staminaRecoveryRate),
-                stats.MainStats.staminaRecoveryRate.ToString());
-            staminaCost.UpdateValues(nameof(stats.MainStats.staminaCost), stats.MainStats.staminaCost.ToString());
+            stamina.UpdateValues(StatType.Stamina.ToString(), stats.MainStats[StatType.Stamina].ToString());
+            staminaRecoveryRate.UpdateValues(StatType.StaminaRecoveryRate.ToString(),
+                stats.MainStats[StatType.StaminaRecoveryRate].ToString());
+            staminaCost.UpdateValues(StatType.StaminaCost.ToString(), 
+                stats.MainStats[StatType.StaminaCost].ToString());
 
-            damage.UpdateValues(nameof(stats.MainStats.damage), stats.MainStats.damage.ToString());
+            damage.UpdateValues(StatType.Damage.ToString(), stats.MainStats[StatType.Damage].ToString());
 
-            //Current
+            UpdateCurrentValues(stats);
+        }
+
+        private void UpdateCurrentValues(CharacterStats stats)
+        {
             currentHealth.UpdateValues(nameof(stats.CurrentStats.Health), stats.CurrentStats.Health.ToString());
 
             currentStamina.UpdateValues(nameof(stats.CurrentStats.Stamina), stats.CurrentStats.Stamina.ToString());

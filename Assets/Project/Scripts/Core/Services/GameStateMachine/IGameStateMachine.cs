@@ -1,6 +1,6 @@
-using UndergroundFortress.Scripts.Core.Services.GameStateMachine.States;
+using UndergroundFortress.Core.Services.GameStateMachine.States;
 
-namespace UndergroundFortress.Scripts.Core.Services.GameStateMachine
+namespace UndergroundFortress.Core.Services.GameStateMachine
 {
     public interface IGameStateMachine : IService
     {

@@ -1,4 +1,4 @@
-namespace UndergroundFortress.Scripts.Core.Services.Progress
+namespace UndergroundFortress.Core.Services.Progress
 {
     public interface ILoadingSavedProgress
     {

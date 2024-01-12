@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-using UndergroundFortress.Scripts.Core.Services.Scene;
-using UndergroundFortress.Scripts.Testing;
+using UndergroundFortress.Core.Services.Scene;
+using UndergroundFortress.Testing;
 
-namespace UndergroundFortress.Scripts.UI.Hud
+namespace UndergroundFortress.UI.Hud
 {
     public class HudView : MonoBehaviour
     {

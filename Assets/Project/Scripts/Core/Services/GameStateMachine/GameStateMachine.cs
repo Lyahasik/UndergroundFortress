@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 
-using UndergroundFortress.Scripts.Core.Coroutines;
-using UndergroundFortress.Scripts.Core.Services.GameStateMachine.States;
-using UndergroundFortress.Scripts.Core.Services.Progress;
-using UndergroundFortress.Scripts.UI.Loading;
+using UndergroundFortress.Core.Coroutines;
+using UndergroundFortress.Core.Services.GameStateMachine.States;
+using UndergroundFortress.Core.Services.Progress;
+using UndergroundFortress.UI.Loading;
 
-namespace UndergroundFortress.Scripts.Core.Services.GameStateMachine
+namespace UndergroundFortress.Core.Services.GameStateMachine
 {
     public class GameStateMachine : IGameStateMachine
     {

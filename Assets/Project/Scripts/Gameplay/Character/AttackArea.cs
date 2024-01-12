@@ -2,9 +2,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-using UndergroundFortress.Scripts.Gameplay.Stats.Services;
+using UndergroundFortress.Gameplay.Stats.Services;
 
-namespace UndergroundFortress.Scripts.Gameplay.Character
+namespace UndergroundFortress.Gameplay.Character
 {
     [RequireComponent(typeof(Image))]
     public class AttackArea : MonoBehaviour, IPointerDownHandler

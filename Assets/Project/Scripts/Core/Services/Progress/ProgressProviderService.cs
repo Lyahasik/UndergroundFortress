@@ -1,15 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using UndergroundFortress.Scripts.Core.Services.GameStateMachine;
-using UndergroundFortress.Scripts.Core.Services.GameStateMachine.States;
-using UndergroundFortress.Scripts.Core.Services.StaticData;
-using UndergroundFortress.Scripts.Core.Services.Characters;
-using UndergroundFortress.Scripts.Gameplay.Character;
-using UndergroundFortress.Scripts.Gameplay.StaticData;
-using UndergroundFortress.Scripts.Gameplay.Stats;
+using UndergroundFortress.Core.Progress;
+using UndergroundFortress.Core.Services.Characters;
+using UndergroundFortress.Core.Services.GameStateMachine;
+using UndergroundFortress.Core.Services.GameStateMachine.States;
+using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Gameplay.Character;
+using UndergroundFortress.Gameplay.Items.Equipment;
+using UndergroundFortress.Gameplay.StaticData;
 
-namespace UndergroundFortress.Scripts.Core.Services.Progress
+namespace UndergroundFortress.Core.Services.Progress
 {
     public class ProgressProviderService : IProgressProviderService
     {
@@ -18,10 +19,10 @@ namespace UndergroundFortress.Scripts.Core.Services.Progress
         private readonly IGameStateMachine _gameStateMachine;
 
         private CharacterStats _playerStats;
-        private List<ItemStaticData> _playerItems;
+        private ProgressData _progressData;
 
         public CharacterStats PlayerStats => _playerStats;
-        public List<ItemStaticData> PlayerItems => _playerItems;
+        public ProgressData ProgressData => _progressData;
 
         public ProgressProviderService(IStaticDataService staticDataService,
             ICharacterDressingService characterDressingService,
@@ -35,20 +36,21 @@ namespace UndergroundFortress.Scripts.Core.Services.Progress
         public void LoadProgress()
         {
             Debug.Log("Loaded progress.");
-            _playerStats = LoadingPlayerData();
+            _playerStats = LoadingBaseStats();
+            _progressData = new ProgressData
+            {
+                Level = 3,
+                PlayerEquipments = new List<EquipmentData>()
+            };
 
             _gameStateMachine.Enter<LoadSceneState>();
         }
         
-        private CharacterStats LoadingPlayerData()
+        private CharacterStats LoadingBaseStats()
         {
-            PlayerStaticData playerStaticData = _staticDataService.ForPlayer();
-            CharacterStats characterStats = new CharacterStats(
-                playerStaticData.mainStats,
-                new CurrentStats(playerStaticData.mainStats.health, playerStaticData.mainStats.stamina));
-
-            _playerItems = _staticDataService.ForItems();
-            _characterDressingService.DressThePlayer(characterStats, _playerItems);
+            CharacterStaticData characterStaticData = _staticDataService.ForPlayer();
+            CharacterStats characterStats = new CharacterStats();
+            characterStats.Initialize(characterStaticData);
             
             return characterStats;
         }

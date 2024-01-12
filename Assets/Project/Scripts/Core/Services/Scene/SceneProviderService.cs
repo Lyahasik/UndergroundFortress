@@ -2,17 +2,20 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-using UndergroundFortress.Scripts.Constants;
-using UndergroundFortress.Scripts.Core.Services.Factories.Gameplay;
-using UndergroundFortress.Scripts.Core.Services.Factories.UI;
-using UndergroundFortress.Scripts.Core.Services.GameStateMachine;
-using UndergroundFortress.Scripts.Core.Services.GameStateMachine.States;
-using UndergroundFortress.Scripts.Core.Services.Progress;
-using UndergroundFortress.Scripts.Core.Services.StaticData;
-using UndergroundFortress.Scripts.Gameplay;
-using UndergroundFortress.Scripts.UI.MainMenu;
+using UndergroundFortress.Constants;
+using UndergroundFortress.Core.Services.Factories.Gameplay;
+using UndergroundFortress.Core.Services.Factories.UI;
+using UndergroundFortress.Core.Services.GameStateMachine;
+using UndergroundFortress.Core.Services.GameStateMachine.States;
+using UndergroundFortress.Core.Services.Progress;
+using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Gameplay;
+using UndergroundFortress.Gameplay.Craft.Services;
+using UndergroundFortress.UI.Craft;
+using UndergroundFortress.UI.Information;
+using UndergroundFortress.UI.MainMenu;
 
-namespace UndergroundFortress.Scripts.Core.Services.Scene
+namespace UndergroundFortress.Core.Services.Scene
 {
     public class SceneProviderService : ISceneProviderService
     {
@@ -21,6 +24,7 @@ namespace UndergroundFortress.Scripts.Core.Services.Scene
         private readonly IGameplayFactory _gameplayFactory;
         private readonly IStaticDataService _staticDataService;
         private readonly IProgressProviderService _progressProviderService;
+        private readonly ICraftService _craftService;
 
         private ServicesContainer _match3ServicesContainer;
 
@@ -32,13 +36,15 @@ namespace UndergroundFortress.Scripts.Core.Services.Scene
             IUIFactory uiFactory,
             IGameplayFactory gameplayFactory,
             IStaticDataService staticDataService,
-            IProgressProviderService progressProviderService)
+            IProgressProviderService progressProviderService,
+            ICraftService craftService)
         {
             _gameStateMachine = gameStateMachine;
             _uiFactory = uiFactory;
             _gameplayFactory = gameplayFactory;
             _staticDataService = staticDataService;
             _progressProviderService = progressProviderService;
+            _craftService = craftService;
         }
 
         public void LoadMainScene()
@@ -84,9 +90,16 @@ namespace UndergroundFortress.Scripts.Core.Services.Scene
             SceneManager.UnloadSceneAsync(oldSceneName);
             Debug.Log("New active scene : " + SceneManager.GetActiveScene().name);
 
+            InformationView information = _uiFactory.CreateInformation();
+            information.Initialize();
+
+            CraftView craft = _uiFactory.CreateCraft();
+            craft.Construct(_staticDataService, _progressProviderService, _craftService, information);
+            craft.Initialize();
+
             MainMenuView mainMenu = _uiFactory.CreateMainMenu();
             mainMenu.Construct(this);
-            mainMenu.Initialize();
+            mainMenu.Initialize(craft);
             
             Debug.Log("Main scene loaded.");
             _gameStateMachine.Enter<MainMenuState>();

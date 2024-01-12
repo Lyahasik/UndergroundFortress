@@ -1,4 +1,4 @@
-namespace UndergroundFortress.Scripts.Core.Services.GameStateMachine.States
+namespace UndergroundFortress.Core.Services.GameStateMachine.States
 {
     public interface IOutputState 
     {

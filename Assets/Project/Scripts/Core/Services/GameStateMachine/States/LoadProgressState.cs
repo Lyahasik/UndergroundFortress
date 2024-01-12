@@ -1,8 +1,8 @@
 using UnityEngine;
 
-using UndergroundFortress.Scripts.Core.Services.Progress;
+using UndergroundFortress.Core.Services.Progress;
 
-namespace UndergroundFortress.Scripts.Core.Services.GameStateMachine.States
+namespace UndergroundFortress.Core.Services.GameStateMachine.States
 {
     public class LoadProgressState : IState
     {

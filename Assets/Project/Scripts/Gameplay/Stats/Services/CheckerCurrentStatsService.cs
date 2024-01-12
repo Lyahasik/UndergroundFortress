@@ -1,10 +1,10 @@
-﻿using UndergroundFortress.Scripts.Gameplay.Character;
+﻿using UndergroundFortress.Gameplay.Character;
 
-namespace UndergroundFortress.Scripts.Gameplay.Stats.Services
+namespace UndergroundFortress.Gameplay.Stats.Services
 {
     public class CheckerCurrentStatsService : ICheckerCurrentStatsService
     {
         public bool IsEnoughStamina(CharacterStats characterStats) => 
-            characterStats.MainStats.staminaCost <= characterStats.CurrentStats.Stamina;
+            characterStats.MainStats[StatType.StaminaCost] <= characterStats.CurrentStats.Stamina;
     }
 }

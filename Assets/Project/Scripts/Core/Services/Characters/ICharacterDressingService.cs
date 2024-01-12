@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 
-using UndergroundFortress.Scripts.Gameplay.Character;
-using UndergroundFortress.Scripts.Gameplay.StaticData;
+using UndergroundFortress.Gameplay.Character;
+using UndergroundFortress.Gameplay.Items.Equipment;
 
-namespace UndergroundFortress.Scripts.Core.Services.Characters
+namespace UndergroundFortress.Core.Services.Characters
 {
     public interface ICharacterDressingService : IService
     {
-        public void DressThePlayer(CharacterStats characterStats, List<ItemStaticData> items);
-        public void PutOnAnItem(CharacterStats characterStats, ItemStaticData itemData);
-        public void RemoveAnItem(CharacterStats characterStats, ItemStaticData itemData);
+        public void DressThePlayer(CharacterData characterData, List<EquipmentData> items);
+        public void PutOnAnItem(CharacterData characterData, EquipmentData itemData);
+        public void RemoveAnItem(CharacterData characterData, EquipmentData itemData);
     }
 }

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UndergroundFortress.Scripts.Core.Services
+namespace UndergroundFortress.Core.Services
 {
     public class ServicesContainer
     {
