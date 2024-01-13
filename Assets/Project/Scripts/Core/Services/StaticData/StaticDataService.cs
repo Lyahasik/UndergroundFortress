@@ -21,6 +21,7 @@ namespace UndergroundFortress.Core.Services.StaticData
 
         private List<StatStaticData> _stats;
         private List<EquipmentStaticData> _items;
+        private List<RecipeStaticData> _recipes;
 
         public void Load()
         {
@@ -37,12 +38,14 @@ namespace UndergroundFortress.Core.Services.StaticData
             _enemy = Resources
                 .Load<CharacterStaticData>(ConstantPaths.ENEMY_DATA_PATH);
             
+            _stats = Resources
+                .LoadAll<StatStaticData>(ConstantPaths.STATS_DATA_PATH)
+                .ToList();
             _items = Resources
                 .LoadAll<EquipmentStaticData>(ConstantPaths.EQUIPMENT_DATA_PATH)
                 .ToList();
-            
-            _stats = Resources
-                .LoadAll<StatStaticData>(ConstantPaths.STATS_DATA_PATH)
+            _recipes = Resources
+                .LoadAll<RecipeStaticData>(ConstantPaths.RECIPES_DATA_PATH)
                 .ToList();
         }
 
@@ -63,6 +66,8 @@ namespace UndergroundFortress.Core.Services.StaticData
             _stats;
         public List<EquipmentStaticData> ForEquipments() => 
             _items;
-        
+
+        public List<RecipeStaticData> ForRecipes() => 
+            _recipes;
     }
 }

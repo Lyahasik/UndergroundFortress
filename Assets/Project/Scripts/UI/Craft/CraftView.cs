@@ -15,6 +15,7 @@ namespace UndergroundFortress.UI.Craft
     {
         [SerializeField] private Button buttonStartCraft;
         [SerializeField] private RectTransform itemWindow;
+        [SerializeField] private ListRecipesView listRecipesView;
 
         private IStaticDataService _staticDataService;
         private IProgressProviderService _progressProviderService;
@@ -37,6 +38,9 @@ namespace UndergroundFortress.UI.Craft
 
         public void Initialize()
         {
+            listRecipesView.Construct(_staticDataService, _progressProviderService);
+            listRecipesView.Initialize();
+            
             buttonStartCraft.onClick.AddListener(CreateEquipment);
         }
 

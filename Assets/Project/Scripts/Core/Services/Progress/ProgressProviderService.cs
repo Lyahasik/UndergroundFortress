@@ -7,6 +7,7 @@ using UndergroundFortress.Core.Services.GameStateMachine;
 using UndergroundFortress.Core.Services.GameStateMachine.States;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Character;
+using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.Items.Equipment;
 using UndergroundFortress.Gameplay.StaticData;
 
@@ -40,7 +41,16 @@ namespace UndergroundFortress.Core.Services.Progress
             _progressData = new ProgressData
             {
                 Level = 3,
-                PlayerEquipments = new List<EquipmentData>()
+                PlayerEquipments = new List<EquipmentData>(),
+                ActiveRecipes = new Dictionary<ItemType, List<int>>
+                {
+                    { ItemType.Weapon, new List<int> { 1, 2 , 2, 2}},
+                    { ItemType.Shield, new List<int> { 1 }},
+                    { ItemType.Helmet, new List<int> { 1 }},
+                    { ItemType.Bib, new List<int> { 1 }},
+                    { ItemType.Trousers, new List<int> { 1 }},
+                    { ItemType.Boots, new List<int> { 1 }}
+                }
             };
 
             _gameStateMachine.Enter<LoadSceneState>();

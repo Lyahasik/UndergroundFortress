@@ -12,5 +12,6 @@ namespace UndergroundFortress.Constants
         
         public const string STATS_DATA_PATH = "StaticData/QualityStats";
         public const string EQUIPMENT_DATA_PATH = "StaticData/Items/Equipment";
+        public const string RECIPES_DATA_PATH = "StaticData/Items/Recipes";
     }
 }

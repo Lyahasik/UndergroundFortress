@@ -16,5 +16,13 @@ namespace UndergroundFortress.Gameplay.Stats
             
             gameObject.SetActive(true);
         }
+        
+        public void SetValues(Sprite iconSprite, in float minValue, in float maxValue)
+        {
+            icon.sprite = iconSprite;
+            valueText.text = $"{ minValue } - { maxValue }";
+            
+            gameObject.SetActive(true);
+        }
     }
 }
