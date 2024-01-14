@@ -56,17 +56,20 @@ namespace UndergroundFortress.Gameplay.Craft.Services
             StatType mainType, 
             StatType additionalMainType = StatType.Empty)
         {
+            float qualityValue = GetQualityValue(equipQualityValues, qualityEquipment, additionalMainType);
             List<StatItemData> stats = new List<StatItemData>
             {
-                new (mainType, 
-                    null,
-                    GetQualityValue(equipQualityValues, qualityEquipment))
+                new (mainType, null, qualityValue)
             };
             
             if (additionalMainType != StatType.Empty)
-                stats.Add(new (additionalMainType, 
-                    null,
-                    GetQualityValue(GetStaticQualityValues(additionalMainType), qualityEquipment)));
+            {
+                qualityValue = GetQualityValue(
+                    GetStaticQualityValues(additionalMainType),
+                    qualityEquipment,
+                    additionalMainType);
+                stats.Add(new(additionalMainType, null, qualityValue));
+            }
 
             return stats;
         }
@@ -85,8 +88,9 @@ namespace UndergroundFortress.Gameplay.Craft.Services
                 StatStaticData staticStatData = _staticDataService.ForStats()[idStat];
                 StatType typeStat = staticStatData.type;
                 QualityType qualityStat = GetRangeQualityType(QualityType.Gray, QualityType.White);
-                
-                stats.Add(new (typeStat, null, GetQualityValue(staticStatData.qualityValues, qualityStat)));
+
+                float qualityValue = GetQualityValue(staticStatData.qualityValues, qualityStat, typeStat);
+                stats.Add(new (typeStat, null, qualityValue));
             }
 
             return stats;
@@ -98,12 +102,33 @@ namespace UndergroundFortress.Gameplay.Craft.Services
         private static QualityType GetRangeQualityType(QualityType minType, QualityType maxType) => 
             (QualityType) Random.Range((int) minType, (int) maxType + 1);
 
-        private float GetQualityValue(List<QualityValue> qualityValues, QualityType qualityStat)
+        private float GetQualityValue(List<QualityValue> qualityValues, QualityType qualityStat, StatType statType)
         {
             QualityValue qualityValuesStat = 
                 qualityValues.Find(v => v.qualityType == qualityStat);
             
-            return Random.Range(qualityValuesStat.minValue, qualityValuesStat.maxValue);
+            float qualityValue = Random.Range(qualityValuesStat.minValue, qualityValuesStat.maxValue);
+            qualityValue = RoundByType(qualityValue, statType);
+            
+            return qualityValue;
+        }
+
+        private float RoundByType(float value, in StatType type)
+        {
+            switch (type)
+            {
+                case StatType.Health:
+                case StatType.Stamina:
+                case StatType.Damage:
+                case StatType.Defense:
+                    value = MathF.Round(value);
+                    break;
+                default:
+                    value = MathF.Round(value, ConstantValues.DIGITS_STAT_VALUE);
+                    break;
+            }
+            
+            return value;
         }
     }
 }
