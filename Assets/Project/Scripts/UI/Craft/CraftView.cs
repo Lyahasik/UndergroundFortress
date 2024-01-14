@@ -8,11 +8,19 @@ using UndergroundFortress.Gameplay.Items.Equipment;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats;
 using UndergroundFortress.UI.Information;
+using UndergroundFortress.UI.MainMenu;
 
 namespace UndergroundFortress.UI.Craft
 {
-    public class CraftView : MonoBehaviour
+    public class CraftView : MonoBehaviour, IWindow
     {
+        [SerializeField] private WindowType windowType;
+        
+        [Space]
+        [SerializeField] private Image iconItem;
+
+        [Space]
+        [SerializeField] private Toggle setToggle;
         [SerializeField] private Button buttonStartCraft;
         [SerializeField] private RectTransform itemWindow;
         [SerializeField] private ListRecipesView listRecipesView;
@@ -22,8 +30,8 @@ namespace UndergroundFortress.UI.Craft
         private ICraftService _craftService;
         private InformationView _informationView;
 
-        private int _idItem = 1;
-        private StatType _statType = StatType.Empty;
+        private int _idItem;
+        private StatType _statType;
 
         public void Construct(IStaticDataService staticDataService, 
             IProgressProviderService progressProviderService,
@@ -38,22 +46,37 @@ namespace UndergroundFortress.UI.Craft
 
         public void Initialize()
         {
-            listRecipesView.Construct(_staticDataService, _progressProviderService);
+            listRecipesView.Construct(this, _staticDataService, _progressProviderService);
             listRecipesView.Initialize();
             
             buttonStartCraft.onClick.AddListener(CreateEquipment);
         }
 
-        public void Activate()
+        public void ActivationUpdate(WindowType type)
         {
-            gameObject.SetActive(true);
+            gameObject.SetActive(type == windowType);
+        }
+
+        public void SetRecipe(Sprite icon, int idItem)
+        {
+            _idItem = idItem;
+            iconItem.sprite = icon;
+
+            UpdateCraftState(true);
+        }
+
+        public void UpdateCraftState(bool isReady)
+        {
+            buttonStartCraft.interactable = isReady;
         }
 
         private void CreateEquipment()
         {
             EquipmentStaticData equipmentStaticData =
                 _staticDataService.ForEquipments().Find(v => v.id == _idItem);
-            
+
+            _statType = setToggle.isOn ? StatType.Health : StatType.Empty;
+
             EquipmentData equipment = _craftService.CreateEquipment(
                 equipmentStaticData,
                 _progressProviderService.ProgressData.Level,

@@ -120,7 +120,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6564042552654566445}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -5197722408872710788}
+        m_TargetAssemblyTypeName: UndergroundFortress.UI.MainMenu.MainMenuView, Assembly-CSharp
+        m_MethodName: ActivateWindow
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2378494104469463751
 GameObject:
   m_ObjectHideFlags: 0
@@ -984,7 +996,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f42917d361534caba8ed0053ef607678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonCraft: {fileID: 9200951525160863299}
   buttonStartGame: {fileID: 5710153756456891585}
 --- !u!1 &5710153755816768169
 GameObject:
@@ -1181,7 +1192,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5710153756456891584}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -5197722408872710788}
+        m_TargetAssemblyTypeName: UndergroundFortress.UI.MainMenu.MainMenuView, Assembly-CSharp
+        m_MethodName: ActivateWindow
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6725013892655199372
 GameObject:
   m_ObjectHideFlags: 0
@@ -1436,7 +1459,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1180241519617552495}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -5197722408872710788}
+        m_TargetAssemblyTypeName: UndergroundFortress.UI.MainMenu.MainMenuView, Assembly-CSharp
+        m_MethodName: ActivateWindow
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8703270994502277127
 GameObject:
   m_ObjectHideFlags: 0
@@ -1632,4 +1667,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5449609752751298413}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -5197722408872710788}
+        m_TargetAssemblyTypeName: UndergroundFortress.UI.MainMenu.MainMenuView, Assembly-CSharp
+        m_MethodName: ActivateWindow
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

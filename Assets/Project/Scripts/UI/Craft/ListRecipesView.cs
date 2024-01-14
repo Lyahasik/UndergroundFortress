@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,20 +13,20 @@ namespace UndergroundFortress.UI.Craft
     {
         [SerializeField] private List<ItemTypeButton> itemTypeButtons;
         [SerializeField] private RecipeView prefabRecipeView;
-        
+
+        private CraftView _craftView;
         private IStaticDataService _staticDataService;
         private IProgressProviderService _progressProviderService;
 
-        private List<RecipeView> _recipes; 
+        private List<RecipeView> _recipes;
 
-        private void OnEnable()
-        {
-            FillList(1);
-        }
+        public event Action<int> OnActivateRecipe;
 
-        public void Construct(IStaticDataService staticDataService,
+        public void Construct(CraftView craftView,
+            IStaticDataService staticDataService,
             IProgressProviderService progressProviderService)
         {
+            _craftView = craftView;
             _staticDataService = staticDataService;
             _progressProviderService = progressProviderService;
         }
@@ -33,6 +34,8 @@ namespace UndergroundFortress.UI.Craft
         public void Initialize()
         {
             _recipes = new List<RecipeView>();
+            
+            FillList((int) ItemType.Weapon);
         }
 
         public void FillList(int idItemType)
@@ -55,10 +58,17 @@ namespace UndergroundFortress.UI.Craft
                     = equipmentsStaticData.Find(v => v.id == recipeData.idItem);
                 
                 RecipeView recipeView = Instantiate(prefabRecipeView, gameObject.transform);
-                recipeView.SetValues(equipmentData, equipmentData.icon);
+                recipeView.Construct(_craftView, this);
+                recipeView.Initialize(equipmentData, equipmentData.icon);
+                recipeView.Subscribe();
                 
                 _recipes.Add(recipeView);
             }
+        }
+
+        public void ActivateRecipe(int idItem)
+        {
+            OnActivateRecipe?.Invoke(idItem);
         }
 
         private void ResetList()
@@ -66,7 +76,9 @@ namespace UndergroundFortress.UI.Craft
             if (_recipes.Count == 0)
                 return;
 
-            foreach (RecipeView recipeView in _recipes) 
+            _craftView.UpdateCraftState(false);
+            
+            foreach (RecipeView recipeView in _recipes)
                 Destroy(recipeView.gameObject);
             
             _recipes.Clear();

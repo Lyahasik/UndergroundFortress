@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,10 +10,11 @@ namespace UndergroundFortress.UI.MainMenu
 {
     public class MainMenuView : MonoBehaviour
     {
-        [SerializeField] private Button buttonCraft;
         [SerializeField] private Button buttonStartGame;
 
         private ISceneProviderService _sceneProviderService;
+
+        private List<IWindow> _windows;
 
         public void Construct(ISceneProviderService sceneProviderService)
         {
@@ -21,8 +23,19 @@ namespace UndergroundFortress.UI.MainMenu
 
         public void Initialize(CraftView craftView)
         {
-            buttonCraft.onClick.AddListener(craftView.Activate);
+            _windows = new List<IWindow>();
+            
+            _windows.Add(craftView);
+            
             buttonStartGame.onClick.AddListener(LoadLevel);
+        }
+
+        public void ActivateWindow(int idWindow)
+        {
+            WindowType windowType = (WindowType) idWindow;
+
+            foreach (IWindow window in _windows) 
+                window.ActivationUpdate(windowType);
         }
 
         private void LoadLevel()
