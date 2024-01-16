@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using UndergroundFortress.Constants;
 using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.Items.Equipment;
 using UndergroundFortress.Gameplay.StaticData;
@@ -15,10 +16,13 @@ namespace UndergroundFortress.Gameplay.Craft.Services
     public class CraftService : ICraftService
     {
         private readonly IStaticDataService _staticDataService;
+        private readonly IInventoryService _inventoryService;
 
-        public CraftService(IStaticDataService staticDataService)
+        public CraftService(IStaticDataService staticDataService,
+            IInventoryService inventoryService)
         {
             _staticDataService = staticDataService;
+            _inventoryService = inventoryService;
         }
 
         public EquipmentData CreateEquipment(EquipmentStaticData equipmentStaticData,
@@ -40,15 +44,22 @@ namespace UndergroundFortress.Gameplay.Craft.Services
             List<StatItemData> additionalStats = GetAdditionalStats(numberAdditionalStats);
             
             bool isSet = additionalMainType == StatType.Empty ? false : true;
-            
-            return new EquipmentData(currentLevel,
-                qualityEquipment, 
-                equipmentStaticData.name, 
+
+            EquipmentData equipmentData = new EquipmentData(equipmentStaticData.id,
+                equipmentStaticData.type,
+                currentLevel,
+                isSet,
+                qualityEquipment,
+                equipmentStaticData.name,
                 equipmentStaticData.icon,
+                equipmentStaticData.maxNumberForCell,
                 mainStats,
                 additionalStats,
-                new List<StoneItemData>(),
-                isSet);
+                new List<StoneItemData>());
+            
+            _inventoryService.AddItem(equipmentData);
+            
+            return equipmentData;
         }
 
         private List<StatItemData> GetMainStats(List<QualityValue> equipQualityValues,

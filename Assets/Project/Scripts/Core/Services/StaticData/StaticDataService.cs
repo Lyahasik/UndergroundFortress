@@ -20,7 +20,8 @@ namespace UndergroundFortress.Core.Services.StaticData
         private CharacterStaticData _enemy;
 
         private List<StatStaticData> _stats;
-        private List<EquipmentStaticData> _items;
+        private List<ResourceStaticData> _resources;
+        private List<EquipmentStaticData> _equipments;
         private List<RecipeStaticData> _recipes;
 
         public void Load()
@@ -41,8 +42,11 @@ namespace UndergroundFortress.Core.Services.StaticData
             _stats = Resources
                 .LoadAll<StatStaticData>(ConstantPaths.STATS_DATA_PATH)
                 .ToList();
-            _items = Resources
-                .LoadAll<EquipmentStaticData>(ConstantPaths.EQUIPMENT_DATA_PATH)
+            _resources = Resources
+                .LoadAll<ResourceStaticData>(ConstantPaths.RESOURCES_DATA_PATH)
+                .ToList();
+            _equipments = Resources
+                .LoadAll<EquipmentStaticData>(ConstantPaths.EQUIPMENTS_DATA_PATH)
                 .ToList();
             _recipes = Resources
                 .LoadAll<RecipeStaticData>(ConstantPaths.RECIPES_DATA_PATH)
@@ -65,9 +69,31 @@ namespace UndergroundFortress.Core.Services.StaticData
         public List<StatStaticData> ForStats() => 
             _stats;
         public List<EquipmentStaticData> ForEquipments() => 
-            _items;
+            _equipments;
 
         public List<RecipeStaticData> ForRecipes() => 
             _recipes;
+
+        public Sprite GetItemIcon(int itemDataId)
+        {
+            foreach (EquipmentStaticData equipmentStaticData in _equipments)
+            {
+                if (equipmentStaticData.id == itemDataId)
+                {
+                    return equipmentStaticData.icon;
+                }
+            }
+
+            foreach (ResourceStaticData resourceStaticData in _resources)
+            {
+                if (resourceStaticData.id == itemDataId)
+                {
+                    return resourceStaticData.icon;
+                }
+            }
+
+            Debug.LogWarning($"Not found of id for item icon");
+            return null;
+        }
     }
 }

@@ -12,5 +12,9 @@
         public const float DELAY_RESTORE_STATS = 1f;
         public const int MAX_NUMBER_ADDITIONAL_STATS = 4;
         public const float MAX_PROBABILITY = 100f;
+
+        public const int FIRST_BAG_ID = 1;
+        public const int SIZE_BAG = 20;
+        public const int MIN_NUMBER_ITEM_FOR_CELL = 1;
     }
 }

@@ -55,6 +55,21 @@ namespace UndergroundFortress.Gameplay
             CreateGameplay(hudView);
         }
 
+        private void RegisterGameplayServices()
+        {
+            _gameplayServicesContainer = new ServicesContainer();
+            
+            _gameplayServicesContainer.Register<ICheckerCurrentStatsService>(
+                new CheckerCurrentStatsService());
+            _gameplayServicesContainer.Register<IStatsWasteService>(
+                new StatsWasteService());
+            _gameplayServicesContainer.Register<IAttackService>(
+                new AttackService(
+                    _gameplayServicesContainer.Single<IStatsWasteService>()));
+
+            RegisterStatsRestorationService();
+        }
+
         private void CreateGameplay(HudView hudView)
         {
             Canvas gameplayCanvas = _gameplayFactory.CreateGameplayCanvas();
@@ -89,21 +104,6 @@ namespace UndergroundFortress.Gameplay
             hudView.Initialize();
 
             return hudView;
-        }
-
-        private void RegisterGameplayServices()
-        {
-            _gameplayServicesContainer = new ServicesContainer();
-            
-            _gameplayServicesContainer.Register<ICheckerCurrentStatsService>(
-                new CheckerCurrentStatsService());
-            _gameplayServicesContainer.Register<IStatsWasteService>(
-                new StatsWasteService());
-            _gameplayServicesContainer.Register<IAttackService>(
-                new AttackService(
-                    _gameplayServicesContainer.Single<IStatsWasteService>()));
-
-            RegisterStatsRestorationService();
         }
 
         private void RegisterStatsRestorationService()

@@ -4,8 +4,9 @@
     {
         Empty = 0,
         Craft = 1,
-        Home,
-        Fortress,
-        Battle
+        Inventory = 2,
+        Home = 3,
+        Fortress = 4,
+        Battle = 5
     }
 }

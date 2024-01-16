@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UndergroundFortress.Constants;
 using UndergroundFortress.Core.Services.Scene;
 using UndergroundFortress.UI.Craft;
+using UndergroundFortress.UI.Inventory;
 
 namespace UndergroundFortress.UI.MainMenu
 {
@@ -21,11 +22,13 @@ namespace UndergroundFortress.UI.MainMenu
             _sceneProviderService = sceneProviderService;
         }
 
-        public void Initialize(CraftView craftView)
+        public void Initialize(CraftView craftView,
+            InventoryView inventoryView)
         {
             _windows = new List<IWindow>();
             
             _windows.Add(craftView);
+            _windows.Add(inventoryView);
             
             buttonStartGame.onClick.AddListener(LoadLevel);
         }

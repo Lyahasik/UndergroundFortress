@@ -10,9 +10,6 @@ using UndergroundFortress.Core.Services.GameStateMachine.States;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay;
-using UndergroundFortress.Gameplay.Craft.Services;
-using UndergroundFortress.UI.Craft;
-using UndergroundFortress.UI.Information;
 using UndergroundFortress.UI.MainMenu;
 
 namespace UndergroundFortress.Core.Services.Scene
@@ -24,7 +21,6 @@ namespace UndergroundFortress.Core.Services.Scene
         private readonly IGameplayFactory _gameplayFactory;
         private readonly IStaticDataService _staticDataService;
         private readonly IProgressProviderService _progressProviderService;
-        private readonly ICraftService _craftService;
 
         private ServicesContainer _match3ServicesContainer;
 
@@ -36,15 +32,13 @@ namespace UndergroundFortress.Core.Services.Scene
             IUIFactory uiFactory,
             IGameplayFactory gameplayFactory,
             IStaticDataService staticDataService,
-            IProgressProviderService progressProviderService,
-            ICraftService craftService)
+            IProgressProviderService progressProviderService)
         {
             _gameStateMachine = gameStateMachine;
             _uiFactory = uiFactory;
             _gameplayFactory = gameplayFactory;
             _staticDataService = staticDataService;
             _progressProviderService = progressProviderService;
-            _craftService = craftService;
         }
 
         public void LoadMainScene()
@@ -90,17 +84,11 @@ namespace UndergroundFortress.Core.Services.Scene
             SceneManager.UnloadSceneAsync(oldSceneName);
             Debug.Log("New active scene : " + SceneManager.GetActiveScene().name);
 
-            InformationView information = _uiFactory.CreateInformation();
-            information.Initialize();
+            InitializerMainMenu initializerMainMenu = new GameObject().AddComponent<InitializerMainMenu>();
+            initializerMainMenu.name = nameof(InitializerMainMenu);
+            initializerMainMenu.Construct(_staticDataService, _uiFactory, _progressProviderService);
+            initializerMainMenu.Initialize(this);
 
-            CraftView craft = _uiFactory.CreateCraft();
-            craft.Construct(_staticDataService, _progressProviderService, _craftService, information);
-            craft.Initialize();
-
-            MainMenuView mainMenu = _uiFactory.CreateMainMenu();
-            mainMenu.Construct(this);
-            mainMenu.Initialize(craft);
-            
             Debug.Log("Main scene loaded.");
             _gameStateMachine.Enter<MainMenuState>();
         }
@@ -110,7 +98,7 @@ namespace UndergroundFortress.Core.Services.Scene
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(_nameNewActiveScene));
             Debug.Log("New active scene : " + SceneManager.GetActiveScene().name);
 
-            InitializerLevel  initializerLevel = new GameObject().AddComponent<InitializerLevel>();
+            InitializerLevel initializerLevel = new GameObject().AddComponent<InitializerLevel>();
             initializerLevel.name = nameof(InitializerLevel);
             initializerLevel.Construct(this,
                 _staticDataService,

@@ -8,6 +8,7 @@
         Helmet,
         Bib,
         Trousers,
-        Boots
+        Boots,
+        Resource = 20
     }
 }

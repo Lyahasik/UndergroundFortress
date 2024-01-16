@@ -15,3 +15,4 @@ MonoBehaviour:
   mainMenuViewPrefab: {fileID: -5197722408872710788, guid: d262041fa7952ab40875775f0f7bd5e9, type: 3}
   informationViewPrefab: {fileID: -8636701203838908075, guid: 23d1f2f5c43463544b2f579220f8dd12, type: 3}
   craftViewPrefab: {fileID: 7772865370783396893, guid: 36f6d723c0fcbc548a2bf8c030622850, type: 3}
+  inventoryViewPrefab: {fileID: 3123479720991398716, guid: b8c703003f9ef19468f130e0297b02c6, type: 3}

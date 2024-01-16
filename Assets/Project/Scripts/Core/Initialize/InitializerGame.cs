@@ -40,7 +40,6 @@ namespace UndergroundFortress.Core.Initialize
             _servicesContainer.Register<IProgressProviderService>(
                 new ProgressProviderService(
                     _servicesContainer.Single<IStaticDataService>(),
-                    _servicesContainer.Single<ICharacterDressingService>(),
                     gameStateMachine));
             _servicesContainer.Register<IRealtimeProgressService>(
                 new RealtimeProgressService());
@@ -51,9 +50,6 @@ namespace UndergroundFortress.Core.Initialize
             _servicesContainer.Register<IGameplayFactory>(
                 new GameplayFactory(
                     _servicesContainer.Single<IStaticDataService>()));
-            _servicesContainer.Register<ICraftService>(
-                new CraftService(
-                    _servicesContainer.Single<IStaticDataService>()));
 
             _servicesContainer.Register<ISceneProviderService>(
                 new SceneProviderService(
@@ -61,8 +57,7 @@ namespace UndergroundFortress.Core.Initialize
                     _servicesContainer.Single<IUIFactory>(),
                     _servicesContainer.Single<IGameplayFactory>(),
                     _servicesContainer.Single<IStaticDataService>(),
-                    _servicesContainer.Single<IProgressProviderService>(),
-                    _servicesContainer.Single<ICraftService>()));
+                    _servicesContainer.Single<IProgressProviderService>()));
             
             LoadingCurtain curtain = CreateLoadingCurtain();
             GameData gameData = GameDataCreate(curtain, _servicesContainer);

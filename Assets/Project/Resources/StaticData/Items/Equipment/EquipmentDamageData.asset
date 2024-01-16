@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: EquipmentDamageData
   m_EditorClassIdentifier: 
   id: 1
+  type: 0
   maxLevel: 10
   name: Equipment
   icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  maxNumberForCell: 1
   typeStat: 31
   qualityValues:
   - qualityType: 1

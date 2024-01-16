@@ -1,6 +1,7 @@
 using UndergroundFortress.UI.Craft;
 using UndergroundFortress.UI.Hud;
 using UndergroundFortress.UI.Information;
+using UndergroundFortress.UI.Inventory;
 using UndergroundFortress.UI.MainMenu;
 
 namespace UndergroundFortress.Core.Services.Factories.UI
@@ -10,6 +11,7 @@ namespace UndergroundFortress.Core.Services.Factories.UI
         public MainMenuView CreateMainMenu();
         public InformationView CreateInformation();
         public CraftView CreateCraft();
+        public InventoryView CreateInventory();
         public HudView CreateHUD();
     }
 }
