@@ -16,7 +16,7 @@ MonoBehaviour:
   type: 0
   maxLevel: 10
   name: Equipment
-  icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  icon: {fileID: 21300000, guid: ad684f98e39d21d4887a2f8bd11ef6d2, type: 3}
   maxNumberForCell: 1
   typeStat: 1
   qualityValues:
