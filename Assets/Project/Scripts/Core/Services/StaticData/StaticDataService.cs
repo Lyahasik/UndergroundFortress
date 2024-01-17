@@ -71,6 +71,9 @@ namespace UndergroundFortress.Core.Services.StaticData
         public List<EquipmentStaticData> ForEquipments() => 
             _equipments;
 
+        public List<ResourceStaticData> ForResources() => 
+            _resources;
+
         public List<RecipeStaticData> ForRecipes() => 
             _recipes;
 
@@ -93,6 +96,20 @@ namespace UndergroundFortress.Core.Services.StaticData
             }
 
             Debug.LogWarning($"Not found of id for item icon");
+            return null;
+        }
+
+        public ResourceStaticData GetResourceById(int itemId)
+        {
+            foreach (ResourceStaticData resourceStaticData in _resources)
+            {
+                if (resourceStaticData.id == itemId)
+                {
+                    return resourceStaticData;
+                }
+            }
+
+            Debug.LogWarning($"Not found of id for resource data");
             return null;
         }
     }

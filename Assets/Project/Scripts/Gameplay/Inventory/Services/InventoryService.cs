@@ -41,8 +41,6 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                 _bags[itemBagId.BagId][itemBagId.CellId].Number++;
             else
                 AddNewItem(itemData);
-            
-            Debug.LogWarning($"Failed to add resource to bag");
         }
 
         private ItemBagId GetResourceId(ItemData itemData)

@@ -7,6 +7,7 @@ using UndergroundFortress.Core.Services.Scene;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Craft.Services;
 using UndergroundFortress.Gameplay.Inventory.Services;
+using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.UI.Craft;
 using UndergroundFortress.UI.Information;
 using UndergroundFortress.UI.Inventory;
@@ -52,6 +53,12 @@ namespace UndergroundFortress.UI.MainMenu
                     _staticDataService,
                     _mainMenuServicesContainer.Single<IInventoryService>()
                     ));
+            
+            _mainMenuServicesContainer.Register<IItemsGeneratorService>(
+                new ItemsGeneratorService(
+                    _staticDataService,
+                    _mainMenuServicesContainer.Single<IInventoryService>()
+                    ));
         }
         
         private void CreateInventory()
@@ -81,7 +88,7 @@ namespace UndergroundFortress.UI.MainMenu
             inventory.Initialize();
 
             MainMenuView mainMenu = _uiFactory.CreateMainMenu();
-            mainMenu.Construct(sceneProviderService);
+            mainMenu.Construct(sceneProviderService, _mainMenuServicesContainer.Single<IItemsGeneratorService>());
             mainMenu.Initialize(craft, inventory);
         }
         

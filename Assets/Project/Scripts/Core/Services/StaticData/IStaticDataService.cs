@@ -4,6 +4,7 @@ using UnityEngine;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.UI.MainMenu.StaticData;
 using UndergroundFortress.UI.StaticData;
+
 namespace UndergroundFortress.Core.Services.StaticData
 {
     public interface IStaticDataService : IService
@@ -15,7 +16,9 @@ namespace UndergroundFortress.Core.Services.StaticData
         public CharacterStaticData ForEnemy();
         public List<StatStaticData> ForStats();
         public List<EquipmentStaticData> ForEquipments();
+        public List<ResourceStaticData> ForResources();
         public List<RecipeStaticData> ForRecipes();
         public Sprite GetItemIcon(int itemDataId);
+        public ResourceStaticData GetResourceById(int itemId);
     }
 }

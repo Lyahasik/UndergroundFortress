@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 using UndergroundFortress.Constants;
 using UndergroundFortress.Core.Services.Scene;
+using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.UI.Craft;
 using UndergroundFortress.UI.Inventory;
 
@@ -14,12 +15,15 @@ namespace UndergroundFortress.UI.MainMenu
         [SerializeField] private Button buttonStartGame;
 
         private ISceneProviderService _sceneProviderService;
+        private IItemsGeneratorService _itemsGeneratorService;
 
         private List<IWindow> _windows;
 
-        public void Construct(ISceneProviderService sceneProviderService)
+        public void Construct(ISceneProviderService sceneProviderService,
+            IItemsGeneratorService itemsGeneratorService)
         {
             _sceneProviderService = sceneProviderService;
+            _itemsGeneratorService = itemsGeneratorService;
         }
 
         public void Initialize(CraftView craftView,
@@ -31,6 +35,12 @@ namespace UndergroundFortress.UI.MainMenu
             _windows.Add(inventoryView);
             
             buttonStartGame.onClick.AddListener(LoadLevel);
+        }
+        
+        //TODO temporary
+        public void CreateResource()
+        {
+            _itemsGeneratorService.GenerateResource();
         }
 
         public void ActivateWindow(int idWindow)
