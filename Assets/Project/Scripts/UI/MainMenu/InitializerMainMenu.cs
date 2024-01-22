@@ -46,22 +46,31 @@ namespace UndergroundFortress.UI.MainMenu
         {
             _mainMenuServicesContainer = new ServicesContainer();
 
-            CreateInventory();
+            CreateInventoryService();
             
             _mainMenuServicesContainer.Register<ICraftService>(
                 new CraftService(
                     _staticDataService,
                     _mainMenuServicesContainer.Single<IInventoryService>()
                     ));
-            
+
+            CreateMovingService();
+
             _mainMenuServicesContainer.Register<IItemsGeneratorService>(
                 new ItemsGeneratorService(
                     _staticDataService,
                     _mainMenuServicesContainer.Single<IInventoryService>()
                     ));
         }
-        
-        private void CreateInventory()
+
+        private void CreateMovingService()
+        {
+            MovingItemService movingItemService = new MovingItemService(
+                _mainMenuServicesContainer.Single<IInventoryService>());
+            _mainMenuServicesContainer.Register<IMovingItemService>(movingItemService);
+        }
+
+        private void CreateInventoryService()
         {
             InventoryService inventoryService = new InventoryService(_progressProviderService);
             inventoryService.Initialize();
@@ -84,8 +93,13 @@ namespace UndergroundFortress.UI.MainMenu
             InventoryView inventory = _uiFactory.CreateInventory();
             inventory.Construct(
                 _staticDataService,
-                _mainMenuServicesContainer.Single<IInventoryService>());
+                _mainMenuServicesContainer.Single<IInventoryService>(),
+                _mainMenuServicesContainer.Single<IMovingItemService>());
             inventory.Initialize();
+
+            IMovingItemService movingItemService = _mainMenuServicesContainer.Single<IMovingItemService>();
+            movingItemService.Initialize(information.CellItemView);
+            movingItemService.Subscribe(inventory.BagActiveArea);
 
             MainMenuView mainMenu = _uiFactory.CreateMainMenu();
             mainMenu.Construct(sceneProviderService, _mainMenuServicesContainer.Single<IItemsGeneratorService>());

@@ -10,7 +10,6 @@ using UndergroundFortress.Core.Services.GameStateMachine.States;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.Scene;
 using UndergroundFortress.Core.Services.StaticData;
-using UndergroundFortress.Gameplay.Craft.Services;
 using UndergroundFortress.UI.Loading;
 
 namespace UndergroundFortress.Core.Initialize

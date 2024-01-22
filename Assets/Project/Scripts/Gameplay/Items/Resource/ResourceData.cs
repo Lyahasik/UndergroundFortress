@@ -1,6 +1,6 @@
 ﻿using UndergroundFortress.Gameplay.Stats;
 
-namespace UndergroundFortress.Gameplay.Items.Services
+namespace UndergroundFortress.Gameplay.Items.Resource
 {
     public class ResourceData : ItemData
     {

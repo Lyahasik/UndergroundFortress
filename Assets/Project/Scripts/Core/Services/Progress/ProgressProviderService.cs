@@ -49,16 +49,11 @@ namespace UndergroundFortress.Core.Services.Progress
                     { ItemType.Trousers, new List<int> { 1 }},
                     { ItemType.Boots, new List<int> { 1 }}
                 },
-                Bags = new Dictionary<int, CellData[]>
-                {
-                    { ConstantValues.FIRST_BAG_ID, new CellData[ConstantValues.SIZE_BAG] }
-                }
+                Bag = new List<CellData>()
             };
             
-            CellData[] firstBag = _progressData.Bags[ConstantValues.FIRST_BAG_ID];
-            if (firstBag[0] == null)
-                for (int i = 0; i < firstBag.Length; i++) 
-                    firstBag[i] = new CellData();
+            for (int i = 0; i < ConstantValues.BASE_SIZE_BAG; i++) 
+                _progressData.Bag.Add(new CellData());
 
             _gameStateMachine.Enter<LoadSceneState>();
         }

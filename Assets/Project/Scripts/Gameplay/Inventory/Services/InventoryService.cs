@@ -11,9 +11,9 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
     {
         private readonly IProgressProviderService _progressProviderService;
         
-        private Dictionary<int, CellData[]> _bags;
+        private List<CellData> _bag;
 
-        public Dictionary<int, CellData[]> Bags => _bags;
+        public List<CellData> Bag => _bag;
 
         public InventoryService(IProgressProviderService progressProviderService)
         {
@@ -22,7 +22,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
 
         public void Initialize()
         {
-            _bags = _progressProviderService.ProgressData.Bags;
+            _bag = _progressProviderService.ProgressData.Bag;
         }
 
         public void AddItem(ItemData itemData)
@@ -33,48 +33,45 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                 AddNewItem(itemData);
         }
 
+        public void SwapItems(in int id1, in int id2) => 
+            (_bag[id1], _bag[id2]) = (_bag[id2], _bag[id1]);
+
         private void AddResource(ItemData itemData)
         {
-            ItemBagId itemBagId = GetResourceId(itemData);
+            int itemBagId = GetResourceId(itemData);
 
-            if (itemBagId.BagId != ConstantValues.EMPTY_ID)
-                _bags[itemBagId.BagId][itemBagId.CellId].Number++;
+            if (itemBagId != ConstantValues.ERROR_ID)
+                _bag[itemBagId].Number++;
             else
                 AddNewItem(itemData);
         }
 
-        private ItemBagId GetResourceId(ItemData itemData)
+        private int GetResourceId(ItemData itemData)
         {
-            foreach (KeyValuePair<int,CellData[]> keyValuePair in _bags)
+            for (int i = 0; i < _bag.Count; i++)
             {
-                for (int i = 0; i < keyValuePair.Value.Length; i++)
-                {
-                    if (keyValuePair.Value[i].ItemData == null)
-                        continue;
+                if (_bag[i].ItemData == null)
+                    continue;
                     
-                    if (keyValuePair.Value[i].ItemData.Id == itemData.Id
-                        && keyValuePair.Value[i].Number < itemData.MaxNumberForCell)
-                    {
-                        return new ItemBagId(keyValuePair.Key, i);
-                    }
+                if (_bag[i].ItemData.Id == itemData.Id
+                    && _bag[i].Number < itemData.MaxNumberForCell)
+                {
+                    return i;
                 }
             }
 
-            return new ItemBagId(0, 0);
+            return ConstantValues.ERROR_ID;
         }
 
         private void AddNewItem(ItemData itemData)
         {
-            foreach (KeyValuePair<int,CellData[]> keyValuePair in _bags)
+            for (int i = 0; i < _bag.Count; i++)
             {
-                for (int i = 0; i < keyValuePair.Value.Length; i++)
+                if (_bag[i].ItemData == null)
                 {
-                    if (keyValuePair.Value[i].ItemData == null)
-                    {
-                        keyValuePair.Value[i].ItemData = itemData;
-                        keyValuePair.Value[i].Number = 1;
-                        return;
-                    }
+                    _bag[i].ItemData = itemData;
+                    _bag[i].Number = 1;
+                    return;
                 }
             }
             

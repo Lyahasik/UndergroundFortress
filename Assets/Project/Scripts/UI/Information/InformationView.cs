@@ -9,8 +9,13 @@ namespace UndergroundFortress.UI.Information
     {
         [SerializeField] private List<EquipmentView> equipmentQualities;
         [SerializeField] private List<EquipmentView> equipmentSetQualities;
+
+        [Space]
+        [SerializeField] private CellItemView cellItemView;
         
         private EquipmentView _currentEquipmentView;
+
+        public CellItemView CellItemView => cellItemView;
         
         public void Initialize()
         {

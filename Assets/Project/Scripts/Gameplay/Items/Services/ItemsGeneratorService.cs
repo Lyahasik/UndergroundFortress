@@ -3,6 +3,7 @@ using UnityEngine;
 
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Inventory.Services;
+using UndergroundFortress.Gameplay.Items.Resource;
 using UndergroundFortress.Gameplay.StaticData;
 
 namespace UndergroundFortress.Gameplay.Items.Services

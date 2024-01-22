@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using UndergroundFortress.Constants;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
@@ -14,27 +13,40 @@ namespace UndergroundFortress.UI.Inventory
         [SerializeField] private WindowType windowType;
 
         [Space]
-        [SerializeField] private List<CellBagView> cellsBag;
+        [SerializeField] private Transform bagListTransform;
+        [SerializeField] private ActiveArea bagActiveArea;
+        [SerializeField] private CellBagView prefabCellBagView;
 
         private IStaticDataService _staticDataService;
         private IInventoryService _inventoryService;
+        private IMovingItemService _movingItemService;
 
+        private List<CellBagView> _cellsBag;
+
+        public ActiveArea BagActiveArea => bagActiveArea;
+        
         private void OnEnable()
         {
             if (_inventoryService != null)
-                FillBag(ConstantValues.FIRST_BAG_ID);
+                FillBag();
         }
 
         public void Construct(IStaticDataService staticDataService,
-            IInventoryService inventoryService)
+            IInventoryService inventoryService,
+            IMovingItemService movingItemService)
         {
             _staticDataService = staticDataService;
             _inventoryService = inventoryService;
+            _movingItemService = movingItemService;
         }
 
         public void Initialize()
         {
-            FillBag(ConstantValues.FIRST_BAG_ID);
+            _cellsBag = new List<CellBagView>();
+            
+            bagActiveArea.Construct(_movingItemService);
+            
+            FillBag();
         }
 
         public void ActivationUpdate(WindowType type)
@@ -42,18 +54,34 @@ namespace UndergroundFortress.UI.Inventory
             gameObject.SetActive(type == windowType);
         }
 
-        private void FillBag(int bagId)
+        private void FillBag()
         {
-            CellData[] bag = _inventoryService.Bags[bagId];
+            List<CellData> bag = _inventoryService.Bag;
+            IncreaseBagSizeView(bag.Count);
 
-            for (int i = 0; i < bag.Length; i++)
+            for (int i = 0; i < bag.Count; i++)
             {
                 ItemData itemData = bag[i].ItemData;
                 
                 if (itemData != null)
-                    cellsBag[i].SetValues(_staticDataService.GetItemIcon(itemData.Id), itemData.Quality, bag[i].Number);
+                    _cellsBag[i].SetValues(_staticDataService.GetItemIcon(itemData.Id), itemData.Quality, bag[i].Number);
                 else
-                    cellsBag[i].Reset();
+                    _cellsBag[i].Reset();
+            }
+        }
+
+        private void IncreaseBagSizeView(int newSize)
+        {
+            if (_cellsBag.Count >= newSize)
+                return;
+            
+            for (int i = _cellsBag.Count; i < newSize; i++)
+            {
+                CellBagView cellBagView = Instantiate(prefabCellBagView, bagListTransform);
+                cellBagView.Construct(i, _movingItemService);
+                cellBagView.Initialize();
+                cellBagView.Subscribe(bagActiveArea);
+                _cellsBag.Add(cellBagView);
             }
         }
     }
