@@ -36,7 +36,6 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
 
         public List<StoneItemData> Stones => _stones;
 
-
         public EquipmentData(int id,
             ItemType type,
             int level,

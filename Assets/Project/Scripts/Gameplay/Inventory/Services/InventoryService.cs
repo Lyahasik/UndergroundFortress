@@ -4,6 +4,7 @@ using UnityEngine;
 using UndergroundFortress.Constants;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Gameplay.Items;
+using UndergroundFortress.UI.Inventory;
 
 namespace UndergroundFortress.Gameplay.Inventory.Services
 {
@@ -11,9 +12,10 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
     {
         private readonly IProgressProviderService _progressProviderService;
         
-        private List<CellData> _bag;
-
-        public List<CellData> Bag => _bag;
+        private Dictionary<InventoryCellType, List<CellData>> _inventory;
+        
+        public List<CellData> Bag => _inventory[InventoryCellType.Bag];
+        public List<CellData> Equipment => _inventory[InventoryCellType.Equipment];
 
         public InventoryService(IProgressProviderService progressProviderService)
         {
@@ -22,39 +24,41 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
 
         public void Initialize()
         {
-            _bag = _progressProviderService.ProgressData.Bag;
+            _inventory = new Dictionary<InventoryCellType, List<CellData>>();
+            
+            _inventory.Add(InventoryCellType.Equipment, _progressProviderService.ProgressData.Equipment);
+            _inventory.Add(InventoryCellType.Bag, _progressProviderService.ProgressData.Bag);
         }
 
         public void AddItem(ItemData itemData)
         {
             if (itemData.Type == ItemType.Resource)
-                AddResource(itemData);
+                AddResourceToBag(itemData);
             else
                 AddNewItem(itemData);
         }
 
-        public void SwapItems(in int id1, in int id2) => 
-            (_bag[id1], _bag[id2]) = (_bag[id2], _bag[id1]);
-
-        private void AddResource(ItemData itemData)
+        private void AddResourceToBag(ItemData itemData)
         {
             int itemBagId = GetResourceId(itemData);
 
             if (itemBagId != ConstantValues.ERROR_ID)
-                _bag[itemBagId].Number++;
+                _inventory[InventoryCellType.Bag][itemBagId].Number++;
             else
                 AddNewItem(itemData);
         }
 
         private int GetResourceId(ItemData itemData)
         {
-            for (int i = 0; i < _bag.Count; i++)
+            List<CellData> bag = _inventory[InventoryCellType.Bag];
+            
+            for (int i = 0; i < bag.Count; i++)
             {
-                if (_bag[i].ItemData == null)
+                if (bag[i].ItemData == null)
                     continue;
                     
-                if (_bag[i].ItemData.Id == itemData.Id
-                    && _bag[i].Number < itemData.MaxNumberForCell)
+                if (bag[i].ItemData.Id == itemData.Id
+                    && bag[i].Number < itemData.MaxNumberForCell)
                 {
                     return i;
                 }
@@ -65,12 +69,14 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
 
         private void AddNewItem(ItemData itemData)
         {
-            for (int i = 0; i < _bag.Count; i++)
+            List<CellData> bag = _inventory[InventoryCellType.Bag];
+
+            foreach (CellData cellData in bag)
             {
-                if (_bag[i].ItemData == null)
+                if (cellData.ItemData == null)
                 {
-                    _bag[i].ItemData = itemData;
-                    _bag[i].Number = 1;
+                    cellData.ItemData = itemData;
+                    cellData.Number = 1;
                     return;
                 }
             }

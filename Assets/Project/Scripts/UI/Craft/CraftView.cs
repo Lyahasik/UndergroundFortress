@@ -75,12 +75,10 @@ namespace UndergroundFortress.UI.Craft
             EquipmentStaticData equipmentStaticData =
                 _staticDataService.ForEquipments().Find(v => v.id == _idItem);
 
-            EquipmentData equipment = _craftService.CreateEquipment(
+            _craftService.CreateEquipment(
                 equipmentStaticData,
                 _progressProviderService.ProgressData.Level,
                 additionalStatDropdown.CurrentStatType);
-            
-            _informationView.ShowEquipment(equipment, itemWindow.position);
         }
     }
 }

@@ -9,18 +9,18 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
 {
     public class MovingItemService : IMovingItemService
     {
-        private readonly IInventoryService _inventoryService;
+        private readonly ISwapCellsService _swapCellsService;
         
         private CellItemView _cellItemView;
         
-        private CellBagView _cellBagView;
+        private CellInventoryView _cellInventoryView;
         private Transform _transformItemView;
 
         private bool _isHit;
 
-        public MovingItemService(IInventoryService inventoryService)
+        public MovingItemService(ISwapCellsService swapCellsService)
         {
-            _inventoryService = inventoryService;
+            _swapCellsService = swapCellsService;
         }
 
         public void Initialize(CellItemView cellItemView)
@@ -38,20 +38,23 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             _cellItemView.transform.position = newPosition;
         }
 
-        public void AddItem(CellBagView cellBagView, Vector3 newPosition)
+        public void AddItem(CellInventoryView cellInventoryView, Vector3 newPosition)
         {
-            if (_cellBagView == null)
+            if (_cellInventoryView == null)
             {
-                _cellBagView = cellBagView;
-                _cellBagView.Hide();
+                if (cellInventoryView.ItemData == null)
+                    return;
+                
+                _cellInventoryView = cellInventoryView;
+                _cellInventoryView.Hide();
                     
                 _cellItemView.transform.position = newPosition;
-                _cellItemView.SetValues(_cellBagView.Icon, _cellBagView.Quality);
+                _cellItemView.SetValues(_cellInventoryView.Icon, _cellInventoryView.Quality);
             }
-            else if (cellBagView != _cellBagView)
+            else if (cellInventoryView != _cellInventoryView)
             {
                 _isHit = true;
-                SwapCells(cellBagView);
+                SwapCells(cellInventoryView);
             }
             else
             {
@@ -68,33 +71,23 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                 return;
             }
             
-            if (_cellBagView != null) 
+            if (_cellInventoryView != null) 
                 Reset();
         }
 
-        private void SwapCells(CellBagView cellBagView)
+        private void SwapCells(CellInventoryView cellInventoryView)
         {
-            _inventoryService.SwapItems(_cellBagView.Id, cellBagView.Id);
-            Sprite iconTemporary = _cellBagView.Icon;
-            Sprite qualityTemporary = _cellBagView.Quality;
-            string numberTemporary = _cellBagView.Number;
+            _swapCellsService.TrySwapCells(_cellInventoryView, cellInventoryView);
 
-            _cellBagView.SetValues(cellBagView.Icon, cellBagView.Quality, cellBagView.Number);
-            cellBagView.SetValues(iconTemporary, qualityTemporary, numberTemporary);
-
-            _cellBagView.Show();
-            _cellBagView = null;
-            _cellItemView.Reset();
+            Reset();
         }
 
         private void Reset()
         {
-            _cellBagView.Show();
-            _cellBagView = null;
+            _cellInventoryView.Show();
+            _cellInventoryView = null;
 
             _cellItemView.Reset();
-            
-            Debug.Log("Reset");
         }
     }
 }

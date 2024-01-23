@@ -4,7 +4,7 @@
     {
         Empty = 0,
         Weapon = 1,
-        Shield,
+        RightHand,
         Helmet,
         Bib,
         Trousers,

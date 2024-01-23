@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EquipmentDamageData
   m_EditorClassIdentifier: 
   id: 1
-  type: 0
+  type: 3
   maxLevel: 10
   name: Equipment
   icon: {fileID: 21300000, guid: 4be84ab173c630d4a8dfcf5d019dbd48, type: 3}

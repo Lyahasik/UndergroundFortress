@@ -10,7 +10,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
     {
         public void Initialize(CellItemView cellItemView);
         public void Subscribe(ActiveArea bagActiveArea);
-        public void AddItem(CellBagView cellBagView, Vector3 newPosition);
+        public void AddItem(CellInventoryView cellInventoryView, Vector3 newPosition);
         public void TryReset();
     }
 }

@@ -8,6 +8,7 @@
         public const string PROGRESS_PLAYER_KEY = "progress_player";
 
         public const int ERROR_ID = -1;
+        public const int EMPTY = 0;
         public const int DIGITS_STAT_VALUE = 1;
         public const float DELAY_RESTORE_STATS = 1f;
         public const int MAX_NUMBER_ADDITIONAL_STATS = 4;
