@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using UndergroundFortress.Gameplay;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.UI.MainMenu.StaticData;
 using UndergroundFortress.UI.StaticData;
@@ -19,6 +20,7 @@ namespace UndergroundFortress.Core.Services.StaticData
         public List<ResourceStaticData> ForResources();
         public List<RecipeStaticData> ForRecipes();
         public Sprite GetItemIcon(int itemDataId);
+        public Sprite GetQualityIcon(QualityType type);
         public ResourceStaticData GetResourceById(int itemId);
     }
 }

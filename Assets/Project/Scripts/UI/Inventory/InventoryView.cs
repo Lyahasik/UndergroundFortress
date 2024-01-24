@@ -67,19 +67,14 @@ namespace UndergroundFortress.UI.Inventory
 
             for (int i = 0; i < equipment.Count; i++)
             {
+                cellsEquipment[i].Construct(i, _staticDataService, _movingItemService);
+                cellsEquipment[i].Subscribe(_inventoryService, bagActiveArea);
+                cellsEquipment[i].Subscribe(_inventoryService, equipmentActiveArea);
+                
                 ItemData itemData = equipment[i].ItemData;
-                
-                cellsEquipment[i].Construct(i, _movingItemService);
-                cellsEquipment[i].Subscribe(bagActiveArea);
-                cellsEquipment[i].Subscribe(equipmentActiveArea);
-                
                 if (itemData != null
                     && itemData.Id != ConstantValues.ERROR_ID)
-                    cellsEquipment[i].SetValues(
-                        itemData,
-                        InventoryCellType.Equipment,
-                        _staticDataService.GetItemIcon(itemData.Id),
-                        equipment[i].Number);
+                    cellsEquipment[i].SetValues(equipment[i], InventoryCellType.Equipment);
                 else
                     cellsEquipment[i].Reset(InventoryCellType.Equipment);
             }
@@ -92,14 +87,8 @@ namespace UndergroundFortress.UI.Inventory
 
             for (int i = 0; i < bag.Count; i++)
             {
-                ItemData itemData = bag[i].ItemData;
-                
-                if (itemData != null)
-                    _cellsBag[i].SetValues(
-                        itemData,
-                        InventoryCellType.Bag,
-                        _staticDataService.GetItemIcon(itemData.Id),
-                        bag[i].Number);
+                if (bag[i].ItemData != null)
+                    _cellsBag[i].SetValues(bag[i], InventoryCellType.Bag);
                 else
                     _cellsBag[i].Reset();
             }
@@ -113,10 +102,10 @@ namespace UndergroundFortress.UI.Inventory
             for (int i = _cellsBag.Count; i < newSize; i++)
             {
                 CellInventoryView cellInventoryView = Instantiate(prefabCellInventoryView, bagListTransform);
-                cellInventoryView.Construct(i, _movingItemService);
+                cellInventoryView.Construct(i, _staticDataService, _movingItemService);
                 cellInventoryView.Initialize();
-                cellInventoryView.Subscribe(bagActiveArea);
-                cellInventoryView.Subscribe(equipmentActiveArea);
+                cellInventoryView.Subscribe(_inventoryService, bagActiveArea);
+                cellInventoryView.Subscribe(_inventoryService, equipmentActiveArea);
                 _cellsBag.Add(cellInventoryView);
             }
         }

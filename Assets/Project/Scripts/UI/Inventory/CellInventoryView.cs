@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using UndergroundFortress.Extensions;
+using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Gameplay.Inventory;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
 
@@ -19,6 +21,7 @@ namespace UndergroundFortress.UI.Inventory
         private int _id;
         private ItemData _itemData;
         private InventoryCellType _inventoryCellType;
+        private IStaticDataService _staticDataService;
         private IMovingItemService _movingItemService;
 
         private RectTransform _rect;
@@ -37,9 +40,13 @@ namespace UndergroundFortress.UI.Inventory
             _rect = GetComponent<RectTransform>();
         }
 
-        public void Construct(in int cellId, IMovingItemService movingItemService)
+        public void Construct(in int cellId,
+            IStaticDataService staticDataService,
+            IMovingItemService movingItemService)
         {
             _id = cellId;
+
+            _staticDataService = staticDataService;
             _movingItemService = movingItemService;
         }
 
@@ -50,33 +57,35 @@ namespace UndergroundFortress.UI.Inventory
             Reset();
         }
 
-        public void Subscribe(ActiveArea activeArea)
+        public void Subscribe(IInventoryService inventoryService, ActiveArea activeArea)
         {
+            inventoryService.OnUpdateCell += UpdateValue;
+            
             activeArea.OnDown += Hit;
             activeArea.OnUp += Hit;
         }
 
-        public void SetValues(ItemData itemData,
-            InventoryCellType inventoryCellType,
-            Sprite icon,
-            in int number)
+        public void SetValues(CellData cellData,
+            InventoryCellType inventoryCellType)
         {
-            _itemData = itemData;
+            _itemData = cellData.ItemData;
             _inventoryCellType = inventoryCellType;
-            this.icon.sprite = icon;
-            quality.sprite = null;
-            numberText.text = number.ToString();
+            icon.sprite = _staticDataService.GetItemIcon(_itemData.Id);
+            quality.sprite = _staticDataService.GetQualityIcon(_itemData.QualityType);
+            
+            if (!_itemData.Type.IsEquipment())
+                numberText.text = cellData.Number.ToString();
         }
 
-        public void SetValues(ItemData itemData,
-            Sprite icon,
-            Sprite quality,
+        private void SetValues(ItemData itemData,
             string number)
         {
             _itemData = itemData;
-            this.icon.sprite = icon;
-            this.quality.sprite = quality;
-            numberText.text = number;
+            icon.sprite = _staticDataService.GetItemIcon(_itemData.Id);
+            quality.sprite = _staticDataService.GetQualityIcon(_itemData.QualityType);
+            
+            if (!_itemData.Type.IsEquipment())
+                numberText.text = number;
         }
 
         public void Show()
@@ -105,12 +114,24 @@ namespace UndergroundFortress.UI.Inventory
             numberText.text = string.Empty;
         }
 
-        public void Hit(Vector3 position)
+        private void Hit(Vector3 position)
         {
             if (!_rect.IsDotInside(position))
                 return;
             
             _movingItemService.AddItem(this, position);
+        }
+
+        private void UpdateValue(InventoryCellType inventoryCellType, int id, CellData cellData)
+        {
+            if (_inventoryCellType != inventoryCellType
+                || _id != id)
+                return;
+            
+            if (cellData.ItemData != null)
+                SetValues(cellData.ItemData, cellData.Number.ToString());
+            else
+                Reset();
         }
 
         public static bool operator ==(CellInventoryView value1, CellInventoryView value2)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 using UndergroundFortress.Constants;
@@ -11,11 +12,13 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
     public class InventoryService : IInventoryService
     {
         private readonly IProgressProviderService _progressProviderService;
-        
+
         private Dictionary<InventoryCellType, List<CellData>> _inventory;
-        
+
         public List<CellData> Bag => _inventory[InventoryCellType.Bag];
         public List<CellData> Equipment => _inventory[InventoryCellType.Equipment];
+
+        public event Action<InventoryCellType, int, CellData> OnUpdateCell;
 
         public InventoryService(IProgressProviderService progressProviderService)
         {
@@ -37,6 +40,9 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             else
                 AddNewItem(itemData);
         }
+
+        public void UpdateItemToCell(InventoryCellType cellType, in int id) => 
+            OnUpdateCell?.Invoke(cellType, id, _inventory[cellType][id]);
 
         private void AddResourceToBag(ItemData itemData)
         {

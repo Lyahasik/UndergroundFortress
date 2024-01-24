@@ -32,13 +32,13 @@ namespace UndergroundFortress.UI.Information
 
             if (!equipmentData.IsSet)
             {
-                _currentEquipmentView = equipmentQualities[(int)equipmentData.Quality - 1];
-                equipmentQualities[(int)equipmentData.Quality - 1].Show(equipmentData);
+                _currentEquipmentView = equipmentQualities[(int)equipmentData.QualityType - 1];
+                equipmentQualities[(int)equipmentData.QualityType - 1].Show(equipmentData);
             }
             else
             {
-                _currentEquipmentView = equipmentSetQualities[(int)equipmentData.Quality - 1];
-                equipmentSetQualities[(int)equipmentData.Quality - 1].Show(equipmentData);
+                _currentEquipmentView = equipmentSetQualities[(int)equipmentData.QualityType - 1];
+                equipmentSetQualities[(int)equipmentData.QualityType - 1].Show(equipmentData);
             }
 
             _currentEquipmentView.transform.position = position;

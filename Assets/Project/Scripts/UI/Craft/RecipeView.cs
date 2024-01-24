@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+using UndergroundFortress.Gameplay;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats;
 

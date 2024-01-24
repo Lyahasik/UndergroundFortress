@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
-using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.UI.Inventory;
 
 namespace UndergroundFortress.Gameplay.Inventory.Services
@@ -17,22 +15,11 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
 
         public void TrySwapCells(CellInventoryView cell1, CellInventoryView cell2)
         {
-            if (!TrySwapItems(cell1, cell2))
+            if (TrySwapFromBagToBag(cell1, cell2)
+                || TrySwapFromBagToEquipment(cell1, cell2)
+                || TrySwapFromEquipmentToBag(cell1, cell2))
                 return;
-
-            ItemData itemDataTemporary = cell1.ItemData;
-            Sprite iconTemporary = cell1.Icon;
-            Sprite qualityTemporary = cell1.Quality;
-            string numberTemporary = cell1.Number;
-            
-            cell1.SetValues(cell2.ItemData, cell2.Icon, cell2.Quality, cell2.Number);
-            cell2.SetValues(itemDataTemporary, iconTemporary, qualityTemporary, numberTemporary);
         }
-        
-        private bool TrySwapItems(CellInventoryView cell1, CellInventoryView cell2) =>
-            TrySwapFromBagToBag(cell1, cell2)
-            || TrySwapFromBagToEquipment(cell1, cell2)
-            || TrySwapFromEquipmentToBag(cell1, cell2);
 
         private bool TrySwapFromEquipmentToBag(CellInventoryView cell1, CellInventoryView cell2)
         {
@@ -45,7 +32,8 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                 if (cell1.ItemType == cell2.ItemType
                     || cell2.ItemData == null)
                 {
-                    (equipment[cell1.Id], bag[cell2.Id]) = (bag[cell2.Id], equipment[cell1.Id]);
+                    Swap(equipment, bag,cell1, cell2);
+                    
                     return true;
                 }
             }
@@ -59,14 +47,14 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                 && cell2.InventoryCellType == InventoryCellType.Bag)
             {
                 List<CellData> bag = _inventoryService.Bag;
-                (bag[cell1.Id], bag[cell2.Id]) = (bag[cell2.Id], bag[cell1.Id]);
+                Swap(bag, bag, cell1, cell2);
 
                 return true;
             }
 
             return false;
         }
-        
+
         private bool TrySwapFromBagToEquipment(CellInventoryView cell1, CellInventoryView cell2)
         {
             if (cell1.InventoryCellType == InventoryCellType.Bag
@@ -76,13 +64,21 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                 {
                     List<CellData> bag = _inventoryService.Bag;
                     List<CellData> equipment = _inventoryService.Equipment;
-                    (bag[cell1.Id], equipment[cell2.Id]) = (equipment[cell2.Id], bag[cell1.Id]);
+                    Swap(bag, equipment, cell1, cell2);
 
                     return true;
                 }
             }
 
             return false;
+        }
+
+        private void Swap(IList<CellData> list1, IList<CellData> list2,
+            CellInventoryView cell1, CellInventoryView cell2)
+        {
+            (list1[cell1.Id], list2[cell2.Id]) = (list2[cell2.Id], list1[cell1.Id]);
+            _inventoryService.UpdateItemToCell(cell1.InventoryCellType, cell1.Id);
+            _inventoryService.UpdateItemToCell(cell2.InventoryCellType, cell2.Id);
         }
     }
 }

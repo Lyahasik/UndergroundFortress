@@ -3,6 +3,7 @@ using System.Linq;
 using UnityEngine;
 
 using UndergroundFortress.Constants;
+using UndergroundFortress.Gameplay;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.UI.MainMenu.StaticData;
 using UndergroundFortress.UI.StaticData;
@@ -20,6 +21,7 @@ namespace UndergroundFortress.Core.Services.StaticData
         private CharacterStaticData _enemy;
 
         private List<StatStaticData> _stats;
+        private QualitiesStaticData _qualities;
         private List<ResourceStaticData> _resources;
         private List<EquipmentStaticData> _equipments;
         private List<RecipeStaticData> _recipes;
@@ -38,7 +40,9 @@ namespace UndergroundFortress.Core.Services.StaticData
                 .Load<LevelStaticData>(ConstantPaths.LEVEL_DATA_PATH);
             _enemy = Resources
                 .Load<CharacterStaticData>(ConstantPaths.ENEMY_DATA_PATH);
-            
+
+            _qualities = Resources
+                .Load<QualitiesStaticData>(ConstantPaths.QUALITY_DATA_PATH);
             _stats = Resources
                 .LoadAll<StatStaticData>(ConstantPaths.STATS_DATA_PATH)
                 .ToList();
@@ -98,6 +102,9 @@ namespace UndergroundFortress.Core.Services.StaticData
             Debug.LogWarning($"Not found of id for item icon");
             return null;
         }
+
+        public Sprite GetQualityIcon(QualityType type) => 
+            _qualities.qualitiesData.Find(data => data.type == type).icon;
 
         public ResourceStaticData GetResourceById(int itemId)
         {

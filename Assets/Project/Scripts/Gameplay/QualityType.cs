@@ -1,4 +1,4 @@
-﻿namespace UndergroundFortress.Gameplay.Stats
+﻿namespace UndergroundFortress.Gameplay
 {
     public enum QualityType
     {

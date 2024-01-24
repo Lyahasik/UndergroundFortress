@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-using UndergroundFortress.Gameplay.Stats;
-
 namespace UndergroundFortress.Gameplay.Items.Equipment
 {
     public class EquipmentData : ItemData
@@ -26,7 +24,7 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
         public override ItemType Type => _type;
         public int Level => _level;
         public bool IsSet => _isSet;
-        public override QualityType Quality => _quality;
+        public override QualityType QualityType => _quality;
         public string Name => _name;
         public Sprite Icon => _icon;
         public override int MaxNumberForCell => _maxNumberForCell;
