@@ -83,7 +83,7 @@ namespace UndergroundFortress.UI.MainMenu
         private void CreateMainMenu(ISceneProviderService sceneProviderService)
         {
             InformationView information = _uiFactory.CreateInformation();
-            information.Initialize();
+            information.Initialize(_staticDataService);
 
             CraftView craft = _uiFactory.CreateCraft();
             craft.Construct(
@@ -97,7 +97,8 @@ namespace UndergroundFortress.UI.MainMenu
             inventory.Construct(
                 _staticDataService,
                 _mainMenuServicesContainer.Single<IInventoryService>(),
-                _mainMenuServicesContainer.Single<IMovingItemService>());
+                _mainMenuServicesContainer.Single<IMovingItemService>(),
+                information);
             inventory.Initialize();
 
             IMovingItemService movingItemService = _mainMenuServicesContainer.Single<IMovingItemService>();

@@ -418,6 +418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7bc6f2192e24032ae3be9aa6ba174d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shiftSizeForMovement: 1
 --- !u!1 &5144081819654613262
 GameObject:
   m_ObjectHideFlags: 0
@@ -648,6 +649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7bc6f2192e24032ae3be9aa6ba174d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shiftSizeForMovement: 1
 --- !u!1 &7723759804413785138
 GameObject:
   m_ObjectHideFlags: 0

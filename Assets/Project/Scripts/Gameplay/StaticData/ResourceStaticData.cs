@@ -2,7 +2,6 @@
 
 using UndergroundFortress.Constants;
 using UndergroundFortress.Gameplay.Items;
-using UndergroundFortress.Gameplay.Stats;
 
 namespace UndergroundFortress.Gameplay.StaticData
 {
@@ -14,6 +13,7 @@ namespace UndergroundFortress.Gameplay.StaticData
         
         [Space]
         public string name;
+        public string description;
         public QualityType quality;
         public Sprite icon;
         public int maxNumberForCell = ConstantValues.MIN_NUMBER_ITEM_FOR_CELL;

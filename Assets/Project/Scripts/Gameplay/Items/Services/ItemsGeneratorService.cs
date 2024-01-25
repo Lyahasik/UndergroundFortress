@@ -34,7 +34,9 @@ namespace UndergroundFortress.Gameplay.Items.Services
                 resourceStaticData.id,
                 resourceStaticData.type,
                 resourceStaticData.name,
+                resourceStaticData.description,
                 resourceStaticData.quality,
+                resourceStaticData.icon,
                 resourceStaticData.maxNumberForCell);
             
             _inventoryService.AddItem(resourceData);
