@@ -5,6 +5,7 @@ using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.Items.Equipment;
 using UndergroundFortress.Gameplay.Items.Resource;
+using UndergroundFortress.UI.Information.Prompts;
 
 namespace UndergroundFortress.UI.Information
 {
@@ -21,6 +22,9 @@ namespace UndergroundFortress.UI.Information
 
         [Space]
         [SerializeField] private CellItemView cellItemView;
+
+        [Space]
+        [SerializeField] private WarningPrompt warningPrompt;
 
         private EquipmentView _currentEquipmentView;
 
@@ -46,6 +50,9 @@ namespace UndergroundFortress.UI.Information
             else if (itemData is ResourceData resourceData)
                 ShowResource(resourceData);
         }
+
+        public void ShowWarning(string message) => 
+            warningPrompt.Show(message);
 
         public void CloseItems()
         {

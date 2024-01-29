@@ -7,7 +7,7 @@ using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Inventory;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
-using UndergroundFortress.UI.Information;
+using UndergroundFortress.UI.Information.Services;
 
 namespace UndergroundFortress.UI.Inventory
 {
@@ -26,7 +26,7 @@ namespace UndergroundFortress.UI.Inventory
         private IMovingItemService _movingItemService;
 
         private RectTransform _rect;
-        private InformationView _informationView;
+        private IInformationService _informationService;
 
         public ItemType ItemType => itemType;
         public Sprite Icon => icon.sprite;
@@ -45,13 +45,13 @@ namespace UndergroundFortress.UI.Inventory
         public void Construct(in int cellId,
             IStaticDataService staticDataService,
             IMovingItemService movingItemService,
-            InformationView informationView)
+            IInformationService informationService)
         {
             _id = cellId;
 
             _staticDataService = staticDataService;
             _movingItemService = movingItemService;
-            _informationView = informationView;
+            _informationService = informationService;
         }
 
         public void Initialize()
@@ -125,7 +125,7 @@ namespace UndergroundFortress.UI.Inventory
                 || !_rect.IsDotInside(position))
                 return;
 
-            _informationView.ShowItem(_itemData);
+            _informationService.ShowItem(_itemData);
         }
 
         private void HitInMovement(Vector3 position)

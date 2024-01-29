@@ -10,6 +10,7 @@ using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.UI.Craft;
 using UndergroundFortress.UI.Information;
+using UndergroundFortress.UI.Information.Services;
 using UndergroundFortress.UI.Inventory;
 
 namespace UndergroundFortress.UI.MainMenu
@@ -45,9 +46,11 @@ namespace UndergroundFortress.UI.MainMenu
         private void RegisterServices()
         {
             _mainMenuServicesContainer = new ServicesContainer();
+            
+            _mainMenuServicesContainer.Register<IInformationService>(new InformationService());
 
             CreateInventoryService();
-            
+
             _mainMenuServicesContainer.Register<ICraftService>(
                 new CraftService(
                     _staticDataService,
@@ -75,7 +78,9 @@ namespace UndergroundFortress.UI.MainMenu
 
         private void CreateInventoryService()
         {
-            InventoryService inventoryService = new InventoryService(_progressProviderService);
+            InventoryService inventoryService = new InventoryService(
+                _progressProviderService,
+                _mainMenuServicesContainer.Single<IInformationService>());
             inventoryService.Initialize();
             _mainMenuServicesContainer.Register<IInventoryService>(inventoryService);
         }
@@ -84,6 +89,7 @@ namespace UndergroundFortress.UI.MainMenu
         {
             InformationView information = _uiFactory.CreateInformation();
             information.Initialize(_staticDataService);
+            _mainMenuServicesContainer.Single<IInformationService>().Initialize(information);
 
             CraftView craft = _uiFactory.CreateCraft();
             craft.Construct(
@@ -98,7 +104,7 @@ namespace UndergroundFortress.UI.MainMenu
                 _staticDataService,
                 _mainMenuServicesContainer.Single<IInventoryService>(),
                 _mainMenuServicesContainer.Single<IMovingItemService>(),
-                information);
+                _mainMenuServicesContainer.Single<IInformationService>());
             inventory.Initialize();
 
             IMovingItemService movingItemService = _mainMenuServicesContainer.Single<IMovingItemService>();

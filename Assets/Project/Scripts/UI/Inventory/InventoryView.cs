@@ -6,7 +6,7 @@ using UndergroundFortress.Constants;
 using UndergroundFortress.Gameplay.Inventory;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
-using UndergroundFortress.UI.Information;
+using UndergroundFortress.UI.Information.Services;
 using UndergroundFortress.UI.MainMenu;
 
 namespace UndergroundFortress.UI.Inventory
@@ -28,7 +28,7 @@ namespace UndergroundFortress.UI.Inventory
         private IStaticDataService _staticDataService;
         private IInventoryService _inventoryService;
         private IMovingItemService _movingItemService;
-        private InformationView _informationView;
+        private IInformationService _informationService;
 
         private List<CellInventoryView> _cellsBag;
 
@@ -44,12 +44,12 @@ namespace UndergroundFortress.UI.Inventory
         public void Construct(IStaticDataService staticDataService,
             IInventoryService inventoryService,
             IMovingItemService movingItemService,
-            InformationView informationView)
+            IInformationService informationService)
         {
             _staticDataService = staticDataService;
             _inventoryService = inventoryService;
             _movingItemService = movingItemService;
-            _informationView = informationView;
+            _informationService = informationService;
         }
 
         public void Initialize()
@@ -74,7 +74,7 @@ namespace UndergroundFortress.UI.Inventory
 
             for (int i = 0; i < equipment.Count; i++)
             {
-                cellsEquipment[i].Construct(i, _staticDataService, _movingItemService, _informationView);
+                cellsEquipment[i].Construct(i, _staticDataService, _movingItemService, _informationService);
                 cellsEquipment[i].Subscribe(_inventoryService);
                 cellsEquipment[i].Subscribe(bagActiveArea);
                 cellsEquipment[i].Subscribe(equipmentActiveArea);
@@ -110,7 +110,7 @@ namespace UndergroundFortress.UI.Inventory
             for (int i = _cellsBag.Count; i < newSize; i++)
             {
                 CellInventoryView cellInventoryView = Instantiate(prefabCellInventoryView, bagListTransform);
-                cellInventoryView.Construct(i, _staticDataService, _movingItemService, _informationView);
+                cellInventoryView.Construct(i, _staticDataService, _movingItemService, _informationService);
                 cellInventoryView.Initialize();
                 cellInventoryView.Subscribe(_inventoryService);
                 cellInventoryView.Subscribe(bagActiveArea);

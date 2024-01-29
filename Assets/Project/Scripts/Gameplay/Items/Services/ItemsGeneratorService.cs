@@ -38,19 +38,16 @@ namespace UndergroundFortress.Gameplay.Items.Services
         private void CreateResource(ResourceStaticData resourceStaticData)
         {
             if (_inventoryService.IsBagFullForResource(resourceStaticData.type, resourceStaticData.id))
-            {
-                Debug.Log("Bag full");
                 return;
-            }
-                
+
             ResourceData resourceData = new ResourceData(
-                resourceStaticData.id,
-                resourceStaticData.type,
-                resourceStaticData.name,
-                resourceStaticData.description,
-                resourceStaticData.quality,
-                resourceStaticData.icon,
-                resourceStaticData.maxNumberForCell);
+            resourceStaticData.id,
+            resourceStaticData.type,
+            resourceStaticData.name,
+            resourceStaticData.description,
+            resourceStaticData.quality,
+            resourceStaticData.icon,
+            resourceStaticData.maxNumberForCell);
             
             _inventoryService.AddItem(resourceData);
         }

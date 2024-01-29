@@ -6,6 +6,7 @@ using UnityEngine;
 using UndergroundFortress.Constants;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Gameplay.Items;
+using UndergroundFortress.UI.Information.Services;
 using UndergroundFortress.UI.Inventory;
 
 namespace UndergroundFortress.Gameplay.Inventory.Services
@@ -13,6 +14,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
     public class InventoryService : IInventoryService
     {
         private readonly IProgressProviderService _progressProviderService;
+        private readonly IInformationService _informationService;
 
         private Dictionary<InventoryCellType, List<CellData>> _inventory;
 
@@ -21,9 +23,11 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
 
         public event Action<InventoryCellType, int, CellData> OnUpdateCell;
 
-        public InventoryService(IProgressProviderService progressProviderService)
+        public InventoryService(IProgressProviderService progressProviderService,
+            IInformationService informationService)
         {
             _progressProviderService = progressProviderService;
+            _informationService = informationService;
         }
 
         public void Initialize()
@@ -34,8 +38,16 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             _inventory.Add(InventoryCellType.Bag, _progressProviderService.ProgressData.Bag);
         }
 
-        public bool IsBagFull() => 
-            _inventory[InventoryCellType.Bag].All(cellData => cellData.ItemData != null);
+        public bool IsBagFull()
+        {
+            bool isFull = _inventory[InventoryCellType.Bag].All(cellData => cellData.ItemData != null);
+            
+            if (isFull)
+                _informationService.ShowWarning("Bag is full.");
+
+            return isFull;
+        }
+
         public bool IsBagFullForResource(ItemType itemType, int id)
         {
             if (!IsBagFull())
@@ -47,7 +59,12 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                     && cellData.ItemData.Type == itemType
                     && cellData.ItemData.Id == id);
 
-            return cells.All(cellData => cellData.Number >= cellData.ItemData.MaxNumberForCell);
+            bool isFull =  cells.All(cellData => cellData.Number >= cellData.ItemData.MaxNumberForCell);
+            
+            if (isFull)
+                _informationService.ShowWarning("Bag is full.");
+
+            return isFull;
         }
 
         public void AddItem(ItemData itemData)

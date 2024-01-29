@@ -30,10 +30,7 @@ namespace UndergroundFortress.Gameplay.Craft.Services
             StatType additionalMainType = StatType.Empty)
         {
             if (_inventoryService.IsBagFull())
-            {
-                Debug.Log("Bag full");
                 return;
-            }
             
             currentLevel = Math.Clamp(currentLevel, 0, equipmentStaticData.maxLevel);
 
