@@ -61,10 +61,11 @@ namespace UndergroundFortress.UI.Inventory
             Reset();
         }
 
-        public void Subscribe(IInventoryService inventoryService, ActiveArea activeArea)
-        {
+        public void Subscribe(IInventoryService inventoryService) => 
             inventoryService.OnUpdateCell += UpdateValue;
-            
+
+        public void Subscribe(ActiveArea activeArea)
+        {
             activeArea.OnUp += Hit;
             activeArea.OnStartMove += HitInMovement;
             activeArea.OnEndMove += HitInMovement;

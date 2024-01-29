@@ -41,6 +41,16 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                 AddNewItem(itemData);
         }
 
+        public void RemoveItem(ItemData itemData)
+        {
+            int itemBagId = GetResourceId(itemData);
+            
+            _inventory[InventoryCellType.Bag][itemBagId].ItemData = null;
+            _inventory[InventoryCellType.Bag][itemBagId].Number = 0;
+            
+            UpdateItemToCell(InventoryCellType.Bag, itemBagId);
+        }
+
         public void UpdateItemToCell(InventoryCellType cellType, in int id) => 
             OnUpdateCell?.Invoke(cellType, id, _inventory[cellType][id]);
 
@@ -49,7 +59,10 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             int itemBagId = GetResourceId(itemData);
 
             if (itemBagId != ConstantValues.ERROR_ID)
+            {
                 _inventory[InventoryCellType.Bag][itemBagId].Number++;
+                UpdateItemToCell(InventoryCellType.Bag, itemBagId);
+            }
             else
                 AddNewItem(itemData);
         }
@@ -77,12 +90,13 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
         {
             List<CellData> bag = _inventory[InventoryCellType.Bag];
 
-            foreach (CellData cellData in bag)
+            for (int i = 0; i < bag.Count; i++)
             {
-                if (cellData.ItemData == null)
+                if (bag[i].ItemData == null)
                 {
-                    cellData.ItemData = itemData;
-                    cellData.Number = 1;
+                    bag[i].ItemData = itemData;
+                    bag[i].Number = 1;
+                    UpdateItemToCell(InventoryCellType.Bag, i);
                     return;
                 }
             }

@@ -13,6 +13,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
         public List<CellData> Equipment { get; }
 
         public void AddItem(ItemData itemData);
+        public void RemoveItem(ItemData itemData);
         public void UpdateItemToCell(InventoryCellType cellType, in int id);
         public event Action<InventoryCellType, int, CellData> OnUpdateCell;
     }

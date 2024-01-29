@@ -18,6 +18,7 @@ namespace UndergroundFortress.UI.Inventory
         [Space]
         [SerializeField] private Transform bagListTransform;
         [SerializeField] private ActiveArea bagActiveArea;
+        [SerializeField] private TrashBin trashBin;
         [SerializeField] private CellInventoryView prefabCellInventoryView;
         
         [Space]
@@ -57,7 +58,9 @@ namespace UndergroundFortress.UI.Inventory
             
             bagActiveArea.Construct(_movingItemService);
             equipmentActiveArea.Construct(_movingItemService);
-            
+
+            trashBin.Construct(_inventoryService, _movingItemService);
+            trashBin.Subscribe(bagActiveArea);
             FillBag();
             FillEquipment();
         }
@@ -72,8 +75,9 @@ namespace UndergroundFortress.UI.Inventory
             for (int i = 0; i < equipment.Count; i++)
             {
                 cellsEquipment[i].Construct(i, _staticDataService, _movingItemService, _informationView);
-                cellsEquipment[i].Subscribe(_inventoryService, bagActiveArea);
-                cellsEquipment[i].Subscribe(_inventoryService, equipmentActiveArea);
+                cellsEquipment[i].Subscribe(_inventoryService);
+                cellsEquipment[i].Subscribe(bagActiveArea);
+                cellsEquipment[i].Subscribe(equipmentActiveArea);
                 
                 ItemData itemData = equipment[i].ItemData;
                 if (itemData != null
@@ -108,8 +112,9 @@ namespace UndergroundFortress.UI.Inventory
                 CellInventoryView cellInventoryView = Instantiate(prefabCellInventoryView, bagListTransform);
                 cellInventoryView.Construct(i, _staticDataService, _movingItemService, _informationView);
                 cellInventoryView.Initialize();
-                cellInventoryView.Subscribe(_inventoryService, bagActiveArea);
-                cellInventoryView.Subscribe(_inventoryService, equipmentActiveArea);
+                cellInventoryView.Subscribe(_inventoryService);
+                cellInventoryView.Subscribe(bagActiveArea);
+                cellInventoryView.Subscribe(equipmentActiveArea);
                 _cellsBag.Add(cellInventoryView);
             }
         }

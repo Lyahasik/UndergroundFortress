@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.UI.Inventory;
 using UndergroundFortress.UI.Information;
 
@@ -13,7 +14,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
         
         private CellItemView _cellItemView;
         
-        private CellInventoryView _cellInventoryView;
+        private CellInventoryView _draggedCellInventoryView;
         private Transform _transformItemView;
 
         private bool _isHit;
@@ -40,18 +41,18 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
 
         public void AddItem(CellInventoryView cellInventoryView, Vector3 newPosition)
         {
-            if (_cellInventoryView == null)
+            if (_draggedCellInventoryView == null)
             {
                 if (cellInventoryView.ItemData == null)
                     return;
                 
-                _cellInventoryView = cellInventoryView;
-                _cellInventoryView.Hide();
+                _draggedCellInventoryView = cellInventoryView;
+                _draggedCellInventoryView.Hide();
                     
                 _cellItemView.transform.position = newPosition;
-                _cellItemView.SetValues(_cellInventoryView.Icon, _cellInventoryView.Quality);
+                _cellItemView.SetValues(_draggedCellInventoryView.Icon, _draggedCellInventoryView.Quality);
             }
-            else if (cellInventoryView != _cellInventoryView)
+            else if (cellInventoryView != _draggedCellInventoryView)
             {
                 _isHit = true;
                 SwapCells(cellInventoryView);
@@ -71,21 +72,30 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                 return;
             }
             
-            if (_cellInventoryView != null) 
+            if (_draggedCellInventoryView != null) 
                 Reset();
+        }
+
+        public ItemData GetDraggedItem()
+        {
+            ItemData itemData = _draggedCellInventoryView.ItemData;
+
+            Reset();
+
+            return itemData;
         }
 
         private void SwapCells(CellInventoryView cellInventoryView)
         {
-            _swapCellsService.TrySwapCells(_cellInventoryView, cellInventoryView);
+            _swapCellsService.TrySwapCells(_draggedCellInventoryView, cellInventoryView);
 
             Reset();
         }
 
         private void Reset()
         {
-            _cellInventoryView.Show();
-            _cellInventoryView = null;
+            _draggedCellInventoryView.Show();
+            _draggedCellInventoryView = null;
 
             _cellItemView.Reset();
         }
