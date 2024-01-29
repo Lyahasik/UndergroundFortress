@@ -16,5 +16,8 @@
 
         public const int BASE_SIZE_BAG = 5;
         public const int MIN_NUMBER_ITEM_FOR_CELL = 1;
+        
+        public const int EQUIPMENT_START_ID = 0;
+        public const int RESOURCES_START_ID = 1000;
     }
 }

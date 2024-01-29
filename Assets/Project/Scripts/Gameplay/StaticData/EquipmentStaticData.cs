@@ -7,10 +7,8 @@ using UndergroundFortress.Gameplay.Stats;
 
 namespace UndergroundFortress.Gameplay.StaticData
 {
-    [CreateAssetMenu(fileName = "EquipmentData", menuName = "Static data/Equipment")]
-    public class EquipmentStaticData : ScriptableObject
+    public class EquipmentStaticData : ItemStaticData
     {
-        public int id;
         public ItemType type;
         
         [Space]

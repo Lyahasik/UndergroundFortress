@@ -5,14 +5,12 @@ using UndergroundFortress.Gameplay.Items;
 
 namespace UndergroundFortress.Gameplay.StaticData
 {
-    [CreateAssetMenu(fileName = "ResourceData", menuName = "Static data/Resource")]
-    public class ResourceStaticData : ScriptableObject
+    public class ResourceStaticData : ItemStaticData
     {
-        public int id;
         public ItemType type;
+        public string name;
         
         [Space]
-        public string name;
         public string description;
         public QualityType quality;
         public Sprite icon;

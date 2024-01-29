@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d5a7e64443b4cb4a81efc0997659849, type: 3}
   m_Name: EquipmentHealthData
   m_EditorClassIdentifier: 
-  id: 2
+  id: 1
   type: 4
   maxLevel: 10
   name: Equipment

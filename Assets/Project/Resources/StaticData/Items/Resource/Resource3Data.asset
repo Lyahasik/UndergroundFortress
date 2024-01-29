@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f37b4564f8914823a032b44852d94d47, type: 3}
   m_Name: Resource3Data
   m_EditorClassIdentifier: 
-  id: 103
+  id: 1002
   type: 20
   name: Name3
   description: 
