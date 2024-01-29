@@ -90,8 +90,7 @@ namespace UndergroundFortress.UI.Inventory
             icon.sprite = _staticDataService.GetItemIcon(_itemData.Id);
             quality.sprite = _staticDataService.GetQualityIcon(_itemData.QualityType);
             
-            if (!_itemData.Type.IsEquipment())
-                numberText.text = number;
+            numberText.text = _itemData.Type.IsEquipment() ? string.Empty : number;
         }
 
         public void Show()
