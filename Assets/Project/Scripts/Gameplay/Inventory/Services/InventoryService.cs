@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 using UndergroundFortress.Constants;
@@ -33,6 +34,22 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             _inventory.Add(InventoryCellType.Bag, _progressProviderService.ProgressData.Bag);
         }
 
+        public bool IsBagFull() => 
+            _inventory[InventoryCellType.Bag].All(cellData => cellData.ItemData != null);
+        public bool IsBagFullForResource(ItemType itemType, int id)
+        {
+            if (!IsBagFull())
+                return false;
+            
+            List<CellData> cells = _inventory[InventoryCellType.Bag]
+                .FindAll(cellData =>
+                    cellData.ItemData != null
+                    && cellData.ItemData.Type == itemType
+                    && cellData.ItemData.Id == id);
+
+            return cells.All(cellData => cellData.Number >= cellData.ItemData.MaxNumberForCell);
+        }
+
         public void AddItem(ItemData itemData)
         {
             if (itemData.Type == ItemType.Resource)
@@ -43,7 +60,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
 
         public void RemoveItem(ItemData itemData)
         {
-            int itemBagId = GetResourceId(itemData);
+            int itemBagId = GetItemId(itemData);
             
             _inventory[InventoryCellType.Bag][itemBagId].ItemData = null;
             _inventory[InventoryCellType.Bag][itemBagId].Number = 0;
@@ -65,6 +82,19 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             }
             else
                 AddNewItem(itemData);
+        }
+
+        private int GetItemId(ItemData itemData)
+        {
+            List<CellData> bag = _inventory[InventoryCellType.Bag];
+
+            for (int i = 0; i < bag.Count; i++)
+            {
+                if (bag[i].ItemData == itemData)
+                    return i;
+            }
+
+            return ConstantValues.ERROR_ID;
         }
 
         private int GetResourceId(ItemData itemData)

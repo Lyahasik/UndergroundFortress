@@ -38,10 +38,8 @@ namespace UndergroundFortress.UI.MainMenu
         }
         
         //TODO temporary
-        public void CreateResource()
-        {
-            _itemsGeneratorService.GenerateResource();
-        }
+        public void CreateResource(int id) => 
+            _itemsGeneratorService.GenerateResource(id);
 
         public void ActivateWindow(int idWindow)
         {
@@ -51,9 +49,7 @@ namespace UndergroundFortress.UI.MainMenu
                 window.ActivationUpdate(windowType);
         }
 
-        private void LoadLevel()
-        {
+        private void LoadLevel() => 
             _sceneProviderService.LoadLevel(ConstantValues.SCENE_NAME_LEVEL);
-        }
     }
 }

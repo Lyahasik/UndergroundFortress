@@ -8,7 +8,7 @@ using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.Items.Equipment;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats;
-
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace UndergroundFortress.Gameplay.Craft.Services
@@ -25,10 +25,16 @@ namespace UndergroundFortress.Gameplay.Craft.Services
             _inventoryService = inventoryService;
         }
 
-        public EquipmentData CreateEquipment(EquipmentStaticData equipmentStaticData,
+        public void CreateEquipment(EquipmentStaticData equipmentStaticData,
             int currentLevel,
             StatType additionalMainType = StatType.Empty)
         {
+            if (_inventoryService.IsBagFull())
+            {
+                Debug.Log("Bag full");
+                return;
+            }
+            
             currentLevel = Math.Clamp(currentLevel, 0, equipmentStaticData.maxLevel);
 
             QualityType qualityEquipment = GetRangeQualityType(QualityType.Gray, QualityType.White);
@@ -58,8 +64,6 @@ namespace UndergroundFortress.Gameplay.Craft.Services
                 new List<StoneItemData>());
             
             _inventoryService.AddItem(equipmentData);
-            
-            return equipmentData;
         }
 
         private List<StatItemData> GetMainStats(List<QualityValue> equipQualityValues,

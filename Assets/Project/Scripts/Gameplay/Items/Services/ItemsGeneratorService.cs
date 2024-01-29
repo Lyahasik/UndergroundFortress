@@ -28,8 +28,21 @@ namespace UndergroundFortress.Gameplay.Items.Services
             CreateResource(resources[id]);
         }
 
+        public void GenerateResource(int id)
+        {
+            List<ResourceStaticData> resources = _staticDataService.ForResources();
+
+            CreateResource(resources.Find(resource => resource.id == id));
+        }
+
         private void CreateResource(ResourceStaticData resourceStaticData)
         {
+            if (_inventoryService.IsBagFullForResource(resourceStaticData.type, resourceStaticData.id))
+            {
+                Debug.Log("Bag full");
+                return;
+            }
+                
             ResourceData resourceData = new ResourceData(
                 resourceStaticData.id,
                 resourceStaticData.type,
