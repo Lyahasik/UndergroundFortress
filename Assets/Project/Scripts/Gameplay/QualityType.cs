@@ -3,7 +3,7 @@
     public enum QualityType
     {
         Empty = 0,
-        Gray = 1,
+        Grey = 1,
         Green,
         Blue,
         Purple,

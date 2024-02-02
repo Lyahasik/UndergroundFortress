@@ -8,17 +8,29 @@ namespace UndergroundFortress.UI.Information
         [SerializeField] private Image icon;
         [SerializeField] private Image quality;
 
+        public Sprite Icon => icon.sprite;
+        public Sprite Quality => quality.sprite;
+
         public void SetValues(Sprite icon, Sprite quality)
         {
             this.icon.sprite = icon;
             this.quality.sprite = quality;
             
-            gameObject.SetActive(true);
+            Show();
         }
 
         public void Reset()
         {
-            gameObject.SetActive(false);
+            icon.sprite = null;
+            quality.sprite = null;
+            
+            Hide();
         }
+
+        public void Hide() => 
+            gameObject.SetActive(false);
+
+        public void Show() => 
+            gameObject.SetActive(true);
     }
 }

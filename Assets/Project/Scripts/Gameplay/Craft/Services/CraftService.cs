@@ -34,7 +34,7 @@ namespace UndergroundFortress.Gameplay.Craft.Services
             
             currentLevel = Math.Clamp(currentLevel, 0, equipmentStaticData.maxLevel);
 
-            QualityType qualityEquipment = GetRangeQualityType(QualityType.Gray, QualityType.White);
+            QualityType qualityEquipment = GetRangeQualityType(QualityType.Grey, QualityType.White);
 
             List<StatItemData> mainStats = GetMainStats(
                 equipmentStaticData.qualityValues,
@@ -42,7 +42,7 @@ namespace UndergroundFortress.Gameplay.Craft.Services
                 equipmentStaticData.typeStat,
                 additionalMainType);
 
-            int numberAdditionalStats = (int)qualityEquipment - (int)QualityType.Gray;
+            int numberAdditionalStats = (int)qualityEquipment - (int)QualityType.Grey;
             numberAdditionalStats = Math.Clamp(numberAdditionalStats, 0, ConstantValues.MAX_NUMBER_ADDITIONAL_STATS);
             List<StatItemData> additionalStats = GetAdditionalStats(numberAdditionalStats);
             
@@ -99,7 +99,7 @@ namespace UndergroundFortress.Gameplay.Craft.Services
                 
                 StatStaticData staticStatData = _staticDataService.ForStats()[idStat];
                 StatType typeStat = staticStatData.type;
-                QualityType qualityStat = GetRangeQualityType(QualityType.Gray, QualityType.White);
+                QualityType qualityStat = GetRangeQualityType(QualityType.Grey, QualityType.White);
 
                 float qualityValue = GetQualityValue(staticStatData.qualityValues, qualityStat, typeStat);
                 stats.Add(new (typeStat, null, qualityValue));

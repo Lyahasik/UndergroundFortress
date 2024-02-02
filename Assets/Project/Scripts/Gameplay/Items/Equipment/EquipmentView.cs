@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
+using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Stats;
 using UndergroundFortress.UI.Information;
 
@@ -10,15 +10,25 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
 {
     public class EquipmentView : MonoBehaviour
     {
-        [SerializeField] private TMP_Text titleText;
+        [SerializeField] private TMP_Text nameText;
+        [SerializeField] private CellItemView cellItemView;
+        [SerializeField] private GameObject buttonEquip;
+        [SerializeField] private GameObject buttonTakeOff;
+
+        [Space]
         [SerializeField] private List<StatView> mainStats;
         
-        [Space]
-        [SerializeField] private Image icon;
         [SerializeField] private List<StatView> stats;
-        
+
         [Space]
         [SerializeField] private List<StoneView> stones;
+
+        private IStaticDataService _staticDataService;
+
+        public void Construct(IStaticDataService staticDataService)
+        {
+            _staticDataService = staticDataService;
+        }
 
         public void Initialize()
         {
@@ -29,18 +39,21 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
             stones ??= new List<StoneView>();
         }
 
-        public void Show(EquipmentData equipmentData)
+        public void Show(EquipmentData equipmentData, bool isEquipped = false)
         {
-            titleText.text = equipmentData.Name;
+            nameText.text = equipmentData.Name;
+            cellItemView.SetValues(
+                equipmentData.Icon,
+                _staticDataService.GetQualityBackground(equipmentData.QualityType));
+            
+            ActivateEquipButtons(isEquipped);
 
             for (int i = 0; i < equipmentData.MainStats.Count; i++)
             {
                 StatItemData statData = equipmentData.MainStats[i];
                 mainStats[i].SetValues(statData.Icon, statData.Value);
             }
-
-            icon.sprite = equipmentData.Icon;
-
+            
             for (int i = 0; i < equipmentData.AdditionalStats.Count; i++)
             {
                 StatItemData statData = equipmentData.AdditionalStats[i];
@@ -55,32 +68,33 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
             
             gameObject.SetActive(true);
         }
-        
+
         public void Hide()
         {
             Reset();
             gameObject.SetActive(false);
         }
 
+        private void ActivateEquipButtons(bool isEquipped)
+        {
+            if (buttonEquip != null)
+                buttonEquip.SetActive(!isEquipped);
+            if (buttonTakeOff != null)
+                buttonTakeOff.SetActive(isEquipped);
+        }
+
         private void Reset()
         {
-            titleText.text = "Empty";
-            foreach (StatView statView in mainStats)
-            {
-                statView.SetValues(null, 0f);
-            }
+            nameText.text = "Empty";
             
-            icon.sprite = null;
-            
-            foreach (StatView statView in stats)
-            {
-                statView.SetValues(null, 0f);
-            }
+            foreach (StatView statView in mainStats) 
+                statView.Hide();
 
-            foreach (StoneView stoneView in stones)
-            {
-                stoneView.SetValues();
-            }
+            foreach (StatView statView in stats) 
+                statView.Hide();
+
+            foreach (StoneView stoneView in stones) 
+                stoneView.Hide();
         }
     }
 }

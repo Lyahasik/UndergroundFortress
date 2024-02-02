@@ -8,5 +8,10 @@ namespace UndergroundFortress.UI.Information
         {
             
         }
+
+        public void Hide()
+        {
+            
+        }
     }
 }

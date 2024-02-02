@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Items;
@@ -14,8 +13,8 @@ namespace UndergroundFortress.UI.Information
         [SerializeField] private GameObject closeObjects;
         
         [Space]
-        [SerializeField] private List<EquipmentView> equipmentQualities;
-        [SerializeField] private List<EquipmentView> equipmentSetQualities;
+        [SerializeField] private EquipmentView equipmentView;
+        [SerializeField] private EquipmentComparisonView equipmentComparisonView;
         
         [Space]
         [SerializeField] private ResourceView resourceView;
@@ -25,30 +24,35 @@ namespace UndergroundFortress.UI.Information
 
         [Space]
         [SerializeField] private WarningPrompt warningPrompt;
-
+        
         private EquipmentView _currentEquipmentView;
 
         public CellItemView CellItemView => cellItemView;
 
         public void Initialize(IStaticDataService staticDataService)
         {
-            foreach (EquipmentView equipmentView in equipmentQualities) 
-                equipmentView.Initialize();
+            equipmentView.Construct(staticDataService);
+            equipmentView.Initialize();
             
-            foreach (EquipmentView equipmentView in equipmentSetQualities) 
-                equipmentView.Initialize();
+            equipmentComparisonView.Initialize(staticDataService);
             
             resourceView.Construct(staticDataService);
         }
 
-        public void ShowItem(ItemData itemData)
+        public void ShowItem(ItemData itemData, bool isEquipped)
         {
             closeObjects.SetActive(true);
             
             if (itemData is EquipmentData equipmentData)
-                ShowEquipment(equipmentData);
+                ShowEquipment(equipmentData, isEquipped);
             else if (itemData is ResourceData resourceData)
                 ShowResource(resourceData);
+        }
+
+        public void ShowEquipmentComparison(EquipmentData equipmentData1, EquipmentData equipmentData2)
+        {
+            closeObjects.SetActive(true);
+            equipmentComparisonView.Show(equipmentData1, equipmentData2);
         }
 
         public void ShowWarning(string message) => 
@@ -58,32 +62,15 @@ namespace UndergroundFortress.UI.Information
         {
             closeObjects.SetActive(false);
             
-            _currentEquipmentView?.Hide();
+            equipmentView.Hide();
+            equipmentComparisonView.Hide();
             resourceView.Hide();
         }
 
         private void ShowResource(ResourceData resourceData) => 
             resourceView.Show(resourceData);
 
-        private void ShowEquipment(EquipmentData equipmentData)
-        {
-            if (!equipmentData.IsSet)
-            {
-                _currentEquipmentView = equipmentQualities[(int)equipmentData.QualityType - 1];
-                _currentEquipmentView.Show(equipmentData);
-            }
-            else
-            {
-                _currentEquipmentView = equipmentSetQualities[(int)equipmentData.QualityType - 1];
-                _currentEquipmentView.Show(equipmentData);
-            }
-        }
-
-        private void ShowEquipment(EquipmentData equipmentData, in Vector3 position)
-        {
-            ShowEquipment(equipmentData);
-
-            _currentEquipmentView.transform.position = position;
-        }
+        private void ShowEquipment(EquipmentData equipmentData, bool isEquipped) => 
+            equipmentView.Show(equipmentData, isEquipped);
     }
 }

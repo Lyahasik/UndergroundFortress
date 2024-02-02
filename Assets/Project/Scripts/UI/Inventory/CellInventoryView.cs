@@ -1,13 +1,12 @@
 ﻿using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 using UndergroundFortress.Extensions;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Inventory;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
-using UndergroundFortress.UI.Information.Services;
+using UndergroundFortress.UI.Information;
 
 namespace UndergroundFortress.UI.Inventory
 {
@@ -15,8 +14,7 @@ namespace UndergroundFortress.UI.Inventory
     public class CellInventoryView : MonoBehaviour
     {
         [SerializeField] private ItemType itemType;
-        [SerializeField] private Image icon;
-        [SerializeField] private Image quality;
+        [SerializeField] private CellItemView itemView;
         [SerializeField] private TMP_Text numberText;
         
         private int _id;
@@ -26,11 +24,11 @@ namespace UndergroundFortress.UI.Inventory
         private IMovingItemService _movingItemService;
 
         private RectTransform _rect;
-        private IInformationService _informationService;
+        private IInventoryService _inventoryService;
 
         public ItemType ItemType => itemType;
-        public Sprite Icon => icon.sprite;
-        public Sprite Quality => quality.sprite;
+        public Sprite Icon => itemView.Icon;
+        public Sprite Quality => itemView.Quality;
         public string Number => numberText.text;
 
         public int Id => _id;
@@ -45,13 +43,13 @@ namespace UndergroundFortress.UI.Inventory
         public void Construct(in int cellId,
             IStaticDataService staticDataService,
             IMovingItemService movingItemService,
-            IInformationService informationService)
+            IInventoryService inventoryService)
         {
             _id = cellId;
 
             _staticDataService = staticDataService;
             _movingItemService = movingItemService;
-            _informationService = informationService;
+            _inventoryService = inventoryService;
         }
 
         public void Initialize()
@@ -61,8 +59,8 @@ namespace UndergroundFortress.UI.Inventory
             Reset();
         }
 
-        public void Subscribe(IInventoryService inventoryService) => 
-            inventoryService.OnUpdateCell += UpdateValue;
+        public void Subscribe() => 
+            _inventoryService.OnUpdateCell += UpdateValue;
 
         public void Subscribe(ActiveArea activeArea)
         {
@@ -76,8 +74,9 @@ namespace UndergroundFortress.UI.Inventory
         {
             _itemData = cellData.ItemData;
             _inventoryCellType = inventoryCellType;
-            icon.sprite = _staticDataService.GetItemIcon(_itemData.Id);
-            quality.sprite = _staticDataService.GetQualityIcon(_itemData.QualityType);
+            itemView.SetValues(
+                _staticDataService.GetItemIcon(_itemData.Id),
+                _staticDataService.GetQualityBackground(_itemData.QualityType));
             
             if (!_itemData.Type.IsEquipment())
                 numberText.text = cellData.Number.ToString();
@@ -87,23 +86,25 @@ namespace UndergroundFortress.UI.Inventory
             string number)
         {
             _itemData = itemData;
-            icon.sprite = _staticDataService.GetItemIcon(_itemData.Id);
-            quality.sprite = _staticDataService.GetQualityIcon(_itemData.QualityType);
+            itemView.SetValues(
+                _staticDataService.GetItemIcon(_itemData.Id),
+                _staticDataService.GetQualityBackground(_itemData.QualityType));
             
             numberText.text = _itemData.Type.IsEquipment() ? string.Empty : number;
         }
 
         public void Show()
         {
-            icon.gameObject.SetActive(true);
-            quality.gameObject.SetActive(true);
+            if (_itemData == null)
+                return;
+            
+            itemView.Show();
             numberText.gameObject.SetActive(true);
         }
         
         public void Hide()
         {
-            icon.gameObject.SetActive(false);
-            quality.gameObject.SetActive(false);
+            itemView.Hide();
             numberText.gameObject.SetActive(false);
         }
 
@@ -114,8 +115,7 @@ namespace UndergroundFortress.UI.Inventory
             if (_inventoryCellType == InventoryCellType.Empty)
                 _inventoryCellType = inventoryCellType;
             
-            icon.sprite = null;
-            quality.sprite = null;
+            itemView.Reset();
             numberText.text = string.Empty;
         }
 
@@ -125,9 +125,9 @@ namespace UndergroundFortress.UI.Inventory
                 || !_rect.IsDotInside(position))
                 return;
 
-            _informationService.ShowItem(_itemData);
+            _inventoryService.ShowItem(_itemData, _inventoryCellType);
         }
-
+        
         private void HitInMovement(Vector3 position)
         {
             if (!_rect.IsDotInside(position))

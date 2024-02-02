@@ -103,8 +103,8 @@ namespace UndergroundFortress.Core.Services.StaticData
             return null;
         }
 
-        public Sprite GetQualityIcon(QualityType type) => 
-            _qualities.qualitiesData.Find(data => data.type == type).icon;
+        public Sprite GetQualityBackground(QualityType type) => 
+            _qualities.qualitiesData.Find(data => data.type == type).background;
 
         public ResourceStaticData GetResourceById(int itemId)
         {

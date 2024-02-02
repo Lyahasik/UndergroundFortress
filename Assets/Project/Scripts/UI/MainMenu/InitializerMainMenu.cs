@@ -103,8 +103,7 @@ namespace UndergroundFortress.UI.MainMenu
             inventory.Construct(
                 _staticDataService,
                 _mainMenuServicesContainer.Single<IInventoryService>(),
-                _mainMenuServicesContainer.Single<IMovingItemService>(),
-                _mainMenuServicesContainer.Single<IInformationService>());
+                _mainMenuServicesContainer.Single<IMovingItemService>());
             inventory.Initialize();
 
             IMovingItemService movingItemService = _mainMenuServicesContainer.Single<IMovingItemService>();

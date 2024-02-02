@@ -14,7 +14,7 @@
         public const int MAX_NUMBER_ADDITIONAL_STATS = 4;
         public const float MAX_PROBABILITY = 100f;
 
-        public const int BASE_SIZE_BAG = 5;
+        public const int BASE_SIZE_BAG = 20;
         public const int MIN_NUMBER_ITEM_FOR_CELL = 1;
         
         public const int EQUIPMENT_START_ID = 0;

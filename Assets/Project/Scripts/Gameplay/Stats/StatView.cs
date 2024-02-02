@@ -24,5 +24,13 @@ namespace UndergroundFortress.Gameplay.Stats
             
             gameObject.SetActive(true);
         }
+
+        public void Hide()
+        {
+            gameObject.SetActive(false);
+            
+            icon.sprite = null;
+            valueText.text = string.Empty;
+        }
     }
 }

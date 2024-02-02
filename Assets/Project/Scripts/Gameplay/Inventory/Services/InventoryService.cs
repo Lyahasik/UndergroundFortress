@@ -6,6 +6,7 @@ using UnityEngine;
 using UndergroundFortress.Constants;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Gameplay.Items;
+using UndergroundFortress.Gameplay.Items.Equipment;
 using UndergroundFortress.UI.Information.Services;
 using UndergroundFortress.UI.Inventory;
 
@@ -87,6 +88,30 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
 
         public void UpdateItemToCell(InventoryCellType cellType, in int id) => 
             OnUpdateCell?.Invoke(cellType, id, _inventory[cellType][id]);
+
+        public void ShowItem(ItemData itemData, InventoryCellType inventoryCellType)
+        {
+            var isBag = inventoryCellType == InventoryCellType.Bag;
+            if (!isBag || !TryEquipmentComparison(itemData))
+                _informationService.ShowItem(itemData, !isBag);
+        }
+
+        private bool TryEquipmentComparison(ItemData itemData)
+        {
+            if (itemData is not EquipmentData equipmentData)
+                return false;
+
+            CellData cellData = Equipment.Find(data =>
+                data.ItemData != null
+                && data.ItemData.Type == equipmentData.Type);
+            
+            if (cellData == null)
+                return false;
+            
+            _informationService.ShowEquipmentComparison(cellData.ItemData as EquipmentData, equipmentData);
+            
+            return true;
+        }
 
         private void AddResourceToBag(ItemData itemData)
         {

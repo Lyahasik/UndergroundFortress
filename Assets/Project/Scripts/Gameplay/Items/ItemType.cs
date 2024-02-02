@@ -6,9 +6,10 @@
         Weapon = 1,
         RightHand,
         Helmet,
-        Bib,
-        Trousers,
+        Chest,
+        Pants,
         Boots,
+        Gloves,
         Resource = 20
     }
 }

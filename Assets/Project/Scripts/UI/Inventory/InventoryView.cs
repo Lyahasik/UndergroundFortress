@@ -6,7 +6,6 @@ using UndergroundFortress.Constants;
 using UndergroundFortress.Gameplay.Inventory;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
-using UndergroundFortress.UI.Information.Services;
 using UndergroundFortress.UI.MainMenu;
 
 namespace UndergroundFortress.UI.Inventory
@@ -14,6 +13,7 @@ namespace UndergroundFortress.UI.Inventory
     public class InventoryView : MonoBehaviour, IWindow
     {
         [SerializeField] private WindowType windowType;
+        [SerializeField] private GameObject scrollHandleBag;
 
         [Space]
         [SerializeField] private Transform bagListTransform;
@@ -28,7 +28,6 @@ namespace UndergroundFortress.UI.Inventory
         private IStaticDataService _staticDataService;
         private IInventoryService _inventoryService;
         private IMovingItemService _movingItemService;
-        private IInformationService _informationService;
 
         private List<CellInventoryView> _cellsBag;
 
@@ -43,17 +42,17 @@ namespace UndergroundFortress.UI.Inventory
 
         public void Construct(IStaticDataService staticDataService,
             IInventoryService inventoryService,
-            IMovingItemService movingItemService,
-            IInformationService informationService)
+            IMovingItemService movingItemService)
         {
             _staticDataService = staticDataService;
             _inventoryService = inventoryService;
             _movingItemService = movingItemService;
-            _informationService = informationService;
         }
 
         public void Initialize()
         {
+            scrollHandleBag.SetActive(ConstantValues.BASE_SIZE_BAG > 20);
+            
             _cellsBag = new List<CellInventoryView>();
             
             bagActiveArea.Construct(_movingItemService);
@@ -74,8 +73,8 @@ namespace UndergroundFortress.UI.Inventory
 
             for (int i = 0; i < equipment.Count; i++)
             {
-                cellsEquipment[i].Construct(i, _staticDataService, _movingItemService, _informationService);
-                cellsEquipment[i].Subscribe(_inventoryService);
+                cellsEquipment[i].Construct(i, _staticDataService, _movingItemService, _inventoryService);
+                cellsEquipment[i].Subscribe();
                 cellsEquipment[i].Subscribe(bagActiveArea);
                 cellsEquipment[i].Subscribe(equipmentActiveArea);
                 
@@ -110,9 +109,9 @@ namespace UndergroundFortress.UI.Inventory
             for (int i = _cellsBag.Count; i < newSize; i++)
             {
                 CellInventoryView cellInventoryView = Instantiate(prefabCellInventoryView, bagListTransform);
-                cellInventoryView.Construct(i, _staticDataService, _movingItemService, _informationService);
+                cellInventoryView.Construct(i, _staticDataService, _movingItemService, _inventoryService);
                 cellInventoryView.Initialize();
-                cellInventoryView.Subscribe(_inventoryService);
+                cellInventoryView.Subscribe();
                 cellInventoryView.Subscribe(bagActiveArea);
                 cellInventoryView.Subscribe(equipmentActiveArea);
                 _cellsBag.Add(cellInventoryView);

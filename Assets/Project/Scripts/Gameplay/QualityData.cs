@@ -7,6 +7,6 @@ namespace UndergroundFortress.Gameplay
     public class QualityData
     {
         public QualityType type;
-        public Sprite icon;
+        public Sprite background;
     }
 }

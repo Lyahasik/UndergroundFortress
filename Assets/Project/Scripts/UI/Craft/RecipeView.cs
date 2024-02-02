@@ -55,7 +55,7 @@ namespace UndergroundFortress.UI.Craft
             nameText.text = equipmentData.name;
             maxLevelText.text = equipmentData.maxLevel.ToString();
 
-            QualityValue qualityValue = equipmentData.qualityValues[(int)QualityType.Gray];
+            QualityValue qualityValue = equipmentData.qualityValues[(int)QualityType.Grey];
             statView.SetValues(statTypeIcon, qualityValue.minValue, qualityValue.maxValue);
         }
 

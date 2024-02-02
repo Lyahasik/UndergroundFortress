@@ -97,7 +97,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             _draggedCellInventoryView.Show();
             _draggedCellInventoryView = null;
 
-            _cellItemView.Reset();
+            _cellItemView.Hide();
         }
     }
 }

@@ -18,5 +18,6 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
         public void RemoveItem(ItemData itemData);
         public void UpdateItemToCell(InventoryCellType cellType, in int id);
         public event Action<InventoryCellType, int, CellData> OnUpdateCell;
+        public void ShowItem(ItemData itemData, InventoryCellType inventoryCellType);
     }
 }
