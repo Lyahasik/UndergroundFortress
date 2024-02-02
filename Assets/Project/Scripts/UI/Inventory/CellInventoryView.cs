@@ -15,6 +15,7 @@ namespace UndergroundFortress.UI.Inventory
     {
         [SerializeField] private ItemType itemType;
         [SerializeField] private CellItemView itemView;
+        [SerializeField] private GameObject numberView;
         [SerializeField] private TMP_Text numberText;
         
         private int _id;
@@ -77,9 +78,8 @@ namespace UndergroundFortress.UI.Inventory
             itemView.SetValues(
                 _staticDataService.GetItemIcon(_itemData.Id),
                 _staticDataService.GetQualityBackground(_itemData.QualityType));
-            
-            if (!_itemData.Type.IsEquipment())
-                numberText.text = cellData.Number.ToString();
+
+            TryShowNumber(cellData.Number.ToString());
         }
 
         private void SetValues(ItemData itemData,
@@ -90,7 +90,7 @@ namespace UndergroundFortress.UI.Inventory
                 _staticDataService.GetItemIcon(_itemData.Id),
                 _staticDataService.GetQualityBackground(_itemData.QualityType));
             
-            numberText.text = _itemData.Type.IsEquipment() ? string.Empty : number;
+            TryShowNumber(number);
         }
 
         public void Show()
@@ -99,13 +99,15 @@ namespace UndergroundFortress.UI.Inventory
                 return;
             
             itemView.Show();
-            numberText.gameObject.SetActive(true);
+            
+            if (numberText.text != string.Empty)
+                numberView.SetActive(true);
         }
-        
+
         public void Hide()
         {
             itemView.Hide();
-            numberText.gameObject.SetActive(false);
+            numberView.SetActive(false);
         }
 
         public void Reset(in InventoryCellType inventoryCellType = InventoryCellType.Bag)
@@ -116,7 +118,7 @@ namespace UndergroundFortress.UI.Inventory
                 _inventoryCellType = inventoryCellType;
             
             itemView.Reset();
-            numberText.text = string.Empty;
+            numberView.SetActive(false);
         }
 
         private void Hit(Vector3 position)
@@ -127,7 +129,7 @@ namespace UndergroundFortress.UI.Inventory
 
             _inventoryService.ShowItem(_itemData, _inventoryCellType);
         }
-        
+
         private void HitInMovement(Vector3 position)
         {
             if (!_rect.IsDotInside(position))
@@ -146,6 +148,20 @@ namespace UndergroundFortress.UI.Inventory
                 SetValues(cellData.ItemData, cellData.Number.ToString());
             else
                 Reset();
+        }
+
+        private void TryShowNumber(string number)
+        {
+            if (_itemData.Type.IsEquipment())
+            {
+                numberView.SetActive(false);
+                numberText.text = string.Empty;
+            }
+            else
+            {
+                numberView.SetActive(true);
+                numberText.text = number;
+            }
         }
 
         public static bool operator ==(CellInventoryView value1, CellInventoryView value2)
