@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 
+using UndergroundFortress.UI.Information.Services;
 using UndergroundFortress.UI.Inventory;
 
 namespace UndergroundFortress.Gameplay.Inventory.Services
@@ -7,10 +8,13 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
     public class SwapCellsService : ISwapCellsService
     {
         private readonly IInventoryService _inventoryService;
+        private readonly IInformationService _informationService;
 
-        public SwapCellsService(IInventoryService inventoryService)
+        public SwapCellsService(IInventoryService inventoryService,
+            IInformationService informationService)
         {
             _inventoryService = inventoryService;
+            _informationService = informationService;
         }
 
         public void TrySwapCells(CellInventoryView cell1, CellInventoryView cell2)
@@ -32,10 +36,19 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                 if (cell1.ItemType == cell2.ItemType
                     || cell2.ItemData == null)
                 {
-                    Swap(equipment, bag,cell1, cell2);
+                    Swap(equipment, bag, cell1, cell2);
                     
                     return true;
                 }
+                
+                if (!_inventoryService.IsBagFull())
+                {
+                    AddItemToEmptyCellBag(equipment, cell1);
+                    
+                    return true;
+                }
+                
+                _informationService.ShowWarning("Bag is full.");
             }
 
             return false;
@@ -71,6 +84,16 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             }
 
             return false;
+        }
+
+        private void AddItemToEmptyCellBag(IList<CellData> list1, CellInventoryView cell1)
+        {
+            int id2 = _inventoryService.GetEmptyCellId();
+            List<CellData> bag = _inventoryService.Bag;
+            
+            (list1[cell1.Id], bag[id2]) = (bag[id2], list1[cell1.Id]);
+            _inventoryService.UpdateItemToCell(cell1.InventoryCellType, cell1.Id);
+            _inventoryService.UpdateItemToCell(InventoryCellType.Bag, id2);
         }
 
         private void Swap(IList<CellData> list1, IList<CellData> list2,

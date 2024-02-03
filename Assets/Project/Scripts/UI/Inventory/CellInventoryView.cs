@@ -27,7 +27,17 @@ namespace UndergroundFortress.UI.Inventory
         private RectTransform _rect;
         private IInventoryService _inventoryService;
 
-        public ItemType ItemType => itemType;
+        public ItemType ItemType
+        {
+            get
+            {
+                if (itemType != ItemType.Empty)
+                    return itemType;
+
+                return _itemData?.Type ?? ItemType.Empty;
+            }
+        }
+
         public Sprite Icon => itemView.Icon;
         public Sprite Quality => itemView.Quality;
         public string Number => numberText.text;

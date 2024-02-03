@@ -10,7 +10,8 @@ namespace UndergroundFortress.UI.Information
 {
     public class InformationView : MonoBehaviour
     {
-        [SerializeField] private GameObject closeObjects;
+        [SerializeField] private GameObject capArea;
+        [SerializeField] private GameObject closeButton;
         
         [Space]
         [SerializeField] private EquipmentView equipmentView;
@@ -41,7 +42,8 @@ namespace UndergroundFortress.UI.Information
 
         public void ShowItem(ItemData itemData, bool isEquipped)
         {
-            closeObjects.SetActive(true);
+            capArea.SetActive(true);
+            closeButton.SetActive(true);
             
             if (itemData is EquipmentData equipmentData)
                 ShowEquipment(equipmentData, isEquipped);
@@ -51,20 +53,24 @@ namespace UndergroundFortress.UI.Information
 
         public void ShowEquipmentComparison(EquipmentData equipmentData1, EquipmentData equipmentData2)
         {
-            closeObjects.SetActive(true);
+            capArea.SetActive(true);
+            closeButton.SetActive(true);
+            
             equipmentComparisonView.Show(equipmentData1, equipmentData2);
         }
 
         public void ShowWarning(string message) => 
             warningPrompt.Show(message);
 
-        public void CloseItems()
+        public void CloseView()
         {
-            closeObjects.SetActive(false);
+            capArea.SetActive(false);
+            closeButton.SetActive(false);
             
             equipmentView.Hide();
             equipmentComparisonView.Hide();
             resourceView.Hide();
+            warningPrompt.Hide();
         }
 
         private void ShowResource(ResourceData resourceData) => 

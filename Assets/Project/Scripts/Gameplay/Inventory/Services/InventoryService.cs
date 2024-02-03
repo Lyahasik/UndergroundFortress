@@ -39,11 +39,11 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             _inventory.Add(InventoryCellType.Bag, _progressProviderService.ProgressData.Bag);
         }
 
-        public bool IsBagFull()
+        public bool IsBagFull(bool isShowMessage = true)
         {
             bool isFull = _inventory[InventoryCellType.Bag].All(cellData => cellData.ItemData != null);
             
-            if (isFull)
+            if (isShowMessage && isFull)
                 _informationService.ShowWarning("Bag is full.");
 
             return isFull;
@@ -51,7 +51,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
 
         public bool IsBagFullForResource(ItemType itemType, int id)
         {
-            if (!IsBagFull())
+            if (!IsBagFull(false))
                 return false;
             
             List<CellData> cells = _inventory[InventoryCellType.Bag]
@@ -60,7 +60,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                     && cellData.ItemData.Type == itemType
                     && cellData.ItemData.Id == id);
 
-            bool isFull =  cells.All(cellData => cellData.Number >= cellData.ItemData.MaxNumberForCell);
+            bool isFull = cells.All(cellData => cellData.Number >= cellData.ItemData.MaxNumberForCell);
             
             if (isFull)
                 _informationService.ShowWarning("Bag is full.");
@@ -84,6 +84,19 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             _inventory[InventoryCellType.Bag][itemBagId].Number = 0;
             
             UpdateItemToCell(InventoryCellType.Bag, itemBagId);
+        }
+
+        public int GetEmptyCellId()
+        {
+            for (int i = 0; i < Bag.Count; i++)
+            {
+                if (Bag[i].ItemData == null)
+                    return i;
+            }
+            
+            Debug.LogWarning($"Not found empty cell.");
+            
+            return ConstantValues.ERROR_ID;
         }
 
         public void UpdateItemToCell(InventoryCellType cellType, in int id) => 
