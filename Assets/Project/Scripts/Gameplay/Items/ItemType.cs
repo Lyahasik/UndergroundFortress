@@ -3,13 +3,16 @@
     public enum ItemType
     {
         Empty = 0,
-        Weapon = 1,
-        RightHand,
-        Helmet,
+        Sword = 1,
+        TwoHandedWeapon,
+        Dagger,
+        Mace,
+        Shield,
         Chest,
         Pants,
         Boots,
         Gloves,
+        
         Resource = 20
     }
 }

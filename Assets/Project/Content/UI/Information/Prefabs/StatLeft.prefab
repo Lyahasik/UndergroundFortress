@@ -238,11 +238,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3449463196532488033, guid: b9460c9271b1c024fad9f0263a13cc38, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0.9891968
+      value: 86.2438
       objectReference: {fileID: 0}
     - target: {fileID: 3449463196532488033, guid: b9460c9271b1c024fad9f0263a13cc38, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1.1870003
+      value: 1.187
       objectReference: {fileID: 0}
     - target: {fileID: 3449463196532488033, guid: b9460c9271b1c024fad9f0263a13cc38, type: 3}
       propertyPath: m_LocalPosition.x
@@ -274,7 +274,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3449463196532488033, guid: b9460c9271b1c024fad9f0263a13cc38, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.11000061
+      value: -76.99994
       objectReference: {fileID: 0}
     - target: {fileID: 3449463196532488033, guid: b9460c9271b1c024fad9f0263a13cc38, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -302,7 +302,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9001595082139469515, guid: b9460c9271b1c024fad9f0263a13cc38, type: 3}
       propertyPath: m_fontSize
-      value: 28.55
+      value: 37.75
       objectReference: {fileID: 0}
     - target: {fileID: 9001595082139469515, guid: b9460c9271b1c024fad9f0263a13cc38, type: 3}
       propertyPath: m_fontStyle
@@ -338,7 +338,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9001595082139469515, guid: b9460c9271b1c024fad9f0263a13cc38, type: 3}
       propertyPath: m_HorizontalAlignment
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -459,7 +459,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9001595082139469515, guid: b9460c9271b1c024fad9f0263a13cc38, type: 3}
       propertyPath: m_fontSize
-      value: 29.75
+      value: 39.35
       objectReference: {fileID: 0}
     - target: {fileID: 9001595082139469515, guid: b9460c9271b1c024fad9f0263a13cc38, type: 3}
       propertyPath: m_fontStyle

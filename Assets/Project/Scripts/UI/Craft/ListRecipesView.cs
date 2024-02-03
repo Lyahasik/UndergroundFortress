@@ -35,7 +35,7 @@ namespace UndergroundFortress.UI.Craft
         {
             _recipes = new List<RecipeView>();
             
-            FillList((int) ItemType.Weapon);
+            FillList((int) ItemType.Sword);
         }
 
         public void FillList(int idItemType)
