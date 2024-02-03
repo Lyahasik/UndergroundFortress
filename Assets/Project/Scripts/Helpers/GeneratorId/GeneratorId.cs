@@ -17,9 +17,9 @@ namespace UndergroundFortress.Helpers.GeneratorId
             switch (itemType)
             {
                 case ItemStaticDataType.Equipment:
-                    return CreateId(generatedIdsStaticData.resourcesIds, ConstantValues.EQUIPMENT_START_ID);
+                    return CreateId(generatedIdsStaticData.equipmentIds, ConstantValues.EQUIPMENT_START_ID);
                 case ItemStaticDataType.Resource:
-                    return CreateId(generatedIdsStaticData.equipmentIds, ConstantValues.RESOURCES_START_ID);
+                    return CreateId(generatedIdsStaticData.resourcesIds, ConstantValues.RESOURCES_START_ID);
             }
 
             return ConstantValues.ERROR_ID;

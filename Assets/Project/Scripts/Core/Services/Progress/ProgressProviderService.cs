@@ -49,12 +49,12 @@ namespace UndergroundFortress.Core.Services.Progress
                 },
                 ActiveRecipes = new Dictionary<ItemType, List<int>>
                 {
-                    { ItemType.Sword, new List<int> { 7 } },
+                    { ItemType.Sword, new List<int> { 7, 9, 10 } },
                     { ItemType.TwoHandedWeapon, new List<int> { 8 } },
                     { ItemType.Dagger, new List<int> { 2 } },
                     { ItemType.Mace, new List<int> { 4 } },
                     { ItemType.Shield, new List<int> { 6 } },
-                    { ItemType.Chest, new List<int> { 1 } },
+                    { ItemType.Chest, new List<int> { 1, 11 } },
                     { ItemType.Pants, new List<int> { 5 } },
                     { ItemType.Boots, new List<int> { 0 } },
                     { ItemType.Gloves, new List<int> { 3 } }

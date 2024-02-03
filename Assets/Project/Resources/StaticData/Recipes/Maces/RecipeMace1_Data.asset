@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91f1c1d3cba24b4ca751d1e2bd1ef38f, type: 3}
-  m_Name: GeneratedIdsData
+  m_Script: {fileID: 11500000, guid: 65cb73a5de074c9f9ff2c15288c0f7c4, type: 3}
+  m_Name: RecipeMace1_Data
   m_EditorClassIdentifier: 
-  resourcesIds: 000000000100000002000000
-  equipmentIds: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b000000
+  id: 4
+  idItem: 4

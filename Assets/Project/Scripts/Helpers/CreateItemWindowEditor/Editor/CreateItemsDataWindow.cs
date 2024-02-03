@@ -8,17 +8,16 @@ namespace UndergroundFortress.Helpers.CreateItemWindowEditor.Editor
 {
     public class CreateItemsDataWindow : EditorWindow
     {
-        private const string BaseName = "ItemData";
+        private const string BaseName = "Item";
 
         private const string PathGeneratedIdsData = "StaticData/GeneratedIdsData";
-        private const string PathMain = "Assets/Project/Resources/StaticData/Items/";
-        private const string PathResource = "Resource/";
-        private const string PathEquipment = "Equipment/";
+        private const string PathMain = "Assets/Project/Resources/StaticData/";
+        private const string PathResource = "Items/Resource/";
+        private const string PathEquipment = "Items/Equipment/";
+        private const string PathRecipe = "Recipes/Recipe";
 
         private string _itemName = BaseName;
         private ItemStaticDataType _itemType;
-
-        private string _fullName;
 
         [MenuItem("Window/Create Items")]
         public static void ShowWindow()
@@ -47,38 +46,54 @@ namespace UndergroundFortress.Helpers.CreateItemWindowEditor.Editor
             if (_itemName == string.Empty)
                 _itemName = BaseName;
             
-            ScriptableObject asset = CreateAsset();
+            ItemStaticData itemAsset = CreateItemAsset();
+            TryCreateRecipeAsset(itemAsset.id);
 
-            AssetDatabase.CreateAsset(asset, _fullName);
             AssetDatabase.SaveAssets();
+
 
             EditorUtility.FocusProjectWindow();
 
-            Selection.activeObject = asset;
+            Selection.activeObject = itemAsset;
         }
 
-        private ScriptableObject CreateAsset()
+        private ItemStaticData CreateItemAsset()
         {
             switch (_itemType)
             {
                 case ItemStaticDataType.Resource:
-                    return CreateAsset<ResourceStaticData>(PathResource);
+                    return CreateItemAsset<ResourceStaticData>(PathResource);
                 case ItemStaticDataType.Equipment:
-                    return CreateAsset<EquipmentStaticData>(PathEquipment);
+                    return CreateItemAsset<EquipmentStaticData>(PathEquipment);
             }
 
             return null;
         }
 
-        private ScriptableObject CreateAsset<T>(string pathItem) where T : ItemStaticData
+        private ItemStaticData CreateItemAsset<T>(string pathItem) where T : ItemStaticData
         {
             var generatedIdsStaticData = Resources.Load<GeneratedIdsStaticData>(PathGeneratedIdsData);
             
-            _fullName = $"{PathMain}{pathItem}{_itemName}.asset";
-            T resourceData = CreateInstance<T>();
-            resourceData.id = UndergroundFortress.Helpers.GeneratorId.GeneratorId.GenerateUnique(generatedIdsStaticData, _itemType);
+            string fullName = $"{PathMain}{pathItem}{_itemName}_Data.asset";
+            T itemData = CreateInstance<T>();
+            itemData.id = UndergroundFortress.Helpers.GeneratorId.GeneratorId.GenerateUnique(generatedIdsStaticData, _itemType);
             
-            return resourceData;
+            AssetDatabase.CreateAsset(itemData, fullName);
+
+            return itemData;
+        }
+
+        private void TryCreateRecipeAsset(in int id)
+        {
+            if (_itemType != ItemStaticDataType.Equipment)
+                return;
+            
+            string fullName = $"{PathMain}{PathRecipe}{_itemName}_Data.asset";
+            RecipeStaticData recipeData = CreateInstance<RecipeStaticData>();
+            recipeData.id = id;
+            recipeData.idItem = id;
+            
+            AssetDatabase.CreateAsset(recipeData, fullName);
         }
     }
 }

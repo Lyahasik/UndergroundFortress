@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3d5a7e64443b4cb4a81efc0997659849, type: 3}
-  m_Name: SwordData
+  m_Name: TwoHandedWeapon1_Data
   m_EditorClassIdentifier: 
-  id: 7
-  type: 1
+  id: 8
+  type: 2
   maxLevel: 10
-  name: Sword1
-  icon: {fileID: 21300000, guid: 94126c5ad255197418bf90c448c58a68, type: 3}
+  name: Axe1
+  icon: {fileID: 21300000, guid: 6df246b2e8313334e83c8c42ce6f4855, type: 3}
   maxNumberForCell: 1
   typeStat: 31
   qualityValues:
