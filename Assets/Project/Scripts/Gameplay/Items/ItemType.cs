@@ -13,6 +13,8 @@
         Boots,
         Gloves,
         
-        Resource = 20
+        Resource = 20,
+        
+        Consumable = 200
     }
 }

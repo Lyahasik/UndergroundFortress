@@ -112,7 +112,8 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             
             List<CellData> equipment = _inventoryService.Equipment;
                 
-            return cell1.ItemData?.Type == cell2.ItemData?.Type && Swap(equipment, equipment, cell1, cell2);
+            return cell1.ItemData?.Type == cell2.ItemType
+                   && Swap(equipment, equipment, cell1, cell2);
         }
 
         private bool TryEquippingHands(List<CellData> bag, List<CellData> equipment,

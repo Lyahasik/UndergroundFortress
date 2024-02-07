@@ -45,6 +45,9 @@ namespace UndergroundFortress.Core.Services.Progress
                     new (null, 1),
                     new (null, 1),
                     new (null, 1),
+                    new (null, 1),
+                    new (null, 1),
+                    new (null, 1),
                     new (null, 1)
                 },
                 ActiveRecipes = new Dictionary<ItemType, List<int>>

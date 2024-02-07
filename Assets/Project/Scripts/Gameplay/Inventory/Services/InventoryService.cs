@@ -70,8 +70,8 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
 
         public void AddItem(ItemData itemData)
         {
-            if (itemData.Type == ItemType.Resource)
-                AddResourceToBag(itemData);
+            if (itemData.Type >= ItemType.Resource)
+                AddCountedItemToBag(itemData);
             else
                 AddNewItem(itemData);
         }
@@ -126,9 +126,9 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             return true;
         }
 
-        private void AddResourceToBag(ItemData itemData)
+        private void AddCountedItemToBag(ItemData itemData)
         {
-            int itemBagId = GetResourceId(itemData);
+            int itemBagId = GetCountedItemId(itemData);
 
             if (itemBagId != ConstantValues.ERROR_ID)
             {
@@ -152,7 +152,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             return ConstantValues.ERROR_ID;
         }
 
-        private int GetResourceId(ItemData itemData)
+        private int GetCountedItemId(ItemData itemData)
         {
             List<CellData> bag = _inventory[InventoryCellType.Bag];
             
