@@ -67,6 +67,9 @@ namespace UndergroundFortress.UI.Inventory
         public void ActivationUpdate(WindowType type) => 
             gameObject.SetActive(type == windowType);
 
+        public CellInventoryView GetCellEquipmentByItemType(ItemType itemType) => 
+            cellsEquipment.Find(cell => cell.ItemType == itemType);
+
         private void FillEquipment()
         {
             List<CellData> equipment = _inventoryService.Equipment;

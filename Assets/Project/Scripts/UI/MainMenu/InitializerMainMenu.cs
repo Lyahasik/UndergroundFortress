@@ -59,8 +59,7 @@ namespace UndergroundFortress.UI.MainMenu
             
             _mainMenuServicesContainer.Register<ISwapCellsService>(
                 new SwapCellsService(
-                    _mainMenuServicesContainer.Single<IInventoryService>(),
-                    _mainMenuServicesContainer.Single<IInformationService>()));
+                    _mainMenuServicesContainer.Single<IInventoryService>()));
 
             CreateMovingService();
 
@@ -107,6 +106,7 @@ namespace UndergroundFortress.UI.MainMenu
                 _mainMenuServicesContainer.Single<IInventoryService>(),
                 _mainMenuServicesContainer.Single<IMovingItemService>());
             inventory.Initialize();
+            _mainMenuServicesContainer.Single<ISwapCellsService>().Initialize(inventory);
 
             IMovingItemService movingItemService = _mainMenuServicesContainer.Single<IMovingItemService>();
             movingItemService.Initialize(information.CellItemView);
