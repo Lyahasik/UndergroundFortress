@@ -6,9 +6,9 @@ using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.Items.Equipment;
+using UndergroundFortress.Gameplay.Items.Resource;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats;
-using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace UndergroundFortress.Gameplay.Craft.Services
@@ -25,7 +25,7 @@ namespace UndergroundFortress.Gameplay.Craft.Services
             _inventoryService = inventoryService;
         }
 
-        public void CreateEquipment(EquipmentStaticData equipmentStaticData,
+        public void TryCreateEquipment(EquipmentStaticData equipmentStaticData,
             int currentLevel,
             StatType additionalMainType = StatType.Empty)
         {
@@ -34,15 +34,15 @@ namespace UndergroundFortress.Gameplay.Craft.Services
             
             currentLevel = Math.Clamp(currentLevel, 0, equipmentStaticData.maxLevel);
 
-            QualityType qualityEquipment = GetRangeQualityType(QualityType.Grey, QualityType.White);
+            QualityType quality = GetRangeQualityType(QualityType.Grey, QualityType.White);
 
             List<StatItemData> mainStats = GetMainStats(
                 equipmentStaticData.qualityValues,
-                qualityEquipment,
+                quality,
                 equipmentStaticData.typeStat,
                 additionalMainType);
 
-            int numberAdditionalStats = (int)qualityEquipment - (int)QualityType.Grey;
+            int numberAdditionalStats = (int)quality - (int)QualityType.Grey;
             numberAdditionalStats = Math.Clamp(numberAdditionalStats, 0, ConstantValues.MAX_NUMBER_ADDITIONAL_STATS);
             List<StatItemData> additionalStats = GetAdditionalStats(numberAdditionalStats);
             
@@ -52,7 +52,7 @@ namespace UndergroundFortress.Gameplay.Craft.Services
                 equipmentStaticData.type,
                 currentLevel,
                 isSet,
-                qualityEquipment,
+                quality,
                 equipmentStaticData.name,
                 equipmentStaticData.icon,
                 equipmentStaticData.maxNumberForCell,
@@ -61,6 +61,22 @@ namespace UndergroundFortress.Gameplay.Craft.Services
                 new List<StoneItemData>());
             
             _inventoryService.AddItem(equipmentData);
+        }
+
+        public void TryCreateResource(ResourceStaticData resourceStaticData)
+        {
+            if (_inventoryService.IsBagFullForResource(resourceStaticData.type, resourceStaticData.id))
+                return;
+            
+            ResourceData resourceData = new ResourceData(resourceStaticData.id,
+                resourceStaticData.type,
+                resourceStaticData.name,
+                resourceStaticData.description,
+                resourceStaticData.quality,
+                resourceStaticData.icon,
+                resourceStaticData.maxNumberForCell);
+            
+            _inventoryService.AddItem(resourceData);
         }
 
         private List<StatItemData> GetMainStats(List<QualityValue> equipQualityValues,

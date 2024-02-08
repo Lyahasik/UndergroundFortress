@@ -60,7 +60,8 @@ namespace UndergroundFortress.Core.Services.Progress
                     { ItemType.Chest, new List<int> { 1, 11 } },
                     { ItemType.Pants, new List<int> { 5 } },
                     { ItemType.Boots, new List<int> { 0 } },
-                    { ItemType.Gloves, new List<int> { 3 } }
+                    { ItemType.Gloves, new List<int> { 3 } },
+                    { ItemType.Consumable, new List<int> { 1003 } }
                 },
                 Bag = new List<CellData>()
             };

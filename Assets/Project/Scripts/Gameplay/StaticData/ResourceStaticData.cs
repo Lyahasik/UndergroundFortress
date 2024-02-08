@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
 
 using UndergroundFortress.Constants;
-using UndergroundFortress.Gameplay.Items;
 
 namespace UndergroundFortress.Gameplay.StaticData
 {
     public class ResourceStaticData : ItemStaticData
     {
-        public ItemType type;
         public string name;
         
         [Space]

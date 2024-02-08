@@ -5,6 +5,7 @@ using UnityEngine;
 using UndergroundFortress.Constants;
 using UndergroundFortress.Gameplay;
 using UndergroundFortress.Gameplay.StaticData;
+using UndergroundFortress.Gameplay.Stats;
 using UndergroundFortress.UI.MainMenu.StaticData;
 using UndergroundFortress.UI.StaticData;
 
@@ -80,6 +81,9 @@ namespace UndergroundFortress.Core.Services.StaticData
 
         public List<RecipeStaticData> ForRecipes() => 
             _recipes;
+
+        public Sprite GetStatIcon(StatType statType) => 
+            _stats.Find(data => data.type == statType).icon;
 
         public Sprite GetItemIcon(int itemDataId)
         {

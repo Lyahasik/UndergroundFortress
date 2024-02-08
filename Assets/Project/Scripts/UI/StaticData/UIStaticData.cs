@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace UndergroundFortress.UI.StaticData
@@ -7,5 +8,7 @@ namespace UndergroundFortress.UI.StaticData
     {
         public float curtainDissolutionStep;
         public float curtainDissolutionDelay;
+
+        public List<CraftItemData> craftItemsData;
     }
 }

@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 using UndergroundFortress.Constants;
-using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.Stats;
 
 namespace UndergroundFortress.Gameplay.StaticData
 {
     public class EquipmentStaticData : ItemStaticData
     {
-        public ItemType type;
-        
         [Space]
         public int maxLevel;
         public string name;

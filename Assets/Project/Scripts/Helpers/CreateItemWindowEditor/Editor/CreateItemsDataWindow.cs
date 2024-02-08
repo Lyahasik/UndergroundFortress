@@ -90,7 +90,6 @@ namespace UndergroundFortress.Helpers.CreateItemWindowEditor.Editor
             
             string fullName = $"{PathMain}{PathRecipe}{_itemName}_Data.asset";
             RecipeStaticData recipeData = CreateInstance<RecipeStaticData>();
-            recipeData.id = id;
             recipeData.idItem = id;
             
             AssetDatabase.CreateAsset(recipeData, fullName);

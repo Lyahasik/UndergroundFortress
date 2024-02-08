@@ -34,14 +34,10 @@ namespace UndergroundFortress.UI.Craft
         public void Initialize()
         {
             _recipes = new List<RecipeView>();
-            
-            FillList((int) ItemType.Sword);
         }
 
-        public void FillList(int idItemType)
+        public void FillList(ItemType itemType)
         {
-            ItemType itemType = (ItemType) idItemType;
-            
             ResetList();
 
             ChangeItemTypeButtons(itemType);
@@ -51,15 +47,28 @@ namespace UndergroundFortress.UI.Craft
 
             List<RecipeStaticData> recipesStaticData = _staticDataService.ForRecipes();
             List<EquipmentStaticData> equipmentsStaticData = _staticDataService.ForEquipments();
+            List<ResourceStaticData> resourcesStaticData = _staticDataService.ForResources();
+            
             foreach (int itemId in activeRecipes[itemType])
             {
-                RecipeStaticData recipeData = recipesStaticData.Find(v => v.id == itemId);
-                EquipmentStaticData equipmentData
-                    = equipmentsStaticData.Find(v => v.id == recipeData.idItem);
+                RecipeStaticData recipeData = recipesStaticData.Find(v => v.idItem == itemId);
                 
                 RecipeView recipeView = Instantiate(prefabRecipeView, gameObject.transform);
                 recipeView.Construct(_craftView, this);
-                recipeView.Initialize(equipmentData, equipmentData.icon);
+                
+                if (IsEquipment(itemType))
+                {
+                    EquipmentStaticData equipmentData
+                        = equipmentsStaticData.Find(v => v.id == recipeData.idItem);
+                    recipeView.Initialize(equipmentData, _staticDataService.GetStatIcon(equipmentData.typeStat));
+                }
+                else
+                {
+                    ResourceStaticData resourceData
+                        = resourcesStaticData.Find(v => v.id == recipeData.idItem);
+                    recipeView.Initialize(resourceData);
+                }
+                
                 recipeView.Subscribe();
                 
                 _recipes.Add(recipeView);
@@ -88,6 +97,11 @@ namespace UndergroundFortress.UI.Craft
         {
             foreach (ItemTypeButton itemTypeButton in itemTypeButtons)
                 itemTypeButton.Change(itemType);
+        }
+
+        private bool IsEquipment(ItemType type)
+        {
+            return type is >= ItemType.Sword and < ItemType.Resource;
         }
     }
 }

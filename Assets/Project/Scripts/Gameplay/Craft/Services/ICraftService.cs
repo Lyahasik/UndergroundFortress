@@ -6,8 +6,9 @@ namespace UndergroundFortress.Gameplay.Craft.Services
 {
     public interface ICraftService : IService
     {
-        public void CreateEquipment(EquipmentStaticData equipmentStaticData,
+        public void TryCreateEquipment(EquipmentStaticData equipmentStaticData,
             int currentLevel,
             StatType additionalMainType = StatType.Empty);
+        public void TryCreateResource(ResourceStaticData resourceStaticData);
     }
 }

@@ -14,3 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curtainDissolutionStep: 0.1
   curtainDissolutionDelay: 0.03
+  craftItemsData:
+  - itemType: 1
+    icon: {fileID: 21300000, guid: 4d88df2c3d6f1ae4d95177b87c8d0685, type: 3}
+  - itemType: 2
+    icon: {fileID: 21300000, guid: 391f1bd789edc4d4facd27af97d6bc58, type: 3}
+  - itemType: 3
+    icon: {fileID: 21300000, guid: 28b3d12fa26561a4ab86766c1decd5dd, type: 3}
+  - itemType: 4
+    icon: {fileID: 21300000, guid: c0c6d61cbe33af34383fc3a2c81b24d9, type: 3}
+  - itemType: 5
+    icon: {fileID: 21300000, guid: c47cafbd77206524d88fb1190df83226, type: 3}
+  - itemType: 6
+    icon: {fileID: 21300000, guid: 8841e68a77ecaf143ad56a371c5c0485, type: 3}
+  - itemType: 7
+    icon: {fileID: 21300000, guid: 55fc54c08d4236242bcb94c7c492f176, type: 3}
+  - itemType: 8
+    icon: {fileID: 21300000, guid: ff725fd8a69d6a645a4b165f4bbc9cf7, type: 3}
+  - itemType: 9
+    icon: {fileID: 21300000, guid: 5c1ba3f78dd075f46b6a199eb61ece2d, type: 3}
+  - itemType: 200
+    icon: {fileID: 21300000, guid: 856fb95e3a70e994a8ab65833ce61fa0, type: 3}
