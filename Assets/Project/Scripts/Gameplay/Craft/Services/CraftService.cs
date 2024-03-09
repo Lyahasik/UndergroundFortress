@@ -9,6 +9,7 @@ using UndergroundFortress.Gameplay.Items.Equipment;
 using UndergroundFortress.Gameplay.Items.Resource;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats;
+using UndergroundFortress.UI.Craft.Recipe;
 using Random = UnityEngine.Random;
 
 namespace UndergroundFortress.Gameplay.Craft.Services
@@ -27,12 +28,14 @@ namespace UndergroundFortress.Gameplay.Craft.Services
 
         public void TryCreateEquipment(EquipmentStaticData equipmentStaticData,
             int currentLevel,
+            int moneyPrice,
             ListPrice listPrice,
             StatType additionalMainType = StatType.Empty)
         {
             if (_inventoryService.IsBagFull())
                 return;
             
+            _inventoryService.WalletOperationService.RemoveMoney(moneyPrice);
             listPrice.PriceResources.ForEach(data => _inventoryService.RemoveItemsById(data.ItemId, data.Required));
             
             currentLevel = Math.Clamp(currentLevel, 0, equipmentStaticData.maxLevel);
@@ -66,11 +69,12 @@ namespace UndergroundFortress.Gameplay.Craft.Services
             _inventoryService.AddItem(equipmentData);
         }
 
-        public void TryCreateResource(ResourceStaticData resourceStaticData, ListPrice listPrice)
+        public void TryCreateResource(ResourceStaticData resourceStaticData, int moneyPrice, ListPrice listPrice)
         {
             if (_inventoryService.IsBagFullForResource(resourceStaticData.type, resourceStaticData.id))
                 return;
             
+            _inventoryService.WalletOperationService.RemoveMoney(moneyPrice);
             listPrice.PriceResources.ForEach(data => _inventoryService.RemoveItemsById(data.ItemId, data.Required));
             
             ResourceData resourceData = new ResourceData(resourceStaticData.id,

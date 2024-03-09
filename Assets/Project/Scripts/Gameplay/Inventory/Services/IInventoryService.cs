@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using UndergroundFortress.Core.Services;
+using UndergroundFortress.Gameplay.Inventory.Wallet.Services;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.UI.Inventory;
 
@@ -12,6 +13,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
         public List<CellData> Bag { get; }
 
         public List<CellData> Equipment { get; }
+        public IWalletOperationService WalletOperationService { get; }
         public event Action OnUpdateResources;
         public event Action<InventoryCellType, int, CellData> OnUpdateCell;
 

@@ -5,6 +5,7 @@ using UnityEngine;
 
 using UndergroundFortress.Constants;
 using UndergroundFortress.Core.Services.Progress;
+using UndergroundFortress.Gameplay.Inventory.Wallet.Services;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.Items.Equipment;
 using UndergroundFortress.UI.Information.Services;
@@ -16,19 +17,25 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
     {
         private readonly IProgressProviderService _progressProviderService;
         private readonly IInformationService _informationService;
+        private readonly IWalletOperationService _walletOperationService;
 
         private Dictionary<InventoryCellType, List<CellData>> _inventory;
 
+        public IWalletOperationService WalletOperationService => _walletOperationService;
+        
         public List<CellData> Bag => _inventory[InventoryCellType.Bag];
         public List<CellData> Equipment => _inventory[InventoryCellType.Equipment];
+        
         public event Action OnUpdateResources;
         public event Action<InventoryCellType, int, CellData> OnUpdateCell;
 
         public InventoryService(IProgressProviderService progressProviderService,
-            IInformationService informationService)
+            IInformationService informationService,
+            IWalletOperationService walletOperationService)
         {
             _progressProviderService = progressProviderService;
             _informationService = informationService;
+            _walletOperationService = walletOperationService;
         }
 
         public void Initialize()

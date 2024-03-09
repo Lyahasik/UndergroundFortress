@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UndergroundFortress.Gameplay.StaticData
+namespace UndergroundFortress.Gameplay
 {
     [Serializable]
     public class PriceResourceData

@@ -7,6 +7,7 @@ using UndergroundFortress.Core.Services.Scene;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Craft.Services;
 using UndergroundFortress.Gameplay.Inventory.Services;
+using UndergroundFortress.Gameplay.Inventory.Wallet.Services;
 using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.UI.Craft;
 using UndergroundFortress.UI.Information;
@@ -48,6 +49,7 @@ namespace UndergroundFortress.UI.MainMenu
             _mainMenuServicesContainer = new ServicesContainer();
             
             _mainMenuServicesContainer.Register<IInformationService>(new InformationService());
+            CreateWalletOperationService();
 
             CreateInventoryService();
 
@@ -70,6 +72,14 @@ namespace UndergroundFortress.UI.MainMenu
                     ));
         }
 
+        private void CreateWalletOperationService()
+        {
+            var service = new WalletOperationService();
+            service.Initialize();
+            
+            _mainMenuServicesContainer.Register<IWalletOperationService>(service);
+        }
+
         private void CreateMovingService()
         {
             MovingItemService movingItemService = new MovingItemService(
@@ -81,7 +91,8 @@ namespace UndergroundFortress.UI.MainMenu
         {
             InventoryService inventoryService = new InventoryService(
                 _progressProviderService,
-                _mainMenuServicesContainer.Single<IInformationService>());
+                _mainMenuServicesContainer.Single<IInformationService>(),
+                _mainMenuServicesContainer.Single<IWalletOperationService>());
             inventoryService.Initialize();
             _mainMenuServicesContainer.Register<IInventoryService>(inventoryService);
         }
@@ -115,7 +126,7 @@ namespace UndergroundFortress.UI.MainMenu
 
             MainMenuView mainMenu = _uiFactory.CreateMainMenu();
             mainMenu.Construct(sceneProviderService, _mainMenuServicesContainer.Single<IItemsGeneratorService>());
-            mainMenu.Initialize(craft, inventory);
+            mainMenu.Initialize(craft, inventory, _mainMenuServicesContainer.Single<IWalletOperationService>());
         }
         
         private void ClearMainMenuServices()

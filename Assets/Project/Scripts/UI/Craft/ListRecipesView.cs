@@ -7,6 +7,7 @@ using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.StaticData;
+using UndergroundFortress.UI.Craft.Recipe;
 
 namespace UndergroundFortress.UI.Craft
 {

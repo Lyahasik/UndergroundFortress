@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-namespace UndergroundFortress.UI.Craft
+namespace UndergroundFortress.UI.Craft.Recipe
 {
     public class MaximumLevelItem : MonoBehaviour
     {

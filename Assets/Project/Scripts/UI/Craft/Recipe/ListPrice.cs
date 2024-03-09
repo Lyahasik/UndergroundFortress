@@ -1,13 +1,13 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using UndergroundFortress.Core.Services.StaticData;
 using UnityEngine;
 
+using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Gameplay;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.StaticData;
 
-namespace UndergroundFortress
+namespace UndergroundFortress.UI.Craft.Recipe
 {
     public class ListPrice : MonoBehaviour
     {

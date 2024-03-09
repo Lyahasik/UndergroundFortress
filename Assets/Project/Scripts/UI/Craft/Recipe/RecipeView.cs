@@ -1,15 +1,15 @@
 ﻿using TMPro;
-using UndergroundFortress.Core.Services.StaticData;
 using UnityEngine;
 using UnityEngine.UI;
 
+using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats;
 
-namespace UndergroundFortress.UI.Craft
+namespace UndergroundFortress.UI.Craft.Recipe
 {
     [RequireComponent(typeof(Button))]
     public class RecipeView : MonoBehaviour
@@ -23,15 +23,17 @@ namespace UndergroundFortress.UI.Craft
         [SerializeField] private StatView statView;
 
         [Space]
+        [SerializeField] private TMP_Text textMoneyPrice;
         [SerializeField] private ListPrice listPrice;
-
-
+        
         private CraftView _craftView;
         private ListRecipesView _listRecipesView;
         private IInventoryService _inventoryService;
 
         private int _idItem;
         private ItemType _itemType;
+        
+        private int _moneyPrice;
 
         public void Construct(CraftView craftView,
             ListRecipesView listRecipesView,
@@ -48,6 +50,9 @@ namespace UndergroundFortress.UI.Craft
             ItemStaticData equipmentData,
             Sprite statTypeIcon = null)
         {
+            _moneyPrice = recipeData.money;
+            textMoneyPrice.text = _moneyPrice.ToString();
+            
             listPrice.Construct(staticDataService, _inventoryService, recipeData);
             listPrice.Init();
             
@@ -105,7 +110,7 @@ namespace UndergroundFortress.UI.Craft
         private void ActivateRecipe()
         {
             _listRecipesView.ActivateRecipe(_idItem);
-            _craftView.SetRecipe(iconImage.sprite, _idItem, _itemType, listPrice);
+            _craftView.SetRecipe(iconImage.sprite, _idItem, _itemType, _moneyPrice, listPrice);
         }
 
         private void SetInteractable(int idItem)
@@ -118,7 +123,7 @@ namespace UndergroundFortress.UI.Craft
         private void UpdateCurrentResources()
         {
             listPrice.UpdateCurrentResources();
-            button.interactable = listPrice.IsEnough;
+            button.interactable = _inventoryService.WalletOperationService.IsEnoughMoney(_moneyPrice) && listPrice.IsEnough;
         }
     }
 }

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Recipe_1004_Data
   m_EditorClassIdentifier: 
   idItem: 1004
+  money: 10
   resourcesPrice:
   - idItem: 1000
     required: 1

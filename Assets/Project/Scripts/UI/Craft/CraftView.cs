@@ -9,6 +9,7 @@ using UndergroundFortress.Gameplay.Craft.Services;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.StaticData;
+using UndergroundFortress.UI.Craft.Recipe;
 using UndergroundFortress.UI.Information;
 using UndergroundFortress.UI.MainMenu;
 
@@ -38,6 +39,7 @@ namespace UndergroundFortress.UI.Craft
         private int _idItem;
         private ItemGroupType _currentGroupType;
         private ItemType _itemType;
+        private int _moneyPrice;
         private ListPrice _listPrice;
 
         public void Construct(IStaticDataService staticDataService, 
@@ -102,11 +104,12 @@ namespace UndergroundFortress.UI.Craft
             }
         }
 
-        public void SetRecipe(Sprite icon, int idItem, ItemType itemType, ListPrice listPrice)
+        public void SetRecipe(Sprite icon, int idItem, ItemType itemType, int moneyPrice, ListPrice listPrice)
         {
             _idItem = idItem;
             _itemType = itemType;
             iconItem.sprite = icon;
+            _moneyPrice = moneyPrice;
             _listPrice = listPrice;
 
             UpdateCraftState(true);
@@ -131,6 +134,7 @@ namespace UndergroundFortress.UI.Craft
             _craftService.TryCreateEquipment(
                 equipmentStaticData,
                 _progressProviderService.ProgressData.Level,
+                _moneyPrice,
                 _listPrice,
                 additionalStatDropdown.CurrentStatType);
         }
@@ -140,7 +144,7 @@ namespace UndergroundFortress.UI.Craft
             ResourceStaticData resourceStaticData =
                 _staticDataService.ForResources().Find(v => v.id == _idItem);
 
-            _craftService.TryCreateResource(resourceStaticData, _listPrice);
+            _craftService.TryCreateResource(resourceStaticData, _moneyPrice, _listPrice);
         }
 
         private void PrepareAlchemyLists()

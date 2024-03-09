@@ -1,9 +1,8 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
-namespace UndergroundFortress
+namespace UndergroundFortress.UI.Craft.Recipe
 {
     public class PriceResource : MonoBehaviour
     {

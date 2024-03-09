@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UndergroundFortress.Gameplay.Items;
 using UnityEngine;
 
 namespace UndergroundFortress.Gameplay.StaticData
@@ -8,6 +7,8 @@ namespace UndergroundFortress.Gameplay.StaticData
     {
         public int idItem;
 
+        [Space] [Header("Price")]
+        public int money;
         public List<PriceResourceData> resourcesPrice;
     }
 }

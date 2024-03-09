@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 using UndergroundFortress.Constants;
 using UndergroundFortress.Core.Services.Scene;
+using UndergroundFortress.Gameplay.Inventory.Wallet.Services;
 using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.UI.Craft;
 using UndergroundFortress.UI.Inventory;
@@ -12,6 +13,9 @@ namespace UndergroundFortress.UI.MainMenu
 {
     public class MainMenuView : MonoBehaviour
     {
+        [SerializeField] private WalletView walletView;
+        
+        [Space]
         [SerializeField] private Button buttonStartGame;
 
         private ISceneProviderService _sceneProviderService;
@@ -27,12 +31,15 @@ namespace UndergroundFortress.UI.MainMenu
         }
 
         public void Initialize(CraftView craftView,
-            InventoryView inventoryView)
+            InventoryView inventoryView,
+            IWalletOperationService walletOperationService)
         {
             _windows = new List<IWindow>();
             
             _windows.Add(craftView);
             _windows.Add(inventoryView);
+            
+            walletView.Initialize(walletOperationService);
             
             buttonStartGame.onClick.AddListener(LoadLevel);
         }
