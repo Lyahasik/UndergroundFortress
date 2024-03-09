@@ -1,8 +1,10 @@
 ﻿using TMPro;
+using UndergroundFortress.Core.Services.StaticData;
 using UnityEngine;
 using UnityEngine.UI;
 
 using UndergroundFortress.Gameplay;
+using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats;
@@ -20,34 +22,51 @@ namespace UndergroundFortress.UI.Craft
         [SerializeField] private MaximumLevelItem maximumLevelItem;
         [SerializeField] private StatView statView;
 
+        [Space]
+        [SerializeField] private ListPrice listPrice;
+
+
         private CraftView _craftView;
         private ListRecipesView _listRecipesView;
+        private IInventoryService _inventoryService;
 
         private int _idItem;
         private ItemType _itemType;
 
-        public void Construct(CraftView craftView, ListRecipesView listRecipesView)
+        public void Construct(CraftView craftView,
+            ListRecipesView listRecipesView,
+            IInventoryService inventoryService)
         {
             _craftView = craftView;
             _listRecipesView = listRecipesView;
+            _inventoryService = inventoryService;
         }
 
-        public void Initialize(ItemStaticData equipmentData,
+        public void Initialize(
+            IStaticDataService staticDataService,
+            RecipeStaticData recipeData,
+            ItemStaticData equipmentData,
             Sprite statTypeIcon = null)
         {
+            listPrice.Construct(staticDataService, _inventoryService, recipeData);
+            listPrice.Init();
+            
             button.onClick.AddListener(ActivateRecipe);
             
             SetValues(equipmentData, statTypeIcon);
+            UpdateCurrentResources();
         }
 
         public void Subscribe()
         {
+            _inventoryService.OnUpdateResources += UpdateCurrentResources;
             _listRecipesView.OnActivateRecipe += SetInteractable;
         }
 
         private void OnDestroy()
         {
             _listRecipesView.OnActivateRecipe -= SetInteractable;
+            _inventoryService.OnUpdateResources -= UpdateCurrentResources;
         }
 
         private void SetValues(ItemStaticData itemData, Sprite statTypeIcon)
@@ -86,12 +105,20 @@ namespace UndergroundFortress.UI.Craft
         private void ActivateRecipe()
         {
             _listRecipesView.ActivateRecipe(_idItem);
-            _craftView.SetRecipe(iconImage.sprite, _idItem, _itemType);
+            _craftView.SetRecipe(iconImage.sprite, _idItem, _itemType, listPrice);
         }
 
         private void SetInteractable(int idItem)
         {
             button.interactable = idItem != _idItem;
+            
+            UpdateCurrentResources();
+        }
+
+        private void UpdateCurrentResources()
+        {
+            listPrice.UpdateCurrentResources();
+            button.interactable = listPrice.IsEnough;
         }
     }
 }

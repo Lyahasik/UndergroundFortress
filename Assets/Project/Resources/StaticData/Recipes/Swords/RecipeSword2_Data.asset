@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65cb73a5de074c9f9ff2c15288c0f7c4, type: 3}
   m_Name: RecipeSword2_Data
   m_EditorClassIdentifier: 
-  id: 9
   idItem: 9
+  resourcesPrice:
+  - idItem: 1001
+    required: 1
+  - idItem: 1002
+    required: 3

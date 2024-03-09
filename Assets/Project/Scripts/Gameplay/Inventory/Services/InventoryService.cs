@@ -21,7 +21,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
 
         public List<CellData> Bag => _inventory[InventoryCellType.Bag];
         public List<CellData> Equipment => _inventory[InventoryCellType.Equipment];
-
+        public event Action OnUpdateResources;
         public event Action<InventoryCellType, int, CellData> OnUpdateCell;
 
         public InventoryService(IProgressProviderService progressProviderService,
@@ -78,12 +78,21 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
 
         public void RemoveItem(ItemData itemData)
         {
+            if (itemData == null)
+                return;
+            
             int itemBagId = GetItemId(itemData);
             
             _inventory[InventoryCellType.Bag][itemBagId].ItemData = null;
             _inventory[InventoryCellType.Bag][itemBagId].Number = 0;
             
             UpdateItemToCell(InventoryCellType.Bag, itemBagId);
+        }
+
+        public void RemoveItemsById(int itemId, int requiredNumber)
+        {
+            DecrementItems(itemId, requiredNumber);
+            UpdateResources();
         }
 
         public int GetEmptyCellId()
@@ -99,6 +108,9 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             return ConstantValues.ERROR_ID;
         }
 
+        public void UpdateResources() => 
+            OnUpdateResources?.Invoke();
+
         public void UpdateItemToCell(InventoryCellType cellType, in int id) => 
             OnUpdateCell?.Invoke(cellType, id, _inventory[cellType][id]);
 
@@ -108,6 +120,32 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             if (!isBag || !TryEquipmentComparison(itemData))
                 _informationService.ShowItem(itemData, !isBag);
         }
+
+        public int GetNumberItemsById(int id) => 
+            Bag.Where(cellData => cellData?.ItemData?.Id == id).Sum(cellData => cellData.Number);
+
+        private void DecrementItems(int itemId, int number)
+        {
+            while (number > 0)
+            {
+                CellData cellData = GetCellByItemId(itemId);
+
+                if (number >= cellData.Number)
+                {
+                    number -= cellData.Number;
+                    RemoveItem(cellData.ItemData);
+                }
+                else
+                {
+                    cellData.Number -= number;
+                    return;
+                }
+            }
+            
+        }
+
+        private CellData GetCellByItemId(int itemId) => 
+            Bag.Find(data => data.ItemData?.Id == itemId);
 
         private bool TryEquipmentComparison(ItemData itemData)
         {

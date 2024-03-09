@@ -98,7 +98,7 @@ namespace UndergroundFortress.UI.MainMenu
                 _progressProviderService,
                 _mainMenuServicesContainer.Single<ICraftService>(),
                 information);
-            craft.Initialize();
+            craft.Initialize(_mainMenuServicesContainer.Single<IInventoryService>());
 
             InventoryView inventory = _uiFactory.CreateInventory();
             inventory.Construct(

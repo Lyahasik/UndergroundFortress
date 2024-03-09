@@ -4,6 +4,7 @@ using UnityEngine;
 
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.StaticData;
 
@@ -16,18 +17,21 @@ namespace UndergroundFortress.UI.Craft
 
         private CraftView _craftView;
         private IStaticDataService _staticDataService;
+        private IInventoryService _inventoryService;
         private IProgressProviderService _progressProviderService;
-
+        
         private List<RecipeView> _recipes;
 
         public event Action<int> OnActivateRecipe;
 
         public void Construct(CraftView craftView,
             IStaticDataService staticDataService,
+            IInventoryService inventoryService,
             IProgressProviderService progressProviderService)
         {
             _craftView = craftView;
             _staticDataService = staticDataService;
+            _inventoryService = inventoryService;
             _progressProviderService = progressProviderService;
         }
 
@@ -54,19 +58,26 @@ namespace UndergroundFortress.UI.Craft
                 RecipeStaticData recipeData = recipesStaticData.Find(v => v.idItem == itemId);
                 
                 RecipeView recipeView = Instantiate(prefabRecipeView, gameObject.transform);
-                recipeView.Construct(_craftView, this);
+                recipeView.Construct(_craftView, this, _inventoryService);
                 
                 if (IsEquipment(itemType))
                 {
                     EquipmentStaticData equipmentData
                         = equipmentsStaticData.Find(v => v.id == recipeData.idItem);
-                    recipeView.Initialize(equipmentData, _staticDataService.GetStatIcon(equipmentData.typeStat));
+                    recipeView.Initialize(
+                        _staticDataService,
+                        recipeData,
+                        equipmentData,
+                        _staticDataService.GetStatIcon(equipmentData.typeStat));
                 }
                 else
                 {
                     ResourceStaticData resourceData
                         = resourcesStaticData.Find(v => v.id == recipeData.idItem);
-                    recipeView.Initialize(resourceData);
+                    recipeView.Initialize(
+                        _staticDataService,
+                        recipeData,
+                        resourceData);
                 }
                 
                 recipeView.Subscribe();

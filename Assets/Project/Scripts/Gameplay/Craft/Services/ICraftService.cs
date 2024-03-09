@@ -8,7 +8,8 @@ namespace UndergroundFortress.Gameplay.Craft.Services
     {
         public void TryCreateEquipment(EquipmentStaticData equipmentStaticData,
             int currentLevel,
+            ListPrice listPrice,
             StatType additionalMainType = StatType.Empty);
-        public void TryCreateResource(ResourceStaticData resourceStaticData);
+        public void TryCreateResource(ResourceStaticData resourceStaticData, ListPrice listPrice);
     }
 }

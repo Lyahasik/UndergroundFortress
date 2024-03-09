@@ -6,6 +6,7 @@ using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Extensions;
 using UndergroundFortress.Gameplay.Craft.Services;
+using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.UI.Information;
@@ -35,7 +36,9 @@ namespace UndergroundFortress.UI.Craft
         private InformationView _informationView;
 
         private int _idItem;
+        private ItemGroupType _currentGroupType;
         private ItemType _itemType;
+        private ListPrice _listPrice;
 
         public void Construct(IStaticDataService staticDataService, 
             IProgressProviderService progressProviderService,
@@ -48,11 +51,11 @@ namespace UndergroundFortress.UI.Craft
             _informationView = informationView;
         }
 
-        public void Initialize()
+        public void Initialize(IInventoryService inventoryService)
         {
             additionalStatDropdown.Initialize(_staticDataService);
             
-            listRecipesView.Construct(this, _staticDataService, _progressProviderService);
+            listRecipesView.Construct(this, _staticDataService, inventoryService, _progressProviderService);
             listRecipesView.Initialize();
 
             foreach (ItemGroupButton itemGroupButton in itemGroupButtons) 
@@ -66,18 +69,26 @@ namespace UndergroundFortress.UI.Craft
             buttonStartCraft.onClick.AddListener(CreateItem);
         }
 
-        public void ActivationUpdate(WindowType type) => 
-            gameObject.SetActive(type == windowType);
-
-        public void UpdateGroupItems(ItemGroupType groupType)
+        public void ActivationUpdate(WindowType type)
         {
+            gameObject.SetActive(type == windowType);
+            
+            if (type == windowType)
+                UpdateGroupItems();
+        }
+
+        public void UpdateGroupItems(ItemGroupType groupType = ItemGroupType.Empty)
+        {
+            if (groupType != ItemGroupType.Empty)
+                _currentGroupType = groupType;
+            
             foreach (ItemGroupButton itemGroupButton in itemGroupButtons) 
-                itemGroupButton.Change(groupType);
+                itemGroupButton.Change(_currentGroupType);
             
             foreach (ItemTypeButton itemTypeButton in itemTypeButtons)
                 itemTypeButton.Hide();
 
-            switch (groupType)
+            switch (_currentGroupType)
             {
                 case ItemGroupType.Alchemy:
                     PrepareAlchemyLists();
@@ -91,11 +102,12 @@ namespace UndergroundFortress.UI.Craft
             }
         }
 
-        public void SetRecipe(Sprite icon, int idItem, ItemType itemType)
+        public void SetRecipe(Sprite icon, int idItem, ItemType itemType, ListPrice listPrice)
         {
             _idItem = idItem;
             _itemType = itemType;
             iconItem.sprite = icon;
+            _listPrice = listPrice;
 
             UpdateCraftState(true);
         }
@@ -119,6 +131,7 @@ namespace UndergroundFortress.UI.Craft
             _craftService.TryCreateEquipment(
                 equipmentStaticData,
                 _progressProviderService.ProgressData.Level,
+                _listPrice,
                 additionalStatDropdown.CurrentStatType);
         }
 
@@ -127,7 +140,7 @@ namespace UndergroundFortress.UI.Craft
             ResourceStaticData resourceStaticData =
                 _staticDataService.ForResources().Find(v => v.id == _idItem);
 
-            _craftService.TryCreateResource(resourceStaticData);
+            _craftService.TryCreateResource(resourceStaticData, _listPrice);
         }
 
         private void PrepareAlchemyLists()

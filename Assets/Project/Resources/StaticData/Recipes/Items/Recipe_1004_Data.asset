@@ -10,13 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65cb73a5de074c9f9ff2c15288c0f7c4, type: 3}
-  m_Name: RecipeSword1_Data
+  m_Name: Recipe_1004_Data
   m_EditorClassIdentifier: 
-  idItem: 7
+  idItem: 1004
   resourcesPrice:
   - idItem: 1000
     required: 1
   - idItem: 1001
-    required: 1
-  - idItem: 1002
-    required: 1
+    required: 2

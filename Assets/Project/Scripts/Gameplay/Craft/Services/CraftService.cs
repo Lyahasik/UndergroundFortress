@@ -27,10 +27,13 @@ namespace UndergroundFortress.Gameplay.Craft.Services
 
         public void TryCreateEquipment(EquipmentStaticData equipmentStaticData,
             int currentLevel,
+            ListPrice listPrice,
             StatType additionalMainType = StatType.Empty)
         {
             if (_inventoryService.IsBagFull())
                 return;
+            
+            listPrice.PriceResources.ForEach(data => _inventoryService.RemoveItemsById(data.ItemId, data.Required));
             
             currentLevel = Math.Clamp(currentLevel, 0, equipmentStaticData.maxLevel);
 
@@ -63,10 +66,12 @@ namespace UndergroundFortress.Gameplay.Craft.Services
             _inventoryService.AddItem(equipmentData);
         }
 
-        public void TryCreateResource(ResourceStaticData resourceStaticData)
+        public void TryCreateResource(ResourceStaticData resourceStaticData, ListPrice listPrice)
         {
             if (_inventoryService.IsBagFullForResource(resourceStaticData.type, resourceStaticData.id))
                 return;
+            
+            listPrice.PriceResources.ForEach(data => _inventoryService.RemoveItemsById(data.ItemId, data.Required));
             
             ResourceData resourceData = new ResourceData(resourceStaticData.id,
                 resourceStaticData.type,

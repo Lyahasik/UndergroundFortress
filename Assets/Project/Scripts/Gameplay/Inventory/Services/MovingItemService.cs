@@ -78,6 +78,9 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
 
         public ItemData GetDraggedItem()
         {
+            if (_draggedCellInventoryView == null)
+                return null;
+            
             ItemData itemData = _draggedCellInventoryView.ItemData;
 
             Reset();
