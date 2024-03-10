@@ -16,10 +16,10 @@ namespace UndergroundFortress.Gameplay.Items.Resource
         public override int Id => _id;
         public override ItemType Type => _type;
 
-        public string Name => _name;
+        public override string Name => _name;
         public string Description => _description;
         public override QualityType QualityType => _qualityType;
-        public Sprite Icon => _icon;
+        public override Sprite Icon => _icon;
         public override int MaxNumberForCell => _maxNumberForCell;
 
         public ResourceData(int id,

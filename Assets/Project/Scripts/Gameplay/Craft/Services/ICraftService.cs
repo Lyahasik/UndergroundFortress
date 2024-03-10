@@ -1,6 +1,6 @@
 ﻿using UndergroundFortress.Core.Services;
+using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.StaticData;
-using UndergroundFortress.Gameplay.Stats;
 using UndergroundFortress.UI.Craft.Recipe;
 
 namespace UndergroundFortress.Gameplay.Craft.Services
@@ -11,7 +11,7 @@ namespace UndergroundFortress.Gameplay.Craft.Services
             int currentLevel,
             int moneyPrice,
             ListPrice listPrice,
-            StatType additionalMainType = StatType.Empty);
+            ItemData crystal = null);
         public void TryCreateResource(ResourceStaticData resourceStaticData, int moneyPrice, ListPrice listPrice);
     }
 }

@@ -55,7 +55,8 @@ namespace UndergroundFortress.UI.Craft
 
         public void Initialize(IInventoryService inventoryService)
         {
-            additionalStatDropdown.Initialize(_staticDataService);
+            additionalStatDropdown.Construct(inventoryService);
+            additionalStatDropdown.Initialise();
             
             listRecipesView.Construct(this, _staticDataService, inventoryService, _progressProviderService);
             listRecipesView.Initialize();
@@ -74,9 +75,12 @@ namespace UndergroundFortress.UI.Craft
         public void ActivationUpdate(WindowType type)
         {
             gameObject.SetActive(type == windowType);
-            
+
             if (type == windowType)
+            {
+                additionalStatDropdown.UpdateValues();
                 UpdateGroupItems();
+            }
         }
 
         public void UpdateGroupItems(ItemGroupType groupType = ItemGroupType.Empty)
@@ -112,11 +116,14 @@ namespace UndergroundFortress.UI.Craft
             _moneyPrice = moneyPrice;
             _listPrice = listPrice;
 
-            UpdateCraftState(true);
+            UpdateCraftState(_itemType.IsEquipment(), true);
         }
 
-        public void UpdateCraftState(bool isReady) => 
+        public void UpdateCraftState(bool isEquipment, bool isReady)
+        {
+            additionalStatDropdown.gameObject.SetActive(isEquipment);
             buttonStartCraft.interactable = isReady;
+        }
 
         private void CreateItem()
         {
@@ -136,7 +143,7 @@ namespace UndergroundFortress.UI.Craft
                 _progressProviderService.ProgressData.Level,
                 _moneyPrice,
                 _listPrice,
-                additionalStatDropdown.CurrentStatType);
+                additionalStatDropdown.CurrentCrystal);
         }
 
         private void CreateResource()

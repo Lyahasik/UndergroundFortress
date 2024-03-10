@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f37b4564f8914823a032b44852d94d47, type: 3}
-  m_Name: CountedItem2_Data
+  m_Name: CristallDodge_Data
   m_EditorClassIdentifier: 
-  id: 1004
-  type: 200
-  name: Name1
+  id: 1007
+  type: 21
+  name: '@dodge_crystal'
   description: 
-  quality: 2
-  icon: {fileID: 21300000, guid: 2995e8b42f2570f4b8f662b92a63ebe4, type: 3}
-  maxNumberForCell: 99
+  quality: 4
+  icon: {fileID: 21300000, guid: f2341ac386290414eb847effb366ed21, type: 3}
+  maxNumberForCell: 10

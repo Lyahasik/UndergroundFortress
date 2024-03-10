@@ -102,6 +102,14 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             UpdateResources();
         }
 
+        public void RemoveItemsByType(ItemType itemType, int requiredNumber)
+        {
+            int itemId = GetItemIdByType(itemType);
+            
+            DecrementItems(itemId, requiredNumber);
+            UpdateResources();
+        }
+
         public int GetEmptyCellId()
         {
             for (int i = 0; i < Bag.Count; i++)
@@ -114,6 +122,12 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             
             return ConstantValues.ERROR_ID;
         }
+
+        public List<ItemData> GetCrystals() =>
+            Bag
+                .Where(data => data.ItemData?.Type is >= ItemType.ResourceDodgeSet and <= ItemType.ResourceStunSet)
+                .Select(cellData => cellData.ItemData)
+                .ToList();
 
         public void UpdateResources() => 
             OnUpdateResources?.Invoke();
@@ -196,6 +210,9 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
 
             return ConstantValues.ERROR_ID;
         }
+
+        private int GetItemIdByType(ItemType itemType) => 
+            Bag.Find(data => data.ItemData?.Type == itemType).ItemData.Id;
 
         private int GetCountedItemId(ItemData itemData)
         {

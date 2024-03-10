@@ -16,6 +16,6 @@ MonoBehaviour:
   type: 20
   name: Name3
   description: 
-  quality: 5
+  quality: 1
   icon: {fileID: 21300000, guid: 7fa3e9cdf19c32f40a6f700f7da8ab35, type: 3}
-  maxNumberForCell: 5
+  maxNumberForCell: 99

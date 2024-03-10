@@ -2,47 +2,70 @@
 using TMPro;
 using UnityEngine;
 
-using UndergroundFortress.Core.Services.StaticData;
-using UndergroundFortress.Gameplay.StaticData;
-using UndergroundFortress.Gameplay.Stats;
+using UndergroundFortress.Gameplay.Inventory.Services;
+using UndergroundFortress.Gameplay.Items;
 
 namespace UndergroundFortress.UI.Craft
 {
     public class AdditionalStatDropdown : MonoBehaviour
     {
         [SerializeField] private TMP_Dropdown dropdown;
+        
+        private IInventoryService _inventoryService;
 
         private List<TMP_Dropdown.OptionData> _options;
-        private List<StatType> _statTypes;
+        private List<ItemData> _crystals;
 
-        private StatType _currentStatType;
+        private ItemData _currentCrystal;
 
-        public StatType CurrentStatType => _currentStatType;
-        
-        public void Initialize(IStaticDataService staticDataService)
+        public ItemData CurrentCrystal => _currentCrystal;
+
+        public void Construct(IInventoryService inventoryService)
+        {
+            _inventoryService = inventoryService;
+        }
+
+        public void Initialise()
+        {
+            Subscribe();
+            UpdateValues();
+        }
+
+        private void Subscribe()
+        {
+            _inventoryService.OnUpdateResources += UpdateValues;
+        }
+
+        public void CrystalSelected(int id)
+        {
+            _currentCrystal = _crystals[id];
+        }
+
+        public void UpdateValues()
         {
             _options = new List<TMP_Dropdown.OptionData>();
-            _statTypes = new List<StatType>();
-            List<StatStaticData> stats = staticDataService.ForStats();
-            
-            AddStat(StatType.Empty);
-            foreach (StatStaticData statStaticData in stats)
-                AddStat(statStaticData.type);
+            _crystals = new List<ItemData>();
+
+            List<ItemData> crystals = _inventoryService.GetCrystals();
+
+            AddCrystal(null);
+            foreach (ItemData crystal in crystals)
+                AddCrystal(crystal);
 
             dropdown.options = _options;
+            dropdown.value = 0;
 
-            dropdown.onValueChanged.AddListener(LocaleSelected);
+            dropdown.onValueChanged.AddListener(CrystalSelected);
         }
 
-        private void AddStat(StatType type)
+        private void AddCrystal(ItemData crystal)
         {
-            _options.Add(new TMP_Dropdown.OptionData(type.ToString()));
-            _statTypes.Add(type);
-        }
-
-        public void LocaleSelected(int id)
-        {
-            _currentStatType = _statTypes[id];
+            //TODO locale
+            _options.Add(crystal != null
+                ? new TMP_Dropdown.OptionData(crystal.Name, crystal.Icon)
+                : new TMP_Dropdown.OptionData("@without_crystal", null));
+            
+            _crystals.Add(crystal);
         }
     }
 }

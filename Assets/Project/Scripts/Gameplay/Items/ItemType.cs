@@ -14,6 +14,10 @@
         Gloves,
         
         Resource = 20,
+        ResourceDodgeSet,
+        ResourceCritSet,
+        ResourceBlockSet,
+        ResourceStunSet,
         
         Consumable = 200
     }

@@ -27,7 +27,7 @@ namespace UndergroundFortress.Helpers.GeneratorId
 
         private static int CreateId(List<int> listIds, in int startId)
         {
-            int newId = listIds.Count >= 0 ? listIds.Count : startId;
+            int newId = listIds.Count >= 0 ? startId + listIds.Count : startId;
             listIds.Add(newId);
 
             return newId;

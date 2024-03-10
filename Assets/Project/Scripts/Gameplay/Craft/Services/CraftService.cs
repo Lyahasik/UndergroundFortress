@@ -30,11 +30,13 @@ namespace UndergroundFortress.Gameplay.Craft.Services
             int currentLevel,
             int moneyPrice,
             ListPrice listPrice,
-            StatType additionalMainType = StatType.Empty)
+            ItemData crystal = null)
         {
             if (_inventoryService.IsBagFull())
                 return;
             
+            if (crystal != null)
+                _inventoryService.RemoveItemsByType(crystal.Type, 1);
             _inventoryService.WalletOperationService.RemoveMoney(moneyPrice);
             listPrice.PriceResources.ForEach(data => _inventoryService.RemoveItemsById(data.ItemId, data.Required));
             
@@ -46,13 +48,13 @@ namespace UndergroundFortress.Gameplay.Craft.Services
                 equipmentStaticData.qualityValues,
                 quality,
                 equipmentStaticData.typeStat,
-                additionalMainType);
+                GetStatTypeByItem(crystal));
 
             int numberAdditionalStats = (int)quality - (int)QualityType.Grey;
             numberAdditionalStats = Math.Clamp(numberAdditionalStats, 0, ConstantValues.MAX_NUMBER_ADDITIONAL_STATS);
             List<StatItemData> additionalStats = GetAdditionalStats(numberAdditionalStats);
             
-            bool isSet = additionalMainType == StatType.Empty ? false : true;
+            bool isSet = crystal == null ? false : true;
 
             EquipmentData equipmentData = new EquipmentData(equipmentStaticData.id,
                 equipmentStaticData.type,
@@ -166,6 +168,26 @@ namespace UndergroundFortress.Gameplay.Craft.Services
             }
             
             return value;
+        }
+        
+        public StatType GetStatTypeByItem(ItemData itemData)
+        {
+            if (itemData == null)
+                return StatType.Empty;
+            
+            switch (itemData.Type)
+            {
+                case ItemType.ResourceDodgeSet:
+                    return StatType.Dodge;
+                case ItemType.ResourceCritSet:
+                    return StatType.Crit;
+                case ItemType.ResourceBlockSet:
+                    return StatType.Block;
+                case ItemType.ResourceStunSet:
+                    return StatType.Stun;
+            }
+            
+            return StatType.Empty;
         }
     }
 }

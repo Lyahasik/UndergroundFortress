@@ -25,8 +25,8 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
         public int Level => _level;
         public bool IsSet => _isSet;
         public override QualityType QualityType => _quality;
-        public string Name => _name;
-        public Sprite Icon => _icon;
+        public override string Name => _name;
+        public override Sprite Icon => _icon;
         public override int MaxNumberForCell => _maxNumberForCell;
 
         public List<StatItemData> MainStats => _mainStats;
