@@ -26,14 +26,14 @@ namespace UndergroundFortress.Gameplay.Craft.Services
             _inventoryService = inventoryService;
         }
 
-        public void TryCreateEquipment(EquipmentStaticData equipmentStaticData,
+        public EquipmentData TryCreateEquipment(EquipmentStaticData equipmentStaticData,
             int currentLevel,
             int moneyPrice,
             ListPrice listPrice,
             ItemData crystal = null)
         {
             if (_inventoryService.IsBagFull())
-                return;
+                return null;
             
             if (crystal != null)
                 _inventoryService.RemoveItemsByType(crystal.Type, 1);
@@ -69,12 +69,14 @@ namespace UndergroundFortress.Gameplay.Craft.Services
                 new List<StoneItemData>());
             
             _inventoryService.AddItem(equipmentData);
+            
+            return equipmentData;
         }
 
-        public void TryCreateResource(ResourceStaticData resourceStaticData, int moneyPrice, ListPrice listPrice)
+        public ResourceData TryCreateResource(ResourceStaticData resourceStaticData, int moneyPrice, ListPrice listPrice)
         {
             if (_inventoryService.IsBagFullForResource(resourceStaticData.type, resourceStaticData.id))
-                return;
+                return null;
             
             _inventoryService.WalletOperationService.RemoveMoney(moneyPrice);
             listPrice.PriceResources.ForEach(data => _inventoryService.RemoveItemsById(data.ItemId, data.Required));
@@ -88,6 +90,8 @@ namespace UndergroundFortress.Gameplay.Craft.Services
                 resourceStaticData.maxNumberForCell);
             
             _inventoryService.AddItem(resourceData);
+
+            return resourceData;
         }
 
         private List<StatItemData> GetMainStats(List<QualityValue> equipQualityValues,

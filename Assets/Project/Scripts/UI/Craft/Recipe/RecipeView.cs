@@ -70,8 +70,8 @@ namespace UndergroundFortress.UI.Craft.Recipe
 
         private void OnDestroy()
         {
-            _listRecipesView.OnActivateRecipe -= SetInteractable;
             _inventoryService.OnUpdateResources -= UpdateCurrentResources;
+            _listRecipesView.OnActivateRecipe -= SetInteractable;
         }
 
         private void SetValues(ItemStaticData itemData, Sprite statTypeIcon)

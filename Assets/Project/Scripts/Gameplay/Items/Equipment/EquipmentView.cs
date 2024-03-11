@@ -41,10 +41,13 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
 
         public void Show(EquipmentData equipmentData, bool isEquipped = false)
         {
-            nameText.text = equipmentData.Name;
-            cellItemView.SetValues(
-                equipmentData.Icon,
-                _staticDataService.GetQualityBackground(equipmentData.QualityType));
+            if (nameText != null)
+                nameText.text = equipmentData.Name;
+            
+            if (cellItemView != null)
+                cellItemView.SetValues(
+                    equipmentData.Icon,
+                    _staticDataService.GetQualityBackground(equipmentData.QualityType));
             
             ActivateEquipButtons(isEquipped);
 
@@ -85,7 +88,8 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
 
         private void Reset()
         {
-            nameText.text = "Empty";
+            if (nameText != null)
+                nameText.text = "Empty";
             
             foreach (StatView statView in mainStats) 
                 statView.Hide();

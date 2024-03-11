@@ -25,11 +25,6 @@ namespace UndergroundFortress.UI.Craft.Recipe
             FillPrices();
         }
 
-        private void OnDisable()
-        {
-            _inventoryService.OnUpdateResources -= UpdateCurrentResources;
-        }
-
         public void Construct(IStaticDataService staticDataService,
             IInventoryService inventoryService,
             RecipeStaticData recipeStaticData)

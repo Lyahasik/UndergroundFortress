@@ -8,6 +8,7 @@ using UndergroundFortress.Extensions;
 using UndergroundFortress.Gameplay.Craft.Services;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
+using UndergroundFortress.Gameplay.Items.Equipment;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.UI.Craft.Recipe;
 using UndergroundFortress.UI.Information;
@@ -18,9 +19,11 @@ namespace UndergroundFortress.UI.Craft
     public class CraftView : MonoBehaviour, IWindow
     {
         [SerializeField] private WindowType windowType;
-        
+
         [Space]
+        [SerializeField] private GameObject itemWindow;
         [SerializeField] private Image iconItem;
+        [SerializeField] private EquipmentView equipmentInfo;
 
         [Space]
         [SerializeField] private AdditionalStatDropdown additionalStatDropdown;
@@ -78,6 +81,8 @@ namespace UndergroundFortress.UI.Craft
 
             if (type == windowType)
             {
+                equipmentInfo.Hide();
+                
                 additionalStatDropdown.UpdateValues();
                 UpdateGroupItems();
             }
@@ -85,9 +90,11 @@ namespace UndergroundFortress.UI.Craft
 
         public void UpdateGroupItems(ItemGroupType groupType = ItemGroupType.Empty)
         {
-            if (groupType != ItemGroupType.Empty)
+            if (groupType != ItemGroupType.Empty) 
                 _currentGroupType = groupType;
-            
+
+            itemWindow.SetActive(false);
+
             foreach (ItemGroupButton itemGroupButton in itemGroupButtons) 
                 itemGroupButton.Change(_currentGroupType);
             
@@ -115,11 +122,13 @@ namespace UndergroundFortress.UI.Craft
             iconItem.sprite = icon;
             _moneyPrice = moneyPrice;
             _listPrice = listPrice;
-
+            
+            itemWindow.SetActive(true);
+            equipmentInfo.Hide();
             UpdateCraftState(_itemType.IsEquipment(), true);
         }
 
-        public void UpdateCraftState(bool isEquipment, bool isReady)
+        public void UpdateCraftState(bool isEquipment, bool isReady) 
         {
             additionalStatDropdown.gameObject.SetActive(isEquipment);
             buttonStartCraft.interactable = isReady;
@@ -138,12 +147,11 @@ namespace UndergroundFortress.UI.Craft
             EquipmentStaticData equipmentStaticData =
                 _staticDataService.ForEquipments().Find(v => v.id == _idItem);
 
-            _craftService.TryCreateEquipment(
-                equipmentStaticData,
-                _progressProviderService.ProgressData.Level,
-                _moneyPrice,
-                _listPrice,
-                additionalStatDropdown.CurrentCrystal);
+            EquipmentData equipmentData = _craftService.TryCreateEquipment(equipmentStaticData, _progressProviderService.ProgressData.Level,
+                _moneyPrice, _listPrice, additionalStatDropdown.CurrentCrystal);
+            
+            if (equipmentData != null)
+                equipmentInfo.Show(equipmentData);
         }
 
         private void CreateResource()
