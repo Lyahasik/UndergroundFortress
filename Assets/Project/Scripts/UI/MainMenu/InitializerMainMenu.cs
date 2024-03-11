@@ -53,12 +53,6 @@ namespace UndergroundFortress.UI.MainMenu
 
             CreateInventoryService();
 
-            _mainMenuServicesContainer.Register<ICraftService>(
-                new CraftService(
-                    _staticDataService,
-                    _mainMenuServicesContainer.Single<IInventoryService>()
-                    ));
-            
             _mainMenuServicesContainer.Register<ISwapCellsService>(
                 new SwapCellsService(
                     _mainMenuServicesContainer.Single<IInventoryService>()));
@@ -70,6 +64,11 @@ namespace UndergroundFortress.UI.MainMenu
                     _staticDataService,
                     _mainMenuServicesContainer.Single<IInventoryService>()
                     ));
+            
+            _mainMenuServicesContainer.Register<ICraftService>(
+                new CraftService(
+                    _mainMenuServicesContainer.Single<IInventoryService>(),
+                    _mainMenuServicesContainer.Single<IItemsGeneratorService>()));
         }
 
         private void CreateWalletOperationService()
@@ -108,8 +107,9 @@ namespace UndergroundFortress.UI.MainMenu
                 _staticDataService,
                 _progressProviderService,
                 _mainMenuServicesContainer.Single<ICraftService>(),
-                information);
-            craft.Initialize(_mainMenuServicesContainer.Single<IInventoryService>());
+                _mainMenuServicesContainer.Single<IInventoryService>(),
+                _mainMenuServicesContainer.Single<IInformationService>());
+            craft.Initialize();
 
             InventoryView inventory = _uiFactory.CreateInventory();
             inventory.Construct(

@@ -120,10 +120,7 @@ namespace UndergroundFortress.UI.Craft.Recipe
             UpdateCurrentResources();
         }
 
-        private void UpdateCurrentResources()
-        {
+        private void UpdateCurrentResources() => 
             listPrice.UpdateCurrentResources();
-            button.interactable = _inventoryService.WalletOperationService.IsEnoughMoney(_moneyPrice) && listPrice.IsEnough;
-        }
     }
 }

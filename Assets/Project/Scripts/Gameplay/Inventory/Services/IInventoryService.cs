@@ -22,6 +22,8 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
         public bool IsBagFullForResource(ItemType itemType, int id);
 
         public void AddItem(ItemData itemData);
+        public void AddItemById(int itemId);
+        public void AddItemsById(int itemId, int number);
 
         public void RemoveItem(ItemData itemData);
         public void RemoveItemsById(int itemId, int requiredNumber);

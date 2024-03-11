@@ -9,9 +9,9 @@ using UndergroundFortress.Gameplay.Craft.Services;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.Items.Equipment;
-using UndergroundFortress.Gameplay.StaticData;
+using UndergroundFortress.UI.Core.Buttons;
 using UndergroundFortress.UI.Craft.Recipe;
-using UndergroundFortress.UI.Information;
+using UndergroundFortress.UI.Information.Services;
 using UndergroundFortress.UI.MainMenu;
 
 namespace UndergroundFortress.UI.Craft
@@ -27,9 +27,9 @@ namespace UndergroundFortress.UI.Craft
 
         [Space]
         [SerializeField] private AdditionalStatDropdown additionalStatDropdown;
-        [SerializeField] private Button buttonStartCraft;
+        [SerializeField] private ButtonOfPurchaseOpportunity buttonStartCraft;
 
-        [Space]
+        [Space] 
         [SerializeField] private List<ItemGroupButton> itemGroupButtons;
         [SerializeField] private List<ItemTypeButton> itemTypeButtons;
         [SerializeField] private ListRecipesView listRecipesView;
@@ -37,7 +37,8 @@ namespace UndergroundFortress.UI.Craft
         private IStaticDataService _staticDataService;
         private IProgressProviderService _progressProviderService;
         private ICraftService _craftService;
-        private InformationView _informationView;
+        private IInventoryService _inventoryService;
+        private IInformationService _informationService;
 
         private int _idItem;
         private ItemGroupType _currentGroupType;
@@ -48,20 +49,22 @@ namespace UndergroundFortress.UI.Craft
         public void Construct(IStaticDataService staticDataService, 
             IProgressProviderService progressProviderService,
             ICraftService craftService,
-            InformationView informationView)
+            IInventoryService inventoryService,
+            IInformationService informationService)
         {
             _staticDataService = staticDataService;
             _progressProviderService = progressProviderService;
             _craftService = craftService;
-            _informationView = informationView;
+            _inventoryService = inventoryService;
+            _informationService = informationService;
         }
 
-        public void Initialize(IInventoryService inventoryService)
+        public void Initialize()
         {
-            additionalStatDropdown.Construct(inventoryService);
+            additionalStatDropdown.Construct(_inventoryService);
             additionalStatDropdown.Initialise();
             
-            listRecipesView.Construct(this, _staticDataService, inventoryService, _progressProviderService);
+            listRecipesView.Construct(this, _staticDataService, _inventoryService, _progressProviderService);
             listRecipesView.Initialize();
 
             foreach (ItemGroupButton itemGroupButton in itemGroupButtons) 
@@ -72,7 +75,8 @@ namespace UndergroundFortress.UI.Craft
 
             UpdateGroupItems(ItemGroupType.Alchemy);
 
-            buttonStartCraft.onClick.AddListener(CreateItem);
+            buttonStartCraft.Construct(_inventoryService, _informationService);
+            buttonStartCraft.Initialize(CreateItem);
         }
 
         public void ActivationUpdate(WindowType type)
@@ -124,43 +128,41 @@ namespace UndergroundFortress.UI.Craft
             _listPrice = listPrice;
             
             itemWindow.SetActive(true);
+            UpdatePriceMoney2(listPrice);
+
             equipmentInfo.Hide();
-            UpdateCraftState(_itemType.IsEquipment(), true);
+            UpdateCraftState(_itemType.IsEquipment());
         }
 
-        public void UpdateCraftState(bool isEquipment, bool isReady) 
+        private void UpdatePriceMoney2(ListPrice listPrice)
         {
-            additionalStatDropdown.gameObject.SetActive(isEquipment);
-            buttonStartCraft.interactable = isReady;
+            bool isEnough = _inventoryService.WalletOperationService.IsEnoughMoney(_moneyPrice) && listPrice.IsEnough;
+            
+            buttonStartCraft.UpdatePrice(isEnough ? 0 : 100);
         }
 
-        private void CreateItem()
+        public void UpdateCraftState(bool isEquipment) => 
+            additionalStatDropdown.gameObject.SetActive(isEquipment);
+
+        private void CreateItem(bool isEnoughResources)
         {
             if (_itemType.IsEquipment()) 
-                CreateEquipment();
+                CreateEquipment(isEnoughResources);
             else if (_itemType.IsResource())
-                CreateResource();
+                CreateResource(isEnoughResources);
         }
 
-        private void CreateEquipment()
+        private void CreateEquipment(bool isEnoughResources)
         {
-            EquipmentStaticData equipmentStaticData =
-                _staticDataService.ForEquipments().Find(v => v.id == _idItem);
-
-            EquipmentData equipmentData = _craftService.TryCreateEquipment(equipmentStaticData, _progressProviderService.ProgressData.Level,
-                _moneyPrice, _listPrice, additionalStatDropdown.CurrentCrystal);
+            EquipmentData equipmentData = _craftService.TryCreateEquipment(_idItem, _progressProviderService.ProgressData.Level,
+                _moneyPrice, _listPrice, additionalStatDropdown.CurrentCrystal, isEnoughResources);
             
             if (equipmentData != null)
                 equipmentInfo.Show(equipmentData);
         }
 
-        private void CreateResource()
-        {
-            ResourceStaticData resourceStaticData =
-                _staticDataService.ForResources().Find(v => v.id == _idItem);
-
-            _craftService.TryCreateResource(resourceStaticData, _moneyPrice, _listPrice);
-        }
+        private void CreateResource(bool isEnoughResources) => 
+            _craftService.TryCreateResource(_idItem, _moneyPrice, _listPrice, isEnoughResources);
 
         private void PrepareAlchemyLists()
         {

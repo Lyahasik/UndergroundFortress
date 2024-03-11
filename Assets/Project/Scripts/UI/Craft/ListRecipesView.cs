@@ -97,7 +97,7 @@ namespace UndergroundFortress.UI.Craft
             if (_recipes.Count == 0)
                 return;
 
-            _craftView.UpdateCraftState(false, false);
+            _craftView.UpdateCraftState(false);
             
             foreach (RecipeView recipeView in _recipes)
                 Destroy(recipeView.gameObject);

@@ -1,10 +1,19 @@
 ﻿using UndergroundFortress.Core.Services;
+using UndergroundFortress.Gameplay.Items.Equipment;
+using UndergroundFortress.Gameplay.Items.Resource;
+using UndergroundFortress.Gameplay.StaticData;
+using UndergroundFortress.Gameplay.Stats;
 
 namespace UndergroundFortress.Gameplay.Items.Services
 {
     public interface IItemsGeneratorService : IService
     {
-        public void GenerateResource();
-        public void GenerateResource(int id);
+        public ResourceData GenerateResource();
+        public ResourceData GenerateResource(int id);
+        public ResourceData GenerateResource(ResourceStaticData resourceStaticData);
+        
+        public EquipmentData GenerateEquipment(int id,
+            int currentLevel = int.MaxValue,
+            StatType setStatType = StatType.Empty);
     }
 }

@@ -38,7 +38,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Wallet.Services
         public void RemoveRealMoney(in int value)
         {
             _walletContainer.RemoveRealMoney(value);
-            OnUpdateRealMoney?.Invoke(_walletContainer.Money);
+            OnUpdateRealMoney?.Invoke(_walletContainer.RealMoney);
         }
 
         public bool IsEnoughMoney(in int value) => 
