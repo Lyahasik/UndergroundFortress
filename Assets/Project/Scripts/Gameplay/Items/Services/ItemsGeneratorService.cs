@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using UndergroundFortress.Constants;
 using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Extensions;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items.Equipment;
 using UndergroundFortress.Gameplay.Items.Resource;
@@ -73,7 +74,7 @@ namespace UndergroundFortress.Gameplay.Items.Services
 
             currentLevel = Math.Clamp(currentLevel, 0, equipmentStaticData.maxLevel);
 
-            QualityType quality = GetRangeQualityType(QualityType.Grey, QualityType.White);
+            QualityType quality = QualityType.Empty.Random(_staticDataService.ForQualities().qualitiesData);
 
             List<StatItemData> mainStats = GetMainStats(
                 equipmentStaticData.qualityValues,

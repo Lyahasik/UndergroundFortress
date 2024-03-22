@@ -14,16 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   qualitiesData:
   - type: 1
+    weight: 100
     background: {fileID: 21300000, guid: 9367e2c86d64ca94bb13ed009854b886, type: 3}
   - type: 2
+    weight: 50
     background: {fileID: 21300000, guid: 0c3aee4f3ad0112459a96fdfc5e3c038, type: 3}
   - type: 3
+    weight: 25
     background: {fileID: 21300000, guid: c415fc828115e9445a5324fccfc9e933, type: 3}
   - type: 4
+    weight: 12
     background: {fileID: 21300000, guid: 93cae03eb2a30d74b8af9297760209fb, type: 3}
   - type: 5
+    weight: 6
     background: {fileID: 21300000, guid: f68b2cd77aeec684788a5d8c82d6f10b, type: 3}
   - type: 6
+    weight: 0
     background: {fileID: 21300000, guid: 4c617d8530e71ab449f38b46163ae95c, type: 3}
   - type: 7
+    weight: 0
     background: {fileID: 21300000, guid: 78484a200d7cbba4eb73c5b496f18bcf, type: 3}

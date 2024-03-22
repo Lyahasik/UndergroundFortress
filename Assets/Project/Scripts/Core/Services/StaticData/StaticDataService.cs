@@ -71,6 +71,8 @@ namespace UndergroundFortress.Core.Services.StaticData
         public CharacterStaticData ForEnemy() => 
             _enemy;
         
+        public QualitiesStaticData ForQualities() => 
+            _qualities;
         public List<StatStaticData> ForStats() => 
             _stats;
         public List<EquipmentStaticData> ForEquipments() => 

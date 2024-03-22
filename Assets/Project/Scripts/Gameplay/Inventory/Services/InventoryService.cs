@@ -83,6 +83,17 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                 AddNewItem(itemData);
         }
 
+        public void AddItems(ItemData itemData, int number)
+        {
+            for (int i = 0; i < number; i++)
+            {
+                if (itemData.Type >= ItemType.Resource)
+                    AddCountedItemToBag(itemData);
+                else
+                    AddNewItem(itemData);
+            }
+        }
+
         public void AddItemById(int itemId) => 
             AddItem(GetCellByItemId(itemId).ItemData);
 
