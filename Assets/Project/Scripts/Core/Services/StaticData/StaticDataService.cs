@@ -115,12 +115,8 @@ namespace UndergroundFortress.Core.Services.StaticData
         public ResourceStaticData GetResourceById(int itemId)
         {
             foreach (ResourceStaticData resourceStaticData in _resources)
-            {
                 if (resourceStaticData.id == itemId)
-                {
                     return resourceStaticData;
-                }
-            }
 
             Debug.LogWarning($"Not found of id for resource data");
             return null;

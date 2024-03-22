@@ -138,7 +138,7 @@ namespace UndergroundFortress.UI.Craft
         {
             bool isEnough = _inventoryService.WalletOperationService.IsEnoughMoney(_moneyPrice) && listPrice.IsEnough;
             
-            buttonStartCraft.UpdatePrice(isEnough ? 0 : 100);
+            buttonStartCraft.UpdatePrice(isEnough ? 0 : listPrice.TotalPriceTime());
         }
 
         public void UpdateCraftState(bool isEquipment) => 

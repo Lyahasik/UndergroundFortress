@@ -17,6 +17,8 @@ namespace UndergroundFortress.UI.Craft.Recipe
         private IInventoryService _inventoryService;
         private RecipeStaticData _recipeStaticData;
 
+        private List<PriceResource> MissingResources => priceResources.Where(data => data.IsInit && !data.IsEnough).ToList();
+
         public List<PriceResource> PriceResources => priceResources;
         public bool IsEnough => priceResources.All(data => !data.IsInit || data.IsEnough);
 
@@ -32,6 +34,28 @@ namespace UndergroundFortress.UI.Craft.Recipe
             _staticDataService = staticDataService;
             _inventoryService = inventoryService;
             _recipeStaticData = recipeStaticData;
+        }
+
+        public void UpdateCurrentResources()
+        {
+            for (int i = 0; i < _recipeStaticData.resourcesPrice.Count; i++)
+            {
+                priceResources[i].UpdateInStock(
+                    _inventoryService.GetNumberItemsById(_recipeStaticData.resourcesPrice[i].idItem));
+            }
+        }
+
+        public int TotalPriceTime()
+        {
+            int totalPrice = 0;
+
+            foreach (PriceResource resource in MissingResources)
+            {
+                int missingNumber = resource.Required - resource.InStock;
+                totalPrice += missingNumber * _staticDataService.GetResourceById(resource.ItemId).priceTime;
+            }
+
+            return totalPrice;
         }
 
         private void FillPrices()
@@ -52,15 +76,6 @@ namespace UndergroundFortress.UI.Craft.Recipe
             }
 
             UpdateCurrentResources();
-        }
-
-        public void UpdateCurrentResources()
-        {
-            for (int i = 0; i < _recipeStaticData.resourcesPrice.Count; i++)
-            {
-                priceResources[i].UpdateInStock(
-                    _inventoryService.GetNumberItemsById(_recipeStaticData.resourcesPrice[i].idItem));
-            }
         }
     }
 }

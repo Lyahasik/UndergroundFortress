@@ -18,6 +18,7 @@ namespace UndergroundFortress.UI.Craft.Recipe
         private bool _isEnough;
 
         public int ItemId => _itemId;
+        public int InStock => _inStock;
         public int Required => _required;
 
         public bool IsEnough => _isEnough;
