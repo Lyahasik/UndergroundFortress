@@ -150,6 +150,8 @@ namespace UndergroundFortress.UI.Craft
                 CreateEquipment(isEnoughResources);
             else if (_itemType.IsResource())
                 CreateResource(isEnoughResources);
+            
+            UpdatePriceMoney2(_listPrice);
         }
 
         private void CreateEquipment(bool isEnoughResources)

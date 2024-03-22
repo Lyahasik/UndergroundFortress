@@ -51,17 +51,8 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
             
             ActivateEquipButtons(isEquipped);
 
-            for (int i = 0; i < equipmentData.MainStats.Count; i++)
-            {
-                StatItemData statData = equipmentData.MainStats[i];
-                mainStats[i].SetValues(statData.Icon, statData.Value);
-            }
-            
-            for (int i = 0; i < equipmentData.AdditionalStats.Count; i++)
-            {
-                StatItemData statData = equipmentData.AdditionalStats[i];
-                stats[i].SetValues(statData.Icon, statData.Value);
-            }
+            UpdateStatsView(mainStats, equipmentData.MainStats);
+            UpdateStatsView(stats, equipmentData.AdditionalStats);
 
             for (int i = 0; i < equipmentData.Stones.Count; i++)
             {
@@ -76,6 +67,22 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
         {
             Reset();
             gameObject.SetActive(false);
+        }
+
+        private void UpdateStatsView(List<StatView> statViews, List<StatItemData> statsData)
+        {
+            for (int i = 0; i < statViews.Count; i++)
+            {
+                if (i < statsData.Count)
+                {
+                    StatItemData statData = statsData[i];
+                    statViews[i].SetValues(statData.Icon, statData.QualityType, statData.Value);
+                }
+                else
+                {
+                    statViews[i].Hide();
+                }
+            }
         }
 
         private void ActivateEquipButtons(bool isEquipped)

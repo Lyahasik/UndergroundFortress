@@ -105,9 +105,6 @@ namespace UndergroundFortress.Gameplay.Items.Services
             return equipmentData;
         }
         
-        private QualityType GetRangeQualityType(QualityType minType, QualityType maxType) => 
-            (QualityType) Random.Range((int) minType, (int) maxType + 1);
-        
         private List<QualityValue> GetStaticQualityValues(StatType type) => 
             _staticDataService.ForStats().Find(v => v.type == type).qualityValues;
 
@@ -124,10 +121,10 @@ namespace UndergroundFortress.Gameplay.Items.Services
                 
                 StatStaticData staticStatData = _staticDataService.ForStats()[idStat];
                 StatType typeStat = staticStatData.type;
-                QualityType qualityStat = GetRangeQualityType(QualityType.Grey, QualityType.White);
+                QualityType qualityStat = QualityType.Empty.Random(_staticDataService.ForQualities().qualitiesData);
 
                 float qualityValue = GetQualityValue(staticStatData.qualityValues, qualityStat, typeStat);
-                stats.Add(new (typeStat, null, qualityValue));
+                stats.Add(new (typeStat, qualityStat, null, qualityValue));
             }
 
             return stats;
@@ -170,7 +167,7 @@ namespace UndergroundFortress.Gameplay.Items.Services
             float qualityValue = GetQualityValue(equipQualityValues, qualityEquipment, additionalMainType);
             List<StatItemData> stats = new List<StatItemData>
             {
-                new (mainType, null, qualityValue)
+                new StatItemData(mainType, qualityEquipment,null, qualityValue)
             };
             
             if (additionalMainType != StatType.Empty)
@@ -179,7 +176,7 @@ namespace UndergroundFortress.Gameplay.Items.Services
                     GetStaticQualityValues(additionalMainType),
                     qualityEquipment,
                     additionalMainType);
-                stats.Add(new(additionalMainType, null, qualityValue));
+                stats.Add(new StatItemData(additionalMainType, qualityEquipment, null, qualityValue));
             }
 
             return stats;

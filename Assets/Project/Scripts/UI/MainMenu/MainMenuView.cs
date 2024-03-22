@@ -45,8 +45,13 @@ namespace UndergroundFortress.UI.MainMenu
         }
         
         //TODO temporary
-        public void CreateResource(int id) => 
-            _itemsGeneratorService.GenerateResource(id);
+        public void CreateResource(int id)
+        {
+            for (int i = 0; i < 50; i++)
+            {
+                _itemsGeneratorService.GenerateResource(id);
+            }
+        }
 
         public void ActivateWindow(int idWindow)
         {
