@@ -45,7 +45,7 @@ namespace UndergroundFortress.Gameplay.Craft.Services
             ListPrice listPrice,
             bool isEnoughResources = true)
         {
-            ResourceData resourceData = _itemsGeneratorService.GenerateResource(itemId);
+            ResourceData resourceData = _itemsGeneratorService.GenerateResourceById(itemId);
 
             if (resourceData == null)
                 return null;

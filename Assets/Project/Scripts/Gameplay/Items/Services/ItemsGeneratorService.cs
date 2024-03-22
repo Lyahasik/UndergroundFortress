@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using UndergroundFortress.Constants;
 using UndergroundFortress.Core.Services.StaticData;
@@ -36,11 +37,38 @@ namespace UndergroundFortress.Gameplay.Items.Services
         public ResourceData GenerateResource(ResourceStaticData resourceStaticData) => 
             CreateResource(resourceStaticData);
 
-        public ResourceData GenerateResource(int id)
+        public ResourceData GenerateResourceById(int id)
         {
             List<ResourceStaticData> resources = _staticDataService.ForResources();
 
             return CreateResource(resources.Find(resource => resource.id == id));
+        }
+
+        public ResourceData TryGenerateResourceById(int id)
+        {
+            List<ResourceStaticData> resources = _staticDataService.ForResources();
+            var resource = resources.Find(resource => resource.id == id);
+
+            if (!TryGenerateByQuality(resource.quality))
+                return null;
+            
+            return CreateResource(resource);
+        }
+
+        private bool TryGenerateByQuality(QualityType qualityType)
+        {
+            var qualities = _staticDataService.ForQualities().qualitiesData;
+            int totalWeight = qualities.Sum(data => data.weight);
+
+            int accident = Random.Range(0, totalWeight);
+            foreach (QualityData qualityData in qualities)
+            {
+                accident -= qualityData.weight;
+                if (accident < 0)
+                    return qualityType == qualityData.type;
+            }
+            
+            return false;
         }
 
         private ResourceData CreateResource(ResourceStaticData resourceStaticData)

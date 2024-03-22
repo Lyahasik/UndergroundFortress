@@ -9,7 +9,8 @@ namespace UndergroundFortress.Gameplay.Items.Services
     public interface IItemsGeneratorService : IService
     {
         public ResourceData GenerateResource();
-        public ResourceData GenerateResource(int id);
+        public ResourceData GenerateResourceById(int id);
+        public ResourceData TryGenerateResourceById(int id);
         public ResourceData GenerateResource(ResourceStaticData resourceStaticData);
         
         public EquipmentData GenerateEquipment(int id,
