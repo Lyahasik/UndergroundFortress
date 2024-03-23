@@ -3,8 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using UndergroundFortress.Constants;
+using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.Scene;
-using UndergroundFortress.Gameplay.Inventory.Wallet.Services;
 using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.UI.Craft;
 using UndergroundFortress.UI.Inventory;
@@ -32,14 +32,14 @@ namespace UndergroundFortress.UI.MainMenu
 
         public void Initialize(CraftView craftView,
             InventoryView inventoryView,
-            IWalletOperationService walletOperationService)
+            IProgressProviderService progressProviderService)
         {
             _windows = new List<IWindow>();
             
             _windows.Add(craftView);
             _windows.Add(inventoryView);
             
-            walletView.Initialize(walletOperationService);
+            walletView.Initialize(progressProviderService);
             
             buttonStartGame.onClick.AddListener(LoadLevel);
         }

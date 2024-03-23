@@ -92,8 +92,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab1ce061f1da44998e06bfd174c29c32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textMoney: {fileID: 6723084824567207582}
-  textRealMoney: {fileID: 5255258994633947977}
+  textMoney1: {fileID: 6723084824567207582}
+  textMoney2: {fileID: 5255258994633947977}
 --- !u!1 &264203744898956748
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,7 +387,7 @@ GameObject:
   m_Component:
   - component: {fileID: 225217784170448317}
   m_Layer: 5
-  m_Name: RealMoney
+  m_Name: Money2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -599,7 +599,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8231002617542153101}
   m_Layer: 5
-  m_Name: Money
+  m_Name: Money1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

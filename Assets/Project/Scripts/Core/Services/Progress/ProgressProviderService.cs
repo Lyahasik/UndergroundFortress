@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using UnityEngine;
 
 using UndergroundFortress.Constants;
@@ -13,13 +14,18 @@ using UndergroundFortress.Gameplay.StaticData;
 
 namespace UndergroundFortress.Core.Services.Progress
 {
-    public class ProgressProviderService : IProgressProviderService
+    public partial class ProgressProviderService : IProgressProviderService
     {
+        private const string KEY_LOCAL_PROGRESS = "local_progress";
+        
         private readonly IStaticDataService _staticDataService;
         private readonly IGameStateMachine _gameStateMachine;
 
         private CharacterStats _playerStats;
         private ProgressData _progressData;
+
+        private List<IReadingProgress> _progressReaders;
+        private List<IWritingProgress> _progressWriters;
 
         public CharacterStats PlayerStats => _playerStats;
         public ProgressData ProgressData => _progressData;
@@ -31,24 +37,49 @@ namespace UndergroundFortress.Core.Services.Progress
             _gameStateMachine = gameStateMachine;
         }
 
+        public void Initialization()
+        {
+            _progressReaders ??= new List<IReadingProgress>();
+            _progressWriters ??= new List<IWritingProgress>();
+        }
+
         public void LoadProgress()
         {
             Debug.Log("Loaded progress.");
             _playerStats = LoadingBaseStats();
-            _progressData = new ProgressData
+            
+            _progressData = LoadData(PlayerPrefs.GetString(KEY_LOCAL_PROGRESS)) ?? CreateNewProgress();
+
+            _gameStateMachine.Enter<LoadSceneState>();
+        }
+        
+        private ProgressData LoadData(string json)
+        {
+            ProgressData progressData = null;
+                
+            if (json != null)
+                progressData = JsonConvert.DeserializeObject<ProgressData>(json);
+
+            return progressData;
+        }
+
+        private ProgressData CreateNewProgress()
+        {
+            ProgressData progressData = new ProgressData
             {
                 Level = 3,
+                Wallet = new WalletData(500, 50),
                 Equipment = new List<CellData>
                 {
-                    new (null, 1),
-                    new (null, 1),
-                    new (null, 1),
-                    new (null, 1),
-                    new (null, 1),
-                    new (null, 1),
-                    new (null, 1),
-                    new (null, 1),
-                    new (null, 1)
+                    new(null, 1),
+                    new(null, 1),
+                    new(null, 1),
+                    new(null, 1),
+                    new(null, 1),
+                    new(null, 1),
+                    new(null, 1),
+                    new(null, 1),
+                    new(null, 1)
                 },
                 ActiveRecipes = new Dictionary<ItemType, List<int>>
                 {
@@ -67,11 +98,47 @@ namespace UndergroundFortress.Core.Services.Progress
             };
             
             for (int i = 0; i < ConstantValues.BASE_SIZE_BAG; i++) 
-                _progressData.Bag.Add(new CellData());
+                progressData.Bag.Add(new CellData());
+            
+            SaveProgress();
 
-            _gameStateMachine.Enter<LoadSceneState>();
+            return progressData;
         }
-        
+
+        public void SaveProgress()
+        {
+            if (_progressData == null)
+                return;
+            
+            ReadProgress();
+            
+            string json = JsonConvert.SerializeObject(_progressData, new JsonSerializerSettings());
+            PlayerPrefs.SetString(KEY_LOCAL_PROGRESS, json);
+        }
+
+        public void Register(IReadingProgress progressReader)
+        {
+            _progressReaders.Add(progressReader);
+            
+            if (_progressData != null)
+                progressReader.ReadProgress(ProgressData);
+        }
+
+        public void Register(IWritingProgress progressWriter)
+        {
+            Register(progressWriter as IReadingProgress);
+
+            _progressWriters.Add(progressWriter);
+        }
+
+        public void SetWalletValues(int money1, int money2)
+        {
+            _progressData.Wallet.Money1 = money1;
+            _progressData.Wallet.Money2 = money2;
+            
+            SaveProgress();
+        }
+
         private CharacterStats LoadingBaseStats()
         {
             CharacterStaticData characterStaticData = _staticDataService.ForPlayer();
@@ -81,9 +148,10 @@ namespace UndergroundFortress.Core.Services.Progress
             return characterStats;
         }
 
-        public void SaveProgress()
+        private void ReadProgress()
         {
-            
+            foreach (IReadingProgress progressReader in _progressReaders)
+                progressReader.ReadProgress(_progressData);
         }
     }
 }

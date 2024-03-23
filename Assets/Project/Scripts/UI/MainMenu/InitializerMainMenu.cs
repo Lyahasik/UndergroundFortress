@@ -38,26 +38,26 @@ namespace UndergroundFortress.UI.MainMenu
             _progressProviderService = progressProviderService;
         }
 
-        public void Initialize(ISceneProviderService sceneProviderService)
+        public void Initialize(IProgressProviderService progressProviderService, ISceneProviderService sceneProviderService)
         {
-            RegisterServices();
-            CreateMainMenu(sceneProviderService);
+            RegisterServices(progressProviderService);
+            CreateMainMenu(progressProviderService, sceneProviderService);
         }
         
-        private void RegisterServices()
+        private void RegisterServices(IProgressProviderService progressProviderService)
         {
             _mainMenuServicesContainer = new ServicesContainer();
             
             _mainMenuServicesContainer.Register<IInformationService>(new InformationService());
-            CreateWalletOperationService();
+            RegisterWalletOperationService(progressProviderService);
 
-            CreateInventoryService();
+            RegisterInventoryService();
 
             _mainMenuServicesContainer.Register<ISwapCellsService>(
                 new SwapCellsService(
                     _mainMenuServicesContainer.Single<IInventoryService>()));
 
-            CreateMovingService();
+            RegisterMovingService();
 
             _mainMenuServicesContainer.Register<IItemsGeneratorService>(
                 new ItemsGeneratorService(
@@ -71,22 +71,23 @@ namespace UndergroundFortress.UI.MainMenu
                     _mainMenuServicesContainer.Single<IItemsGeneratorService>()));
         }
 
-        private void CreateWalletOperationService()
+        private void RegisterWalletOperationService(IProgressProviderService progressProviderService)
         {
             var service = new WalletOperationService();
+            service.Construct(progressProviderService);
             service.Initialize();
             
             _mainMenuServicesContainer.Register<IWalletOperationService>(service);
         }
 
-        private void CreateMovingService()
+        private void RegisterMovingService()
         {
             MovingItemService movingItemService = new MovingItemService(
                 _mainMenuServicesContainer.Single<ISwapCellsService>());
             _mainMenuServicesContainer.Register<IMovingItemService>(movingItemService);
         }
 
-        private void CreateInventoryService()
+        private void RegisterInventoryService()
         {
             InventoryService inventoryService = new InventoryService(
                 _progressProviderService,
@@ -96,7 +97,7 @@ namespace UndergroundFortress.UI.MainMenu
             _mainMenuServicesContainer.Register<IInventoryService>(inventoryService);
         }
 
-        private void CreateMainMenu(ISceneProviderService sceneProviderService)
+        private void CreateMainMenu(IProgressProviderService progressProviderService, ISceneProviderService sceneProviderService)
         {
             InformationView information = _uiFactory.CreateInformation();
             information.Initialize(_staticDataService);
@@ -126,7 +127,7 @@ namespace UndergroundFortress.UI.MainMenu
 
             MainMenuView mainMenu = _uiFactory.CreateMainMenu();
             mainMenu.Construct(sceneProviderService, _mainMenuServicesContainer.Single<IItemsGeneratorService>());
-            mainMenu.Initialize(craft, inventory, _mainMenuServicesContainer.Single<IWalletOperationService>());
+            mainMenu.Initialize(craft, inventory, progressProviderService);
         }
         
         private void ClearMainMenuServices()

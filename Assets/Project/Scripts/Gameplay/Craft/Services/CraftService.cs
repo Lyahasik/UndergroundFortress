@@ -83,7 +83,7 @@ namespace UndergroundFortress.Gameplay.Craft.Services
             if (crystal != null)
                 _inventoryService.RemoveItemsByType(crystal.Type, 1);
             
-            _inventoryService.WalletOperationService.RemoveMoney(moneyPrice);
+            _inventoryService.WalletOperationService.RemoveMoney1(moneyPrice);
             listPrice.PriceResources.ForEach(data => _inventoryService.RemoveItemsById(data.ItemId, data.Required));
         }
 
@@ -94,7 +94,7 @@ namespace UndergroundFortress.Gameplay.Craft.Services
             
             var wallet = _inventoryService.WalletOperationService;
             if (!wallet.IsEnoughMoney(moneyPrice))
-                wallet.RemoveMoney(wallet.Money);
+                wallet.RemoveMoney1(wallet.Money);
             
             listPrice.PriceResources.ForEach(data =>
             {

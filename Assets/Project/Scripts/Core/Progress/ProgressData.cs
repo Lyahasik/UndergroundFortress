@@ -8,6 +8,8 @@ namespace UndergroundFortress.Core.Progress
     public class ProgressData
     {
         public int Level;
+
+        public WalletData Wallet;
         
         public Dictionary<ItemType, List<int>> ActiveRecipes;
         public List<CellData> Equipment;

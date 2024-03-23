@@ -87,7 +87,7 @@ namespace UndergroundFortress.Core.Services.Scene
             InitializerMainMenu initializerMainMenu = new GameObject().AddComponent<InitializerMainMenu>();
             initializerMainMenu.name = nameof(InitializerMainMenu);
             initializerMainMenu.Construct(_staticDataService, _uiFactory, _progressProviderService);
-            initializerMainMenu.Initialize(this);
+            initializerMainMenu.Initialize(_progressProviderService, this);
 
             Debug.Log("Main scene loaded.");
             _gameStateMachine.Enter<MainMenuState>();

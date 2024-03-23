@@ -78,12 +78,11 @@ namespace UndergroundFortress.Gameplay.Items.Services
 
             ResourceData resourceData = new ResourceData(
             resourceStaticData.id,
-            resourceStaticData.type,
             resourceStaticData.name,
-            resourceStaticData.description,
+            resourceStaticData.type,
             resourceStaticData.quality,
-            resourceStaticData.icon,
-            resourceStaticData.maxNumberForCell);
+            resourceStaticData.maxNumberForCell,
+            resourceStaticData.description);
             
             _inventoryService.AddItem(resourceData);
 
@@ -117,13 +116,12 @@ namespace UndergroundFortress.Gameplay.Items.Services
             bool isSet = setStatType != StatType.Empty;
 
             EquipmentData equipmentData = new EquipmentData(equipmentStaticData.id,
+                equipmentStaticData.name,
                 equipmentStaticData.type,
+                quality,
+                equipmentStaticData.maxNumberForCell,
                 currentLevel,
                 isSet,
-                quality,
-                equipmentStaticData.name,
-                equipmentStaticData.icon,
-                equipmentStaticData.maxNumberForCell,
                 mainStats,
                 additionalStats,
                 new List<StoneItemData>());

@@ -2,6 +2,7 @@
 using TMPro;
 using UnityEngine;
 
+using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
 
@@ -10,7 +11,8 @@ namespace UndergroundFortress.UI.Craft
     public class AdditionalStatDropdown : MonoBehaviour
     {
         [SerializeField] private TMP_Dropdown dropdown;
-        
+
+        private IStaticDataService _staticDataService;
         private IInventoryService _inventoryService;
 
         private List<TMP_Dropdown.OptionData> _options;
@@ -20,8 +22,9 @@ namespace UndergroundFortress.UI.Craft
 
         public ItemData CurrentCrystal => _currentCrystal;
 
-        public void Construct(IInventoryService inventoryService)
+        public void Construct(IStaticDataService staticDataService, IInventoryService inventoryService)
         {
+            _staticDataService = staticDataService;
             _inventoryService = inventoryService;
         }
 
@@ -62,7 +65,7 @@ namespace UndergroundFortress.UI.Craft
         {
             //TODO locale
             _options.Add(crystal != null
-                ? new TMP_Dropdown.OptionData(crystal.Name, crystal.Icon)
+                ? new TMP_Dropdown.OptionData(crystal.Name, _staticDataService.GetItemIcon(crystal.Id))
                 : new TMP_Dropdown.OptionData("@without_crystal", null));
             
             _crystals.Add(crystal);

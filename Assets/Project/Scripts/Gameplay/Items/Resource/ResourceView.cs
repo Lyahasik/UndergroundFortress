@@ -26,7 +26,9 @@ namespace UndergroundFortress.Gameplay.Items.Resource
             nameText.text = resourceData.Name;
             descriptionText.text = resourceData.Description;
 
-            cellItemView.SetValues(resourceData.Icon, _staticDataService.GetQualityBackground(resourceData.QualityType));
+            cellItemView.SetValues(
+                _staticDataService.GetItemIcon(resourceData.Id),
+                _staticDataService.GetQualityBackground(resourceData.QualityType));
             
             gameObject.SetActive(true);
         }

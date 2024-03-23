@@ -36,12 +36,8 @@ namespace UndergroundFortress.Core.Initialize
             
             _servicesContainer.Register<ICharacterDressingService>(
                 new CharacterDressingService());
-            _servicesContainer.Register<IProgressProviderService>(
-                new ProgressProviderService(
-                    _servicesContainer.Single<IStaticDataService>(),
-                    gameStateMachine));
-            _servicesContainer.Register<IRealtimeProgressService>(
-                new RealtimeProgressService());
+            
+            RegisterProgressProviderService(gameStateMachine);
             
             _servicesContainer.Register<IUIFactory>(
                 new UIFactory(
@@ -69,6 +65,17 @@ namespace UndergroundFortress.Core.Initialize
             _servicesContainer.Register<IGameStateMachine>(gameStateMachine);
             
             DontDestroyOnLoad(gameData);
+        }
+
+        private void RegisterProgressProviderService(GameStateMachine gameStateMachine)
+        {
+            var progressProviderService = new ProgressProviderService(
+                _servicesContainer.Single<IStaticDataService>(),
+                gameStateMachine);
+            
+            progressProviderService.Initialization();
+            
+            _servicesContainer.Register<IProgressProviderService>(progressProviderService);
         }
 
         private LoadingCurtain CreateLoadingCurtain()

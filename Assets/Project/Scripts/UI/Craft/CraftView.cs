@@ -61,7 +61,7 @@ namespace UndergroundFortress.UI.Craft
 
         public void Initialize()
         {
-            additionalStatDropdown.Construct(_inventoryService);
+            additionalStatDropdown.Construct(_staticDataService, _inventoryService);
             additionalStatDropdown.Initialise();
             
             listRecipesView.Construct(this, _staticDataService, _inventoryService, _progressProviderService);

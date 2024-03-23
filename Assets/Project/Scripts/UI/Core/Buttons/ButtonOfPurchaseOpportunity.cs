@@ -68,7 +68,7 @@ namespace UndergroundFortress.UI.Core.Buttons
                 return;
             }
             
-            _inventoryService.WalletOperationService.RemoveRealMoney(_currentPrice);
+            _inventoryService.WalletOperationService.RemoveMoney2(_currentPrice);
             _onConfirm?.Invoke(false);
         }
     }

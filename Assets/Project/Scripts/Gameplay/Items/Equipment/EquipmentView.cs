@@ -46,7 +46,7 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
             
             if (cellItemView != null)
                 cellItemView.SetValues(
-                    equipmentData.Icon,
+                    _staticDataService.GetItemIcon(equipmentData.Id),
                     _staticDataService.GetQualityBackground(equipmentData.QualityType));
             
             ActivateEquipButtons(isEquipped);

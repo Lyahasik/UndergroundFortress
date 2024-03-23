@@ -1,33 +1,36 @@
 ﻿using TMPro;
 using UnityEngine;
 
-using UndergroundFortress.Gameplay.Inventory.Wallet.Services;
+using UndergroundFortress.Core.Progress;
+using UndergroundFortress.Core.Services.Progress;
 
 namespace UndergroundFortress.UI.MainMenu
 {
-    public class WalletView : MonoBehaviour
+    public class WalletView : MonoBehaviour, IReadingProgress
     {
-        [SerializeField] private TMP_Text textMoney;
-        [SerializeField] private TMP_Text textRealMoney;
+        [SerializeField] private TMP_Text textMoney1;
+        [SerializeField] private TMP_Text textMoney2;
 
-        public void Initialize(IWalletOperationService walletOperationService)
+        public void Initialize(IProgressProviderService progressProviderService)
         {
-            UpdateMoney(walletOperationService.Money);
-            UpdateRealMoney(walletOperationService.RealMoney);
-
-            Subscribe(walletOperationService);
-        }
-        
-        public void Subscribe(IWalletOperationService walletOperationService)
-        {
-            walletOperationService.OnUpdateMoney += UpdateMoney;
-            walletOperationService.OnUpdateRealMoney += UpdateRealMoney;
+            Register(progressProviderService);
         }
 
-        private void UpdateMoney(int value) => 
-            textMoney.text = value.ToString();
+        public void Register(IProgressProviderService progressProviderService)
+        {
+            progressProviderService.Register(this);
+        }
 
-        private void UpdateRealMoney(int value) => 
-            textRealMoney.text = value.ToString();
+        public void ReadProgress(ProgressData progress)
+        {
+            UpdateMoney1(progress.Wallet.Money1);
+            UpdateMoney2(progress.Wallet.Money2);
+        }
+
+        private void UpdateMoney1(int value) => 
+            textMoney1.text = value.ToString();
+
+        private void UpdateMoney2(int value) => 
+            textMoney2.text = value.ToString();
     }
 }

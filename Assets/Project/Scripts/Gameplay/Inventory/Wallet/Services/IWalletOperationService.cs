@@ -9,14 +9,11 @@ namespace UndergroundFortress.Gameplay.Inventory.Wallet.Services
         public int Money { get; }
         public int RealMoney { get; }
         
-        public event Action<int> OnUpdateMoney;
-        public event Action<int> OnUpdateRealMoney;
-        
         public void Initialize();
-        public void AddMoney(in int value);
-        public void RemoveMoney(in int value);
-        public void AddRealMoney(in int value);
-        public void RemoveRealMoney(in int value);
+        public void AddMoney1(in int value);
+        public void RemoveMoney1(in int value);
+        public void AddMoney2(in int value);
+        public void RemoveMoney2(in int value);
         public bool IsEnoughMoney(in int value);
         public bool IsEnoughRealMoney(in int value);
     }
