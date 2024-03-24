@@ -145,6 +145,16 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             WriteProgress();
         }
 
+        public void ClearCell(CellInventoryView cellInventoryView)
+        {
+            _inventory[InventoryCellType.Bag][cellInventoryView.Id].ItemData = null;
+            _inventory[InventoryCellType.Bag][cellInventoryView.Id].Number = 0;
+            
+            UpdateItemToCell(InventoryCellType.Bag, cellInventoryView.Id);
+            
+            WriteProgress();
+        }
+
         public void RemoveItemsById(int itemId, int requiredNumber)
         {
             DecrementItems(itemId, requiredNumber);

@@ -32,7 +32,7 @@ namespace UndergroundFortress.UI.Inventory
             if (!_rect.IsDotInside(position))
                 return;
 
-            _inventoryService.RemoveItem(_movingItemService.GetDraggedItem());
+            _inventoryService.ClearCell(_movingItemService.DraggedCellInventoryView);
         }
     }
 }

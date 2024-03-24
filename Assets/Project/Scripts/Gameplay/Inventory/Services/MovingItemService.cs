@@ -18,6 +18,8 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
         private Transform _transformItemView;
 
         private bool _isHit;
+        
+        public CellInventoryView DraggedCellInventoryView => _draggedCellInventoryView;
 
         public MovingItemService(ISwapCellsService swapCellsService)
         {

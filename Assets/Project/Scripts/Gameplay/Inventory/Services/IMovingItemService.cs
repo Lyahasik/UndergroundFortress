@@ -9,6 +9,8 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
 {
     public interface IMovingItemService : IService
     {
+        public CellInventoryView DraggedCellInventoryView { get; }
+        
         public void Initialize(CellItemView cellItemView);
         public void Subscribe(ActiveArea bagActiveArea);
         public void AddItem(CellInventoryView cellInventoryView, Vector3 newPosition);

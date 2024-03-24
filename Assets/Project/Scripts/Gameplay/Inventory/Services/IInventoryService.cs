@@ -27,6 +27,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
         public void AddItemsById(int itemId, int number);
 
         public void RemoveItem(ItemData itemData);
+        public void ClearCell(CellInventoryView cellInventoryView);
         public void RemoveItemsById(int itemId, int requiredNumber);
         public void RemoveItemsByType(ItemType itemType, int requiredNumber);
 
