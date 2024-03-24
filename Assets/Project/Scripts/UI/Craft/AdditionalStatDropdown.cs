@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -19,6 +20,7 @@ namespace UndergroundFortress.UI.Craft
         private List<ItemData> _crystals;
 
         private ItemData _currentCrystal;
+        private int _newId;
 
         public ItemData CurrentCrystal => _currentCrystal;
 
@@ -46,23 +48,28 @@ namespace UndergroundFortress.UI.Craft
 
         public void UpdateValues()
         {
+            _newId = 0;
+            
             _options = new List<TMP_Dropdown.OptionData>();
             _crystals = new List<ItemData>();
 
-            List<ItemData> crystals = _inventoryService.GetCrystals();
+            List<ItemData> crystalsByType = _inventoryService.GetCrystals().Distinct().ToList();
 
             AddCrystal(null);
-            foreach (ItemData crystal in crystals)
+            foreach (ItemData crystal in crystalsByType)
                 AddCrystal(crystal);
 
             dropdown.options = _options;
-            dropdown.value = 0;
+            dropdown.value = _newId;
 
             dropdown.onValueChanged.AddListener(CrystalSelected);
         }
 
         private void AddCrystal(ItemData crystal)
         {
+            if (crystal == _currentCrystal)
+                _newId = _options.Count;
+            
             //TODO locale
             _options.Add(crystal != null
                 ? new TMP_Dropdown.OptionData(crystal.Name, _staticDataService.GetItemIcon(crystal.Id))
