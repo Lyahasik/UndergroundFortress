@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Gameplay.Craft.Services;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.StaticData;
@@ -19,7 +19,7 @@ namespace UndergroundFortress.UI.Craft
         private CraftView _craftView;
         private IStaticDataService _staticDataService;
         private IInventoryService _inventoryService;
-        private IProgressProviderService _progressProviderService;
+        private IActivationRecipesService _activationRecipesService;
         
         private List<RecipeView> _recipes;
 
@@ -28,12 +28,12 @@ namespace UndergroundFortress.UI.Craft
         public void Construct(CraftView craftView,
             IStaticDataService staticDataService,
             IInventoryService inventoryService,
-            IProgressProviderService progressProviderService)
+            IActivationRecipesService activationRecipesService)
         {
             _craftView = craftView;
             _staticDataService = staticDataService;
             _inventoryService = inventoryService;
-            _progressProviderService = progressProviderService;
+            _activationRecipesService = activationRecipesService;
         }
 
         public void Initialize()
@@ -47,8 +47,7 @@ namespace UndergroundFortress.UI.Craft
 
             ChangeItemTypeButtons(itemType);
             
-            Dictionary<ItemType, List<int>> activeRecipes
-                = _progressProviderService.ProgressData.ActiveRecipes;
+            Dictionary<ItemType, List<int>> activeRecipes = _activationRecipesService.ActiveRecipes;
 
             List<RecipeStaticData> recipesStaticData = _staticDataService.ForRecipes();
             List<EquipmentStaticData> equipmentsStaticData = _staticDataService.ForEquipments();

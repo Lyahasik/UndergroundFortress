@@ -81,16 +81,16 @@ namespace UndergroundFortress.Core.Services.Progress
                 },
                 ActiveRecipes = new Dictionary<ItemType, List<int>>
                 {
-                    { ItemType.Sword, new List<int> { 7, 9, 10 } },
-                    { ItemType.TwoHandedWeapon, new List<int> { 8 } },
-                    { ItemType.Dagger, new List<int> { 2 } },
-                    { ItemType.Mace, new List<int> { 4 } },
-                    { ItemType.Shield, new List<int> { 6 } },
-                    { ItemType.Chest, new List<int> { 1, 11 } },
-                    { ItemType.Pants, new List<int> { 5 } },
-                    { ItemType.Boots, new List<int> { 0 } },
-                    { ItemType.Gloves, new List<int> { 3 } },
-                    { ItemType.Consumable, new List<int> { 1003, 1004 } }
+                    { ItemType.Sword, new List<int>() },
+                    { ItemType.TwoHandedWeapon, new List<int>() },
+                    { ItemType.Dagger, new List<int>() },
+                    { ItemType.Mace, new List<int>() },
+                    { ItemType.Shield, new List<int>() },
+                    { ItemType.Chest, new List<int>() },
+                    { ItemType.Pants, new List<int>() },
+                    { ItemType.Boots, new List<int>() },
+                    { ItemType.Gloves, new List<int>() },
+                    { ItemType.Consumable, new List<int>() }
                 },
                 Bag = new List<CellData>()
             };

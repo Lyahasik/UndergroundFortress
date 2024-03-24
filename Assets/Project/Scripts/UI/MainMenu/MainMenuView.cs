@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UndergroundFortress.Constants;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.Scene;
+using UndergroundFortress.Gameplay.Craft.Services;
 using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.UI.Craft;
 using UndergroundFortress.UI.Inventory;
@@ -20,14 +21,17 @@ namespace UndergroundFortress.UI.MainMenu
 
         private ISceneProviderService _sceneProviderService;
         private IItemsGeneratorService _itemsGeneratorService;
+        private IActivationRecipesService _activationRecipesService;
 
         private List<IWindow> _windows;
 
         public void Construct(ISceneProviderService sceneProviderService,
-            IItemsGeneratorService itemsGeneratorService)
+            IItemsGeneratorService itemsGeneratorService,
+            IActivationRecipesService activationRecipesService)
         {
             _sceneProviderService = sceneProviderService;
             _itemsGeneratorService = itemsGeneratorService;
+            _activationRecipesService = activationRecipesService;
         }
 
         public void Initialize(CraftView craftView,
@@ -51,6 +55,13 @@ namespace UndergroundFortress.UI.MainMenu
             {
                 _itemsGeneratorService.GenerateResourceById(id);
             }
+        }
+        
+        //TODO temporary
+        private static int _idRecipe;
+        public void CreateRecipe()
+        {
+            _activationRecipesService.ActivateRecipe(_idRecipe++);
         }
 
         public void ActivateWindow(int idWindow)

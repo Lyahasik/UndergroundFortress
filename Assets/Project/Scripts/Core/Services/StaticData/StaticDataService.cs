@@ -90,22 +90,14 @@ namespace UndergroundFortress.Core.Services.StaticData
         public Sprite GetItemIcon(int itemDataId)
         {
             foreach (EquipmentStaticData equipmentStaticData in _equipments)
-            {
                 if (equipmentStaticData.id == itemDataId)
-                {
                     return equipmentStaticData.icon;
-                }
-            }
 
             foreach (ResourceStaticData resourceStaticData in _resources)
-            {
                 if (resourceStaticData.id == itemDataId)
-                {
                     return resourceStaticData.icon;
-                }
-            }
 
-            Debug.LogWarning($"Not found of id for item icon");
+            Debug.LogWarning($"[StaticDataService] Not found of id for item icon");
             return null;
         }
 
@@ -123,7 +115,7 @@ namespace UndergroundFortress.Core.Services.StaticData
                 if (resourceStaticData.id == itemId)
                     return resourceStaticData;
 
-            Debug.LogWarning($"Not found of id for resource data");
+            Debug.LogWarning($"[StaticDataService] Not found of id for resource data");
             return null;
         }
 
@@ -137,8 +129,22 @@ namespace UndergroundFortress.Core.Services.StaticData
                 if (resourceStaticData.id == itemId)
                     return resourceStaticData.maxNumberForCell;
 
-            Debug.LogWarning($"Not found of id for item icon");
+            Debug.LogWarning($"[StaticDataService] Not found of id for max number for cell");
             return ConstantValues.MIN_NUMBER_ITEM_FOR_CELL;
+        }
+
+        public ItemStaticData GetItemById(int itemId)
+        {
+            foreach (EquipmentStaticData equipmentStaticData in _equipments)
+                if (equipmentStaticData.id == itemId)
+                    return equipmentStaticData;
+
+            foreach (ResourceStaticData resourceStaticData in _resources)
+                if (resourceStaticData.id == itemId)
+                    return resourceStaticData;
+
+            Debug.LogWarning($"[StaticDataService] Not found of id for item");
+            return null;
         }
 
         public string GetItemDescriptionById(int itemId)
@@ -147,7 +153,7 @@ namespace UndergroundFortress.Core.Services.StaticData
                 if (resourceStaticData.id == itemId)
                     return resourceStaticData.description;
 
-            Debug.LogWarning($"Not found of id for item icon");
+            Debug.LogWarning($"[StaticDataService] Not found of id for description");
             return string.Empty;
         }
     }

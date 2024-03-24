@@ -60,12 +60,12 @@ namespace UndergroundFortress.UI.Craft
             _informationService = informationService;
         }
 
-        public void Initialize()
+        public void Initialize(IActivationRecipesService activationRecipesService)
         {
             additionalStatDropdown.Construct(_staticDataService, _inventoryService);
             additionalStatDropdown.Initialise();
             
-            listRecipesView.Construct(this, _staticDataService, _inventoryService, _progressProviderService);
+            listRecipesView.Construct(this, _staticDataService, _inventoryService, activationRecipesService);
             listRecipesView.Initialize();
 
             foreach (ItemGroupButton itemGroupButton in itemGroupButtons) 

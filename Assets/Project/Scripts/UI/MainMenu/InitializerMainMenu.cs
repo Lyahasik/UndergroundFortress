@@ -51,6 +51,7 @@ namespace UndergroundFortress.UI.MainMenu
             _mainMenuServicesContainer.Register<IInformationService>(new InformationService());
             RegisterWalletOperationService(progressProviderService);
 
+            RegisterActivationRecipesService(progressProviderService);
             RegisterInventoryService();
 
             _mainMenuServicesContainer.Register<ISwapCellsService>(
@@ -88,6 +89,15 @@ namespace UndergroundFortress.UI.MainMenu
             _mainMenuServicesContainer.Register<IMovingItemService>(movingItemService);
         }
 
+        private void RegisterActivationRecipesService(IProgressProviderService progressProviderService)
+        {
+            ActivationRecipesService activationRecipesService = new ActivationRecipesService(
+                _staticDataService,
+                progressProviderService);
+            activationRecipesService.Initialize();
+            _mainMenuServicesContainer.Register<IActivationRecipesService>(activationRecipesService);
+        }
+
         private void RegisterInventoryService()
         {
             InventoryService inventoryService = new InventoryService(
@@ -112,7 +122,7 @@ namespace UndergroundFortress.UI.MainMenu
                 _mainMenuServicesContainer.Single<ICraftService>(),
                 _mainMenuServicesContainer.Single<IInventoryService>(),
                 _mainMenuServicesContainer.Single<IInformationService>());
-            craft.Initialize();
+            craft.Initialize(_mainMenuServicesContainer.Single<IActivationRecipesService>());
 
             InventoryView inventory = _uiFactory.CreateInventory();
             inventory.Construct(
@@ -128,7 +138,9 @@ namespace UndergroundFortress.UI.MainMenu
             movingItemService.Subscribe(inventory.EquipmentActiveArea);
 
             MainMenuView mainMenu = _uiFactory.CreateMainMenu();
-            mainMenu.Construct(sceneProviderService, _mainMenuServicesContainer.Single<IItemsGeneratorService>());
+            mainMenu.Construct(sceneProviderService, 
+                _mainMenuServicesContainer.Single<IItemsGeneratorService>(),
+                _mainMenuServicesContainer.Single<IActivationRecipesService>());
             mainMenu.Initialize(craft, inventory, progressProviderService);
         }
         

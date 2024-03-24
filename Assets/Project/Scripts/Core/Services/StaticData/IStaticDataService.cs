@@ -26,6 +26,7 @@ namespace UndergroundFortress.Core.Services.StaticData
         public ResourceStaticData GetResourceById(int itemId);
         public QualitiesStaticData ForQualities();
         public int GetItemMaxNumberForCellById(int itemId);
+        public ItemStaticData GetItemById(int itemId);
         public string GetItemDescriptionById(int itemId);
     }
 }
