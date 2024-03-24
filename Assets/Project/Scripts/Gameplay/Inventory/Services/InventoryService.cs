@@ -4,17 +4,20 @@ using System.Linq;
 using UnityEngine;
 
 using UndergroundFortress.Constants;
+using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Core.Services.Progress;
+using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Extensions;
 using UndergroundFortress.Gameplay.Inventory.Wallet.Services;
 using UndergroundFortress.Gameplay.Items;
-using UndergroundFortress.Gameplay.Items.Equipment;
 using UndergroundFortress.UI.Information.Services;
 using UndergroundFortress.UI.Inventory;
 
 namespace UndergroundFortress.Gameplay.Inventory.Services
 {
-    public class InventoryService : IInventoryService
+    public class InventoryService : IInventoryService, IWritingProgress
     {
+        private readonly IStaticDataService _staticDataService;
         private readonly IProgressProviderService _progressProviderService;
         private readonly IInformationService _informationService;
         private readonly IWalletOperationService _walletOperationService;
@@ -29,10 +32,12 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
         public event Action OnUpdateResources;
         public event Action<InventoryCellType, int, CellData> OnUpdateCell;
 
-        public InventoryService(IProgressProviderService progressProviderService,
+        public InventoryService(IStaticDataService staticDataService,
+            IProgressProviderService progressProviderService,
             IInformationService informationService,
             IWalletOperationService walletOperationService)
         {
+            _staticDataService = staticDataService;
             _progressProviderService = progressProviderService;
             _informationService = informationService;
             _walletOperationService = walletOperationService;
@@ -42,8 +47,23 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
         {
             _inventory = new Dictionary<InventoryCellType, List<CellData>>();
             
-            _inventory.Add(InventoryCellType.Equipment, _progressProviderService.ProgressData.Equipment);
-            _inventory.Add(InventoryCellType.Bag, _progressProviderService.ProgressData.Bag);
+            Register(_progressProviderService);
+        }
+
+        public void Register(IProgressProviderService progressProviderService) => 
+            progressProviderService.Register(this);
+
+        public void LoadProgress(ProgressData progress)
+        {
+            _inventory.Add(InventoryCellType.Equipment, progress.Equipment);
+            _inventory.Add(InventoryCellType.Bag, progress.Bag);
+        }
+
+        public void UpdateProgress(ProgressData progress) {}
+
+        public void WriteProgress()
+        {
+            _progressProviderService.SaveProgress();
         }
 
         public bool IsBagFull(bool isShowMessage = true)
@@ -67,7 +87,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                     && cellData.ItemData.Type == itemType
                     && cellData.ItemData.Id == id);
 
-            bool isFull = cells.All(cellData => cellData.Number >= cellData.ItemData.MaxNumberForCell);
+            bool isFull = cells.All(cellData => cellData.Number >= _staticDataService.GetItemMaxNumberForCellById(cellData.ItemData.Id));
             
             if (isFull)
                 _informationService.ShowWarning("Bag is full.");
@@ -81,6 +101,8 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                 AddCountedItemToBag(itemData);
             else
                 AddNewItem(itemData);
+            
+            WriteProgress();
         }
 
         public void AddItems(ItemData itemData, int number)
@@ -92,6 +114,8 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                 else
                     AddNewItem(itemData);
             }
+
+            WriteProgress();
         }
 
         public void AddItemById(int itemId) => 
@@ -117,6 +141,8 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             _inventory[InventoryCellType.Bag][itemBagId].Number = 0;
             
             UpdateItemToCell(InventoryCellType.Bag, itemBagId);
+            
+            WriteProgress();
         }
 
         public void RemoveItemsById(int itemId, int requiredNumber)
@@ -131,6 +157,8 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             
             DecrementItems(itemId, requiredNumber);
             UpdateResources();
+            
+            WriteProgress();
         }
 
         public int GetEmptyCellId()
@@ -182,10 +210,10 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                 else
                 {
                     cellData.Number -= number;
+                    WriteProgress();
                     return;
                 }
             }
-            
         }
 
         private CellData GetCellByItemId(int itemId) => 
@@ -193,17 +221,17 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
 
         private bool TryEquipmentComparison(ItemData itemData)
         {
-            if (itemData is not EquipmentData equipmentData)
+            if (!itemData.Type.IsEquipment())
                 return false;
 
             CellData cellData = Equipment.Find(data =>
                 data.ItemData != null
-                && data.ItemData.Type == equipmentData.Type);
+                && data.ItemData.Type == itemData.Type);
             
             if (cellData == null)
                 return false;
             
-            _informationService.ShowEquipmentComparison(cellData.ItemData as EquipmentData, equipmentData);
+            _informationService.ShowEquipmentComparison(cellData.ItemData, itemData);
             
             return true;
         }
@@ -247,7 +275,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                     continue;
                     
                 if (bag[i].ItemData.Id == itemData.Id
-                    && bag[i].Number < itemData.MaxNumberForCell)
+                    && bag[i].Number < _staticDataService.GetItemMaxNumberForCellById(itemData.Id))
                 {
                     return i;
                 }

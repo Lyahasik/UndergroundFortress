@@ -80,9 +80,7 @@ namespace UndergroundFortress.Gameplay.Items.Services
             resourceStaticData.id,
             resourceStaticData.name,
             resourceStaticData.type,
-            resourceStaticData.quality,
-            resourceStaticData.maxNumberForCell,
-            resourceStaticData.description);
+            resourceStaticData.quality);
             
             _inventoryService.AddItem(resourceData);
 
@@ -119,7 +117,6 @@ namespace UndergroundFortress.Gameplay.Items.Services
                 equipmentStaticData.name,
                 equipmentStaticData.type,
                 quality,
-                equipmentStaticData.maxNumberForCell,
                 currentLevel,
                 isSet,
                 mainStats,

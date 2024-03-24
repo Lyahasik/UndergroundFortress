@@ -15,7 +15,7 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
             equipmentView2.Construct(staticDataService);
         }
 
-        public void Show(EquipmentData equipmentData1, EquipmentData equipmentData2)
+        public void Show(ItemData equipmentData1, ItemData equipmentData2)
         {
             equipmentView1.Show(equipmentData1);
             equipmentView2.Show(equipmentData2);

@@ -110,7 +110,7 @@ namespace UndergroundFortress.Core.Services.Progress
             if (_progressData == null)
                 return;
             
-            ReadProgress();
+            UpdateProgress();
             
             string json = JsonConvert.SerializeObject(_progressData, new JsonSerializerSettings());
             PlayerPrefs.SetString(KEY_LOCAL_PROGRESS, json);
@@ -121,7 +121,7 @@ namespace UndergroundFortress.Core.Services.Progress
             _progressReaders.Add(progressReader);
             
             if (_progressData != null)
-                progressReader.ReadProgress(ProgressData);
+                progressReader.LoadProgress(ProgressData);
         }
 
         public void Register(IWritingProgress progressWriter)
@@ -148,10 +148,10 @@ namespace UndergroundFortress.Core.Services.Progress
             return characterStats;
         }
 
-        private void ReadProgress()
+        private void UpdateProgress()
         {
             foreach (IReadingProgress progressReader in _progressReaders)
-                progressReader.ReadProgress(_progressData);
+                progressReader.UpdateProgress(_progressData);
         }
     }
 }

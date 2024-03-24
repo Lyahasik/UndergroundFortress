@@ -126,5 +126,29 @@ namespace UndergroundFortress.Core.Services.StaticData
             Debug.LogWarning($"Not found of id for resource data");
             return null;
         }
+
+        public int GetItemMaxNumberForCellById(int itemId)
+        {
+            foreach (EquipmentStaticData equipmentStaticData in _equipments)
+                if (equipmentStaticData.id == itemId)
+                    return equipmentStaticData.maxNumberForCell;
+
+            foreach (ResourceStaticData resourceStaticData in _resources)
+                if (resourceStaticData.id == itemId)
+                    return resourceStaticData.maxNumberForCell;
+
+            Debug.LogWarning($"Not found of id for item icon");
+            return ConstantValues.MIN_NUMBER_ITEM_FOR_CELL;
+        }
+
+        public string GetItemDescriptionById(int itemId)
+        {
+            foreach (ResourceStaticData resourceStaticData in _resources)
+                if (resourceStaticData.id == itemId)
+                    return resourceStaticData.description;
+
+            Debug.LogWarning($"Not found of id for item icon");
+            return string.Empty;
+        }
     }
 }

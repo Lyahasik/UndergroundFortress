@@ -55,6 +55,7 @@ namespace UndergroundFortress.UI.MainMenu
 
             _mainMenuServicesContainer.Register<ISwapCellsService>(
                 new SwapCellsService(
+                    progressProviderService,
                     _mainMenuServicesContainer.Single<IInventoryService>()));
 
             RegisterMovingService();
@@ -90,6 +91,7 @@ namespace UndergroundFortress.UI.MainMenu
         private void RegisterInventoryService()
         {
             InventoryService inventoryService = new InventoryService(
+                _staticDataService,
                 _progressProviderService,
                 _mainMenuServicesContainer.Single<IInformationService>(),
                 _mainMenuServicesContainer.Single<IWalletOperationService>());

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Extensions;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.Items.Equipment;
 using UndergroundFortress.Gameplay.Items.Resource;
@@ -45,13 +46,13 @@ namespace UndergroundFortress.UI.Information
             capArea.SetActive(true);
             closeButton.SetActive(true);
             
-            if (itemData is EquipmentData equipmentData)
-                ShowEquipment(equipmentData, isEquipped);
-            else if (itemData is ResourceData resourceData)
-                ShowResource(resourceData);
+            if (itemData.Type.IsEquipment())
+                ShowEquipment(itemData, isEquipped);
+            else
+                ShowResource(itemData);
         }
 
-        public void ShowEquipmentComparison(EquipmentData equipmentData1, EquipmentData equipmentData2)
+        public void ShowEquipmentComparison(ItemData equipmentData1, ItemData equipmentData2)
         {
             capArea.SetActive(true);
             closeButton.SetActive(true);
@@ -73,10 +74,10 @@ namespace UndergroundFortress.UI.Information
             warningPrompt.Hide();
         }
 
-        private void ShowResource(ResourceData resourceData) => 
+        private void ShowResource(ItemData resourceData) => 
             resourceView.Show(resourceData);
 
-        private void ShowEquipment(EquipmentData equipmentData, bool isEquipped) => 
+        private void ShowEquipment(ItemData equipmentData, bool isEquipped) => 
             equipmentView.Show(equipmentData, isEquipped);
     }
 }

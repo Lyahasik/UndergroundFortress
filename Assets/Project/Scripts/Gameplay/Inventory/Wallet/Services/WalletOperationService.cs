@@ -59,10 +59,12 @@ namespace UndergroundFortress.Gameplay.Inventory.Wallet.Services
         public bool IsEnoughRealMoney(in int value) => 
             _walletData.Money2 >= value;
 
+        public void LoadProgress(ProgressData progress) => 
+            _walletData = progress.Wallet;
+
+        public void UpdateProgress(ProgressData progress) {}
+
         public void WriteProgress() => 
             _progressProviderService.SaveProgress();
-
-        public void ReadProgress(ProgressData progress) => 
-            _walletData = progress.Wallet;
     }
 }

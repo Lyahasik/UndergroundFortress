@@ -21,7 +21,13 @@ namespace UndergroundFortress.UI.MainMenu
             progressProviderService.Register(this);
         }
 
-        public void ReadProgress(ProgressData progress)
+        public void LoadProgress(ProgressData progress)
+        {
+            UpdateMoney1(progress.Wallet.Money1);
+            UpdateMoney2(progress.Wallet.Money2);
+        }
+
+        public void UpdateProgress(ProgressData progress)
         {
             UpdateMoney1(progress.Wallet.Money1);
             UpdateMoney2(progress.Wallet.Money2);

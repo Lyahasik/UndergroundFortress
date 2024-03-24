@@ -39,7 +39,7 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
             stones ??= new List<StoneView>();
         }
 
-        public void Show(EquipmentData equipmentData, bool isEquipped = false)
+        public void Show(ItemData equipmentData, bool isEquipped = false)
         {
             if (nameText != null)
                 nameText.text = equipmentData.Name;
@@ -54,11 +54,11 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
             UpdateStatsView(mainStats, equipmentData.MainStats);
             UpdateStatsView(stats, equipmentData.AdditionalStats);
 
-            for (int i = 0; i < equipmentData.Stones.Count; i++)
-            {
-                StoneItemData stoneData = equipmentData.Stones[i];
-                stones[i].SetValues();
-            }
+            // for (int i = 0; i < equipmentData.Stones.Count; i++)
+            // {
+            //     StoneItemData stoneData = equipmentData.Stones[i];
+            //     stones[i].SetValues();
+            // }
             
             gameObject.SetActive(true);
         }

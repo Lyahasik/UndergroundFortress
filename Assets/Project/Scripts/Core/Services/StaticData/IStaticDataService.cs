@@ -24,6 +24,8 @@ namespace UndergroundFortress.Core.Services.StaticData
         public Sprite GetItemIcon(int itemDataId);
         public Sprite GetQualityBackground(QualityType type);
         public ResourceStaticData GetResourceById(int itemId);
-        QualitiesStaticData ForQualities();
+        public QualitiesStaticData ForQualities();
+        public int GetItemMaxNumberForCellById(int itemId);
+        public string GetItemDescriptionById(int itemId);
     }
 }

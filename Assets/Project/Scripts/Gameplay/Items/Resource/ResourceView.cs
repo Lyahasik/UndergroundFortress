@@ -21,10 +21,10 @@ namespace UndergroundFortress.Gameplay.Items.Resource
             _staticDataService = staticDataService;
         }
 
-        public void Show(ResourceData resourceData)
+        public void Show(ItemData resourceData)
         {
             nameText.text = resourceData.Name;
-            descriptionText.text = resourceData.Description;
+            descriptionText.text = _staticDataService.GetItemDescriptionById(resourceData.Id);
 
             cellItemView.SetValues(
                 _staticDataService.GetItemIcon(resourceData.Id),
