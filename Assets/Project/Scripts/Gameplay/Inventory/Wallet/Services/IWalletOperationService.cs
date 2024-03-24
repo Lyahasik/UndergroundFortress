@@ -1,13 +1,11 @@
-﻿using System;
-
-using UndergroundFortress.Core.Services;
+﻿using UndergroundFortress.Core.Services;
 
 namespace UndergroundFortress.Gameplay.Inventory.Wallet.Services
 {
     public interface IWalletOperationService : IService
     {
-        public int Money { get; }
-        public int RealMoney { get; }
+        public int Money1 { get; }
+        public int Money2 { get; }
         
         public void Initialize();
         public void AddMoney1(in int value);

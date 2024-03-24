@@ -8,7 +8,7 @@ namespace UndergroundFortress.Gameplay.StaticData
         public int idItem;
 
         [Space] [Header("Price")]
-        public int money;
+        public int money1;
         public List<PriceResourceData> resourcesPrice;
     }
 }

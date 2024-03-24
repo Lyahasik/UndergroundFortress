@@ -16,8 +16,6 @@ namespace UndergroundFortress.Core.Services.Progress
 {
     public partial class ProgressProviderService : IProgressProviderService
     {
-        private const string KEY_LOCAL_PROGRESS = "local_progress";
-        
         private readonly IStaticDataService _staticDataService;
         private readonly IGameStateMachine _gameStateMachine;
 
@@ -48,7 +46,7 @@ namespace UndergroundFortress.Core.Services.Progress
             Debug.Log("Loaded progress.");
             _playerStats = LoadingBaseStats();
             
-            _progressData = LoadData(PlayerPrefs.GetString(KEY_LOCAL_PROGRESS)) ?? CreateNewProgress();
+            _progressData = LoadData(PlayerPrefs.GetString(ConstantValues.KEY_LOCAL_PROGRESS)) ?? CreateNewProgress();
 
             _gameStateMachine.Enter<LoadSceneState>();
         }
@@ -113,7 +111,7 @@ namespace UndergroundFortress.Core.Services.Progress
             UpdateProgress();
             
             string json = JsonConvert.SerializeObject(_progressData, new JsonSerializerSettings());
-            PlayerPrefs.SetString(KEY_LOCAL_PROGRESS, json);
+            PlayerPrefs.SetString(ConstantValues.KEY_LOCAL_PROGRESS, json);
         }
 
         public void Register(IReadingProgress progressReader)

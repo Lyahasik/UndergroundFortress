@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+using UndergroundFortress.Core.Converters;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay;
 using UndergroundFortress.Gameplay.Inventory.Services;
@@ -49,6 +50,9 @@ namespace UndergroundFortress.UI.Craft.Recipe
         {
             int totalPrice = 0;
 
+            if (_recipeStaticData.money1 > _inventoryService.WalletOperationService.Money1)
+                totalPrice += CurrencyConverter.Money1ToPriceTime(_recipeStaticData.money1 - _inventoryService.WalletOperationService.Money1);
+            
             foreach (PriceResource resource in MissingResources)
             {
                 int missingNumber = resource.Required - resource.InStock;

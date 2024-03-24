@@ -94,7 +94,7 @@ namespace UndergroundFortress.Gameplay.Craft.Services
             
             var wallet = _inventoryService.WalletOperationService;
             if (!wallet.IsEnoughMoney(moneyPrice))
-                wallet.RemoveMoney1(wallet.Money);
+                wallet.RemoveMoney1(wallet.Money1);
             
             listPrice.PriceResources.ForEach(data =>
             {

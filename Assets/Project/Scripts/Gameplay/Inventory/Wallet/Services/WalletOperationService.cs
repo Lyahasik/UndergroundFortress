@@ -11,8 +11,8 @@ namespace UndergroundFortress.Gameplay.Inventory.Wallet.Services
 
         private WalletData _walletData;
 
-        public int Money => _walletData.Money1;
-        public int RealMoney => _walletData.Money2;
+        public int Money1 => _walletData.Money1;
+        public int Money2 => _walletData.Money2;
 
         public void Construct(IProgressProviderService progressProviderService)
         {
@@ -28,6 +28,14 @@ namespace UndergroundFortress.Gameplay.Inventory.Wallet.Services
         {
             progressProviderService.Register(this);
         }
+
+        public void LoadProgress(ProgressData progress) => 
+            _walletData = progress.Wallet;
+
+        public void UpdateProgress(ProgressData progress) {}
+
+        public void WriteProgress() => 
+            _progressProviderService.SaveProgress();
 
         public void AddMoney1(in int value)
         {
@@ -58,13 +66,5 @@ namespace UndergroundFortress.Gameplay.Inventory.Wallet.Services
 
         public bool IsEnoughRealMoney(in int value) => 
             _walletData.Money2 >= value;
-
-        public void LoadProgress(ProgressData progress) => 
-            _walletData = progress.Wallet;
-
-        public void UpdateProgress(ProgressData progress) {}
-
-        public void WriteProgress() => 
-            _progressProviderService.SaveProgress();
     }
 }

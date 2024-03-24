@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+using UndergroundFortress.Core.Converters;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Extensions;
@@ -138,7 +139,7 @@ namespace UndergroundFortress.UI.Craft
         {
             bool isEnough = _inventoryService.WalletOperationService.IsEnoughMoney(_moneyPrice) && listPrice.IsEnough;
             
-            buttonStartCraft.UpdatePrice(isEnough ? 0 : listPrice.TotalPriceTime());
+            buttonStartCraft.UpdatePrice(isEnough ? 0 : CurrencyConverter.PriceTimeToMoney2(listPrice.TotalPriceTime()));
         }
 
         public void UpdateCraftState(bool isEquipment) => 

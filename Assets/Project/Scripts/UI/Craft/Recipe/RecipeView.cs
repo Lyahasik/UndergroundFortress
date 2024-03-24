@@ -50,7 +50,7 @@ namespace UndergroundFortress.UI.Craft.Recipe
             ItemStaticData equipmentData,
             Sprite statTypeIcon = null)
         {
-            _moneyPrice = recipeData.money;
+            _moneyPrice = recipeData.money1;
             textMoneyPrice.text = _moneyPrice.ToString();
             
             listPrice.Construct(staticDataService, _inventoryService, recipeData);
