@@ -12,8 +12,6 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
     {
         [SerializeField] private TMP_Text nameText;
         [SerializeField] private CellItemView cellItemView;
-        [SerializeField] private GameObject buttonEquip;
-        [SerializeField] private GameObject buttonTakeOff;
 
         [Space]
         [SerializeField] private List<StatView> mainStats;
@@ -39,7 +37,7 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
             stones ??= new List<StoneView>();
         }
 
-        public void Show(ItemData equipmentData, bool isEquipped = false)
+        public void Show(ItemData equipmentData)
         {
             if (nameText != null)
                 nameText.text = equipmentData.Name;
@@ -49,8 +47,6 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
                     _staticDataService.GetItemIcon(equipmentData.Id),
                     _staticDataService.GetQualityBackground(equipmentData.QualityType));
             
-            ActivateEquipButtons(isEquipped);
-
             UpdateStatsView(mainStats, equipmentData.MainStats);
             UpdateStatsView(stats, equipmentData.AdditionalStats);
 
@@ -83,14 +79,6 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
                     statViews[i].Hide();
                 }
             }
-        }
-
-        private void ActivateEquipButtons(bool isEquipped)
-        {
-            if (buttonEquip != null)
-                buttonEquip.SetActive(!isEquipped);
-            if (buttonTakeOff != null)
-                buttonTakeOff.SetActive(isEquipped);
         }
 
         private void Reset()

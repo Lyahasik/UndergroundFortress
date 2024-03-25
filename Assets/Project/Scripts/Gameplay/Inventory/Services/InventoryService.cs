@@ -203,7 +203,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
         {
             var isBag = inventoryCellType == InventoryCellType.Bag;
             if (!isBag || !TryEquipmentComparison(itemData))
-                _informationService.ShowItem(itemData, !isBag);
+                _informationService.ShowItem(itemData);
         }
 
         public int GetNumberItemsById(int id) => 

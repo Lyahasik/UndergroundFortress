@@ -11,9 +11,9 @@ namespace UndergroundFortress.UI.Information.Services
             _informationView = informationView;
         }
 
-        public void ShowItem(ItemData itemData, bool isEquipped = false)
+        public void ShowItem(ItemData itemData)
         {
-            _informationView.ShowItem(itemData, isEquipped);
+            _informationView.ShowItem(itemData);
         }
 
         public void ShowEquipmentComparison(ItemData equipmentData1, ItemData equipmentData2)

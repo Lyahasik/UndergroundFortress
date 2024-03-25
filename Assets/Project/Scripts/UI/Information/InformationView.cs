@@ -41,13 +41,13 @@ namespace UndergroundFortress.UI.Information
             resourceView.Construct(staticDataService);
         }
 
-        public void ShowItem(ItemData itemData, bool isEquipped)
+        public void ShowItem(ItemData itemData)
         {
             capArea.SetActive(true);
             closeButton.SetActive(true);
             
             if (itemData.Type.IsEquipment())
-                ShowEquipment(itemData, isEquipped);
+                ShowEquipment(itemData);
             else
                 ShowResource(itemData);
         }
@@ -77,7 +77,7 @@ namespace UndergroundFortress.UI.Information
         private void ShowResource(ItemData resourceData) => 
             resourceView.Show(resourceData);
 
-        private void ShowEquipment(ItemData equipmentData, bool isEquipped) => 
-            equipmentView.Show(equipmentData, isEquipped);
+        private void ShowEquipment(ItemData equipmentData) => 
+            equipmentView.Show(equipmentData);
     }
 }
