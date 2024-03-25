@@ -92,7 +92,8 @@ namespace UndergroundFortress.Core.Services.Progress
                     { ItemType.Gloves, new List<int>() },
                     { ItemType.Consumable, new List<int>() }
                 },
-                Bag = new List<CellData>()
+                Bag = new List<CellData>(),
+                FilledNumberBag = 0
             };
             
             for (int i = 0; i < ConstantValues.BASE_SIZE_BAG; i++) 

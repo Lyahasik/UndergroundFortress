@@ -15,6 +15,7 @@ namespace UndergroundFortress.UI.MainMenu
     public class MainMenuView : MonoBehaviour
     {
         [SerializeField] private WalletView walletView;
+        [SerializeField] private AmountSpaceBag amountSpaceBag;
         
         [Space]
         [SerializeField] private Button buttonStartGame;
@@ -44,6 +45,8 @@ namespace UndergroundFortress.UI.MainMenu
             _windows.Add(inventoryView);
             
             walletView.Initialize(progressProviderService);
+            
+            amountSpaceBag.Register(progressProviderService);
             
             buttonStartGame.onClick.AddListener(LoadLevel);
         }

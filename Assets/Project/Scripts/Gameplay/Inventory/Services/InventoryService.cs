@@ -63,6 +63,9 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
 
         public void WriteProgress()
         {
+            _progressProviderService.ProgressData.FilledNumberBag
+                = Bag.Where(data => data.ItemData != null).ToList().Count;
+            
             _progressProviderService.SaveProgress();
         }
 

@@ -14,5 +14,6 @@ namespace UndergroundFortress.Core.Progress
         public Dictionary<ItemType, List<int>> ActiveRecipes;
         public List<CellData> Equipment;
         public List<CellData> Bag;
+        public int FilledNumberBag;
     }
 }
