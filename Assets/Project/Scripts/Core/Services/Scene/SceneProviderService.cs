@@ -10,6 +10,7 @@ using UndergroundFortress.Core.Services.GameStateMachine.States;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay;
+using UndergroundFortress.Gameplay.Character.Services;
 using UndergroundFortress.UI.MainMenu;
 
 namespace UndergroundFortress.Core.Services.Scene
@@ -21,6 +22,7 @@ namespace UndergroundFortress.Core.Services.Scene
         private readonly IGameplayFactory _gameplayFactory;
         private readonly IStaticDataService _staticDataService;
         private readonly IProgressProviderService _progressProviderService;
+        private readonly IProcessingPlayerStatsService _processingPlayerStatsService;
 
         private ServicesContainer _match3ServicesContainer;
 
@@ -32,13 +34,15 @@ namespace UndergroundFortress.Core.Services.Scene
             IUIFactory uiFactory,
             IGameplayFactory gameplayFactory,
             IStaticDataService staticDataService,
-            IProgressProviderService progressProviderService)
+            IProgressProviderService progressProviderService,
+            IProcessingPlayerStatsService processingPlayerStatsService)
         {
             _gameStateMachine = gameStateMachine;
             _uiFactory = uiFactory;
             _gameplayFactory = gameplayFactory;
             _staticDataService = staticDataService;
             _progressProviderService = progressProviderService;
+            _processingPlayerStatsService = processingPlayerStatsService;
         }
 
         public void LoadMainScene()
@@ -87,7 +91,7 @@ namespace UndergroundFortress.Core.Services.Scene
             InitializerMainMenu initializerMainMenu = new GameObject().AddComponent<InitializerMainMenu>();
             initializerMainMenu.name = nameof(InitializerMainMenu);
             initializerMainMenu.Construct(_staticDataService, _uiFactory, _progressProviderService);
-            initializerMainMenu.Initialize(_progressProviderService, this);
+            initializerMainMenu.Initialize(_progressProviderService, _processingPlayerStatsService, this);
 
             Debug.Log("Main scene loaded.");
             _gameStateMachine.Enter<MainMenuState>();
@@ -104,7 +108,7 @@ namespace UndergroundFortress.Core.Services.Scene
                 _staticDataService,
                 _gameplayFactory,
                 _uiFactory,
-                _progressProviderService.PlayerStats);
+                _processingPlayerStatsService);
             initializerLevel.Initialize();
 
             Debug.Log("Level scene loaded.");

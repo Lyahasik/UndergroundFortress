@@ -25,40 +25,41 @@ namespace UndergroundFortress.UI.Craft.Recipe
         [Space]
         [SerializeField] private TMP_Text textMoneyPrice;
         [SerializeField] private ListPrice listPrice;
-        
+
+        private IStaticDataService _staticDataService;
         private CraftView _craftView;
         private ListRecipesView _listRecipesView;
         private IInventoryService _inventoryService;
 
         private int _idItem;
         private ItemType _itemType;
-        
+
         private int _moneyPrice;
 
-        public void Construct(CraftView craftView,
+        public void Construct(IStaticDataService staticDataService,
+            CraftView craftView,
             ListRecipesView listRecipesView,
             IInventoryService inventoryService)
         {
+            _staticDataService = staticDataService;
             _craftView = craftView;
             _listRecipesView = listRecipesView;
             _inventoryService = inventoryService;
         }
 
         public void Initialize(
-            IStaticDataService staticDataService,
             RecipeStaticData recipeData,
-            ItemStaticData equipmentData,
-            Sprite statTypeIcon = null)
+            ItemStaticData equipmentData)
         {
             _moneyPrice = recipeData.money1;
             textMoneyPrice.text = _moneyPrice.ToString();
             
-            listPrice.Construct(staticDataService, _inventoryService, recipeData);
+            listPrice.Construct(_staticDataService, _inventoryService, recipeData);
             listPrice.Init();
             
             button.onClick.AddListener(ActivateRecipe);
             
-            SetValues(equipmentData, statTypeIcon);
+            SetValues(equipmentData);
             UpdateCurrentResources();
         }
 
@@ -74,16 +75,16 @@ namespace UndergroundFortress.UI.Craft.Recipe
             _listRecipesView.OnActivateRecipe -= SetInteractable;
         }
 
-        private void SetValues(ItemStaticData itemData, Sprite statTypeIcon)
+        private void SetValues(ItemStaticData itemData)
         {
             if (itemData is EquipmentStaticData equipmentData)
-                SetEquipmentValues(equipmentData, statTypeIcon);
+                SetEquipmentValues(equipmentData);
             
             if (itemData is ResourceStaticData resourceData)
                 SetResourcesValues(resourceData);
         }
 
-        private void SetEquipmentValues(EquipmentStaticData equipmentData, Sprite statTypeIcon)
+        private void SetEquipmentValues(EquipmentStaticData equipmentData)
         {
             _idItem = equipmentData.id;
             _itemType = equipmentData.type;
@@ -92,8 +93,9 @@ namespace UndergroundFortress.UI.Craft.Recipe
             
             maximumLevelItem.SetValue(equipmentData.maxLevel);
 
+            StatStaticData statStaticData = _staticDataService.GetStatByType(equipmentData.typeStat);
             QualityValue qualityValue = equipmentData.qualityValues[(int)QualityType.Grey];
-            statView.SetValues(statTypeIcon, qualityValue.minValue, qualityValue.maxValue);
+            statView.SetValues(statStaticData.keyName, statStaticData.icon, qualityValue.minValue, qualityValue.maxValue);
         }
 
         private void SetResourcesValues(ResourceStaticData resourceData)

@@ -35,12 +35,15 @@ namespace UndergroundFortress.UI.MainMenu
             _activationRecipesService = activationRecipesService;
         }
 
-        public void Initialize(CraftView craftView,
+        public void Initialize(
+            HomeView homeView, 
+            CraftView craftView,
             InventoryView inventoryView,
             IProgressProviderService progressProviderService)
         {
             _windows = new List<IWindow>();
             
+            _windows.Add(homeView);
             _windows.Add(craftView);
             _windows.Add(inventoryView);
             

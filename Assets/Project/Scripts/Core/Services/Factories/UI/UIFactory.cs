@@ -22,6 +22,9 @@ namespace UndergroundFortress.Core.Services.Factories.UI
         public InformationView CreateInformation() => 
             PrefabInstantiate(_staticDataService.ForMainMenu().informationViewPrefab);
 
+        public HomeView CreateHome() => 
+            PrefabInstantiate(_staticDataService.ForMainMenu().homeViewPrefab);
+
         public CraftView CreateCraft() => 
             PrefabInstantiate(_staticDataService.ForMainMenu().craftViewPrefab);
 

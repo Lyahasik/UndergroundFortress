@@ -10,6 +10,7 @@ using UndergroundFortress.Core.Services.GameStateMachine.States;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.Scene;
 using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Gameplay.Character.Services;
 using UndergroundFortress.UI.Loading;
 
 namespace UndergroundFortress.Core.Initialize
@@ -34,10 +35,11 @@ namespace UndergroundFortress.Core.Initialize
 
             GameStateMachine gameStateMachine = new GameStateMachine();
             
-            _servicesContainer.Register<ICharacterDressingService>(
-                new CharacterDressingService());
-            
             RegisterProgressProviderService(gameStateMachine);
+            RegsisterProcessingPlayerStatsService();
+            
+            _servicesContainer.Register<IPlayerDressingService>(
+                new PlayerDressingService(_servicesContainer.Single<IProcessingPlayerStatsService>()));
             
             _servicesContainer.Register<IUIFactory>(
                 new UIFactory(
@@ -52,7 +54,8 @@ namespace UndergroundFortress.Core.Initialize
                     _servicesContainer.Single<IUIFactory>(),
                     _servicesContainer.Single<IGameplayFactory>(),
                     _servicesContainer.Single<IStaticDataService>(),
-                    _servicesContainer.Single<IProgressProviderService>()));
+                    _servicesContainer.Single<IProgressProviderService>(),
+                    _servicesContainer.Single<IProcessingPlayerStatsService>()));
             
             LoadingCurtain curtain = CreateLoadingCurtain();
             GameData gameData = GameDataCreate(curtain, _servicesContainer);
@@ -67,15 +70,25 @@ namespace UndergroundFortress.Core.Initialize
             DontDestroyOnLoad(gameData);
         }
 
+        private void RegsisterProcessingPlayerStatsService()
+        {
+            var service = new ProcessingPlayerStatsService(
+                _servicesContainer.Single<IStaticDataService>(),
+                _servicesContainer.Single<IProgressProviderService>());
+            service.Initialize();
+            
+            _servicesContainer.Register<IProcessingPlayerStatsService>(service);
+        }
+
         private void RegisterProgressProviderService(GameStateMachine gameStateMachine)
         {
-            var progressProviderService = new ProgressProviderService(
+            var service = new ProgressProviderService(
                 _servicesContainer.Single<IStaticDataService>(),
                 gameStateMachine);
             
-            progressProviderService.Initialization();
+            service.Initialization();
             
-            _servicesContainer.Register<IProgressProviderService>(progressProviderService);
+            _servicesContainer.Register<IProgressProviderService>(service);
         }
 
         private LoadingCurtain CreateLoadingCurtain()
@@ -89,9 +102,9 @@ namespace UndergroundFortress.Core.Initialize
 
         private void RegisterStaticDataService()
         {
-            StaticDataService staticDataService = new StaticDataService();
-            staticDataService.Load();
-            _servicesContainer.Register<IStaticDataService>(staticDataService);
+            StaticDataService service = new StaticDataService();
+            service.Load();
+            _servicesContainer.Register<IStaticDataService>(service);
         }
 
         private GameData GameDataCreate(LoadingCurtain curtain, ServicesContainer servicesContainer)

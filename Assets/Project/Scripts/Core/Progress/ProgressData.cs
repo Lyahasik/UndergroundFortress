@@ -2,12 +2,14 @@
 
 using UndergroundFortress.Gameplay.Inventory;
 using UndergroundFortress.Gameplay.Items;
+using UndergroundFortress.Gameplay.Stats;
 
 namespace UndergroundFortress.Core.Progress
 {
     public class ProgressData
     {
         public int Level;
+        public Dictionary<StatType, float> MainStats;
 
         public WalletData Wallet;
         

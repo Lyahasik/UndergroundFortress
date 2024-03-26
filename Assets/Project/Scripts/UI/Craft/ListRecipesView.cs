@@ -58,24 +58,21 @@ namespace UndergroundFortress.UI.Craft
                 RecipeStaticData recipeData = recipesStaticData.Find(v => v.idItem == itemId);
                 
                 RecipeView recipeView = Instantiate(prefabRecipeView, gameObject.transform);
-                recipeView.Construct(_craftView, this, _inventoryService);
+                recipeView.Construct(_staticDataService, _craftView, this, _inventoryService);
                 
                 if (IsEquipment(itemType))
                 {
                     EquipmentStaticData equipmentData
                         = equipmentsStaticData.Find(v => v.id == recipeData.idItem);
                     recipeView.Initialize(
-                        _staticDataService,
                         recipeData,
-                        equipmentData,
-                        _staticDataService.GetStatIcon(equipmentData.typeStat));
+                        equipmentData);
                 }
                 else
                 {
                     ResourceStaticData resourceData
                         = resourcesStaticData.Find(v => v.id == recipeData.idItem);
                     recipeView.Initialize(
-                        _staticDataService,
                         recipeData,
                         resourceData);
                 }

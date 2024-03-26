@@ -7,6 +7,7 @@ using UndergroundFortress.Core.Services.Factories.UI;
 using UndergroundFortress.Core.Services.Scene;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Character;
+using UndergroundFortress.Gameplay.Character.Services;
 using UndergroundFortress.Gameplay.Items.Equipment;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats.Services;
@@ -20,7 +21,7 @@ namespace UndergroundFortress.Gameplay
         private IStaticDataService _staticDataService;
         private IGameplayFactory _gameplayFactory;
         private IUIFactory _uiFactory;
-        private CharacterStats _playerStats;
+        private IProcessingPlayerStatsService _processingPlayerStatsService;
 
         private ServicesContainer _gameplayServicesContainer;
 
@@ -37,13 +38,13 @@ namespace UndergroundFortress.Gameplay
             IStaticDataService staticDataService,
             IGameplayFactory gameplayFactory,
             IUIFactory uiFactory,
-            CharacterStats playerStats)
+            IProcessingPlayerStatsService processingPlayerStatsService)
         {
             _sceneProviderService = sceneProviderService;
             _staticDataService = staticDataService;
             _gameplayFactory = gameplayFactory;
             _uiFactory = uiFactory;
-            _playerStats = playerStats;
+            _processingPlayerStatsService = processingPlayerStatsService;
         }
 
         public void Initialize()
@@ -75,18 +76,18 @@ namespace UndergroundFortress.Gameplay
             Canvas gameplayCanvas = _gameplayFactory.CreateGameplayCanvas();
             
             _playerData = _gameplayFactory.CreatePlayer(gameplayCanvas.transform);
-            _playerData.Construct(_playerStats, new List<EquipmentData>());
+            _playerData.Construct(_processingPlayerStatsService.PlayerStats, new List<EquipmentData>());
             
             CharacterStaticData enemyStaticData = _staticDataService.ForEnemy();
             _enemyStats = new CharacterStats();
-            _enemyStats.Initialize(enemyStaticData);
+            // _enemyStats.Initialize(enemyStaticData);
             _enemyData = _gameplayFactory.CreateEnemy(gameplayCanvas.transform);
             _enemyData.Construct(_enemyStats, new List<EquipmentData>());
             
-            _gameplayServicesContainer.Single<IStatsRestorationService>().AddStats(_playerStats);
+            _gameplayServicesContainer.Single<IStatsRestorationService>().AddStats(_processingPlayerStatsService.PlayerStats);
             _gameplayServicesContainer.Single<IStatsRestorationService>().AddStats(_enemyStats);
             
-            hudView.playerStatsView.Construct(_playerStats);
+            hudView.playerStatsView.Construct(_processingPlayerStatsService.PlayerStats);
             hudView.enemyStatsView.Construct(_enemyStats);
 
             AttackArea attackArea = _gameplayFactory.CreateAttackArea(gameplayCanvas.transform);

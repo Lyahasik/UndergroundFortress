@@ -1,14 +1,22 @@
 ﻿using System.Collections.Generic;
 
 using UndergroundFortress.Gameplay.Character;
+using UndergroundFortress.Gameplay.Character.Services;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.Items.Equipment;
 using UndergroundFortress.Gameplay.Stats;
 
 namespace UndergroundFortress.Core.Services.Characters
 {
-    public class CharacterDressingService : ICharacterDressingService
+    public class PlayerDressingService : IPlayerDressingService
     {
+        private readonly IProcessingPlayerStatsService _processingPlayerStatsService;
+
+        public PlayerDressingService(IProcessingPlayerStatsService processingPlayerStatsService)
+        {
+            _processingPlayerStatsService = processingPlayerStatsService;
+        }
+        
         public void DressThePlayer(CharacterData characterData, List<EquipmentData> items)
         {
             foreach (EquipmentData item in items)
@@ -24,11 +32,11 @@ namespace UndergroundFortress.Core.Services.Characters
                 switch (statData.Type)
                 {
                     case StatType.Health:
-                        characterData.Stats.UpHealth(statData.Value);
+                        _processingPlayerStatsService.UpHealth(statData.Value);
                         break;
                 
                     default:
-                        characterData.Stats.UpStat(statData.Type, statData.Value);
+                        _processingPlayerStatsService.UpStat(statData.Type, statData.Value);
                         break;
                 }
             }
@@ -41,11 +49,11 @@ namespace UndergroundFortress.Core.Services.Characters
                 switch (statData.Type)
                 {
                     case StatType.Health:
-                        characterData.Stats.DownHealth(statData.Value);
+                        _processingPlayerStatsService.DownHealth(statData.Value);
                         break;
                 
                     default:
-                        characterData.Stats.DownStat(statData.Type, statData.Value);
+                        _processingPlayerStatsService.DownStat(statData.Type, statData.Value);
                         break;
                 }
             }

@@ -20,7 +20,7 @@ namespace UndergroundFortress.Core.Services.StaticData
         public List<EquipmentStaticData> ForEquipments();
         public List<ResourceStaticData> ForResources();
         public List<RecipeStaticData> ForRecipes();
-        public Sprite GetStatIcon(StatType statType);
+        public StatStaticData GetStatByType(StatType statType);
         public Sprite GetItemIcon(int itemDataId);
         public Sprite GetQualityBackground(QualityType type);
         public ResourceStaticData GetResourceById(int itemId);

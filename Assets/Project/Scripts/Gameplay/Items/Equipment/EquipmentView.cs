@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 
 using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats;
 using UndergroundFortress.UI.Information;
 
@@ -72,7 +73,8 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
                 if (i < statsData.Count)
                 {
                     StatItemData statData = statsData[i];
-                    statViews[i].SetValues(statData.Icon, statData.QualityType, statData.Value);
+                    StatStaticData statStaticData = _staticDataService.GetStatByType(statData.Type);
+                    statViews[i].SetValues(statStaticData.keyName, statStaticData.icon, statData.QualityType, statData.Value);
                 }
                 else
                 {

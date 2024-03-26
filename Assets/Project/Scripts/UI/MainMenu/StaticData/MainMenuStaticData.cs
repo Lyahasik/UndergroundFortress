@@ -11,6 +11,7 @@ namespace UndergroundFortress.UI.MainMenu.StaticData
     {
         public MainMenuView mainMenuViewPrefab;
         public InformationView informationViewPrefab;
+        public HomeView homeViewPrefab;
         public CraftView craftViewPrefab;
         public InventoryView inventoryViewPrefab;
     }

@@ -84,8 +84,8 @@ namespace UndergroundFortress.Core.Services.StaticData
         public List<RecipeStaticData> ForRecipes() => 
             _recipes;
 
-        public Sprite GetStatIcon(StatType statType) => 
-            _stats.Find(data => data.type == statType).icon;
+        public StatStaticData GetStatByType(StatType statType) => 
+            _stats.Find(data => data.type == statType);
 
         public Sprite GetItemIcon(int itemDataId)
         {

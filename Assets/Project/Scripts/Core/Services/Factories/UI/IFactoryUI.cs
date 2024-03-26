@@ -10,6 +10,7 @@ namespace UndergroundFortress.Core.Services.Factories.UI
     {
         public MainMenuView CreateMainMenu();
         public InformationView CreateInformation();
+        public HomeView CreateHome();
         public CraftView CreateCraft();
         public InventoryView CreateInventory();
         public HudView CreateHUD();

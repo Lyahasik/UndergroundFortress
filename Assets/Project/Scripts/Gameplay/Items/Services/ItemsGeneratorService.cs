@@ -147,7 +147,7 @@ namespace UndergroundFortress.Gameplay.Items.Services
                 QualityType qualityStat = QualityType.Empty.Random(_staticDataService.ForQualities().qualitiesData);
 
                 float qualityValue = GetQualityValue(staticStatData.qualityValues, qualityStat, typeStat);
-                stats.Add(new (typeStat, qualityStat, null, qualityValue));
+                stats.Add(new (typeStat, qualityStat, qualityValue));
             }
 
             return stats;
@@ -190,7 +190,7 @@ namespace UndergroundFortress.Gameplay.Items.Services
             float qualityValue = GetQualityValue(equipQualityValues, qualityEquipment, additionalMainType);
             List<StatItemData> stats = new List<StatItemData>
             {
-                new StatItemData(mainType, qualityEquipment,null, qualityValue)
+                new StatItemData(mainType, qualityEquipment, qualityValue)
             };
             
             if (additionalMainType != StatType.Empty)
@@ -199,7 +199,7 @@ namespace UndergroundFortress.Gameplay.Items.Services
                     GetStaticQualityValues(additionalMainType),
                     qualityEquipment,
                     additionalMainType);
-                stats.Add(new StatItemData(additionalMainType, qualityEquipment, null, qualityValue));
+                stats.Add(new StatItemData(additionalMainType, qualityEquipment, qualityValue));
             }
 
             return stats;

@@ -1,5 +1,4 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,20 +8,27 @@ namespace UndergroundFortress.Gameplay.Stats
     {
         [SerializeField] private Image background;
         [SerializeField] private Image icon;
+        [SerializeField] private TMP_Text nameText;
         [SerializeField] private TMP_Text valueText;
 
-        public void SetValues(Sprite iconSprite, QualityType qualityType, in float value)
+        public void SetValues(string keyName, Sprite iconSprite, QualityType qualityType, in float value)
         {
             background.color = GetColorQuality(qualityType);
             icon.sprite = iconSprite;
+
+            //TODO locale
+            nameText.text = keyName;
             valueText.text = value.ToString();
             
             gameObject.SetActive(true);
         }
 
-        public void SetValues(Sprite iconSprite, in float minValue, in float maxValue)
+        public void SetValues(string keyName, Sprite iconSprite, in float minValue, in float maxValue)
         {
             icon.sprite = iconSprite;
+
+            //TODO locale
+            nameText.text = keyName;
             valueText.text = $"{ minValue } - { maxValue }";
             
             gameObject.SetActive(true);

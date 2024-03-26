@@ -5,6 +5,7 @@ using UndergroundFortress.Core.Services.Factories.UI;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.Scene;
 using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Gameplay.Character.Services;
 using UndergroundFortress.Gameplay.Craft.Services;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Inventory.Wallet.Services;
@@ -38,10 +39,12 @@ namespace UndergroundFortress.UI.MainMenu
             _progressProviderService = progressProviderService;
         }
 
-        public void Initialize(IProgressProviderService progressProviderService, ISceneProviderService sceneProviderService)
+        public void Initialize(IProgressProviderService progressProviderService,
+            IProcessingPlayerStatsService processingPlayerStatsService,
+            ISceneProviderService sceneProviderService) 
         {
             RegisterServices(progressProviderService);
-            CreateMainMenu(progressProviderService, sceneProviderService);
+            CreateMainMenu(progressProviderService, processingPlayerStatsService, sceneProviderService);
         }
         
         private void RegisterServices(IProgressProviderService progressProviderService)
@@ -109,11 +112,17 @@ namespace UndergroundFortress.UI.MainMenu
             _mainMenuServicesContainer.Register<IInventoryService>(inventoryService);
         }
 
-        private void CreateMainMenu(IProgressProviderService progressProviderService, ISceneProviderService sceneProviderService)
+        private void CreateMainMenu(IProgressProviderService progressProviderService,
+            IProcessingPlayerStatsService processingPlayerStatsService,
+            ISceneProviderService sceneProviderService)
         {
             InformationView information = _uiFactory.CreateInformation();
             information.Initialize(_staticDataService);
             _mainMenuServicesContainer.Single<IInformationService>().Initialize(information);
+            
+            HomeView home = _uiFactory.CreateHome();
+            home.Construct(processingPlayerStatsService);
+            home.Initialize(_staticDataService);
 
             CraftView craft = _uiFactory.CreateCraft();
             craft.Construct(
@@ -141,7 +150,7 @@ namespace UndergroundFortress.UI.MainMenu
             mainMenu.Construct(sceneProviderService, 
                 _mainMenuServicesContainer.Single<IItemsGeneratorService>(),
                 _mainMenuServicesContainer.Single<IActivationRecipesService>());
-            mainMenu.Initialize(craft, inventory, progressProviderService);
+            mainMenu.Initialize(home, craft, inventory, progressProviderService);
         }
         
         private void ClearMainMenuServices()
