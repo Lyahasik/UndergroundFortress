@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using UndergroundFortress.Core.Progress;
+using UndergroundFortress.Core.Services.Characters;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.UI.Inventory;
@@ -11,15 +12,19 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
     {
         private readonly IProgressProviderService _progressProviderService;
         private readonly IInventoryService _inventoryService;
+        private readonly IPlayerDressingService _playerDressingService;
         private InventoryView _inventoryView;
-        
+
         private CellInventoryView _leftHandCell;
         private CellInventoryView _rightHandCell;
 
-        public SwapCellsService(IProgressProviderService progressProviderService, IInventoryService inventoryService)
+        public SwapCellsService(IProgressProviderService progressProviderService,
+            IInventoryService inventoryService,
+            IPlayerDressingService playerDressingService)
         {
             _progressProviderService = progressProviderService;
             _inventoryService = inventoryService;
+            _playerDressingService = playerDressingService;
         }
 
         public void Initialize(InventoryView inventoryView)
@@ -77,9 +82,13 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                 
                 if (TryEquippingHands(bag, equipment, cellBag, cellEquipment))
                     return true;
-                
+
                 if (cellEquipment.ItemType == cellBag.ItemData.Type)
+                {
+                    _playerDressingService.PutOnAnItem(cellBag.ItemData);
+                    _playerDressingService.RemoveAnItem(cellEquipment.ItemData);
                     return Swap(bag, equipment, cellBag, cellEquipment);
+                }
             }
 
             return false;
@@ -100,18 +109,25 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                 if (cellEquipment.ItemData?.Type == ItemType.TwoHandedWeapon)
                 {
                     if (IsLeftHandItem(cellBag))
+                    {
+                        _playerDressingService.RemoveAnItem(_leftHandCell.ItemData);
                         return Swap(equipment, bag, _leftHandCell, cellBag);
+                    }
 
                     Swap(equipment, bag, _rightHandCell, cellBag);
                     AddItemToEmptyCellBag(_leftHandCell);
 
                     return true;
                 }
-                
+
                 if ((IsLeftHandCell(cellEquipment) && IsLeftHandItem(cellBag))
                     || cellBag.ItemData == null
                     || cellBag.ItemData?.Type == cellEquipment.ItemData?.Type)
+                {
+                    _playerDressingService.PutOnAnItem(cellBag.ItemData);
+                    _playerDressingService.RemoveAnItem(cellEquipment.ItemData);
                     return Swap(equipment, bag, cellEquipment, cellBag);
+                }
 
                 if (!_inventoryService.IsBagFull())
                 {
@@ -153,10 +169,15 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             if (IsLeftHandCell(cellEquipment))
             {
                 if (!IsFilledCell(_rightHandCell))
+                {
+                    _playerDressingService.PutOnAnItem(cellBag.ItemData);
+                    _playerDressingService.RemoveAnItem(cellEquipment.ItemData);
                     return Swap(bag, equipment, cellBag, cellEquipment);
+                }
 
                 if (!IsFilledCell(cellEquipment))
                 {
+                    _playerDressingService.PutOnAnItem(cellBag.ItemData);
                     Swap(bag, equipment, cellBag, cellEquipment);
                     AddItemToEmptyCellBag(_rightHandCell);
 
@@ -168,24 +189,32 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                 
                 AddItemToEmptyCellBag(_rightHandCell);
 
+                _playerDressingService.PutOnAnItem(cellBag.ItemData);
+                _playerDressingService.RemoveAnItem(cellEquipment.ItemData);
                 return Swap(bag, equipment, cellBag, cellEquipment);
             }
-            
+
             if (_leftHandCell.ItemData?.Type == ItemType.TwoHandedWeapon
                 || !IsFilledCell(_rightHandCell))
+            {
+                _playerDressingService.PutOnAnItem(cellBag.ItemData);
                 return Swap(bag, equipment, cellBag, _leftHandCell);
+            }
 
             if (IsFilledCell(_leftHandCell))
             {
                 if (_inventoryService.IsBagFull())
                     return false;
                     
+                _playerDressingService.PutOnAnItem(cellBag.ItemData);
+                _playerDressingService.RemoveAnItem(_leftHandCell.ItemData);
                 Swap(bag, equipment, cellBag, _leftHandCell);
                 AddItemToEmptyCellBag(_rightHandCell);
 
                 return true;
             }
                 
+            _playerDressingService.PutOnAnItem(cellBag.ItemData);
             Swap(bag, equipment, cellBag, _leftHandCell);
             AddItemToEmptyCellBag(_rightHandCell);
 
@@ -199,6 +228,8 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                 || !IsLeftHandItem(cellBag))
                 return false;
             
+            _playerDressingService.PutOnAnItem(cellBag.ItemData);
+            _playerDressingService.RemoveAnItem(cellEquipment.ItemData);
             return Swap(bag, equipment, cellBag, cellEquipment);
         }
 
@@ -210,8 +241,13 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                 return false;
 
             if (_leftHandCell.ItemData?.Type != ItemType.TwoHandedWeapon)
+            {
+                _playerDressingService.PutOnAnItem(cellBag.ItemData);
+                _playerDressingService.RemoveAnItem(rightHandCell.ItemData);
                 return Swap(bag, equipment, cellBag, rightHandCell);
+            }
 
+            _playerDressingService.PutOnAnItem(cellBag.ItemData);
             Swap(bag, equipment, cellBag, rightHandCell);
             AddItemToEmptyCellBag(_leftHandCell);
 
@@ -223,6 +259,8 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             int id2 = _inventoryService.GetEmptyCellId();
             List<CellData> equipment = _inventoryService.Equipment;
             List<CellData> bag = _inventoryService.Bag;
+            
+            _playerDressingService.RemoveAnItem(cell.ItemData);
             
             (equipment[cell.Id], bag[id2]) = (bag[id2], equipment[cell.Id]);
             _inventoryService.UpdateItemToCell(cell.InventoryCellType, cell.Id);
@@ -237,7 +275,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             (list1[cell1.Id], list2[cell2.Id]) = (list2[cell2.Id], list1[cell1.Id]);
             _inventoryService.UpdateItemToCell(cell1.InventoryCellType, cell1.Id);
             _inventoryService.UpdateItemToCell(cell2.InventoryCellType, cell2.Id);
-
+        
             WriteProgress();
             
             return true;

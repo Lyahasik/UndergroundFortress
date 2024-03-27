@@ -55,7 +55,8 @@ namespace UndergroundFortress.Core.Initialize
                     _servicesContainer.Single<IGameplayFactory>(),
                     _servicesContainer.Single<IStaticDataService>(),
                     _servicesContainer.Single<IProgressProviderService>(),
-                    _servicesContainer.Single<IProcessingPlayerStatsService>()));
+                    _servicesContainer.Single<IProcessingPlayerStatsService>(),
+                    _servicesContainer.Single<IPlayerDressingService>()));
             
             LoadingCurtain curtain = CreateLoadingCurtain();
             GameData gameData = GameDataCreate(curtain, _servicesContainer);

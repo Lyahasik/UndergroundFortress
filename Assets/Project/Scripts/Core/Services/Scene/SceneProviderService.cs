@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 using UndergroundFortress.Constants;
+using UndergroundFortress.Core.Services.Characters;
 using UndergroundFortress.Core.Services.Factories.Gameplay;
 using UndergroundFortress.Core.Services.Factories.UI;
 using UndergroundFortress.Core.Services.GameStateMachine;
@@ -23,6 +24,7 @@ namespace UndergroundFortress.Core.Services.Scene
         private readonly IStaticDataService _staticDataService;
         private readonly IProgressProviderService _progressProviderService;
         private readonly IProcessingPlayerStatsService _processingPlayerStatsService;
+        private readonly IPlayerDressingService _playerDressingService;
 
         private ServicesContainer _match3ServicesContainer;
 
@@ -35,7 +37,8 @@ namespace UndergroundFortress.Core.Services.Scene
             IGameplayFactory gameplayFactory,
             IStaticDataService staticDataService,
             IProgressProviderService progressProviderService,
-            IProcessingPlayerStatsService processingPlayerStatsService)
+            IProcessingPlayerStatsService processingPlayerStatsService,
+            IPlayerDressingService playerDressingService)
         {
             _gameStateMachine = gameStateMachine;
             _uiFactory = uiFactory;
@@ -43,6 +46,7 @@ namespace UndergroundFortress.Core.Services.Scene
             _staticDataService = staticDataService;
             _progressProviderService = progressProviderService;
             _processingPlayerStatsService = processingPlayerStatsService;
+            _playerDressingService = playerDressingService;
         }
 
         public void LoadMainScene()
@@ -91,7 +95,7 @@ namespace UndergroundFortress.Core.Services.Scene
             InitializerMainMenu initializerMainMenu = new GameObject().AddComponent<InitializerMainMenu>();
             initializerMainMenu.name = nameof(InitializerMainMenu);
             initializerMainMenu.Construct(_staticDataService, _uiFactory, _progressProviderService);
-            initializerMainMenu.Initialize(_progressProviderService, _processingPlayerStatsService, this);
+            initializerMainMenu.Initialize(_processingPlayerStatsService, _playerDressingService, this);
 
             Debug.Log("Main scene loaded.");
             _gameStateMachine.Enter<MainMenuState>();

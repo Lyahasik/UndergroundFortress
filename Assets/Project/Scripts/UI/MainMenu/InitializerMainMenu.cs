@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 using UndergroundFortress.Core.Services;
+using UndergroundFortress.Core.Services.Characters;
 using UndergroundFortress.Core.Services.Factories.UI;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.Scene;
@@ -39,28 +40,29 @@ namespace UndergroundFortress.UI.MainMenu
             _progressProviderService = progressProviderService;
         }
 
-        public void Initialize(IProgressProviderService progressProviderService,
-            IProcessingPlayerStatsService processingPlayerStatsService,
+        public void Initialize(IProcessingPlayerStatsService processingPlayerStatsService,
+            IPlayerDressingService playerDressingService,
             ISceneProviderService sceneProviderService) 
         {
-            RegisterServices(progressProviderService);
-            CreateMainMenu(progressProviderService, processingPlayerStatsService, sceneProviderService);
+            RegisterServices(playerDressingService);
+            CreateMainMenu(processingPlayerStatsService, sceneProviderService);
         }
         
-        private void RegisterServices(IProgressProviderService progressProviderService)
+        private void RegisterServices(IPlayerDressingService playerDressingService)
         {
             _mainMenuServicesContainer = new ServicesContainer();
             
             _mainMenuServicesContainer.Register<IInformationService>(new InformationService());
-            RegisterWalletOperationService(progressProviderService);
+            RegisterWalletOperationService(_progressProviderService);
 
-            RegisterActivationRecipesService(progressProviderService);
+            RegisterActivationRecipesService(_progressProviderService);
             RegisterInventoryService();
 
             _mainMenuServicesContainer.Register<ISwapCellsService>(
                 new SwapCellsService(
-                    progressProviderService,
-                    _mainMenuServicesContainer.Single<IInventoryService>()));
+                    _progressProviderService,
+                    _mainMenuServicesContainer.Single<IInventoryService>(),
+                    playerDressingService));
 
             RegisterMovingService();
 
@@ -112,8 +114,7 @@ namespace UndergroundFortress.UI.MainMenu
             _mainMenuServicesContainer.Register<IInventoryService>(inventoryService);
         }
 
-        private void CreateMainMenu(IProgressProviderService progressProviderService,
-            IProcessingPlayerStatsService processingPlayerStatsService,
+        private void CreateMainMenu(IProcessingPlayerStatsService processingPlayerStatsService,
             ISceneProviderService sceneProviderService)
         {
             InformationView information = _uiFactory.CreateInformation();
@@ -150,7 +151,7 @@ namespace UndergroundFortress.UI.MainMenu
             mainMenu.Construct(sceneProviderService, 
                 _mainMenuServicesContainer.Single<IItemsGeneratorService>(),
                 _mainMenuServicesContainer.Single<IActivationRecipesService>());
-            mainMenu.Initialize(home, craft, inventory, progressProviderService);
+            mainMenu.Initialize(home, craft, inventory, _progressProviderService);
         }
         
         private void ClearMainMenuServices()

@@ -62,6 +62,9 @@ namespace UndergroundFortress.UI.Craft
 
         public void Initialize(IActivationRecipesService activationRecipesService)
         {
+            equipmentInfo.Construct(_staticDataService);
+            equipmentInfo.Initialize();
+            
             additionalStatDropdown.Construct(_staticDataService, _inventoryService);
             additionalStatDropdown.Initialise();
             

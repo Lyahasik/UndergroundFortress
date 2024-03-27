@@ -1,14 +1,10 @@
-﻿using System.Collections.Generic;
-
-using UndergroundFortress.Gameplay.Character;
-using UndergroundFortress.Gameplay.Items.Equipment;
+﻿using UndergroundFortress.Gameplay.Items;
 
 namespace UndergroundFortress.Core.Services.Characters
 {
     public interface IPlayerDressingService : IService
     {
-        public void DressThePlayer(CharacterData characterData, List<EquipmentData> items);
-        public void PutOnAnItem(CharacterData characterData, EquipmentData itemData);
-        public void RemoveAnItem(CharacterData characterData, EquipmentData itemData);
+        public void PutOnAnItem(ItemData itemData);
+        public void RemoveAnItem(ItemData itemData);
     }
 }

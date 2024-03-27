@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 
-using UndergroundFortress.Gameplay.Character;
 using UndergroundFortress.Gameplay.Character.Services;
 using UndergroundFortress.Gameplay.Items;
-using UndergroundFortress.Gameplay.Items.Equipment;
 using UndergroundFortress.Gameplay.Stats;
 
 namespace UndergroundFortress.Core.Services.Characters
@@ -16,25 +14,38 @@ namespace UndergroundFortress.Core.Services.Characters
         {
             _processingPlayerStatsService = processingPlayerStatsService;
         }
-        
-        public void DressThePlayer(CharacterData characterData, List<EquipmentData> items)
+
+        public void PutOnAnItem(ItemData itemData)
         {
-            foreach (EquipmentData item in items)
-            {
-                PutOnAnItem(characterData, item);
-            }
+            if (itemData == null)
+                return;
+            
+            ApplyStats(itemData.MainStats);
+            ApplyStats(itemData.AdditionalStats);
         }
 
-        public void PutOnAnItem(CharacterData characterData, EquipmentData itemData)
+        public void RemoveAnItem(ItemData itemData)
         {
-            foreach (StatItemData statData in itemData.AdditionalStats)
+            if (itemData == null)
+                return;
+            
+            CancelStats(itemData.MainStats);
+            CancelStats(itemData.AdditionalStats);
+        }
+
+        private void ApplyStats(List<StatItemData> stats)
+        {
+            if (stats == null)
+                return;
+            
+            foreach (StatItemData statData in stats)
             {
                 switch (statData.Type)
                 {
                     case StatType.Health:
                         _processingPlayerStatsService.UpHealth(statData.Value);
                         break;
-                
+
                     default:
                         _processingPlayerStatsService.UpStat(statData.Type, statData.Value);
                         break;
@@ -42,16 +53,19 @@ namespace UndergroundFortress.Core.Services.Characters
             }
         }
 
-        public void RemoveAnItem(CharacterData characterData, EquipmentData itemData)
+        private void CancelStats(List<StatItemData> stats)
         {
-            foreach (StatItemData statData in itemData.AdditionalStats)
+            if (stats == null)
+                return;
+            
+            foreach (StatItemData statData in stats)
             {
                 switch (statData.Type)
                 {
                     case StatType.Health:
                         _processingPlayerStatsService.DownHealth(statData.Value);
                         break;
-                
+
                     default:
                         _processingPlayerStatsService.DownStat(statData.Type, statData.Value);
                         break;

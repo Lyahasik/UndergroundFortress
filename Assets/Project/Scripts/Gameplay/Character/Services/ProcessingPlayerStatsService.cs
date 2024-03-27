@@ -57,7 +57,7 @@ namespace UndergroundFortress.Gameplay.Character.Services
 
         public void UpStat(in StatType type, in float value)
         {
-            _progressPlayerStats[type] -= value;
+            _progressPlayerStats[type] += value;
             UpdateStats();
         }
 

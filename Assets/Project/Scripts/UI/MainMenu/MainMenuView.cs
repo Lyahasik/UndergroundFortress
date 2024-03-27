@@ -64,10 +64,17 @@ namespace UndergroundFortress.UI.MainMenu
         }
         
         //TODO temporary
-        private static int _idRecipe;
-        public void CreateRecipe()
+        private static int _idRecipeEquip;
+        public void CreateRecipeEquip()
         {
-            _activationRecipesService.ActivateRecipe(_idRecipe++);
+            _activationRecipesService.ActivateRecipe(_idRecipeEquip++);
+        }
+        
+        //TODO temporary
+        private static int _idRecipeResource = 1000;
+        public void CreateRecipeResource()
+        {
+            _activationRecipesService.ActivateRecipe(_idRecipeResource++);
         }
 
         public void ActivateWindow(int idWindow)
