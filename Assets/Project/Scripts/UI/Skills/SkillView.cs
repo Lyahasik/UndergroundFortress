@@ -47,6 +47,7 @@ namespace UndergroundFortress.UI.Skills
             
             gameObject.SetActive(true);
             confirmButton.gameObject.SetActive(isCanUpgrade);
+            confirmButton.interactable = _skillsUpgradeService.IsEnoughPoints;
         }
         
         public void Hide()

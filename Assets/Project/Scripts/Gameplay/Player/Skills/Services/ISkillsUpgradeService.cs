@@ -6,7 +6,8 @@ namespace UndergroundFortress.Gameplay.Skills.Services
 {
     public interface ISkillsUpgradeService : IService
     {
-        void ActivationSkill(SkillsType skillsType, int skillId);
-        void UpdateProgressSkill(SkillsType skillsType, StatType statType);
+        public bool IsEnoughPoints { get; }
+        public void ActivationSkill(SkillsType skillsType, int skillId);
+        public void UpdateProgressSkill(SkillsType skillsType, StatType statType);
     }
 }

@@ -13,9 +13,14 @@ namespace UndergroundFortress.Gameplay.Skills.Services
     {
         private readonly IStaticDataService _staticDataService;
         private readonly IProgressProviderService _progressProviderService;
-        
+
+        private SkillPointsData _skillPointsData;
         private Dictionary<SkillsType, HashSet<int>> _activeSkills;
         private Dictionary<StatType, ProgressSkillData> _progressSkills;
+
+        private bool _isEnoughPoints;
+
+        public bool IsEnoughPoints => _isEnoughPoints;
 
         public SkillsUpgradeService(IStaticDataService staticDataService, IProgressProviderService progressProviderService)
         {
@@ -35,11 +40,17 @@ namespace UndergroundFortress.Gameplay.Skills.Services
 
         public void LoadProgress(ProgressData progress)
         {
+            _skillPointsData = progress.SkillPointsData;
             _activeSkills = progress.ActiveSkills;
             _progressSkills = progress.ProgressSkills;
+            
+            UpdateProgress(progress);
         }
-        
-        public void UpdateProgress(ProgressData progress) {}
+
+        public void UpdateProgress(ProgressData progress)
+        {
+            _isEnoughPoints = progress.SkillPointsData.Received > progress.SkillPointsData.Spent;
+        }
 
         public void WriteProgress()
         {
@@ -49,6 +60,8 @@ namespace UndergroundFortress.Gameplay.Skills.Services
         public void ActivationSkill(SkillsType skillsType, int skillId)
         {
             _activeSkills[skillsType].Add(skillId);
+            _skillPointsData.Spent++;
+            
             WriteProgress();
         }
 

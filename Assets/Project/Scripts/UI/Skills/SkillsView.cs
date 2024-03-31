@@ -14,12 +14,15 @@ namespace UndergroundFortress.UI.Skills
         [SerializeField] private WindowType windowType;
 
         [Space]
+        [SerializeField] private PointsNumberView pointsNumberView;
         [SerializeField] private List<ListSkills> listsSkills;
 
         public void Initialize(IStaticDataService staticDataService,
             IInformationService informationService,
             IProgressProviderService progressProviderService)
         {
+            pointsNumberView.Initialize(progressProviderService);
+            
             listsSkills.ForEach(data =>
             {
                 data.gameObject.SetActive(data.SkillsType == SkillsType.Dodge);
