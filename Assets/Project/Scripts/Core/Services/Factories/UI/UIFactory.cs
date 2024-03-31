@@ -4,6 +4,7 @@ using UndergroundFortress.UI.Hud;
 using UndergroundFortress.UI.Information;
 using UndergroundFortress.UI.Inventory;
 using UndergroundFortress.UI.MainMenu;
+using UndergroundFortress.UI.Skills;
 
 namespace UndergroundFortress.Core.Services.Factories.UI
 {
@@ -24,6 +25,8 @@ namespace UndergroundFortress.Core.Services.Factories.UI
 
         public HomeView CreateHome() => 
             PrefabInstantiate(_staticDataService.ForMainMenu().homeViewPrefab);
+        public SkillsView CreateSkills() => 
+            PrefabInstantiate(_staticDataService.ForMainMenu().skillsViewPrefab);
 
         public CraftView CreateCraft() => 
             PrefabInstantiate(_staticDataService.ForMainMenu().craftViewPrefab);

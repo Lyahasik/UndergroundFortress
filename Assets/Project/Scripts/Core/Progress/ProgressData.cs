@@ -2,6 +2,7 @@
 
 using UndergroundFortress.Gameplay.Inventory;
 using UndergroundFortress.Gameplay.Items;
+using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats;
 
 namespace UndergroundFortress.Core.Progress
@@ -10,6 +11,8 @@ namespace UndergroundFortress.Core.Progress
     {
         public int Level;
         public Dictionary<StatType, float> MainStats;
+        public Dictionary<SkillsType, HashSet<int>> ActiveSkills;
+        public Dictionary<StatType, ProgressSkillData> ProgressSkills;
 
         public WalletData Wallet;
         

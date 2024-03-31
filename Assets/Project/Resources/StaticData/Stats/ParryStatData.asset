@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyName: '@parry'
   type: 62
-  icon: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  icon: {fileID: 21300000, guid: 9c455cf24aa5bdc4580e084510dcbe14, type: 3}
   qualityValues:
   - qualityType: 1
     minValue: 5

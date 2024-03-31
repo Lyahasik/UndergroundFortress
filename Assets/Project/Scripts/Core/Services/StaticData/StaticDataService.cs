@@ -22,6 +22,7 @@ namespace UndergroundFortress.Core.Services.StaticData
         private CharacterStaticData _enemy;
 
         private List<StatStaticData> _stats;
+        private List<SkillsStaticData> _skills;
         private QualitiesStaticData _qualities;
         private List<ResourceStaticData> _resources;
         private List<EquipmentStaticData> _equipments;
@@ -46,6 +47,9 @@ namespace UndergroundFortress.Core.Services.StaticData
                 .Load<QualitiesStaticData>(ConstantPaths.QUALITY_DATA_PATH);
             _stats = Resources
                 .LoadAll<StatStaticData>(ConstantPaths.STATS_DATA_PATH)
+                .ToList();
+            _skills = Resources
+                .LoadAll<SkillsStaticData>(ConstantPaths.SKILLS_DATA_PATH)
                 .ToList();
             _resources = Resources
                 .LoadAll<ResourceStaticData>(ConstantPaths.RESOURCES_DATA_PATH)
@@ -75,6 +79,12 @@ namespace UndergroundFortress.Core.Services.StaticData
             _qualities;
         public List<StatStaticData> ForStats() => 
             _stats;
+
+        public SkillsStaticData ForSkillsByType(SkillsType skillsType) => 
+            _skills.Find(skills => skills.type == skillsType);
+
+        public List<SkillsStaticData> ForSkill() => 
+            _skills;
         public List<EquipmentStaticData> ForEquipments() => 
             _equipments;
 

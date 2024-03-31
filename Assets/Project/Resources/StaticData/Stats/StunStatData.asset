@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyName: '@stun'
   type: 81
-  icon: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  icon: {fileID: 21300000, guid: 73527ef02150c0a4087a49fcd68b611d, type: 3}
   qualityValues:
   - qualityType: 1
     minValue: 5

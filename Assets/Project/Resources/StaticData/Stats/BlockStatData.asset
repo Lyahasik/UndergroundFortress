@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyName: '@block'
   type: 71
-  icon: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  icon: {fileID: 21300000, guid: f2df78150e33d004c8b8318f483f7c78, type: 3}
   qualityValues:
   - qualityType: 1
     minValue: 5

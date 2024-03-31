@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
 
 using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Extensions;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.Items.Equipment;
 using UndergroundFortress.Gameplay.Items.Resource;
+using UndergroundFortress.Gameplay.Skills.Services;
+using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.UI.Information.Prompts;
+using UndergroundFortress.UI.Skills;
 
 namespace UndergroundFortress.UI.Information
 {
@@ -13,6 +17,10 @@ namespace UndergroundFortress.UI.Information
     {
         [SerializeField] private GameObject capArea;
         [SerializeField] private GameObject closeButton;
+        
+        [Space]
+        [SerializeField] private SkillView skillView;
+        [SerializeField] private ProgressSkillView progressSkillView;
         
         [Space]
         [SerializeField] private EquipmentView equipmentView;
@@ -31,14 +39,31 @@ namespace UndergroundFortress.UI.Information
 
         public CellItemView CellItemView => cellItemView;
 
-        public void Initialize(IStaticDataService staticDataService)
+        public void Initialize(IStaticDataService staticDataService, ISkillsUpgradeService skillsUpgradeService)
         {
+            skillView.Construct(skillsUpgradeService);
+            skillView.Initialize(CloseView);
+            
+            progressSkillView.Construct(staticDataService, skillsUpgradeService);
+            progressSkillView.Initialize(CloseView);
+            
             equipmentView.Construct(staticDataService);
             equipmentView.Initialize();
             
             equipmentComparisonView.Initialize(staticDataService);
             
             resourceView.Construct(staticDataService);
+        }
+
+        public void ShowSkill(SkillsType skillsType, SkillData skillData, bool isCanUpgrade, ProgressSkillData progressSkillData = null)
+        {
+            capArea.SetActive(true);
+            closeButton.SetActive(true);
+            
+            if (progressSkillData == null)
+                skillView.Show(skillsType, skillData, isCanUpgrade);
+            else
+                progressSkillView.Show(skillsType, skillData, progressSkillData, isCanUpgrade);
         }
 
         public void ShowItem(ItemData itemData)
@@ -68,6 +93,8 @@ namespace UndergroundFortress.UI.Information
             capArea.SetActive(false);
             closeButton.SetActive(false);
             
+            progressSkillView.Hide();
+            skillView.Hide();
             equipmentView.Hide();
             equipmentComparisonView.Hide();
             resourceView.Hide();

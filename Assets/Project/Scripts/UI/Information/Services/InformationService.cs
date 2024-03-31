@@ -1,4 +1,6 @@
-﻿using UndergroundFortress.Gameplay.Items;
+﻿using UndergroundFortress.Core.Progress;
+using UndergroundFortress.Gameplay.Items;
+using UndergroundFortress.Gameplay.StaticData;
 
 namespace UndergroundFortress.UI.Information.Services
 {
@@ -9,6 +11,14 @@ namespace UndergroundFortress.UI.Information.Services
         public void Initialize(InformationView informationView)
         {
             _informationView = informationView;
+        }
+
+        public void ShowSkill(SkillsType skillsType,
+            SkillData skillData,
+            bool isCanUpgrade = false, 
+            ProgressSkillData progressSkillData = null)
+        {
+            _informationView.ShowSkill(skillsType, skillData, isCanUpgrade, progressSkillData);
         }
 
         public void ShowItem(ItemData itemData)

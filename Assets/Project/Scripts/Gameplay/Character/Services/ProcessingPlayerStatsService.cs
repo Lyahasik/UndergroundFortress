@@ -3,20 +3,24 @@
 using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Extensions;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats;
 
 namespace UndergroundFortress.Gameplay.Character.Services
 {
-    public class ProcessingPlayerStatsService : IProcessingPlayerStatsService, IWritingProgress
+    public class ProcessingPlayerStatsService : IProcessingPlayerStatsService, IReadingProgress
     {
         private readonly IStaticDataService _staticDataService;
         private readonly IProgressProviderService _progressProviderService;
         
         private CharacterStats _playerStats;
         private Dictionary<StatType, float> _basePlayerStats;
-        private Dictionary<StatType, float> _progressPlayerStats;
-        
+        private Dictionary<StatType, float> _equipmentPlayerStats;
+        private Dictionary<StatType, float> _skillsPlayerStats;
+        private Dictionary<SkillsType,HashSet<int>> _activeSkills;
+        public Dictionary<StatType, ProgressSkillData> _progressSkills;
+
         public CharacterStats PlayerStats => _playerStats;
 
         public ProcessingPlayerStatsService(IStaticDataService staticDataService,
@@ -29,6 +33,7 @@ namespace UndergroundFortress.Gameplay.Character.Services
         public void Initialize()
         {
             LoadingBaseStats();
+            _skillsPlayerStats = new Dictionary<StatType, float>();
 
             Register(_progressProviderService);
         }
@@ -44,33 +49,31 @@ namespace UndergroundFortress.Gameplay.Character.Services
             
             _playerStats = new CharacterStats();
             _playerStats.Initialize();
+            UpdateProgress(progress);
+        }
+
+        public void UpdateProgress(ProgressData progress)
+        {
             UpdateStats();
             _playerStats.UpdateCurrentStats();
         }
 
-        public void UpdateProgress(ProgressData progress) {}
-
-        public void WriteProgress()
-        {
-            
-        }
-
         public void UpStat(in StatType type, in float value)
         {
-            _progressPlayerStats[type] += value;
+            _equipmentPlayerStats[type] += value;
             UpdateStats();
         }
 
         public void DownStat(in StatType type, in float value)
         {
-            _progressPlayerStats[type] -= value;
+            _equipmentPlayerStats[type] -= value;
             UpdateStats();
         }
 
         public void UpHealth(in float value)
         {
-            float oldValue = _progressPlayerStats[StatType.Health];
-            _progressPlayerStats[StatType.Health] += value;
+            float oldValue = _equipmentPlayerStats[StatType.Health];
+            _equipmentPlayerStats[StatType.Health] += value;
             RecalculateCurrentHealth(oldValue);
             
             UpdateStats();
@@ -78,8 +81,8 @@ namespace UndergroundFortress.Gameplay.Character.Services
 
         public void DownHealth(in float value)
         {
-            float oldValue = _progressPlayerStats[StatType.Health];
-            _progressPlayerStats[StatType.Health] -= value;
+            float oldValue = _equipmentPlayerStats[StatType.Health];
+            _equipmentPlayerStats[StatType.Health] -= value;
             RecalculateCurrentHealth(oldValue);
             
             UpdateStats();
@@ -122,21 +125,65 @@ namespace UndergroundFortress.Gameplay.Character.Services
             _basePlayerStats.Add(StatType.StunDuration, characterStaticData.stunDuration);
         }
 
-        private void LoadMainStats(ProgressData progressData) => 
-            _progressPlayerStats = progressData.MainStats;
+        private void LoadMainStats(ProgressData progressData)
+        {
+            _equipmentPlayerStats = progressData.MainStats;
+            _activeSkills = progressData.ActiveSkills;
+            _progressSkills = progressData.ProgressSkills;
+            
+            UpdateSkillStats();
+        }
 
         private void UpdateStats()
         {
+            UpdateSkillStats();
+            
             foreach (KeyValuePair<StatType,float> keyValuePair in _basePlayerStats)
             {
-                float newValue = _basePlayerStats[keyValuePair.Key] + _progressPlayerStats[keyValuePair.Key];
+                float newValue = _basePlayerStats[keyValuePair.Key] + _equipmentPlayerStats[keyValuePair.Key];
                 _playerStats.MainStats[keyValuePair.Key] = newValue;
+                
+                if (_skillsPlayerStats.ContainsKey(keyValuePair.Key))
+                    _playerStats.MainStats[keyValuePair.Key] += _skillsPlayerStats[keyValuePair.Key];
             }
         }
 
+        private void UpdateSkillStats()
+        {
+            Dictionary<StatType, float> newStats = new Dictionary<StatType, float>();
+            
+            foreach (KeyValuePair<SkillsType,HashSet<int>> keyValuePair in _activeSkills)
+            {
+                foreach (int id in keyValuePair.Value)
+                {
+                    var skillData = _staticDataService
+                        .ForSkillsByType(keyValuePair.Key).skillsData
+                        .Find(data => data.id == id);
+
+                    if (skillData.statType.IsPassiveProgress())
+                        AddedPassiveStat(newStats, skillData);
+                    else
+                        AddedStat(newStats, skillData);
+                }
+            }
+
+            _skillsPlayerStats = newStats;
+        }
+
+        private void AddedStat(Dictionary<StatType, float> newStats, SkillData skillData)
+        {
+            if (newStats.ContainsKey(skillData.statType))
+                newStats[skillData.statType] += skillData.value;
+            else
+                newStats[skillData.statType] = skillData.value;
+        }
+
+        private void AddedPassiveStat(Dictionary<StatType, float> newStats, SkillData skillData) => 
+            newStats[skillData.statType] = skillData.value * _progressSkills[skillData.statType].CurrentLevel;
+
         private void RecalculateCurrentHealth(in float oldValue)
         {
-            float healthRatio = oldValue / _progressPlayerStats[StatType.Health];
+            float healthRatio = oldValue / _equipmentPlayerStats[StatType.Health];
             _playerStats.SetCurrentHealth(_playerStats.CurrentStats.Health * healthRatio);
         }
     }

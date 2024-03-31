@@ -3,6 +3,7 @@ using UnityEngine;
 using UndergroundFortress.UI.Craft;
 using UndergroundFortress.UI.Information;
 using UndergroundFortress.UI.Inventory;
+using UndergroundFortress.UI.Skills;
 
 namespace UndergroundFortress.UI.MainMenu.StaticData
 {
@@ -12,6 +13,7 @@ namespace UndergroundFortress.UI.MainMenu.StaticData
         public MainMenuView mainMenuViewPrefab;
         public InformationView informationViewPrefab;
         public HomeView homeViewPrefab;
+        public SkillsView skillsViewPrefab;
         public CraftView craftViewPrefab;
         public InventoryView inventoryViewPrefab;
     }

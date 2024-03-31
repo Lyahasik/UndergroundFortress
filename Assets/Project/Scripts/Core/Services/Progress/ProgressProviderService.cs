@@ -10,6 +10,7 @@ using UndergroundFortress.Core.Services.GameStateMachine.States;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Inventory;
 using UndergroundFortress.Gameplay.Items;
+using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats;
 
 namespace UndergroundFortress.Core.Services.Progress
@@ -50,64 +51,6 @@ namespace UndergroundFortress.Core.Services.Progress
 
             _gameStateMachine.Enter<LoadSceneState>();
         }
-        
-        private ProgressData LoadData(string json)
-        {
-            ProgressData progressData = null;
-                
-            if (json != null)
-                progressData = JsonConvert.DeserializeObject<ProgressData>(json);
-
-            return progressData;
-        }
-
-        private ProgressData CreateNewProgress()
-        {
-            ProgressData progressData = new ProgressData
-            {
-                Level = 3,
-                MainStats = new Dictionary<StatType, float>(),
-                
-                Wallet = new WalletData(500, 50),
-                Equipment = new List<CellData>
-                {
-                    new(null, 1),
-                    new(null, 1),
-                    new(null, 1),
-                    new(null, 1),
-                    new(null, 1),
-                    new(null, 1),
-                    new(null, 1),
-                    new(null, 1),
-                    new(null, 1)
-                },
-                ActiveRecipes = new Dictionary<ItemType, List<int>>
-                {
-                    { ItemType.Sword, new List<int>() },
-                    { ItemType.TwoHandedWeapon, new List<int>() },
-                    { ItemType.Dagger, new List<int>() },
-                    { ItemType.Mace, new List<int>() },
-                    { ItemType.Shield, new List<int>() },
-                    { ItemType.Chest, new List<int>() },
-                    { ItemType.Pants, new List<int>() },
-                    { ItemType.Boots, new List<int>() },
-                    { ItemType.Gloves, new List<int>() },
-                    { ItemType.Consumable, new List<int>() }
-                },
-                Bag = new List<CellData>(),
-                FilledNumberBag = 0
-            };
-
-            foreach (StatType type in (StatType[]) Enum.GetValues(typeof(StatType)))
-                progressData.MainStats.Add(type, 0f);
-            
-            for (int i = 0; i < ConstantValues.BASE_SIZE_BAG; i++) 
-                progressData.Bag.Add(new CellData());
-            
-            SaveProgress();
-
-            return progressData;
-        }
 
         public void SaveProgress()
         {
@@ -133,6 +76,123 @@ namespace UndergroundFortress.Core.Services.Progress
             Register(progressWriter as IReadingProgress);
 
             _progressWriters.Add(progressWriter);
+        }
+
+        private ProgressData LoadData(string json)
+        {
+            ProgressData progressData = null;
+                
+            if (json != null)
+                progressData = JsonConvert.DeserializeObject<ProgressData>(json);
+
+            return progressData;
+        }
+
+        private ProgressData CreateNewProgress()
+        {
+            ProgressData progressData = new ProgressData
+            {
+                Level = 3,
+                MainStats = CreateMainStats(),
+                ActiveSkills = CreateActiveSkills(),
+                ProgressSkills = CreateProgressSkills(),
+                
+                Wallet = new WalletData(500, 50),
+                Equipment = CreateEquipment(),
+                ActiveRecipes = CreateActiveRecipes(),
+                Bag = CreateBag(),
+                FilledNumberBag = 0
+            };
+
+            SaveProgress();
+
+            return progressData;
+        }
+
+        private Dictionary<StatType, float> CreateMainStats()
+        {
+            var mainStats = new Dictionary<StatType, float>();
+            
+            foreach (StatType type in (StatType[]) Enum.GetValues(typeof(StatType)))
+                mainStats.Add(type, 0f);
+            
+            return mainStats;
+        }
+
+        private Dictionary<SkillsType, HashSet<int>> CreateActiveSkills()
+        {
+            var activeSkills = new Dictionary<SkillsType, HashSet<int>>();
+            
+            foreach (SkillsType type in (SkillsType[])Enum.GetValues(typeof(SkillsType)))
+            {
+                if (type == SkillsType.Empty)
+                    continue;
+                
+                var set = new HashSet<int>();
+                set.Add(0);
+                activeSkills.Add(type, set);
+            }
+
+            return activeSkills;
+        }
+
+        private Dictionary<StatType, ProgressSkillData> CreateProgressSkills()
+        {
+            var progressSkills = new Dictionary<StatType, ProgressSkillData>();
+            
+            progressSkills.Add(StatType.Dodge, new ProgressSkillData(0, 0));
+            progressSkills.Add(StatType.Accuracy, new ProgressSkillData(0, 0));
+            progressSkills.Add(StatType.Crit, new ProgressSkillData(0, 0));
+            progressSkills.Add(StatType.Parry, new ProgressSkillData(0, 0));
+            progressSkills.Add(StatType.Block, new ProgressSkillData(0, 0));
+            progressSkills.Add(StatType.BreakThrough, new ProgressSkillData(0, 0));
+            progressSkills.Add(StatType.Stun, new ProgressSkillData(0, 0));
+            progressSkills.Add(StatType.Strength, new ProgressSkillData(0, 0));
+            
+            return progressSkills;
+        }
+
+        private List<CellData> CreateEquipment()
+        {
+            return new List<CellData>
+            {
+                new(null, 1),
+                new(null, 1),
+                new(null, 1),
+                new(null, 1),
+                new(null, 1),
+                new(null, 1),
+                new(null, 1),
+                new(null, 1),
+                new(null, 1)
+            };
+        }
+
+        private Dictionary<ItemType, List<int>> CreateActiveRecipes()
+        {
+            return new Dictionary<ItemType, List<int>>
+            {
+                { ItemType.Sword, new List<int>() },
+                { ItemType.TwoHandedWeapon, new List<int>() },
+                { ItemType.Dagger, new List<int>() },
+                { ItemType.Mace, new List<int>() },
+                { ItemType.Shield, new List<int>() },
+                { ItemType.Chest, new List<int>() },
+                { ItemType.Pants, new List<int>() },
+                { ItemType.Boots, new List<int>() },
+                { ItemType.Gloves, new List<int>() },
+                { ItemType.Consumable, new List<int>() }
+            };
+        }
+
+        private List<CellData> CreateBag()
+        {
+            var bag = new List<CellData>();
+            
+            for (int i = 0; i < ConstantValues.BASE_SIZE_BAG; i++) 
+                bag.Add(new CellData());
+            
+            return bag;
         }
 
         private void UpdateProgress()

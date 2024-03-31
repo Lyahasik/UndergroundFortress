@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyName: '@break_through'
   type: 72
-  icon: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  icon: {fileID: 21300000, guid: 90b17ffcb133838418b048a300975af6, type: 3}
   qualityValues:
   - qualityType: 1
     minValue: 5
