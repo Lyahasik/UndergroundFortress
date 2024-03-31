@@ -11,6 +11,8 @@ namespace UndergroundFortress.Constants
         public const string ENEMY_DATA_PATH = "StaticData/Characters/EnemyData";
         
         public const string QUALITY_DATA_PATH = "StaticData/Quality/QualitiesData";
+        
+        public const string PLAYER_LEVELS_DATA_PATH = "StaticData/Player/PlayerLevelsData";
         public const string STATS_DATA_PATH = "StaticData/Stats";
         public const string SKILLS_DATA_PATH = "StaticData/Skills";
         public const string RESOURCES_DATA_PATH = "StaticData/Items/Resource";

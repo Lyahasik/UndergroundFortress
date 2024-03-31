@@ -16,6 +16,7 @@ namespace UndergroundFortress.Core.Services.StaticData
         public LevelStaticData ForLevel();
         public CharacterStaticData ForPlayer();
         public CharacterStaticData ForEnemy();
+        public PlayerLevelStaticData GetPlayerLevelByCurrent(int currentLevel);
         public List<StatStaticData> ForStats();
         public SkillsStaticData ForSkillsByType(SkillsType skillsType);
         public List<EquipmentStaticData> ForEquipments();

@@ -10,6 +10,7 @@ using UndergroundFortress.Core.Services.GameStateMachine.States;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Inventory;
 using UndergroundFortress.Gameplay.Items;
+using UndergroundFortress.Gameplay.Player.Level;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats;
 
@@ -92,7 +93,8 @@ namespace UndergroundFortress.Core.Services.Progress
         {
             ProgressData progressData = new ProgressData
             {
-                Level = 3,
+                LevelData = new PlayerLevelData(),
+                SkillPointsData = new SkillPointsData(),
                 MainStats = CreateMainStats(),
                 ActiveSkills = CreateActiveSkills(),
                 ProgressSkills = CreateProgressSkills(),
