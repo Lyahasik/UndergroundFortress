@@ -164,8 +164,6 @@ namespace UndergroundFortress.Core.Services.Progress
                 new(null, 1),
                 new(null, 1),
                 new(null, 1),
-                new(null, 1),
-                new(null, 1),
                 new(null, 1)
             };
         }

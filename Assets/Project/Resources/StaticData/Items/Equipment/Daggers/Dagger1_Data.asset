@@ -12,32 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d5a7e64443b4cb4a81efc0997659849, type: 3}
   m_Name: Dagger1_Data
   m_EditorClassIdentifier: 
-  id: 2
+  id: 8
   type: 3
   maxLevel: 10
-  name: Dagger1
+  name: '@dagger1'
   icon: {fileID: 21300000, guid: d281000d949e32745986b784d850ab76, type: 3}
   maxNumberForCell: 1
   typeStat: 31
   qualityValues:
   - qualityType: 1
+    minValue: 0.1
+    maxValue: 5
+  - qualityType: 2
     minValue: 5
     maxValue: 10
-  - qualityType: 2
+  - qualityType: 3
     minValue: 10
     maxValue: 15
-  - qualityType: 3
+  - qualityType: 4
     minValue: 15
     maxValue: 20
-  - qualityType: 4
+  - qualityType: 5
     minValue: 20
     maxValue: 25
-  - qualityType: 5
+  - qualityType: 6
     minValue: 25
     maxValue: 30
-  - qualityType: 6
+  - qualityType: 7
     minValue: 30
     maxValue: 35
-  - qualityType: 7
-    minValue: 35
-    maxValue: 40

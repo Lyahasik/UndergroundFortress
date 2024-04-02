@@ -15,7 +15,8 @@ MonoBehaviour:
   id: 1006
   type: 22
   name: '@crit_crystal'
-  description: 
+  description: '@crit_crystal_description'
   quality: 4
   icon: {fileID: 21300000, guid: 748df0c1d8144a048bffd474eabeb74a, type: 3}
+  priceTime: 0
   maxNumberForCell: 10

@@ -15,7 +15,8 @@ MonoBehaviour:
   id: 1007
   type: 21
   name: '@dodge_crystal'
-  description: 
+  description: '@dodge_crystal_description'
   quality: 4
   icon: {fileID: 21300000, guid: f2341ac386290414eb847effb366ed21, type: 3}
+  priceTime: 0
   maxNumberForCell: 10

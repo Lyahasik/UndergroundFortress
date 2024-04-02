@@ -15,7 +15,8 @@ MonoBehaviour:
   id: 1008
   type: 24
   name: '@stun_crystal'
-  description: 
+  description: '@stun_crystal_description'
   quality: 4
   icon: {fileID: 21300000, guid: c548daa1a817197458618f0f907ae106, type: 3}
+  priceTime: 0
   maxNumberForCell: 10

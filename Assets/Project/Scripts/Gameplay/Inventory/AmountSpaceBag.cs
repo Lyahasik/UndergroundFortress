@@ -7,15 +7,10 @@ using UndergroundFortress.Core.Services.Progress;
 
 namespace UndergroundFortress
 {
-    [RequireComponent(typeof(TMP_Text))]
     public class AmountSpaceBag : MonoBehaviour, IReadingProgress
     {
-        private TMP_Text _text;
-
-        private void Awake()
-        {
-            _text = GetComponent<TMP_Text>();
-        }
+        [SerializeField] private TMP_Text amountText;
+        [SerializeField] private TMP_Text sizeText;
 
         public void Register(IProgressProviderService progressProviderService)
         {
@@ -34,7 +29,8 @@ namespace UndergroundFortress
 
         private void UpdateValue(ProgressData progress)
         {
-            _text.text = $"{progress.FilledNumberBag}/{ConstantValues.BASE_SIZE_BAG}";
+            amountText.text = $"{ progress.FilledNumberBag }";
+            sizeText.text = $"{ ConstantValues.BASE_SIZE_BAG }";
         }
     }
 }
