@@ -6,9 +6,11 @@ using UndergroundFortress.Extensions;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.Items.Equipment;
 using UndergroundFortress.Gameplay.Items.Resource;
+using UndergroundFortress.Gameplay.Shop;
 using UndergroundFortress.Gameplay.Skills.Services;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.UI.Information.Prompts;
+using UndergroundFortress.UI.Inventory;
 using UndergroundFortress.UI.Skills;
 
 namespace UndergroundFortress.UI.Information
@@ -24,10 +26,12 @@ namespace UndergroundFortress.UI.Information
         
         [Space]
         [SerializeField] private EquipmentView equipmentView;
+        [SerializeField] private SaleEquipmentView saleEquipmentView;
         [SerializeField] private EquipmentComparisonView equipmentComparisonView;
         
         [Space]
         [SerializeField] private ResourceView resourceView;
+        [SerializeField] private SaleResourceView saleResourceView;
 
         [Space]
         [SerializeField] private CellItemView cellItemView;
@@ -39,7 +43,9 @@ namespace UndergroundFortress.UI.Information
 
         public CellItemView CellItemView => cellItemView;
 
-        public void Initialize(IStaticDataService staticDataService, ISkillsUpgradeService skillsUpgradeService)
+        public void Initialize(IStaticDataService staticDataService,
+            ISkillsUpgradeService skillsUpgradeService,
+            IShoppingService shoppingService)
         {
             skillView.Construct(skillsUpgradeService);
             skillView.Initialize(CloseView);
@@ -49,10 +55,14 @@ namespace UndergroundFortress.UI.Information
             
             equipmentView.Construct(staticDataService);
             equipmentView.Initialize();
+            saleEquipmentView.Construct(staticDataService, shoppingService);
+            saleEquipmentView.Initialize(CloseView);
             
             equipmentComparisonView.Initialize(staticDataService);
             
             resourceView.Construct(staticDataService);
+            saleResourceView.Construct(staticDataService, shoppingService);
+            saleResourceView.Initialize(CloseView);
         }
 
         public void ShowSkill(SkillsType skillsType, SkillData skillData, bool isCanUpgrade, ProgressSkillData progressSkillData = null)
@@ -77,6 +87,17 @@ namespace UndergroundFortress.UI.Information
                 ShowResource(itemData);
         }
 
+        public void ShowSaleItem(CellSaleView cellSale)
+        {
+            capArea.SetActive(true);
+            closeButton.SetActive(true);
+            
+            if (cellSale.ItemData.Type.IsEquipment())
+                ShowSaleEquipment(cellSale);
+            else
+                ShowSaleResource(cellSale);
+        }
+
         public void ShowEquipmentComparison(ItemData equipmentData1, ItemData equipmentData2)
         {
             capArea.SetActive(true);
@@ -96,10 +117,18 @@ namespace UndergroundFortress.UI.Information
             progressSkillView.Hide();
             skillView.Hide();
             equipmentView.Hide();
+            saleEquipmentView.Hide();
             equipmentComparisonView.Hide();
             resourceView.Hide();
+            saleResourceView.Hide();
             warningPrompt.Hide();
         }
+
+        private void ShowSaleResource(CellSaleView cellSale) => 
+            saleResourceView.Show(cellSale);
+
+        private void ShowSaleEquipment(CellSaleView cellSale) => 
+            saleEquipmentView.Show(cellSale);
 
         private void ShowResource(ItemData resourceData) => 
             resourceView.Show(resourceData);

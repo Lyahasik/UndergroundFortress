@@ -18,14 +18,16 @@ namespace UndergroundFortress.UI.Inventory
         [SerializeField] private GameObject numberView;
         [SerializeField] private TMP_Text numberText;
         
-        private int _id;
-        private ItemData _itemData;
+        protected int _id;
+        protected ItemData _itemData;
         private InventoryCellType _inventoryCellType;
-        private IStaticDataService _staticDataService;
+        protected IStaticDataService _staticDataService;
         private IMovingItemService _movingItemService;
 
-        private RectTransform _rect;
-        private IInventoryService _inventoryService;
+        protected RectTransform _rect;
+        protected IInventoryService _inventoryService;
+
+        protected int _number;
 
         public ItemType ItemType
         {
@@ -40,7 +42,8 @@ namespace UndergroundFortress.UI.Inventory
 
         public Sprite Icon => itemView.Icon;
         public Sprite Quality => itemView.Quality;
-        public string Number => numberText.text;
+        public int Number => _number;
+        public string NumberString => numberText.text;
 
         public int Id => _id;
         public ItemData ItemData => _itemData;
@@ -83,24 +86,22 @@ namespace UndergroundFortress.UI.Inventory
         public void SetValues(CellData cellData,
             InventoryCellType inventoryCellType)
         {
-            _itemData = cellData.ItemData;
             _inventoryCellType = inventoryCellType;
-            itemView.SetValues(
-                _staticDataService.GetItemIcon(_itemData.Id),
-                _staticDataService.GetQualityBackground(_itemData.QualityType));
-
-            TryShowNumber(cellData.Number.ToString());
+            
+            SetValues(cellData.ItemData, cellData.Number);
         }
 
         private void SetValues(ItemData itemData,
-            string number)
+            int number)
         {
             _itemData = itemData;
+            _number = number;
+            
             itemView.SetValues(
                 _staticDataService.GetItemIcon(_itemData.Id),
                 _staticDataService.GetQualityBackground(_itemData.QualityType));
             
-            TryShowNumber(number);
+            TryShowNumber(number.ToString());
         }
 
         public void Show()
@@ -155,7 +156,7 @@ namespace UndergroundFortress.UI.Inventory
                 return;
             
             if (cellData.ItemData != null)
-                SetValues(cellData.ItemData, cellData.Number.ToString());
+                SetValues(cellData.ItemData, cellData.Number);
             else
                 Reset();
         }

@@ -26,7 +26,10 @@ namespace UndergroundFortress.Core.Services.StaticData
         public StatStaticData GetStatByType(StatType statType);
         public Sprite GetItemIcon(int itemDataId);
         public Sprite GetQualityBackground(QualityType type);
+        public EquipmentStaticData GetEquipmentById(int itemId);
         public ResourceStaticData GetResourceById(int itemId);
+        public RecipeStaticData GetRecipeById(int itemId);
+        public QualityData GetQualityByType(QualityType type);
         public int GetItemMaxNumberForCellById(int itemId);
         public ItemStaticData GetItemById(int itemId);
         public string GetItemDescriptionById(int itemId);

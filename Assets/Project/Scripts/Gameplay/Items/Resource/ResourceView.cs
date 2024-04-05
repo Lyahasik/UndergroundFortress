@@ -14,7 +14,7 @@ namespace UndergroundFortress.Gameplay.Items.Resource
         [Space]
         [SerializeField] private CellItemView cellItemView;
         
-        private IStaticDataService _staticDataService;
+        protected IStaticDataService _staticDataService;
 
         public void Construct(IStaticDataService staticDataService)
         {
@@ -39,7 +39,7 @@ namespace UndergroundFortress.Gameplay.Items.Resource
             gameObject.SetActive(false);
         }
 
-        private void Reset()
+        protected void Reset()
         {
             nameText.text = "Empty";
             

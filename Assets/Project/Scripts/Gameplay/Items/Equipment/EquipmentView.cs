@@ -22,7 +22,7 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
         [Space]
         [SerializeField] private List<StoneView> stones;
 
-        private IStaticDataService _staticDataService;
+        protected IStaticDataService _staticDataService;
 
         public void Construct(IStaticDataService staticDataService)
         {
@@ -83,7 +83,7 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
             }
         }
 
-        private void Reset()
+        protected void Reset()
         {
             if (nameText != null)
                 nameText.text = "Empty";

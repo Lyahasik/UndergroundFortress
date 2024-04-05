@@ -122,6 +122,16 @@ namespace UndergroundFortress.Core.Services.StaticData
             return _qualities.qualitiesData.Find(data => data.type == type).background;
         }
 
+        public EquipmentStaticData GetEquipmentById(int itemId)
+        {
+            foreach (EquipmentStaticData equipmentStaticData in _equipments)
+                if (equipmentStaticData.id == itemId)
+                    return equipmentStaticData;
+
+            Debug.LogWarning($"[StaticDataService] Not found of id for equipment data");
+            return null;
+        }
+
         public ResourceStaticData GetResourceById(int itemId)
         {
             foreach (ResourceStaticData resourceStaticData in _resources)
@@ -129,6 +139,26 @@ namespace UndergroundFortress.Core.Services.StaticData
                     return resourceStaticData;
 
             Debug.LogWarning($"[StaticDataService] Not found of id for resource data");
+            return null;
+        }
+
+        public RecipeStaticData GetRecipeById(int itemId)
+        {
+            foreach (RecipeStaticData recipeStaticData in _recipes)
+                if (recipeStaticData.idItem == itemId)
+                    return recipeStaticData;
+
+            Debug.LogWarning($"[StaticDataService] Not found of id for recipe data");
+            return null;
+        }
+
+        public QualityData GetQualityByType(QualityType type)
+        {
+            foreach (QualityData qualityData in _qualities.qualitiesData)
+                if (qualityData.type == type)
+                    return qualityData;
+
+            Debug.LogWarning($"[StaticDataService] Not found of id for quality data");
             return null;
         }
 

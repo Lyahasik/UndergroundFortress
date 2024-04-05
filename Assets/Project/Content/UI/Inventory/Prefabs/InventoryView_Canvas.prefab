@@ -1351,7 +1351,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 763752650387576620, guid: f00db153a06094b4b8506d317eb18376, type: 3}
       propertyPath: itemType
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5212743415527084383, guid: f00db153a06094b4b8506d317eb18376, type: 3}
       propertyPath: m_Name
@@ -1625,7 +1625,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 763752650387576620, guid: f00db153a06094b4b8506d317eb18376, type: 3}
       propertyPath: itemType
-      value: 0
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5212743415527084383, guid: f00db153a06094b4b8506d317eb18376, type: 3}
       propertyPath: m_Name
@@ -1762,7 +1762,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 763752650387576620, guid: f00db153a06094b4b8506d317eb18376, type: 3}
       propertyPath: itemType
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4071887745103431800, guid: f00db153a06094b4b8506d317eb18376, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1903,7 +1903,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 763752650387576620, guid: f00db153a06094b4b8506d317eb18376, type: 3}
       propertyPath: itemType
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5212743415527084383, guid: f00db153a06094b4b8506d317eb18376, type: 3}
       propertyPath: m_Name
@@ -2044,7 +2044,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 763752650387576620, guid: f00db153a06094b4b8506d317eb18376, type: 3}
       propertyPath: itemType
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5212743415527084383, guid: f00db153a06094b4b8506d317eb18376, type: 3}
       propertyPath: m_Name
@@ -2181,7 +2181,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 763752650387576620, guid: f00db153a06094b4b8506d317eb18376, type: 3}
       propertyPath: itemType
-      value: 0
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5212743415527084383, guid: f00db153a06094b4b8506d317eb18376, type: 3}
       propertyPath: m_Name

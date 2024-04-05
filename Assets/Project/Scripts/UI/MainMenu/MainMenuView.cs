@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +14,7 @@ using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats;
 using UndergroundFortress.UI.Craft;
 using UndergroundFortress.UI.Inventory;
+using UndergroundFortress.UI.Shop;
 using UndergroundFortress.UI.Skills;
 
 namespace UndergroundFortress.UI.MainMenu
@@ -55,6 +55,7 @@ namespace UndergroundFortress.UI.MainMenu
             SkillsView skillsView,
             CraftView craftView,
             InventoryView inventoryView,
+            ShopView shopView,
             IStaticDataService staticDataService,
             IProgressProviderService progressProviderService)
         {
@@ -64,6 +65,7 @@ namespace UndergroundFortress.UI.MainMenu
             _windows.Add(skillsView);
             _windows.Add(craftView);
             _windows.Add(inventoryView);
+            _windows.Add(shopView);
 
             levelNumberView.Initialize(progressProviderService);
             experienceBarView.Construct(staticDataService);

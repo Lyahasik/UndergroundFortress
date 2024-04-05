@@ -4,6 +4,7 @@ using UndergroundFortress.UI.Hud;
 using UndergroundFortress.UI.Information;
 using UndergroundFortress.UI.Inventory;
 using UndergroundFortress.UI.MainMenu;
+using UndergroundFortress.UI.Shop;
 using UndergroundFortress.UI.Skills;
 
 namespace UndergroundFortress.Core.Services.Factories.UI
@@ -33,6 +34,8 @@ namespace UndergroundFortress.Core.Services.Factories.UI
 
         public InventoryView CreateInventory() => 
             PrefabInstantiate(_staticDataService.ForMainMenu().inventoryViewPrefab);
+        public ShopView CreateShop() => 
+            PrefabInstantiate(_staticDataService.ForMainMenu().shopViewPrefab);
 
         public HudView CreateHUD() => 
             PrefabInstantiate(_staticDataService.ForLevel().hudViewPrefab);

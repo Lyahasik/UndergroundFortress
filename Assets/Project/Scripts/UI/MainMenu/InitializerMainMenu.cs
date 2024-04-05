@@ -12,11 +12,13 @@ using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Inventory.Wallet.Services;
 using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.Gameplay.Player.Level.Services;
+using UndergroundFortress.Gameplay.Shop;
 using UndergroundFortress.Gameplay.Skills.Services;
 using UndergroundFortress.UI.Craft;
 using UndergroundFortress.UI.Information;
 using UndergroundFortress.UI.Information.Services;
 using UndergroundFortress.UI.Inventory;
+using UndergroundFortress.UI.Shop;
 using UndergroundFortress.UI.Skills;
 
 namespace UndergroundFortress.UI.MainMenu
@@ -56,13 +58,14 @@ namespace UndergroundFortress.UI.MainMenu
             _mainMenuServicesContainer = new ServicesContainer();
             
             _mainMenuServicesContainer.Register<IInformationService>(new InformationService());
-            RegisterWalletOperationService(_progressProviderService);
+            RegisterWalletOperationService();
 
             RegisterPlayerUpdateLevelService();
             RegisterSkillsUpgradeService();
             
-            RegisterActivationRecipesService(_progressProviderService);
+            RegisterActivationRecipesService();
             RegisterInventoryService();
+            RegisterShoppingService();
 
             _mainMenuServicesContainer.Register<ISwapCellsService>(
                 new SwapCellsService(
@@ -100,10 +103,10 @@ namespace UndergroundFortress.UI.MainMenu
             _mainMenuServicesContainer.Register<ISkillsUpgradeService>(service);
         }
 
-        private void RegisterWalletOperationService(IProgressProviderService progressProviderService)
+        private void RegisterWalletOperationService()
         {
             var service = new WalletOperationService();
-            service.Construct(progressProviderService);
+            service.Construct(_progressProviderService);
             service.Initialize();
             
             _mainMenuServicesContainer.Register<IWalletOperationService>(service);
@@ -116,11 +119,11 @@ namespace UndergroundFortress.UI.MainMenu
             _mainMenuServicesContainer.Register<IMovingItemService>(movingItemService);
         }
 
-        private void RegisterActivationRecipesService(IProgressProviderService progressProviderService)
+        private void RegisterActivationRecipesService()
         {
             ActivationRecipesService activationRecipesService = new ActivationRecipesService(
                 _staticDataService,
-                progressProviderService);
+                _progressProviderService);
             activationRecipesService.Initialize();
             _mainMenuServicesContainer.Register<IActivationRecipesService>(activationRecipesService);
         }
@@ -136,11 +139,22 @@ namespace UndergroundFortress.UI.MainMenu
             _mainMenuServicesContainer.Register<IInventoryService>(inventoryService);
         }
 
+        private void RegisterShoppingService()
+        {
+            ShoppingService shoppingService = new ShoppingService(
+                _mainMenuServicesContainer.Single<IWalletOperationService>(),
+                _mainMenuServicesContainer.Single<IInventoryService>(),
+                _mainMenuServicesContainer.Single<IInformationService>());
+            _mainMenuServicesContainer.Register<IShoppingService>(shoppingService);
+        }
+
         private void CreateMainMenu(IProcessingPlayerStatsService processingPlayerStatsService,
             ISceneProviderService sceneProviderService)
         {
             InformationView information = _uiFactory.CreateInformation();
-            information.Initialize(_staticDataService, _mainMenuServicesContainer.Single<ISkillsUpgradeService>());
+            information.Initialize(_staticDataService, 
+                _mainMenuServicesContainer.Single<ISkillsUpgradeService>(),
+                _mainMenuServicesContainer.Single<IShoppingService>());
             _mainMenuServicesContainer.Single<IInformationService>().Initialize(information);
             
             HomeView home = _uiFactory.CreateHome();
@@ -170,6 +184,10 @@ namespace UndergroundFortress.UI.MainMenu
             inventory.Initialize();
             _mainMenuServicesContainer.Single<ISwapCellsService>().Initialize(inventory);
 
+            ShopView shop = _uiFactory.CreateShop();
+            shop.Construct(_mainMenuServicesContainer.Single<IInventoryService>());
+            shop.Initialize(_staticDataService, _mainMenuServicesContainer.Single<IShoppingService>());
+
             IMovingItemService movingItemService = _mainMenuServicesContainer.Single<IMovingItemService>();
             movingItemService.Initialize(information.CellItemView);
             movingItemService.Subscribe(inventory.BagActiveArea);
@@ -181,7 +199,7 @@ namespace UndergroundFortress.UI.MainMenu
                 _mainMenuServicesContainer.Single<IActivationRecipesService>(),
                 _mainMenuServicesContainer.Single<IPlayerUpdateLevelService>(),
                 _mainMenuServicesContainer.Single<ISkillsUpgradeService>());
-            mainMenu.Initialize(home, skills, craft, inventory, _staticDataService, _progressProviderService);
+            mainMenu.Initialize(home, skills, craft, inventory, shop, _staticDataService, _progressProviderService);
         }
         
         private void ClearMainMenuServices()

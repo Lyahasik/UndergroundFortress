@@ -19,12 +19,13 @@ namespace UndergroundFortress.UI.Inventory
         public event Action<Vector3> OnEndMove;
         public event Action<Vector3> OnDragItem;
 
-        public void Construct(IMovingItemService movingItemService) => 
+        public void Construct(IMovingItemService movingItemService)
+        {
             _movingItemService = movingItemService;
+        }
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            
             EventSystem.current.SetSelectedGameObject(gameObject, eventData);
         }
 
@@ -57,7 +58,10 @@ namespace UndergroundFortress.UI.Inventory
 
         public void OnSelect(BaseEventData eventData) {}
 
-        public void OnDeselect(BaseEventData eventData) => 
-            _movingItemService.TryReset();
+        public void OnDeselect(BaseEventData eventData)
+        {
+            if (_movingItemService != null)
+             _movingItemService.TryReset();
+        }
     }
 }

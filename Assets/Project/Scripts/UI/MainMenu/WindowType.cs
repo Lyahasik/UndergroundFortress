@@ -8,6 +8,7 @@
         Home = 3,
         Fortress = 4,
         Battle = 5,
-        Skills = 6
+        Skills = 6,
+        Shop = 7,
     }
 }

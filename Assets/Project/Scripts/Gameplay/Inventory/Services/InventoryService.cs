@@ -158,6 +158,22 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             WriteProgress();
         }
 
+        public void RemoveItemsByCell(CellInventoryView cellInventoryView, int requiredNumber)
+        {
+            if (requiredNumber == _inventory[InventoryCellType.Bag][cellInventoryView.Id].Number)
+            {
+                ClearCell(cellInventoryView);
+            }
+            else
+            {
+                _inventory[InventoryCellType.Bag][cellInventoryView.Id].Number -= requiredNumber;
+            
+                UpdateItemToCell(InventoryCellType.Bag, cellInventoryView.Id);
+            
+                WriteProgress();
+            }
+        }
+
         public void RemoveItemsById(int itemId, int requiredNumber)
         {
             DecrementItems(itemId, requiredNumber);
