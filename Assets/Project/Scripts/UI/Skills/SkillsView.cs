@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
@@ -15,6 +16,7 @@ namespace UndergroundFortress.UI.Skills
 
         [Space]
         [SerializeField] private PointsNumberView pointsNumberView;
+        [SerializeField] private Image background;
         [SerializeField] private List<ListSkills> listsSkills;
 
         public void Initialize(IStaticDataService staticDataService,
@@ -38,7 +40,13 @@ namespace UndergroundFortress.UI.Skills
 
         public void SwitchSkillsType(int idSkillsType)
         {
-            listsSkills.ForEach(data => data.gameObject.SetActive(data.SkillsType == (SkillsType) idSkillsType));
+            listsSkills.ForEach(data =>
+            {
+                if (data.SkillsType == (SkillsType)idSkillsType)
+                    background.color = data.BackgroundColor;
+                
+                data.gameObject.SetActive(data.SkillsType == (SkillsType) idSkillsType);
+            });
         }
     }
 }

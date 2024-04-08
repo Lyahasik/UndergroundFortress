@@ -33,7 +33,7 @@ namespace UndergroundFortress.UI.Skills
 
         protected override void ShowInformation()
         {
-            _informationService.ShowSkill(_skillsType, _skillData, noActiveImage.activeSelf, _currentProgressData);
+            _informationService.ShowSkill(_skillsType, _skillData, frame.activeSelf, _currentProgressData);
         }
     }
 }

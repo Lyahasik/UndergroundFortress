@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Extensions;
 using UndergroundFortress.Gameplay.Skills.Services;
 using UndergroundFortress.Gameplay.StaticData;
@@ -14,18 +15,23 @@ namespace UndergroundFortress.UI.Skills
         [SerializeField] private TMP_Text nameSkill;
         [SerializeField] private Image icon;
         [SerializeField] private TMP_Text description;
+
+        [Space]
+        [SerializeField] private Image statIcon;
         [SerializeField] private TMP_Text statValue;
 
         [Space]
         [SerializeField] private Button confirmButton;
 
+        protected IStaticDataService _staticDataService;
         private ISkillsUpgradeService _skillsUpgradeService;
         
         protected SkillsType _currentSkillsType;
         protected SkillData _currentSkillData;
 
-        public void Construct(ISkillsUpgradeService skillsUpgradeService)
+        public void Construct(IStaticDataService staticDataService, ISkillsUpgradeService skillsUpgradeService)
         {
+            _staticDataService = staticDataService;
             _skillsUpgradeService = skillsUpgradeService;
         }
 
@@ -43,6 +49,8 @@ namespace UndergroundFortress.UI.Skills
             icon.sprite = skillData.icon;
             nameSkill.text = skillData.name;
             description.text = skillData.description;
+
+            statIcon.sprite = _staticDataService.GetStatByType(skillData.statType).icon;
             statValue.text = skillData.statType.IncreaseIndicatorToString(skillData.value);
             
             gameObject.SetActive(true);
@@ -64,6 +72,7 @@ namespace UndergroundFortress.UI.Skills
         private void Reset()
         {
             nameSkill.text = "Empty";
+            statIcon.sprite = null;
             statValue.text = string.Empty;
         }
     }

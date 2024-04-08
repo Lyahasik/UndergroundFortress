@@ -17,10 +17,10 @@ namespace UndergroundFortress.UI.Skills
         
         [Space]
         [SerializeField] private Image icon;
+        [SerializeField] private Color inactiveColor;
 
         [Space]
-        [SerializeField] protected GameObject noActiveImage;
-        [SerializeField] private GameObject lockImage;
+        [SerializeField] protected GameObject frame;
 
         protected IStaticDataService _staticDataService;
         protected IInformationService _informationService;
@@ -67,13 +67,13 @@ namespace UndergroundFortress.UI.Skills
             bool isActive = progress.ActiveSkills[_skillsType].Contains(id);
             bool isUnlocked = progress.ActiveSkills[_skillsType].Contains(unlockId);
             
-            noActiveImage.SetActive(isUnlocked && !isActive);
-            lockImage.SetActive(!isUnlocked);
+            frame.SetActive(isUnlocked && !isActive);
+            icon.color = isUnlocked ? Color.white : inactiveColor;
         }
 
         protected virtual void ShowInformation()
         {
-            _informationService.ShowSkill(_skillsType, _skillData, isCanUpgrade: noActiveImage.activeSelf);
+            _informationService.ShowSkill(_skillsType, _skillData, isCanUpgrade: frame.activeSelf);
         }
     }
 }

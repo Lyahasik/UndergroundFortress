@@ -47,7 +47,7 @@ namespace UndergroundFortress.UI.Information
             ISkillsUpgradeService skillsUpgradeService,
             IShoppingService shoppingService)
         {
-            skillView.Construct(skillsUpgradeService);
+            skillView.Construct(staticDataService, skillsUpgradeService);
             skillView.Initialize(CloseView);
             
             progressSkillView.Construct(staticDataService, skillsUpgradeService);

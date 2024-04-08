@@ -11,11 +11,13 @@ namespace UndergroundFortress.UI.Skills
     public class ListSkills : MonoBehaviour
     {
         [SerializeField] private SkillsType skillsType;
+        [SerializeField] private Color backgroundColor;
         [SerializeField] private List<SkillButtonView> skills;
 
         private IStaticDataService _staticDataService;
 
         public SkillsType SkillsType => skillsType;
+        public Color BackgroundColor => backgroundColor;
 
         public void Construct(IStaticDataService staticDataService)
         {

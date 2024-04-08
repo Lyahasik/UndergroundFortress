@@ -3,8 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using UndergroundFortress.Core.Progress;
-using UndergroundFortress.Core.Services.StaticData;
-using UndergroundFortress.Gameplay.Skills.Services;
 using UndergroundFortress.Gameplay.StaticData;
 
 namespace UndergroundFortress.UI.Skills
@@ -15,15 +13,6 @@ namespace UndergroundFortress.UI.Skills
         [SerializeField] private TMP_Text level;
         [SerializeField] private Image progressBarFill;
         [SerializeField] private TMP_Text progressValue;
-        
-        private IStaticDataService _staticDataService;
-
-        public void Construct(IStaticDataService staticDataService, ISkillsUpgradeService skillsUpgradeService)
-        {
-            base.Construct(skillsUpgradeService);
-
-            _staticDataService = staticDataService;
-        }
         
         public void Show(SkillsType skillsType, SkillData skillData, ProgressSkillData progressSkillData, bool isCanUpgrade)
         {
