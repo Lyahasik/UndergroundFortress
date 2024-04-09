@@ -135,7 +135,7 @@ namespace UndergroundFortress.UI.Craft
             UpdatePriceMoney2(listPrice);
 
             equipmentInfo.Hide();
-            UpdateCraftState(_itemType.IsEquipment());
+            UpdateCraftState(_itemType.IsBaseEquipment());
         }
 
         private void UpdatePriceMoney2(ListPrice listPrice)

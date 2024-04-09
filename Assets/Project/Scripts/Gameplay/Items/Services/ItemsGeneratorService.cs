@@ -138,21 +138,27 @@ namespace UndergroundFortress.Gameplay.Items.Services
             if (number == 0)
                 return stats;
 
-            for (int i = number; i > 0; i--)
+            while (number > 0)
             {
                 int idStat = Random.Range(0, _staticDataService.ForStats().Count);
                 
                 StatStaticData staticStatData = _staticDataService.ForStats()[idStat];
+                if (!staticStatData.type.IsEquipmentAdditional()
+                    || IsStatAlreadyAvailable(stats, staticStatData.type))
+                    continue;
+                
                 StatType typeStat = staticStatData.type;
                 QualityType qualityStat = QualityType.Empty.Random(_staticDataService.ForQualities().qualitiesData);
 
                 float qualityValue = GetQualityValue(staticStatData.qualityValues, qualityStat, typeStat);
                 stats.Add(new (typeStat, qualityStat, qualityValue));
+                
+                number--;
             }
 
             return stats;
         }
-        
+
         private float GetQualityValue(List<QualityValue> qualityValues, QualityType qualityStat, StatType statType)
         {
             QualityValue qualityValuesStat = 
@@ -163,7 +169,7 @@ namespace UndergroundFortress.Gameplay.Items.Services
             
             return qualityValue;
         }
-        
+
         private float RoundByType(float value, in StatType type)
         {
             switch (type)
@@ -181,7 +187,7 @@ namespace UndergroundFortress.Gameplay.Items.Services
             
             return value;
         }
-        
+
         private List<StatItemData> GetMainStats(List<QualityValue> equipQualityValues,
             QualityType qualityEquipment, 
             StatType mainType, 
@@ -204,5 +210,8 @@ namespace UndergroundFortress.Gameplay.Items.Services
 
             return stats;
         }
+
+        private bool IsStatAlreadyAvailable(List<StatItemData> stats, StatType type) => 
+            stats.Any(data => data.Type == type);
     }
 }

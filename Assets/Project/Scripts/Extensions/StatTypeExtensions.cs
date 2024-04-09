@@ -4,6 +4,23 @@ namespace UndergroundFortress.Extensions
 {
     public static class StatTypeExtensions
     {
+        public static bool IsEquipmentAdditional(this StatType type)
+        {
+            return type is StatType.Health
+                or StatType.HealthRecoveryRate
+                or StatType.Stamina
+                or StatType.StaminaRecoveryRate
+                or StatType.Dodge
+                or StatType.Accuracy
+                or StatType.Crit
+                or StatType.CritDamage
+                or StatType.Parry
+                or StatType.Block
+                or StatType.BreakThrough
+                or StatType.Stun
+                or StatType.Strength;
+        }
+        
         public static bool IsPassiveProgress(this StatType type)
         {
             return type is StatType.Dodge
