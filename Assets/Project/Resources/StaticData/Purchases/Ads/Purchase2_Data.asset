@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea65408071fc4ac5b34f15fb01ba7ee3, type: 3}
+  m_Name: Purchase2_Data
+  m_EditorClassIdentifier: 
+  id: 2
+  icon: {fileID: 21300000, guid: f2341ac386290414eb847effb366ed21, type: 3}
+  moneyType: 3
+  price: 10
+  items:
+  - itemId: 1003
+    number: 10
+  - itemId: 1004
+    number: 1

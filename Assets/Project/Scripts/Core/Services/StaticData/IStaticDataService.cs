@@ -4,6 +4,7 @@ using UnityEngine;
 using UndergroundFortress.Gameplay;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats;
+using UndergroundFortress.UI.Inventory;
 using UndergroundFortress.UI.MainMenu.StaticData;
 using UndergroundFortress.UI.StaticData;
 
@@ -22,6 +23,7 @@ namespace UndergroundFortress.Core.Services.StaticData
         public List<EquipmentStaticData> ForEquipments();
         public List<ResourceStaticData> ForResources();
         public List<RecipeStaticData> ForRecipes();
+        public List<PurchaseStaticData> ForPurchasesByMoneyType(MoneyType moneyType);
         public QualitiesStaticData ForQualities();
         public StatStaticData GetStatByType(StatType statType);
         public Sprite GetItemIcon(int itemDataId);
@@ -33,5 +35,6 @@ namespace UndergroundFortress.Core.Services.StaticData
         public int GetItemMaxNumberForCellById(int itemId);
         public ItemStaticData GetItemById(int itemId);
         public string GetItemDescriptionById(int itemId);
+        public Sprite GetIconMoneyByType(MoneyType moneyType);
     }
 }

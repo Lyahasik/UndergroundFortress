@@ -45,10 +45,17 @@ namespace UndergroundFortress.UI.Shop
 
             listPurchases.Construct(staticDataService, _inventoryService, shoppingService);
             listPurchases.Initialize();
+            
+            UpdateGroupPurchases(GroupPurchaseType.Sale);
         }
 
-        public void ActivationUpdate(WindowType type) => 
+        public void ActivationUpdate(WindowType type)
+        {
             gameObject.SetActive(type == windowType);
+            
+            if (type == windowType)
+                UpdateGroupPurchases();
+        }
 
         public void UpdateGroupPurchases(GroupPurchaseType groupType = GroupPurchaseType.Empty)
         {
@@ -58,8 +65,7 @@ namespace UndergroundFortress.UI.Shop
             foreach (GroupPurchaseTypeButton groupPurchaseTypeButton in groupPurchasesButtons) 
                 groupPurchaseTypeButton.Change(_currentGroupType);
             
-            if (_currentGroupType == GroupPurchaseType.Sale)
-                listPurchases.FillSales();
+            listPurchases.ActivatePurchaseGroup(_currentGroupType);
         }
     }
 }

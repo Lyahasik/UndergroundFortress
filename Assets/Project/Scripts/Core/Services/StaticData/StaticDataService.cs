@@ -6,6 +6,7 @@ using UndergroundFortress.Constants;
 using UndergroundFortress.Gameplay;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats;
+using UndergroundFortress.UI.Inventory;
 using UndergroundFortress.UI.MainMenu.StaticData;
 using UndergroundFortress.UI.StaticData;
 
@@ -25,9 +26,15 @@ namespace UndergroundFortress.Core.Services.StaticData
         private List<StatStaticData> _stats;
         private List<SkillsStaticData> _skills;
         private QualitiesStaticData _qualities;
+        private MoneysStaticData _moneys;
         private List<ResourceStaticData> _resources;
         private List<EquipmentStaticData> _equipments;
         private List<RecipeStaticData> _recipes;
+        
+        private List<PurchaseStaticData> _purchasesMoney1;
+        private List<PurchaseStaticData> _purchasesMoney2;
+        private List<PurchaseStaticData> _purchasesMoney3;
+        private List<PurchaseStaticData> _purchasesAds;
 
         public void Load()
         {
@@ -46,6 +53,8 @@ namespace UndergroundFortress.Core.Services.StaticData
 
             _qualities = Resources
                 .Load<QualitiesStaticData>(ConstantPaths.QUALITY_DATA_PATH);
+            _moneys = Resources
+                .Load<MoneysStaticData>(ConstantPaths.MONEYS_DATA_PATH);
             
             _playerLevels = Resources
                 .Load<PlayerLevelsStaticData>(ConstantPaths.PLAYER_LEVELS_DATA_PATH);
@@ -64,6 +73,19 @@ namespace UndergroundFortress.Core.Services.StaticData
             _recipes = Resources
                 .LoadAll<RecipeStaticData>(ConstantPaths.RECIPES_DATA_PATH)
                 .ToList();
+            
+            _purchasesMoney1 = Resources
+                .LoadAll<PurchaseStaticData>(ConstantPaths.PURCHASES_MONEY1_DATA_PATH)
+                .ToList();
+            _purchasesMoney2 = Resources
+                .LoadAll<PurchaseStaticData>(ConstantPaths.PURCHASES_MONEY2_DATA_PATH)
+                .ToList();
+            _purchasesMoney3 = Resources
+                .LoadAll<PurchaseStaticData>(ConstantPaths.PURCHASES_MONEY3_DATA_PATH)
+                .ToList();
+            _purchasesAds = Resources
+                .LoadAll<PurchaseStaticData>(ConstantPaths.PURCHASES_ADS_DATA_PATH)
+                .ToList();
         }
 
         public UIStaticData ForUI() => 
@@ -78,7 +100,25 @@ namespace UndergroundFortress.Core.Services.StaticData
             _level;
         public CharacterStaticData ForEnemy() => 
             _enemy;
-        
+
+        public List<PurchaseStaticData> ForPurchasesByMoneyType(MoneyType moneyType)
+        {
+            switch (moneyType)
+            {
+                case MoneyType.Money1:
+                    return _purchasesMoney1;
+                case MoneyType.Money2:
+                    return _purchasesMoney2;
+                case MoneyType.Money3:
+                    return _purchasesMoney3;
+                case MoneyType.Ads:
+                    return _purchasesAds;
+            }
+            
+            Debug.LogWarning($"[StaticDataService] Not found of money type for purchases");
+            return null;
+        }
+
         public QualitiesStaticData ForQualities() => 
             _qualities;
         public PlayerLevelStaticData GetPlayerLevelByCurrent(int currentLevel) => 
@@ -199,5 +239,8 @@ namespace UndergroundFortress.Core.Services.StaticData
             Debug.LogWarning($"[StaticDataService] Not found of id for description");
             return string.Empty;
         }
+
+        public Sprite GetIconMoneyByType(MoneyType moneyType) => 
+            _moneys.moneysData.Find(data => data.type == moneyType).icon;
     }
 }

@@ -20,9 +20,14 @@ namespace UndergroundFortress.Gameplay.Shop
             _informationService = informationService;
         }
 
-        public void ShowItem(CellSaleView cellSale)
+        public void ShowSaleItem(CellSaleView cellSale)
         {
             _informationService.ShowSaleItem(cellSale);
+        }
+
+        public void ShowPurchase(CellPurchaseView cellPurchase)
+        {
+            _informationService.ShowPurchase(cellPurchase);
         }
 
         public void SaleResource(CellSaleView cellSale, int number, int price)

@@ -135,5 +135,10 @@ namespace UndergroundFortress.UI.Information
 
         private void ShowEquipment(ItemData equipmentData) => 
             equipmentView.Show(equipmentData);
+
+        public void ShowPurchase(CellPurchaseView cellPurchase)
+        {
+            
+        }
     }
 }

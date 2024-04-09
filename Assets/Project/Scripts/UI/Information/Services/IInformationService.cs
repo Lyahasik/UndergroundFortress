@@ -12,6 +12,7 @@ namespace UndergroundFortress.UI.Information.Services
         public void ShowSkill(SkillsType skillsType, SkillData skillData, bool isCanUpgrade = false, ProgressSkillData progressSkillData = null);
         public void ShowItem(ItemData itemData);
         public void ShowSaleItem(CellSaleView cellSale);
+        public void ShowPurchase(CellPurchaseView cellPurchase);
         public void ShowEquipmentComparison(ItemData equipmentData1, ItemData equipmentData2);
         public void ShowWarning(string text);
     }

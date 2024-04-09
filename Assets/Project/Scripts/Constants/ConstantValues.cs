@@ -7,6 +7,9 @@
 
         public const string KEY_LOCAL_PROGRESS = "local_progress";
 
+        public const string LOCALE_BUY = "@buy";
+        public const string LOCALE_ADS = "@watch";
+
         public const int ERROR_ID = -1;
         public const int EMPTY = 0;
         public const int DIGITS_STAT_VALUE = 1;

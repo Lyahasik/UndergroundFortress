@@ -46,7 +46,7 @@ namespace UndergroundFortress.UI.Inventory
                 || !_rect.IsDotInside(position))
                 return;
 
-            _shoppingService.ShowItem(this);
+            _shoppingService.ShowSaleItem(this);
         }
     }
 }
