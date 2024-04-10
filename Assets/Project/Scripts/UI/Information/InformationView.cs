@@ -2,10 +2,13 @@
 
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Core.Progress;
+using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Extensions;
+using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.Items.Equipment;
 using UndergroundFortress.Gameplay.Items.Resource;
+using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.Gameplay.Shop;
 using UndergroundFortress.Gameplay.Skills.Services;
 using UndergroundFortress.Gameplay.StaticData;
@@ -34,6 +37,10 @@ namespace UndergroundFortress.UI.Information
         [SerializeField] private SaleResourceView saleResourceView;
 
         [Space]
+        [SerializeField] private PurchaseRewardItemsView purchaseRewardItemsView;
+        [SerializeField] private RewardItemsView rewardItemsView;
+
+        [Space]
         [SerializeField] private CellItemView cellItemView;
 
         [Space]
@@ -44,7 +51,10 @@ namespace UndergroundFortress.UI.Information
         public CellItemView CellItemView => cellItemView;
 
         public void Initialize(IStaticDataService staticDataService,
+            IProgressProviderService progressProviderService,
             ISkillsUpgradeService skillsUpgradeService,
+            IItemsGeneratorService itemsGeneratorService,
+            IInventoryService inventoryService,
             IShoppingService shoppingService)
         {
             skillView.Construct(staticDataService, skillsUpgradeService);
@@ -63,6 +73,12 @@ namespace UndergroundFortress.UI.Information
             resourceView.Construct(staticDataService);
             saleResourceView.Construct(staticDataService, shoppingService);
             saleResourceView.Initialize(CloseView);
+            
+            rewardItemsView.Construct(staticDataService, progressProviderService, itemsGeneratorService, inventoryService);
+            rewardItemsView.Initialize(CloseView);
+            
+            purchaseRewardItemsView.Construct(staticDataService, progressProviderService, itemsGeneratorService, inventoryService, shoppingService);
+            purchaseRewardItemsView.Initialize(CloseView);
         }
 
         public void ShowSkill(SkillsType skillsType, SkillData skillData, bool isCanUpgrade, ProgressSkillData progressSkillData = null)
@@ -121,14 +137,28 @@ namespace UndergroundFortress.UI.Information
             equipmentComparisonView.Hide();
             resourceView.Hide();
             saleResourceView.Hide();
+
+            rewardItemsView.Hide();
+            purchaseRewardItemsView.Hide();
+            
             warningPrompt.Hide();
         }
 
-        private void ShowSaleResource(CellSaleView cellSale) => 
+        private void ShowSaleResource(CellSaleView cellSale)
+        {
+            capArea.SetActive(true);
+            closeButton.SetActive(true);
+            
             saleResourceView.Show(cellSale);
+        }
 
-        private void ShowSaleEquipment(CellSaleView cellSale) => 
+        private void ShowSaleEquipment(CellSaleView cellSale)
+        {
+            capArea.SetActive(true);
+            closeButton.SetActive(true);
+
             saleEquipmentView.Show(cellSale);
+        }
 
         private void ShowResource(ItemData resourceData) => 
             resourceView.Show(resourceData);
@@ -136,9 +166,20 @@ namespace UndergroundFortress.UI.Information
         private void ShowEquipment(ItemData equipmentData) => 
             equipmentView.Show(equipmentData);
 
+        public void ShowReward(RewardData rewardData)
+        {
+            capArea.SetActive(true);
+            closeButton.SetActive(true);
+
+            rewardItemsView.Show(rewardData);
+        }
+
         public void ShowPurchase(CellPurchaseView cellPurchase)
         {
-            
+            capArea.SetActive(true);
+            closeButton.SetActive(true);
+
+            purchaseRewardItemsView.Show(cellPurchase.PurchaseStaticData);
         }
     }
 }

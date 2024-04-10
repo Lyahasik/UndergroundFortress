@@ -91,19 +91,6 @@ namespace UndergroundFortress.UI.Inventory
             SetValues(cellData.ItemData, cellData.Number);
         }
 
-        private void SetValues(ItemData itemData,
-            int number)
-        {
-            _itemData = itemData;
-            _number = number;
-            
-            itemView.SetValues(
-                _staticDataService.GetItemIcon(_itemData.Id),
-                _staticDataService.GetQualityBackground(_itemData.QualityType));
-            
-            TryShowNumber(number.ToString());
-        }
-
         public void Show()
         {
             if (_itemData == null)
@@ -132,6 +119,18 @@ namespace UndergroundFortress.UI.Inventory
             numberView.SetActive(false);
         }
 
+        private void SetValues(ItemData itemData, int number)
+        {
+            _itemData = itemData;
+            _number = number;
+            
+            itemView.SetValues(
+                _staticDataService.GetItemIcon(_itemData.Id),
+                _staticDataService.GetQualityBackground(_itemData.QualityType));
+            
+            TryShowNumber(number.ToString());
+        }
+
         private void Hit(Vector3 position)
         {
             if (_itemData == null
@@ -149,7 +148,7 @@ namespace UndergroundFortress.UI.Inventory
             _movingItemService.AddItem(this, position);
         }
 
-        private void UpdateValue(InventoryCellType inventoryCellType, int id, CellData cellData)
+        protected void UpdateValue(InventoryCellType inventoryCellType, int id, CellData cellData)
         {
             if (_inventoryCellType != inventoryCellType
                 || _id != id)

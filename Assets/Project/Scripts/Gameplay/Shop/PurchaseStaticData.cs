@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace UndergroundFortress.UI.Inventory
 {
@@ -11,6 +10,6 @@ namespace UndergroundFortress.UI.Inventory
         public MoneyType moneyType;
         public float price;
 
-        public List<PurchaseNumberData> items;
+        public RewardData rewardData;
     }
 }

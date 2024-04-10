@@ -32,6 +32,11 @@ namespace UndergroundFortress.UI.Information.Services
             _informationView.ShowSaleItem(cellSale);
         }
 
+        public void ShowReward(RewardData rewardData)
+        {
+            _informationView.ShowReward(rewardData);
+        }
+
         public void ShowPurchase(CellPurchaseView cellPurchase)
         {
             _informationView.ShowPurchase(cellPurchase);

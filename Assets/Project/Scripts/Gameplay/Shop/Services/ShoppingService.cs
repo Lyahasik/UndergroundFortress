@@ -27,6 +27,9 @@ namespace UndergroundFortress.Gameplay.Shop
 
         public void ShowPurchase(CellPurchaseView cellPurchase)
         {
+            if (_inventoryService.IsBagFullForItems(cellPurchase.PurchaseStaticData.rewardData.items))
+                return;
+            
             _informationService.ShowPurchase(cellPurchase);
         }
 
@@ -40,6 +43,11 @@ namespace UndergroundFortress.Gameplay.Shop
         {
             _inventoryService.ClearCell(cellSale);
             _walletOperationService.AddMoney1(price);
+        }
+
+        public void Pay(MoneyType moneyType, int price)
+        {
+            _walletOperationService.RemoveMoney(moneyType, price);
         }
     }
 }

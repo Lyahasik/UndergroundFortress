@@ -3,9 +3,9 @@
 namespace UndergroundFortress.UI.Inventory
 {
     [Serializable]
-    public class PurchaseNumberData
+    public class MoneyNumberData
     {
-        public int itemId;
+        public MoneyType moneyType;
         public int number;
     }
 }

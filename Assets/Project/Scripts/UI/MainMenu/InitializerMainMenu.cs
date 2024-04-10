@@ -151,12 +151,6 @@ namespace UndergroundFortress.UI.MainMenu
         private void CreateMainMenu(IProcessingPlayerStatsService processingPlayerStatsService,
             ISceneProviderService sceneProviderService)
         {
-            InformationView information = _uiFactory.CreateInformation();
-            information.Initialize(_staticDataService, 
-                _mainMenuServicesContainer.Single<ISkillsUpgradeService>(),
-                _mainMenuServicesContainer.Single<IShoppingService>());
-            _mainMenuServicesContainer.Single<IInformationService>().Initialize(information);
-            
             HomeView home = _uiFactory.CreateHome();
             home.Construct(processingPlayerStatsService);
             home.Initialize(_staticDataService);
@@ -188,11 +182,6 @@ namespace UndergroundFortress.UI.MainMenu
             shop.Construct(_mainMenuServicesContainer.Single<IInventoryService>());
             shop.Initialize(_staticDataService, _mainMenuServicesContainer.Single<IShoppingService>());
 
-            IMovingItemService movingItemService = _mainMenuServicesContainer.Single<IMovingItemService>();
-            movingItemService.Initialize(information.CellItemView);
-            movingItemService.Subscribe(inventory.BagActiveArea);
-            movingItemService.Subscribe(inventory.EquipmentActiveArea);
-
             MainMenuView mainMenu = _uiFactory.CreateMainMenu();
             mainMenu.Construct(sceneProviderService, 
                 _mainMenuServicesContainer.Single<IItemsGeneratorService>(),
@@ -200,6 +189,20 @@ namespace UndergroundFortress.UI.MainMenu
                 _mainMenuServicesContainer.Single<IPlayerUpdateLevelService>(),
                 _mainMenuServicesContainer.Single<ISkillsUpgradeService>());
             mainMenu.Initialize(home, skills, craft, inventory, shop, _staticDataService, _progressProviderService);
+            
+            InformationView information = _uiFactory.CreateInformation();
+            information.Initialize(_staticDataService, 
+                _progressProviderService,
+                _mainMenuServicesContainer.Single<ISkillsUpgradeService>(), 
+                _mainMenuServicesContainer.Single<IItemsGeneratorService>(),
+                _mainMenuServicesContainer.Single<IInventoryService>(),
+                _mainMenuServicesContainer.Single<IShoppingService>());
+            _mainMenuServicesContainer.Single<IInformationService>().Initialize(information);
+            
+            IMovingItemService movingItemService = _mainMenuServicesContainer.Single<IMovingItemService>();
+            movingItemService.Initialize(information.CellItemView);
+            movingItemService.Subscribe(inventory.BagActiveArea);
+            movingItemService.Subscribe(inventory.EquipmentActiveArea);
         }
         
         private void ClearMainMenuServices()

@@ -18,8 +18,8 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
         public event Action<InventoryCellType, int, CellData> OnUpdateCell;
 
         public bool IsBagFull(bool isShowMessage = true);
-
         public bool IsBagFullForResource(ItemType itemType, int id);
+        public bool IsBagFullForItems(List<ItemNumberData> purchasesNumberData);
 
         public void AddItem(ItemData itemData);
         public void AddItems(ItemData itemData, int number);

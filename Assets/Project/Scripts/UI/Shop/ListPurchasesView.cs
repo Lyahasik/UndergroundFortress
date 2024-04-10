@@ -40,8 +40,6 @@ namespace UndergroundFortress.UI.Craft
         {
             _cellsSale = new List<CellSaleView>();
             _cellsPurchase = new List<CellPurchaseView>();
-            
-            FillSales();
         }
 
         public void ActivatePurchaseGroup(GroupPurchaseType groupPurchaseType)
@@ -136,7 +134,7 @@ namespace UndergroundFortress.UI.Craft
             for (int i = _cellsSale.Count; i < newSize; i++)
             {
                 CellPurchaseView cellPurchaseView = Instantiate(prefabCellPurchaseView, transform);
-                cellPurchaseView.Construct(_staticDataService, _inventoryService, _shoppingService);
+                cellPurchaseView.Construct(_staticDataService, _shoppingService);
                 cellPurchaseView.Initialize();
                 cellPurchaseView.Subscribe(activeArea);
                 _cellsPurchase.Add(cellPurchaseView);

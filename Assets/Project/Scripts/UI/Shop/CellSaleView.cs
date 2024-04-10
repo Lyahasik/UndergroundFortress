@@ -13,6 +13,8 @@ namespace UndergroundFortress.UI.Inventory
         [SerializeField] private Vector2 rectSize;
         
         private IShoppingService _shoppingService;
+        
+        private ActiveArea _activeArea;
 
         public Vector2 RectSize => rectSize;
 
@@ -31,13 +33,24 @@ namespace UndergroundFortress.UI.Inventory
         public new void Initialize()
         {
             gameObject.name = nameof(CellSaleView) + _id;
-            
-            Reset();
         }
-        
+
+        private void OnDestroy()
+        {
+            Unsubscribe();
+        }
+
         public new void Subscribe(ActiveArea activeArea)
         {
-            activeArea.OnUp += Hit;
+            _activeArea = activeArea;
+            
+            _activeArea.OnUp += Hit;
+        }
+
+        private void Unsubscribe()
+        {
+            _inventoryService.OnUpdateCell -= UpdateValue;
+            _activeArea.OnUp -= Hit;
         }
         
         private void Hit(Vector3 position)

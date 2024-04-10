@@ -16,6 +16,16 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: f9cb10425f8122d4290453091c029ed4, type: 3}
   moneyType: 2
   price: 10
-  items:
-  - itemId: 1003
-    number: 10
+  rewardData:
+    nameReward: 
+    moneys: []
+    items:
+    - itemId: 1000
+      number: 99
+      qualityType: 0
+    - itemId: 1001
+      number: 99
+      qualityType: 0
+    - itemId: 1002
+      number: 99
+      qualityType: 0

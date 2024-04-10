@@ -7,6 +7,7 @@ namespace UndergroundFortress.Gameplay.Shop
     {
         public void ShowSaleItem(CellSaleView cellSale);
         public void ShowPurchase(CellPurchaseView cellPurchaseView);
+        public void Pay(MoneyType moneyType, int price);
         public void SaleResource(CellSaleView cellSale, int number, int price);
         public void SaleEquipment(CellSaleView selectedCell, int price);
     }

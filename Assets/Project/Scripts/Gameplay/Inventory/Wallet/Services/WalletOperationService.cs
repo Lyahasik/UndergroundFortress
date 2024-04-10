@@ -2,6 +2,7 @@
 
 using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Core.Services.Progress;
+using UndergroundFortress.UI.Inventory;
 
 namespace UndergroundFortress.Gameplay.Inventory.Wallet.Services
 {
@@ -24,6 +25,19 @@ namespace UndergroundFortress.Gameplay.Inventory.Wallet.Services
             Register(_progressProviderService);
         }
 
+        public void AddMoney(in MoneyType moneyType, in int value)
+        {
+            switch (moneyType)
+            {
+                case MoneyType.Money1:
+                    AddMoney1(value);
+                    break;
+                case MoneyType.Money2:
+                    AddMoney2(value);
+                    break;
+            }
+        }
+
         public void Register(IProgressProviderService progressProviderService)
         {
             progressProviderService.Register(this);
@@ -41,6 +55,19 @@ namespace UndergroundFortress.Gameplay.Inventory.Wallet.Services
         {
             _walletData.Money1 += value;
             WriteProgress();
+        }
+
+        public void RemoveMoney(MoneyType moneyType, in int value)
+        {
+            switch (moneyType)
+            {
+                case MoneyType.Money1:
+                    RemoveMoney1(value);
+                    break;
+                case MoneyType.Money2:
+                    RemoveMoney2(value);
+                    break;
+            }
         }
 
         public void RemoveMoney1(in int value)

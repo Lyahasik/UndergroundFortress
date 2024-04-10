@@ -44,6 +44,13 @@ namespace UndergroundFortress.Gameplay.Items.Services
             return CreateResource(resources.Find(resource => resource.id == id));
         }
 
+        public void GenerateResourcesById(int id, int number)
+        {
+            ResourceStaticData resource = _staticDataService.ForResources().Find(resource => resource.id == id);
+
+            CreateResources(resource, number);
+        }
+
         public ResourceData TryGenerateResourceById(int id)
         {
             List<ResourceStaticData> resources = _staticDataService.ForResources();
@@ -87,9 +94,21 @@ namespace UndergroundFortress.Gameplay.Items.Services
             return resourceData;
         }
 
+        private void CreateResources(ResourceStaticData resourceStaticData, int number)
+        {
+            ResourceData resourceData = new ResourceData(
+            resourceStaticData.id,
+            resourceStaticData.name,
+            resourceStaticData.type,
+            resourceStaticData.quality);
+            
+            _inventoryService.AddItems(resourceData, number);
+        }
+
         public EquipmentData GenerateEquipment(int id,
             int currentLevel = int.MaxValue,
-            StatType setStatType = StatType.Empty)
+            StatType setStatType = StatType.Empty,
+            QualityType qualityType = QualityType.Empty)
         {
             if (_inventoryService.IsBagFull())
                 return null;
@@ -99,15 +118,16 @@ namespace UndergroundFortress.Gameplay.Items.Services
 
             currentLevel = Math.Clamp(currentLevel, 0, equipmentStaticData.maxLevel);
 
-            QualityType quality = QualityType.Empty.Random(_staticDataService.ForQualities().qualitiesData);
+            if (qualityType == QualityType.Empty)
+                qualityType = qualityType.Random(_staticDataService.ForQualities().qualitiesData);
 
             List<StatItemData> mainStats = GetMainStats(
                 equipmentStaticData.qualityValues,
-                quality,
+                qualityType,
                 equipmentStaticData.typeStat,
                 setStatType);
 
-            int numberAdditionalStats = (int)quality - (int)QualityType.Grey;
+            int numberAdditionalStats = (int)qualityType - (int)QualityType.Grey;
             numberAdditionalStats = Math.Clamp(numberAdditionalStats, 0, ConstantValues.MAX_NUMBER_ADDITIONAL_STATS);
             List<StatItemData> additionalStats = GetAdditionalStats(numberAdditionalStats);
 
@@ -116,7 +136,7 @@ namespace UndergroundFortress.Gameplay.Items.Services
             EquipmentData equipmentData = new EquipmentData(equipmentStaticData.id,
                 equipmentStaticData.name,
                 equipmentStaticData.type,
-                quality,
+                qualityType,
                 currentLevel,
                 isSet,
                 mainStats,
@@ -127,7 +147,17 @@ namespace UndergroundFortress.Gameplay.Items.Services
 
             return equipmentData;
         }
-        
+
+        public void GenerateEquipments(int id,
+            int number,
+            int currentLevel = Int32.MaxValue,
+            StatType setStatType = StatType.Empty,
+            QualityType qualityType = QualityType.Empty)
+        {
+            for (int i = 0; i < number; i++) 
+                GenerateEquipment(id, currentLevel, setStatType, qualityType);
+        }
+
         private List<QualityValue> GetStaticQualityValues(StatType type) => 
             _staticDataService.ForStats().Find(v => v.type == type).qualityValues;
 

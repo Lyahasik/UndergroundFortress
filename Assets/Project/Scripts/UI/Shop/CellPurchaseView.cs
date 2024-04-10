@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Extensions;
-using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Shop;
 
 namespace UndergroundFortress.UI.Inventory
@@ -21,15 +20,16 @@ namespace UndergroundFortress.UI.Inventory
         [SerializeField] private BuyButton buyButton;
 
         private IStaticDataService _staticDataService;
-        private IInventoryService _inventoryService;
         private IShoppingService _shoppingService;
-        
+
+        private ActiveArea _activeArea;
         private RectTransform _rect;
 
-        private int _purchaseId;
-        private MoneyType _moneyType;
+        private PurchaseStaticData _purchaseStaticData;
 
         public Vector2 RectSize => rectSize;
+        
+        public PurchaseStaticData PurchaseStaticData => _purchaseStaticData;
         
         private void Awake()
         {
@@ -37,39 +37,49 @@ namespace UndergroundFortress.UI.Inventory
         }
 
         public void Construct(IStaticDataService staticDataService,
-            IInventoryService inventoryService,
             IShoppingService shoppingService)
         {
             _staticDataService = staticDataService;
-            _inventoryService = inventoryService;
             _shoppingService = shoppingService;
         }
         
         public void Initialize()
         {
-            gameObject.name = nameof(CellPurchaseView) + _purchaseId;
-
             priceMoneyView.Construct(_staticDataService);
             
             buyButton.Subscribe(ShowPurchase);
         }
         
+        private void OnDestroy()
+        {
+            Unsubscribe();
+        }
+
         public void SetValues(PurchaseStaticData purchaseStaticData)
         {
-            _purchaseId = purchaseStaticData.id;
-            _moneyType = purchaseStaticData.moneyType;
+            _purchaseStaticData = purchaseStaticData;
+            
+            gameObject.name = nameof(CellPurchaseView) + _purchaseStaticData.id;
 
             icon.sprite = purchaseStaticData.icon;
-            numberText.text = purchaseStaticData.items[0].number.ToString();
-            numberObject.SetActive(purchaseStaticData.items.Count == 1);
+            numberText.text = purchaseStaticData.rewardData.moneys.Count > 0 
+                ? purchaseStaticData.rewardData.moneys[0].number.ToString()
+                : purchaseStaticData.rewardData.items[0].number.ToString();
+            numberObject.SetActive(purchaseStaticData.rewardData.items.Count + purchaseStaticData.rewardData.moneys.Count == 1);
             priceMoneyView.SetValues(purchaseStaticData);
             
-            buyButton.UpdateText(purchaseStaticData.moneyType == MoneyType.Ads);
+            buyButton.UpdateText(_purchaseStaticData.moneyType == MoneyType.Ads);
         }
 
         public void Subscribe(ActiveArea activeArea)
         {
+            _activeArea = activeArea;
             activeArea.OnUp += Hit;
+        }
+
+        private void Unsubscribe()
+        {
+            _activeArea.OnUp -= Hit;
         }
 
         private void Hit(Vector3 position)

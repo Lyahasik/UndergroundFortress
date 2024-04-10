@@ -84,7 +84,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             if (!IsBagFull(false))
                 return false;
             
-            List<CellData> cells = _inventory[InventoryCellType.Bag]
+            List<CellData> cells = Bag
                 .FindAll(cellData =>
                     cellData.ItemData != null
                     && cellData.ItemData.Type == itemType
@@ -97,6 +97,70 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
 
             return isFull;
         }
+
+        public bool IsBagFullForItems(List<ItemNumberData> purchasesNumberData)
+        {
+            if (IsBagFull())
+                return true;
+            
+            int requiredCells = 0;
+            List<CellData> partiallyFilledCells
+                = Bag.FindAll(cellData => cellData.ItemData != null 
+                                          && !cellData.ItemData.Type.IsEquipment()
+                                          && cellData.Number < _staticDataService.GetItemMaxNumberForCellById(cellData.ItemData.Id));
+            foreach (ItemNumberData purchaseNumberData in purchasesNumberData)
+            {
+                var itemStaticData = _staticDataService.GetItemById(purchaseNumberData.itemId);
+                
+                if (itemStaticData.type.IsEquipment())
+                {
+                    requiredCells++;
+                    continue;
+                }
+                
+                int numberItem = purchaseNumberData.number;
+                if (partiallyFilledCells.All(data => data.ItemData.Id != purchaseNumberData.itemId))
+                {
+                    requiredCells = IncrementRequiredCells(purchaseNumberData.itemId, requiredCells, numberItem);
+                    continue;
+                }
+
+                partiallyFilledCells.ForEach(data =>
+                {
+                    if (numberItem > 0
+                        && data.ItemData.Id == purchaseNumberData.itemId)
+                        numberItem -= _staticDataService.GetItemMaxNumberForCellById(data.ItemData.Id) - data.Number;
+                });
+
+                if (numberItem <= 0)
+                {
+                    _informationService.ShowWarning("Bag is full.");
+                    return true;
+                }
+
+                requiredCells = IncrementRequiredCells(purchaseNumberData.itemId, requiredCells, numberItem);
+            }
+
+            bool isFull = requiredCells > GetNumberEmptyCells();
+            
+            if (isFull)
+                _informationService.ShowWarning("Bag is full.");
+
+            return isFull;
+        }
+
+        private int IncrementRequiredCells(int itemId, int requiredCells, int numberItem)
+        {
+            int maxNumber = _staticDataService.GetItemMaxNumberForCellById(itemId);
+            requiredCells += numberItem / maxNumber;
+            if (numberItem % maxNumber > 0)
+                requiredCells++;
+            
+            return requiredCells;
+        }
+
+        private int GetNumberEmptyCells() => 
+            Bag.Count(data => data.ItemData == null);
 
         public void AddItem(ItemData itemData)
         {
@@ -128,9 +192,11 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
         {
             var itemData = GetCellByItemId(itemId)?.ItemData;
 
-            if (itemData != null)
-                for (int i = number; i > 0; i--)
-                    AddItem(itemData);
+            if (itemData == null)
+                _staticDataService.GetItemById(itemId);
+                
+            for (int i = number; i > 0; i--)
+                AddItem(itemData);
         }
 
         public void RemoveItem(ItemData itemData)
