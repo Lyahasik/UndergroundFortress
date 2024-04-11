@@ -3,7 +3,7 @@
     public static class ConstantValues
     {
         public const string SCENE_NAME_MAIN_MENU = "MainMenu";
-        public const string SCENE_NAME_LEVEL = "Level1";
+        public const string SCENE_NAME_LEVEL = "Dungeon";
 
         public const string KEY_LOCAL_PROGRESS = "local_progress";
 

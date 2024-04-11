@@ -26,7 +26,7 @@ namespace UndergroundFortress.Gameplay
         private ServicesContainer _gameplayServicesContainer;
 
         private CharacterData _playerData;
-        private CharacterData _enemyData;
+        private EnemyData _enemyData;
         private CharacterStats _enemyStats;
 
         private void OnDestroy()
@@ -76,19 +76,18 @@ namespace UndergroundFortress.Gameplay
             Canvas gameplayCanvas = _gameplayFactory.CreateGameplayCanvas();
             
             _playerData = _gameplayFactory.CreatePlayer(gameplayCanvas.transform);
-            _playerData.Construct(_processingPlayerStatsService.PlayerStats, new List<EquipmentData>());
+            _playerData.Construct(_processingPlayerStatsService.PlayerStats);
+            _playerData.Initialize();
             
             CharacterStaticData enemyStaticData = _staticDataService.ForEnemy();
             _enemyStats = new CharacterStats();
-            // _enemyStats.Initialize(enemyStaticData);
+            _enemyStats.Initialize(enemyStaticData);
             _enemyData = _gameplayFactory.CreateEnemy(gameplayCanvas.transform);
-            _enemyData.Construct(_enemyStats, new List<EquipmentData>());
+            _enemyData.Construct(_enemyStats);
+            _enemyData.Initialize();
             
             _gameplayServicesContainer.Single<IStatsRestorationService>().AddStats(_processingPlayerStatsService.PlayerStats);
             _gameplayServicesContainer.Single<IStatsRestorationService>().AddStats(_enemyStats);
-            
-            hudView.playerStatsView.Construct(_processingPlayerStatsService.PlayerStats);
-            hudView.enemyStatsView.Construct(_enemyStats);
 
             AttackArea attackArea = _gameplayFactory.CreateAttackArea(gameplayCanvas.transform);
             attackArea.Construct(

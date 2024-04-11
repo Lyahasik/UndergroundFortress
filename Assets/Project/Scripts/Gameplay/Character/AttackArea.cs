@@ -10,13 +10,13 @@ namespace UndergroundFortress.Gameplay.Character
     public class AttackArea : MonoBehaviour, IPointerDownHandler
     {
         private CharacterData _playerData;
-        private CharacterData _enemyData;
+        private EnemyData _enemyData;
 
         private ICheckerCurrentStatsService _checkerCurrentStatsService;
         private IAttackService _attackService;
 
         public void Construct(CharacterData playerData,
-            CharacterData enemyData,
+            EnemyData enemyData,
             ICheckerCurrentStatsService checkerCurrentStatsService,
             IAttackService attackService)
         {

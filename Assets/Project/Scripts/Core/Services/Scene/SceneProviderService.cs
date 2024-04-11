@@ -64,12 +64,12 @@ namespace UndergroundFortress.Core.Services.Scene
             LoadScene(ConstantValues.SCENE_NAME_MAIN_MENU, PrepareMainMenuScene);
         }
 
-        public void LoadLevel(string sceneName)
+        public void LoadLevel(int idDungeon, int idLevel)
         {
             Debug.Log("Current active scene : " + SceneManager.GetActiveScene().name);
             _gameStateMachine.Enter<LoadSceneState>();
             
-            LoadScene(sceneName, PrepareLevelScene);
+            LoadScene(ConstantValues.SCENE_NAME_LEVEL, PrepareLevelScene);
         }
 
         private void LoadScene(string sceneName, Action<AsyncOperation> prepareScene)

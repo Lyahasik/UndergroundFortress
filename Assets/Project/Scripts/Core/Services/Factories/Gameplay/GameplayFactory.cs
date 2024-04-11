@@ -23,7 +23,7 @@ namespace UndergroundFortress.Core.Services.Factories.Gameplay
         public CharacterData CreatePlayer(Transform parent) => 
             PrefabInstantiate(_staticDataService.ForLevel().player, parent);
 
-        public CharacterData CreateEnemy(Transform parent) => 
+        public EnemyData CreateEnemy(Transform parent) => 
             PrefabInstantiate(_staticDataService.ForLevel().enemy, parent);
     }
 }

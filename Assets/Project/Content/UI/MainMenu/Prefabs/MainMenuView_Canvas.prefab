@@ -2502,7 +2502,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!114 &5710153755574089724
 MonoBehaviour:
@@ -2572,7 +2572,6 @@ MonoBehaviour:
   experienceBarView: {fileID: 4270901081853525987}
   walletView: {fileID: 9148816625106610701}
   amountSpaceBag: {fileID: 21542490207509390}
-  buttonStartGame: {fileID: 1395107621976855878}
 --- !u!1 &5992047348845169068
 GameObject:
   m_ObjectHideFlags: 0
@@ -4768,17 +4767,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
---- !u!114 &1395107621976855878 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3079808694885082041, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
-  m_PrefabInstance: {fileID: 4170833864884107007}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &6307211875097582820 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7955169512083892763, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}

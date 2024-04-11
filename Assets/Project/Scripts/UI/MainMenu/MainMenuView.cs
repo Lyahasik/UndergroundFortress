@@ -124,8 +124,5 @@ namespace UndergroundFortress.UI.MainMenu
             foreach (IWindow window in _windows) 
                 window.ActivationUpdate(windowType);
         }
-
-        private void LoadLevel() => 
-            _sceneProviderService.LoadLevel(ConstantValues.SCENE_NAME_LEVEL);
     }
 }

@@ -50,11 +50,12 @@ namespace UndergroundFortress.UI.MainMenu
             IPlayerDressingService playerDressingService,
             ISceneProviderService sceneProviderService) 
         {
-            RegisterServices(playerDressingService);
+            RegisterServices(sceneProviderService, playerDressingService);
             CreateMainMenu(processingPlayerStatsService, sceneProviderService);
         }
         
-        private void RegisterServices(IPlayerDressingService playerDressingService)
+        private void RegisterServices(ISceneProviderService sceneProviderService,
+            IPlayerDressingService playerDressingService)
         {
             _mainMenuServicesContainer = new ServicesContainer();
             
@@ -68,7 +69,7 @@ namespace UndergroundFortress.UI.MainMenu
             RegisterInventoryService();
             RegisterShoppingService();
 
-            RegisterDungeonCreatorService();
+            RegisterDungeonLoaderService(sceneProviderService);
 
             _mainMenuServicesContainer.Register<ISwapCellsService>(
                 new SwapCellsService(
@@ -90,12 +91,12 @@ namespace UndergroundFortress.UI.MainMenu
                     _mainMenuServicesContainer.Single<IItemsGeneratorService>()));
         }
 
-        private void RegisterDungeonCreatorService()
+        private void RegisterDungeonLoaderService(ISceneProviderService sceneProviderService)
         {
-            DungeonCreatorService service = new DungeonCreatorService(_progressProviderService);
+            DungeonLoaderService service = new DungeonLoaderService(sceneProviderService, _progressProviderService);
             service.Initialize();
             
-            _mainMenuServicesContainer.Register<IDungeonCreatorService>(service);
+            _mainMenuServicesContainer.Register<IDungeonLoaderService>(service);
         }
 
         private void RegisterPlayerUpdateLevelService()
@@ -196,7 +197,7 @@ namespace UndergroundFortress.UI.MainMenu
             StartLevelView startLevel = _uiFactory.CreateStartLevel();
             startLevel.Construct(
                 processingPlayerStatsService,
-                _mainMenuServicesContainer.Single<IDungeonCreatorService>());
+                _mainMenuServicesContainer.Single<IDungeonLoaderService>());
             startLevel.Initialize(_staticDataService, _progressProviderService);
 
             MainMenuView mainMenu = _uiFactory.CreateMainMenu();

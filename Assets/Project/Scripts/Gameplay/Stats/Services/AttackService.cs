@@ -84,7 +84,7 @@ namespace UndergroundFortress.Gameplay.Stats.Services
             probabilityStun = Math.Clamp(probabilityStun, 0, statsAttacking.MainStats[StatType.Stun]);
 
             float result = Random.Range(0f, ConstantValues.MAX_PROBABILITY);
-            
+
             if (result < probabilityStun)
                 dataDefending.Stunned.Activate(statsAttacking.MainStats[StatType.StunDuration]);
         }

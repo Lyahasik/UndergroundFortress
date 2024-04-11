@@ -3,15 +3,19 @@
 using UndergroundFortress.Constants;
 using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Core.Services.Progress;
+using UndergroundFortress.Core.Services.Scene;
 
 namespace UndergroundFortress.Gameplay.Dungeons.Services
 {
-    public class DungeonCreatorService : IDungeonCreatorService, IWritingProgress
+    public class DungeonLoaderService : IDungeonLoaderService, IWritingProgress
     {
+        private readonly ISceneProviderService _sceneProviderService;
         private readonly IProgressProviderService _progressProviderService;
 
-        public DungeonCreatorService(IProgressProviderService progressProviderService)
+        public DungeonLoaderService(ISceneProviderService sceneProviderService,
+            IProgressProviderService progressProviderService)
         {
+            _sceneProviderService = sceneProviderService;
             _progressProviderService = progressProviderService;
         }
 
@@ -45,5 +49,8 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
             
             WriteProgress();
         }
+
+        public void LoadLevel(int idDungeon, int idLevel) => 
+            _sceneProviderService.LoadLevel(idDungeon, idLevel);
     }
 }

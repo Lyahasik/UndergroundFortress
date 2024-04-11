@@ -14,6 +14,6 @@ namespace UndergroundFortress.Gameplay.StaticData
         public Canvas gameplayCanvas;
         public AttackArea attackArea;
         public CharacterData player;
-        public CharacterData enemy;
+        public EnemyData enemy;
     }
 }

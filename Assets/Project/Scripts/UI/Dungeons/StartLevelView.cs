@@ -16,15 +16,15 @@ namespace UndergroundFortress.UI.MainMenu
         [SerializeField] private List<ListLevelsDungeon> listDungeons;
 
         private IProcessingPlayerStatsService _processingPlayerStatsService;
-        private IDungeonCreatorService _dungeonCreatorService;
+        private IDungeonLoaderService _dungeonLoaderService;
         
         private int _selectedDungeonId;
 
         public void Construct(IProcessingPlayerStatsService processingPlayerStatsService,
-            IDungeonCreatorService dungeonCreatorService)
+            IDungeonLoaderService dungeonLoaderService)
         {
             _processingPlayerStatsService = processingPlayerStatsService;
-            _dungeonCreatorService = dungeonCreatorService;
+            _dungeonLoaderService = dungeonLoaderService;
         }
 
         public void Initialize(IStaticDataService staticDataService,
@@ -51,7 +51,7 @@ namespace UndergroundFortress.UI.MainMenu
 
         private void StartLevel(int idLevel)
         {
-            _dungeonCreatorService.SuccessDungeonLevel(_selectedDungeonId, idLevel);
+            _dungeonLoaderService.LoadLevel(_selectedDungeonId, idLevel);
         }
     }
 }

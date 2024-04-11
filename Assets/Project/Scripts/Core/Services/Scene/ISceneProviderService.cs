@@ -2,7 +2,7 @@ namespace UndergroundFortress.Core.Services.Scene
 {
     public interface ISceneProviderService : IService
     {
-        void LoadMainScene();
-        void LoadLevel(string sceneName);
+        public void LoadMainScene();
+        public void LoadLevel(int idDungeon, int idLevel);
     }
 }
