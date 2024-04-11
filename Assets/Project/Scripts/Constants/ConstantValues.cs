@@ -25,5 +25,7 @@
         
         public const int EQUIPMENT_START_ID = 0;
         public const int RESOURCES_START_ID = 1000;
+        
+        public const int MAX_DUNGEON_LEVEL_ID = 4;
     }
 }

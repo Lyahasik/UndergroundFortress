@@ -25,9 +25,6 @@ namespace UndergroundFortress.UI.MainMenu
         [SerializeField] private ExperienceBarView experienceBarView;
         [SerializeField] private WalletView walletView;
         [SerializeField] private AmountSpaceBag amountSpaceBag;
-        
-        [Space]
-        [SerializeField] private Button buttonStartGame;
 
         private ISceneProviderService _sceneProviderService;
         private IItemsGeneratorService _itemsGeneratorService;
@@ -56,6 +53,7 @@ namespace UndergroundFortress.UI.MainMenu
             CraftView craftView,
             InventoryView inventoryView,
             ShopView shopView,
+            StartLevelView startLevelView,
             IStaticDataService staticDataService,
             IProgressProviderService progressProviderService)
         {
@@ -66,6 +64,7 @@ namespace UndergroundFortress.UI.MainMenu
             _windows.Add(craftView);
             _windows.Add(inventoryView);
             _windows.Add(shopView);
+            _windows.Add(startLevelView);
 
             levelNumberView.Initialize(progressProviderService);
             experienceBarView.Construct(staticDataService);
@@ -73,8 +72,6 @@ namespace UndergroundFortress.UI.MainMenu
             walletView.Initialize(progressProviderService);
             
             amountSpaceBag.Register(progressProviderService);
-            
-            buttonStartGame.onClick.AddListener(LoadLevel);
         }
         
         //TODO temporary

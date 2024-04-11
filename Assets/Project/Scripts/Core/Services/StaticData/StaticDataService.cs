@@ -35,6 +35,8 @@ namespace UndergroundFortress.Core.Services.StaticData
         private List<PurchaseStaticData> _purchasesMoney2;
         private List<PurchaseStaticData> _purchasesMoney3;
         private List<PurchaseStaticData> _purchasesAds;
+        
+        private List<DungeonStaticData> _dungeons;
 
         public void Load()
         {
@@ -85,6 +87,10 @@ namespace UndergroundFortress.Core.Services.StaticData
                 .ToList();
             _purchasesAds = Resources
                 .LoadAll<PurchaseStaticData>(ConstantPaths.PURCHASES_ADS_DATA_PATH)
+                .ToList();
+            
+            _dungeons = Resources
+                .LoadAll<DungeonStaticData>(ConstantPaths.DUNGEONS_DATA_PATH)
                 .ToList();
         }
 
@@ -242,5 +248,8 @@ namespace UndergroundFortress.Core.Services.StaticData
 
         public Sprite GetIconMoneyByType(MoneyType moneyType) => 
             _moneys.moneysData.Find(data => data.type == moneyType).icon;
+
+        public DungeonStaticData GetDungeonById(int id) => 
+            _dungeons.Find(data => data.id == id);
     }
 }

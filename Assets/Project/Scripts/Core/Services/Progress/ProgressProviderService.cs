@@ -103,7 +103,9 @@ namespace UndergroundFortress.Core.Services.Progress
                 Equipment = CreateEquipment(),
                 ActiveRecipes = CreateActiveRecipes(),
                 Bag = CreateBag(),
-                FilledNumberBag = 0
+                FilledNumberBag = 0,
+                
+                Dungeons = new Dictionary<int, HashSet<int>> { { 0, new HashSet<int> { 0 } } }
             };
 
             SaveProgress();

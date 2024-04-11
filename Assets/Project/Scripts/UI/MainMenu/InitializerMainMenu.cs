@@ -8,6 +8,7 @@ using UndergroundFortress.Core.Services.Scene;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Character.Services;
 using UndergroundFortress.Gameplay.Craft.Services;
+using UndergroundFortress.Gameplay.Dungeons.Services;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Inventory.Wallet.Services;
 using UndergroundFortress.Gameplay.Items.Services;
@@ -67,6 +68,8 @@ namespace UndergroundFortress.UI.MainMenu
             RegisterInventoryService();
             RegisterShoppingService();
 
+            RegisterDungeonCreatorService();
+
             _mainMenuServicesContainer.Register<ISwapCellsService>(
                 new SwapCellsService(
                     _progressProviderService,
@@ -85,6 +88,14 @@ namespace UndergroundFortress.UI.MainMenu
                 new CraftService(
                     _mainMenuServicesContainer.Single<IInventoryService>(),
                     _mainMenuServicesContainer.Single<IItemsGeneratorService>()));
+        }
+
+        private void RegisterDungeonCreatorService()
+        {
+            DungeonCreatorService service = new DungeonCreatorService(_progressProviderService);
+            service.Initialize();
+            
+            _mainMenuServicesContainer.Register<IDungeonCreatorService>(service);
         }
 
         private void RegisterPlayerUpdateLevelService()
@@ -182,13 +193,19 @@ namespace UndergroundFortress.UI.MainMenu
             shop.Construct(_mainMenuServicesContainer.Single<IInventoryService>());
             shop.Initialize(_staticDataService, _mainMenuServicesContainer.Single<IShoppingService>());
 
+            StartLevelView startLevel = _uiFactory.CreateStartLevel();
+            startLevel.Construct(
+                processingPlayerStatsService,
+                _mainMenuServicesContainer.Single<IDungeonCreatorService>());
+            startLevel.Initialize(_staticDataService, _progressProviderService);
+
             MainMenuView mainMenu = _uiFactory.CreateMainMenu();
             mainMenu.Construct(sceneProviderService, 
                 _mainMenuServicesContainer.Single<IItemsGeneratorService>(),
                 _mainMenuServicesContainer.Single<IActivationRecipesService>(),
                 _mainMenuServicesContainer.Single<IPlayerUpdateLevelService>(),
                 _mainMenuServicesContainer.Single<ISkillsUpgradeService>());
-            mainMenu.Initialize(home, skills, craft, inventory, shop, _staticDataService, _progressProviderService);
+            mainMenu.Initialize(home, skills, craft, inventory, shop, startLevel, _staticDataService, _progressProviderService);
             
             InformationView information = _uiFactory.CreateInformation();
             information.Initialize(_staticDataService, 

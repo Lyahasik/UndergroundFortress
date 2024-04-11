@@ -22,5 +22,7 @@ namespace UndergroundFortress.Core.Progress
         public List<CellData> Equipment;
         public List<CellData> Bag;
         public int FilledNumberBag;
+
+        public Dictionary<int, HashSet<int>> Dungeons;
     }
 }

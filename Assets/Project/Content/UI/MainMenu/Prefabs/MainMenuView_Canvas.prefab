@@ -4625,7 +4625,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3079808694885082041, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      value: 0
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3079808694885082041, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -4633,15 +4633,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3803962119476823588, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
       propertyPath: m_Name
-      value: Battle_ButtonText
+      value: Dungeons_ButtonText
       objectReference: {fileID: 0}
     - target: {fileID: 4330565613005071056, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
       propertyPath: m_text
-      value: BATTLE
+      value: Dunge
       objectReference: {fileID: 0}
     - target: {fileID: 4330565613005071056, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
       propertyPath: m_fontSize
-      value: 23.3
+      value: 29.05
       objectReference: {fileID: 0}
     - target: {fileID: 4330565613005071056, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
       propertyPath: m_fontStyle

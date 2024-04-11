@@ -24,5 +24,7 @@ namespace UndergroundFortress.Constants
         public const string PURCHASES_MONEY2_DATA_PATH = "StaticData/Purchases/Money2";
         public const string PURCHASES_MONEY3_DATA_PATH = "StaticData/Purchases/Money3";
         public const string PURCHASES_ADS_DATA_PATH = "StaticData/Purchases/Ads";
+        
+        public const string DUNGEONS_DATA_PATH = "StaticData/Dungeons";
     }
 }
