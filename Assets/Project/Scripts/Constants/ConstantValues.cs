@@ -15,7 +15,7 @@
         public const int DIGITS_STAT_VALUE = 1;
         public const float DELAY_RESTORE_STATS = 1f;
         public const int MAX_NUMBER_ADDITIONAL_STATS = 4;
-        public const float MAX_PROBABILITY = 100f;
+        public const float MAX_PERCENTAGE = 100f;
 
         public const int PRICE_TIME_BY_MONEY1 = 10;
         public const int PRICE_TIME_BY_MONEY2 = 50;

@@ -87,9 +87,14 @@ namespace UndergroundFortress.UI.MainMenu
                 if (!_isSelected)
                     return;
 
-                _isSelected = false;
-                animatorShow.SetTrigger(KEY_ANIMATOR_HIDE);
+                Reset();
             }
+        }
+
+        public void Reset()
+        {
+            _isSelected = false;
+            animatorShow.SetTrigger(KEY_ANIMATOR_HIDE);
         }
 
         private void SelectDungeon()

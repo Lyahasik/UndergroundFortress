@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   curtainPrefab: {fileID: 5153848121341478921, guid: f04ac4650af75474eac9ef4423f31bc8, type: 3}
+  statsRestorationHandlerPrefab: {fileID: 9077033777178638046, guid: 31a6608a54a89c246bef0c3a8e37fe73, type: 3}
 --- !u!4 &326965870
 Transform:
   m_ObjectHideFlags: 0

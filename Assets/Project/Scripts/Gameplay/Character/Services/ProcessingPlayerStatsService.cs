@@ -6,6 +6,7 @@ using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Extensions;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats;
+using UndergroundFortress.Gameplay.Stats.Services;
 
 namespace UndergroundFortress.Gameplay.Character.Services
 {
@@ -13,7 +14,8 @@ namespace UndergroundFortress.Gameplay.Character.Services
     {
         private readonly IStaticDataService _staticDataService;
         private readonly IProgressProviderService _progressProviderService;
-        
+        private readonly IStatsRestorationService _statsRestorationService;
+
         private CharacterStats _playerStats;
         private Dictionary<StatType, float> _basePlayerStats;
         private Dictionary<StatType, float> _equipmentPlayerStats;
@@ -24,16 +26,19 @@ namespace UndergroundFortress.Gameplay.Character.Services
         public CharacterStats PlayerStats => _playerStats;
 
         public ProcessingPlayerStatsService(IStaticDataService staticDataService,
-            IProgressProviderService progressProviderService)
+            IProgressProviderService progressProviderService,
+            IStatsRestorationService statsRestorationService)
         {
             _staticDataService = staticDataService;
             _progressProviderService = progressProviderService;
+            _statsRestorationService = statsRestorationService;
         }
 
         public void Initialize()
         {
             LoadingBaseStats();
             _skillsPlayerStats = new Dictionary<StatType, float>();
+            
 
             Register(_progressProviderService);
         }
@@ -49,6 +54,9 @@ namespace UndergroundFortress.Gameplay.Character.Services
             
             _playerStats = new CharacterStats();
             _playerStats.Initialize();
+            
+            _statsRestorationService.AddStats(_playerStats);
+            
             UpdateProgress(progress);
         }
 

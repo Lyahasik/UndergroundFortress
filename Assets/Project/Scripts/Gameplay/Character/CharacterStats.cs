@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats;
 
@@ -10,10 +11,18 @@ namespace UndergroundFortress.Gameplay.Character
         private Dictionary<StatType, float> _mainStats;
         private CurrentStats _currentStats;
 
+        private bool _isFreeze;
+
         public event Action<CharacterStats> OnUpdateCurrent;
 
         public Dictionary<StatType, float> MainStats => _mainStats;
         public CurrentStats CurrentStats => _currentStats;
+
+        public bool IsFreeze
+        {
+            get => _isFreeze;
+            set => _isFreeze = value;
+        }
 
         public void Initialize()
         {

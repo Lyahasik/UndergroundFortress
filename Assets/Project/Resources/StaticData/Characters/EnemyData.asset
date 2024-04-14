@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 20
   healthRecoveryRate: 0
-  stamina: 0
-  staminaRecoveryRate: 0
-  staminaCost: 0
-  damage: 10
-  defense: 5
+  stamina: 100
+  staminaRecoveryRate: 50
+  staminaCost: 100
+  damage: 11
+  defense: 0
   dodge: 0
   accuracy: 0
   crit: 0

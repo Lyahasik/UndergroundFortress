@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 using UndergroundFortress.Core.Services;
 using UndergroundFortress.Core.Services.Factories.Gameplay;
 using UndergroundFortress.Core.Services.Factories.UI;
+using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.Scene;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Character;
 using UndergroundFortress.Gameplay.Character.Services;
-using UndergroundFortress.Gameplay.Items.Equipment;
-using UndergroundFortress.Gameplay.StaticData;
+using UndergroundFortress.Gameplay.Dungeons.Services;
 using UndergroundFortress.Gameplay.Stats.Services;
 using UndergroundFortress.UI.Hud;
 
@@ -25,8 +24,7 @@ namespace UndergroundFortress.Gameplay
 
         private ServicesContainer _gameplayServicesContainer;
 
-        private CharacterData _playerData;
-        private EnemyData _enemyData;
+        private PlayerData _playerData;
         private CharacterStats _enemyStats;
 
         private void OnDestroy()
@@ -47,16 +45,17 @@ namespace UndergroundFortress.Gameplay
             _processingPlayerStatsService = processingPlayerStatsService;
         }
 
-        public void Initialize()
+        public void Initialize(IProgressProviderService progressProviderService,
+            IStatsRestorationService statsRestorationService)
         {
-            RegisterGameplayServices();
+            RegisterGameplayServices(statsRestorationService);
                 
-            HudView hudView = CreateHUD();
+            HudView hudView = CreateHUD(progressProviderService);
 
-            CreateGameplay(hudView);
+            CreateGameplay(hudView, statsRestorationService);
         }
 
-        private void RegisterGameplayServices()
+        private void RegisterGameplayServices(IStatsRestorationService statsRestorationService)
         {
             _gameplayServicesContainer = new ServicesContainer();
             
@@ -68,50 +67,39 @@ namespace UndergroundFortress.Gameplay
                 new AttackService(
                     _gameplayServicesContainer.Single<IStatsWasteService>()));
 
-            RegisterStatsRestorationService();
+            _gameplayServicesContainer.Register<IProgressDungeonService>(
+                new ProgressDungeonService(
+                    _staticDataService,
+                    _gameplayFactory, 
+                    _gameplayServicesContainer.Single<IAttackService>(),
+                    statsRestorationService,
+                    _gameplayServicesContainer.Single<ICheckerCurrentStatsService>()));
+
         }
 
-        private void CreateGameplay(HudView hudView)
+        private void CreateGameplay(HudView hudView, IStatsRestorationService statsRestorationService)
         {
             Canvas gameplayCanvas = _gameplayFactory.CreateGameplayCanvas();
             
             _playerData = _gameplayFactory.CreatePlayer(gameplayCanvas.transform);
-            _playerData.Construct(_processingPlayerStatsService.PlayerStats);
+            _playerData.Construct(
+                _processingPlayerStatsService.PlayerStats,
+                hudView.PlayerHealthFill,
+                hudView.PlayerStaminaFill);
             _playerData.Initialize();
-            
-            CharacterStaticData enemyStaticData = _staticDataService.ForEnemy();
-            _enemyStats = new CharacterStats();
-            _enemyStats.Initialize(enemyStaticData);
-            _enemyData = _gameplayFactory.CreateEnemy(gameplayCanvas.transform);
-            _enemyData.Construct(_enemyStats);
-            _enemyData.Initialize();
-            
-            _gameplayServicesContainer.Single<IStatsRestorationService>().AddStats(_processingPlayerStatsService.PlayerStats);
-            _gameplayServicesContainer.Single<IStatsRestorationService>().AddStats(_enemyStats);
 
-            AttackArea attackArea = _gameplayFactory.CreateAttackArea(gameplayCanvas.transform);
-            attackArea.Construct(
-                _playerData,
-                _enemyData,
-                _gameplayServicesContainer.Single<ICheckerCurrentStatsService>(),
-                _gameplayServicesContainer.Single<IAttackService>());
+            var progressDungeonService = _gameplayServicesContainer.Single<IProgressDungeonService>();
+            progressDungeonService.Initialize(gameplayCanvas, _playerData);
+            progressDungeonService.StartBattle();
         }
 
-        private HudView CreateHUD()
+        private HudView CreateHUD(IProgressProviderService progressProviderService)
         {
             HudView hudView = _uiFactory.CreateHUD();
             hudView.Construct(_sceneProviderService);
-            hudView.Initialize();
+            hudView.Initialize(_staticDataService, progressProviderService);
 
             return hudView;
-        }
-
-        private void RegisterStatsRestorationService()
-        {
-            StatsRestorationService statsRestorationService = new GameObject(nameof(statsRestorationService))
-                .AddComponent<StatsRestorationService>();
-            statsRestorationService.Initialize();
-            _gameplayServicesContainer.Register<IStatsRestorationService>(statsRestorationService);
         }
 
         private void ClearGameplayServices()

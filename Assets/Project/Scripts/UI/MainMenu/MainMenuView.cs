@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-using UndergroundFortress.Constants;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.Scene;
 using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Gameplay.Character;
 using UndergroundFortress.Gameplay.Craft.Services;
 using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.Gameplay.Player.Level.Services;
@@ -23,6 +22,9 @@ namespace UndergroundFortress.UI.MainMenu
     {
         [SerializeField] private LevelNumberView levelNumberView;
         [SerializeField] private ExperienceBarView experienceBarView;
+        [SerializeField] private CurrentStatFillView playerHealthFill;
+        
+        [Space]
         [SerializeField] private WalletView walletView;
         [SerializeField] private AmountSpaceBag amountSpaceBag;
 
@@ -33,6 +35,8 @@ namespace UndergroundFortress.UI.MainMenu
         private ISkillsUpgradeService _skillsUpgradeService;
 
         private List<IWindow> _windows;
+        
+        public CurrentStatFillView PlayerHealthFill => playerHealthFill;
 
         public void Construct(ISceneProviderService sceneProviderService,
             IItemsGeneratorService itemsGeneratorService,

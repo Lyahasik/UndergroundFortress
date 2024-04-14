@@ -3,7 +3,6 @@ using UnityEngine;
 
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
-using UndergroundFortress.Gameplay.Character.Services;
 using UndergroundFortress.Gameplay.Dungeons.Services;
 
 namespace UndergroundFortress.UI.MainMenu
@@ -15,15 +14,12 @@ namespace UndergroundFortress.UI.MainMenu
         [Space]
         [SerializeField] private List<ListLevelsDungeon> listDungeons;
 
-        private IProcessingPlayerStatsService _processingPlayerStatsService;
         private IDungeonLoaderService _dungeonLoaderService;
         
         private int _selectedDungeonId;
 
-        public void Construct(IProcessingPlayerStatsService processingPlayerStatsService,
-            IDungeonLoaderService dungeonLoaderService)
+        public void Construct(IDungeonLoaderService dungeonLoaderService)
         {
-            _processingPlayerStatsService = processingPlayerStatsService;
             _dungeonLoaderService = dungeonLoaderService;
         }
 
@@ -52,6 +48,9 @@ namespace UndergroundFortress.UI.MainMenu
         private void StartLevel(int idLevel)
         {
             _dungeonLoaderService.LoadLevel(_selectedDungeonId, idLevel);
+            
+            listDungeons.ForEach(data => data.Reset());
+            gameObject.SetActive(false);
         }
     }
 }

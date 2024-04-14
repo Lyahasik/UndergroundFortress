@@ -7,7 +7,7 @@ using UndergroundFortress.Gameplay.Character;
 
 namespace UndergroundFortress.Gameplay.Stats.Services
 {
-    public class StatsRestorationService : MonoBehaviour, IStatsRestorationService
+    public class StatsRestorationService : IStatsRestorationService
     {
         private List<CharacterStats> _statCharacters;
 
@@ -16,11 +16,6 @@ namespace UndergroundFortress.Gameplay.Stats.Services
         public void Initialize()
         {
             _statCharacters = new();
-        }
-
-        private void Update()
-        {
-            RestoreStats();
         }
 
         public void AddStats(CharacterStats stats)
@@ -33,13 +28,16 @@ namespace UndergroundFortress.Gameplay.Stats.Services
             _statCharacters.Remove(stats);
         }
 
-        private void RestoreStats()
+        public void RestoreStats()
         {
             if (_nextRestoreTime > Time.time)
                 return;
             
             foreach (CharacterStats stats in _statCharacters)
             {
+                if (stats.IsFreeze)
+                    continue;
+                
                 RestoreHealth(stats);
                 RestoreStamina(stats);
             }

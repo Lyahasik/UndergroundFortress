@@ -11,6 +11,7 @@ using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.Scene;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Character.Services;
+using UndergroundFortress.Gameplay.Stats.Services;
 using UndergroundFortress.UI.Loading;
 
 namespace UndergroundFortress.Core.Initialize
@@ -18,6 +19,7 @@ namespace UndergroundFortress.Core.Initialize
     public class InitializerGame : MonoBehaviour
     {
         [SerializeField] private LoadingCurtain curtainPrefab;
+        [SerializeField] private StatsRestorationHandler statsRestorationHandlerPrefab;
 
         private ServicesContainer _servicesContainer;
         
@@ -36,7 +38,8 @@ namespace UndergroundFortress.Core.Initialize
             GameStateMachine gameStateMachine = new GameStateMachine();
             
             RegisterProgressProviderService(gameStateMachine);
-            RegsisterProcessingPlayerStatsService();
+            RegisterStatsRestorationService();
+            RegisterProcessingPlayerStatsService();
             
             _servicesContainer.Register<IPlayerDressingService>(
                 new PlayerDressingService(_servicesContainer.Single<IProcessingPlayerStatsService>()));
@@ -56,9 +59,11 @@ namespace UndergroundFortress.Core.Initialize
                     _servicesContainer.Single<IStaticDataService>(),
                     _servicesContainer.Single<IProgressProviderService>(),
                     _servicesContainer.Single<IProcessingPlayerStatsService>(),
-                    _servicesContainer.Single<IPlayerDressingService>()));
+                    _servicesContainer.Single<IPlayerDressingService>(),
+                    _servicesContainer.Single<IStatsRestorationService>()));
             
             LoadingCurtain curtain = CreateLoadingCurtain();
+            CreateStatsRestorationHandler();
             GameData gameData = GameDataCreate(curtain, _servicesContainer);
 
             gameStateMachine.Initialize(
@@ -71,14 +76,22 @@ namespace UndergroundFortress.Core.Initialize
             DontDestroyOnLoad(gameData);
         }
 
-        private void RegsisterProcessingPlayerStatsService()
+        private void RegisterProcessingPlayerStatsService()
         {
             var service = new ProcessingPlayerStatsService(
                 _servicesContainer.Single<IStaticDataService>(),
-                _servicesContainer.Single<IProgressProviderService>());
+                _servicesContainer.Single<IProgressProviderService>(),
+                _servicesContainer.Single<IStatsRestorationService>());
             service.Initialize();
             
             _servicesContainer.Register<IProcessingPlayerStatsService>(service);
+        }
+
+        private void RegisterStatsRestorationService()
+        {
+            StatsRestorationService statsRestorationService = new StatsRestorationService();
+            statsRestorationService.Initialize();
+            _servicesContainer.Register<IStatsRestorationService>(statsRestorationService);
         }
 
         private void RegisterProgressProviderService(GameStateMachine gameStateMachine)
@@ -99,6 +112,12 @@ namespace UndergroundFortress.Core.Initialize
                 _servicesContainer.Single<IStaticDataService>().ForUI());
             
             return curtain;
+        }
+
+        private void CreateStatsRestorationHandler()
+        {
+            StatsRestorationHandler statsRestorationHandler = Instantiate(statsRestorationHandlerPrefab);
+            statsRestorationHandler.Construct(_servicesContainer.Single<IStatsRestorationService>());
         }
 
         private void RegisterStaticDataService()

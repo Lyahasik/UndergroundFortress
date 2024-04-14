@@ -4,6 +4,14 @@ namespace UndergroundFortress.Extensions
 {
     public static class StatTypeExtensions
     {
+        public static bool IsInteger(this StatType type)
+        {
+            return type is StatType.Health
+                or StatType.Stamina
+                or StatType.Damage
+                or StatType.Defense;
+        }
+        
         public static bool IsEquipmentAdditional(this StatType type)
         {
             return type is StatType.Health

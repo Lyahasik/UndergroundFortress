@@ -20,7 +20,7 @@ namespace UndergroundFortress.Core.Services.Factories.Gameplay
         public AttackArea CreateAttackArea(Transform parent) => 
             PrefabInstantiate(_staticDataService.ForLevel().attackArea, parent);
 
-        public CharacterData CreatePlayer(Transform parent) => 
+        public PlayerData CreatePlayer(Transform parent) => 
             PrefabInstantiate(_staticDataService.ForLevel().player, parent);
 
         public EnemyData CreateEnemy(Transform parent) => 

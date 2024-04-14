@@ -195,9 +195,7 @@ namespace UndergroundFortress.UI.MainMenu
             shop.Initialize(_staticDataService, _mainMenuServicesContainer.Single<IShoppingService>());
 
             StartLevelView startLevel = _uiFactory.CreateStartLevel();
-            startLevel.Construct(
-                processingPlayerStatsService,
-                _mainMenuServicesContainer.Single<IDungeonLoaderService>());
+            startLevel.Construct(_mainMenuServicesContainer.Single<IDungeonLoaderService>());
             startLevel.Initialize(_staticDataService, _progressProviderService);
 
             MainMenuView mainMenu = _uiFactory.CreateMainMenu();
@@ -207,6 +205,8 @@ namespace UndergroundFortress.UI.MainMenu
                 _mainMenuServicesContainer.Single<IPlayerUpdateLevelService>(),
                 _mainMenuServicesContainer.Single<ISkillsUpgradeService>());
             mainMenu.Initialize(home, skills, craft, inventory, shop, startLevel, _staticDataService, _progressProviderService);
+            
+            mainMenu.PlayerHealthFill.Subscribe(processingPlayerStatsService.PlayerStats);
             
             InformationView information = _uiFactory.CreateInformation();
             information.Initialize(_staticDataService, 
