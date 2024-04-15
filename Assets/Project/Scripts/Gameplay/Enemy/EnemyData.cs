@@ -80,6 +80,10 @@ namespace UndergroundFortress.Gameplay.Character
                 case StatType.Block:
                     blockHitFeedback.PlayFeedbacks();
                     break;
+                case StatType.Stun:
+                    stunHitFeedback.PlayFeedbacks();
+                    //     strengthHitFeedback.PlayFeedbacks();
+                    break;
                 case StatType.Strength:
                     damageHitFeedback.PlayFeedbacks();
                     //     strengthHitFeedback.PlayFeedbacks();
@@ -108,6 +112,13 @@ namespace UndergroundFortress.Gameplay.Character
             //         stunFeedback.PlayFeedbacks();
             //         break;
             // }
+        }
+
+        public override void RemoveHitEffect()
+        {
+            base.RemoveHitEffect();
+            
+            stunHitFeedback.StopFeedbacks();
         }
     }
 }
