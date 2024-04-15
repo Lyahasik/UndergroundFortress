@@ -17,7 +17,7 @@ namespace UndergroundFortress.Gameplay.Character
             _stats = stats;
         }
 
-        public void Initialize()
+        public virtual void Initialize()
         {
             stunned.Initialize(RemoveHitEffect);
         }
@@ -34,6 +34,13 @@ namespace UndergroundFortress.Gameplay.Character
         public virtual void RemoveHitEffect()
         {
             _stats.IsFreeze = false;
+        }
+
+        public virtual void StartDead() {}
+
+        public virtual void Dead()
+        {
+            Destroy(gameObject);
         }
     }
 }

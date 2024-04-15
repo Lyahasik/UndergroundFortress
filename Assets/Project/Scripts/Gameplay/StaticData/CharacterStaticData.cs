@@ -2,9 +2,10 @@
 
 namespace UndergroundFortress.Gameplay.StaticData
 {
-    [CreateAssetMenu(fileName = "CharacterData", menuName = "Static data/Character")]
+    [CreateAssetMenu(fileName = "CharacterData", menuName = "Static data/Character/Character")]
     public class CharacterStaticData : ScriptableObject
     {
+        [Space]
         public float health;
         public float healthRecoveryRate;
         

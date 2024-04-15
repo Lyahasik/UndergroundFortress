@@ -7,7 +7,7 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
 {
     public interface IProgressDungeonService : IService
     {
-        void Initialize(Canvas gameplayCanvas, PlayerData playerData);
+        void Initialize(Canvas gameplayCanvas, PlayerData playerData, int dungeonId, int levelId);
         void StartBattle();
     }
 }

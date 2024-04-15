@@ -46,13 +46,14 @@ namespace UndergroundFortress.Gameplay
         }
 
         public void Initialize(IProgressProviderService progressProviderService,
-            IStatsRestorationService statsRestorationService)
+            IStatsRestorationService statsRestorationService,
+            int dungeonId, int levelId)
         {
             RegisterGameplayServices(statsRestorationService);
                 
             HudView hudView = CreateHUD(progressProviderService);
 
-            CreateGameplay(hudView, statsRestorationService);
+            CreateGameplay(hudView, dungeonId, levelId);
         }
 
         private void RegisterGameplayServices(IStatsRestorationService statsRestorationService)
@@ -77,7 +78,7 @@ namespace UndergroundFortress.Gameplay
 
         }
 
-        private void CreateGameplay(HudView hudView, IStatsRestorationService statsRestorationService)
+        private void CreateGameplay(HudView hudView, int dungeonId, int levelId)
         {
             Canvas gameplayCanvas = _gameplayFactory.CreateGameplayCanvas();
             
@@ -89,7 +90,7 @@ namespace UndergroundFortress.Gameplay
             _playerData.Initialize();
 
             var progressDungeonService = _gameplayServicesContainer.Single<IProgressDungeonService>();
-            progressDungeonService.Initialize(gameplayCanvas, _playerData);
+            progressDungeonService.Initialize(gameplayCanvas, _playerData, dungeonId, levelId);
             progressDungeonService.StartBattle();
         }
 

@@ -1,4 +1,5 @@
-﻿using MoreMountains.Feedbacks;
+﻿using System;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 using UndergroundFortress.Gameplay.Stats;
@@ -28,18 +29,41 @@ namespace UndergroundFortress.Gameplay.Character
         [SerializeField] private MMF_Player breakThroughFeedback;
         [SerializeField] private MMF_Player stunFeedback;
         
+        [Space]
+        [SerializeField] private MMF_Player deadFeedback;
+        
         private IStatsRestorationService _statsRestorationService;
+        private IAttackService _attackService;
+        private ICheckerCurrentStatsService _checkerCurrentStatsService;
+        private PlayerData _playerData;
 
-        public void Construct(CharacterStats stats, IStatsRestorationService statsRestorationService)
+        private Action _onStartDead;
+        private Action _onDead;
+        private Action<EnemyData> _onReady;
+
+
+        public void Construct(CharacterStats stats,
+            IStatsRestorationService statsRestorationService,
+            IAttackService attackService,
+            ICheckerCurrentStatsService checkerCurrentStatsService,
+            PlayerData playerData,
+            Action onStartDead,
+            Action onDead,
+            Action<EnemyData> onReady)
         {
             base.Construct(stats);
-
+            
             _statsRestorationService = statsRestorationService;
+            _attackService = attackService;
+            _checkerCurrentStatsService = checkerCurrentStatsService;
+            _playerData = playerData;
+
+            _onStartDead = onStartDead;
+            _onDead = onDead;
+            _onReady = onReady;
         }
         
-        public void Initialize(IAttackService attackService,
-            ICheckerCurrentStatsService checkerCurrentStatsService,
-            PlayerData playerData)
+        public override void Initialize()
         {
             base.Initialize();
 
@@ -48,14 +72,13 @@ namespace UndergroundFortress.Gameplay.Character
             _statsRestorationService.AddStats(Stats);
 
             Stats.CurrentStats.Stamina = 0;
-            attacking.Construct(attackService, checkerCurrentStatsService, this, playerData);
         }
 
         private void OnDestroy()
         {
             _statsRestorationService.RemoveStats(Stats);
         }
-        
+
         public override void ActivateStun(float duration)
         {
             base.ActivateStun(duration);
@@ -119,6 +142,29 @@ namespace UndergroundFortress.Gameplay.Character
             base.RemoveHitEffect();
             
             stunHitFeedback.StopFeedbacks();
+        }
+
+        public void Ready()
+        {
+            _onReady?.Invoke(this);
+            
+            attacking.Construct(_attackService, _checkerCurrentStatsService, this, _playerData);
+        }
+
+        public override void StartDead()
+        {
+            attacking.enabled = false;
+            healthFillView.gameObject.SetActive(false);
+            deadFeedback.PlayFeedbacks();
+            
+            _onStartDead?.Invoke();
+        }
+
+        public override void Dead()
+        {
+            _onDead?.Invoke();
+            
+            base.Dead();
         }
     }
 }

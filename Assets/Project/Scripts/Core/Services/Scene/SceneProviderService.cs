@@ -34,6 +34,9 @@ namespace UndergroundFortress.Core.Services.Scene
 
         private bool _isMainMenuInit;
 
+        private int _currentDungeonId;
+        private int _currentLevelId;
+
         public SceneProviderService(IGameStateMachine gameStateMachine,
             IUIFactory uiFactory,
             IGameplayFactory gameplayFactory,
@@ -70,6 +73,9 @@ namespace UndergroundFortress.Core.Services.Scene
 
         public void LoadLevel(int idDungeon, int idLevel)
         {
+            _currentDungeonId = idDungeon;
+            _currentLevelId = idLevel;
+            
             Debug.Log("Current active scene : " + SceneManager.GetActiveScene().name);
             _gameStateMachine.Enter<LoadSceneState>();
             
@@ -120,7 +126,11 @@ namespace UndergroundFortress.Core.Services.Scene
                 _gameplayFactory,
                 _uiFactory,
                 _processingPlayerStatsService);
-            initializerLevel.Initialize(_progressProviderService, _statsRestorationService);
+            initializerLevel.Initialize(
+                _progressProviderService,
+                _statsRestorationService,
+                _currentDungeonId,
+                _currentLevelId);
 
             Debug.Log("Level scene loaded.");
             _gameStateMachine.Enter<GameplayState>();

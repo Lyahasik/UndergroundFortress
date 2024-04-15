@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace UndergroundFortress.Gameplay.StaticData
 {
@@ -7,5 +8,8 @@ namespace UndergroundFortress.Gameplay.StaticData
     {
         public int id;
         public string name;
+
+        [Space]
+        public List<DungeonLevelStaticData> levels;
     }
 }

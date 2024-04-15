@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2645c14870274ca795fe7f3c9947cf01, type: 3}
-  m_Name: PlayerData
+  m_Script: {fileID: 11500000, guid: 74fff693ccbe42ffb249675a614b2336, type: 3}
+  m_Name: Enemy4_Data
   m_EditorClassIdentifier: 
-  health: 50
-  healthRecoveryRate: 1
+  health: 20
+  healthRecoveryRate: 0
   stamina: 100
-  staminaRecoveryRate: 10
-  staminaCost: 3
-  damage: 1
+  staminaRecoveryRate: 50
+  staminaCost: 100
+  damage: 11
   defense: 0
   dodge: 0
   accuracy: 0
@@ -30,3 +30,5 @@ MonoBehaviour:
   stun: 0
   strength: 0
   stunDuration: 0
+  id: 3
+  enemyData: {fileID: 196345577061169572, guid: c66c27b0e101ab043bbff8e2117b738b, type: 3}

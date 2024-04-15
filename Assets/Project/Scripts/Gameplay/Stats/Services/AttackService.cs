@@ -42,7 +42,7 @@ namespace UndergroundFortress.Gameplay.Stats.Services
             _statsWasteService.WasteHealth(statsDefending, (int) damage);
             _statsWasteService.WasteStamina(statsAttacking, statsAttacking.MainStats[StatType.StaminaCost]);
 
-            if (TryDead(statsDefending))
+            if (TryDead(dataDefending))
                 return;
 
             if (TryStun(statsAttacking, dataDefending))
@@ -107,12 +107,12 @@ namespace UndergroundFortress.Gameplay.Stats.Services
             return result < probabilityStun;
         }
 
-        private bool TryDead(CharacterStats statsCharacter)
+        private bool TryDead(CharacterData dataDefending)
         {
-            if (statsCharacter.CurrentStats.Health != 0)
+            if (dataDefending.Stats.CurrentStats.Health != 0)
                 return false;
-            
-            Debug.Log("Enemy dead.");
+
+            dataDefending.StartDead();
             return true;
         }
     }
