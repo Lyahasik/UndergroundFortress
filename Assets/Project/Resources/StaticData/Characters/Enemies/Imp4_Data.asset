@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74fff693ccbe42ffb249675a614b2336, type: 3}
+  m_Name: Imp4_Data
+  m_EditorClassIdentifier: 
+  health: 140
+  healthRecoveryRate: 0
+  stamina: 100
+  staminaRecoveryRate: 50
+  staminaCost: 100
+  damage: 11
+  defense: 0
+  dodge: 0
+  accuracy: 0
+  crit: 0
+  parry: 0
+  critDamage: 0
+  block: 0
+  breakThrough: 0
+  blockAttackDamage: 0
+  stun: 0
+  strength: 0
+  stunDuration: 0
+  id: 13
+  experience: 14
+  enemyData: {fileID: 196345577061169572, guid: 999f8d8fe028ebc41a062ca7ee562192, type: 3}

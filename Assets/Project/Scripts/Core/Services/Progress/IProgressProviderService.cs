@@ -7,7 +7,9 @@ namespace UndergroundFortress.Core.Services.Progress
         public ProgressData ProgressData { get; }
         public void LoadProgress();
         public void SaveProgress();
-        void Register(IReadingProgress progressReader);
-        void Register(IWritingProgress progressWriter);
+        public void Register(IReadingProgress progressReader);
+        public void Register(IWritingProgress progressWriter);
+        public void Unregister(IReadingProgress progressReader);
+        public void Unregister(IWritingProgress progressWriter);
     }
 }

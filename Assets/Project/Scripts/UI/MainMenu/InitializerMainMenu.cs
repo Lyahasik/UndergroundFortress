@@ -12,7 +12,6 @@ using UndergroundFortress.Gameplay.Dungeons.Services;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Inventory.Wallet.Services;
 using UndergroundFortress.Gameplay.Items.Services;
-using UndergroundFortress.Gameplay.Player.Level.Services;
 using UndergroundFortress.Gameplay.Shop;
 using UndergroundFortress.Gameplay.Skills.Services;
 using UndergroundFortress.UI.Craft;
@@ -62,7 +61,6 @@ namespace UndergroundFortress.UI.MainMenu
             _mainMenuServicesContainer.Register<IInformationService>(new InformationService());
             RegisterWalletOperationService();
 
-            RegisterPlayerUpdateLevelService();
             RegisterSkillsUpgradeService();
             
             RegisterActivationRecipesService();
@@ -97,14 +95,6 @@ namespace UndergroundFortress.UI.MainMenu
             service.Initialize();
             
             _mainMenuServicesContainer.Register<IDungeonLoaderService>(service);
-        }
-
-        private void RegisterPlayerUpdateLevelService()
-        {
-            var service = new PlayerUpdateLevelService(_staticDataService, _progressProviderService);
-            service.Initialize();
-            
-            _mainMenuServicesContainer.Register<IPlayerUpdateLevelService>(service);
         }
 
         private void RegisterSkillsUpgradeService()
@@ -202,7 +192,6 @@ namespace UndergroundFortress.UI.MainMenu
             mainMenu.Construct(sceneProviderService, 
                 _mainMenuServicesContainer.Single<IItemsGeneratorService>(),
                 _mainMenuServicesContainer.Single<IActivationRecipesService>(),
-                _mainMenuServicesContainer.Single<IPlayerUpdateLevelService>(),
                 _mainMenuServicesContainer.Single<ISkillsUpgradeService>());
             mainMenu.Initialize(home, skills, craft, inventory, shop, startLevel, _staticDataService, _progressProviderService);
             

@@ -7,7 +7,6 @@ using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Character;
 using UndergroundFortress.Gameplay.Craft.Services;
 using UndergroundFortress.Gameplay.Items.Services;
-using UndergroundFortress.Gameplay.Player.Level.Services;
 using UndergroundFortress.Gameplay.Skills.Services;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats;
@@ -31,7 +30,6 @@ namespace UndergroundFortress.UI.MainMenu
         private ISceneProviderService _sceneProviderService;
         private IItemsGeneratorService _itemsGeneratorService;
         private IActivationRecipesService _activationRecipesService;
-        private IPlayerUpdateLevelService _playerUpdateLevelService;
         private ISkillsUpgradeService _skillsUpgradeService;
 
         private List<IWindow> _windows;
@@ -41,13 +39,11 @@ namespace UndergroundFortress.UI.MainMenu
         public void Construct(ISceneProviderService sceneProviderService,
             IItemsGeneratorService itemsGeneratorService,
             IActivationRecipesService activationRecipesService,
-            IPlayerUpdateLevelService playerUpdateLevelService,
             ISkillsUpgradeService skillsUpgradeService)
         {
             _sceneProviderService = sceneProviderService;
             _itemsGeneratorService = itemsGeneratorService;
             _activationRecipesService = activationRecipesService;
-            _playerUpdateLevelService = playerUpdateLevelService;
             _skillsUpgradeService = skillsUpgradeService;
         }
 
@@ -71,8 +67,8 @@ namespace UndergroundFortress.UI.MainMenu
             _windows.Add(startLevelView);
 
             levelNumberView.Initialize(progressProviderService);
-            experienceBarView.Construct(staticDataService);
-            experienceBarView.Initialize(progressProviderService);
+            experienceBarView.Construct(staticDataService, progressProviderService);
+            experienceBarView.Initialize();
             walletView.Initialize(progressProviderService);
             
             amountSpaceBag.Register(progressProviderService);
@@ -100,12 +96,6 @@ namespace UndergroundFortress.UI.MainMenu
         public void CreateRecipeResource()
         {
             _activationRecipesService.ActivateRecipe(_idRecipeResource++);
-        }
-        
-        //TODO temporary
-        public void UpgradeLevel(int value)
-        {
-            _playerUpdateLevelService.IncreaseExperience(value);
         }
         
         //TODO temporary

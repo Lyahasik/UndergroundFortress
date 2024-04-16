@@ -12,6 +12,7 @@ using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay;
 using UndergroundFortress.Gameplay.Character.Services;
+using UndergroundFortress.Gameplay.Player.Level.Services;
 using UndergroundFortress.Gameplay.Stats.Services;
 using UndergroundFortress.UI.MainMenu;
 
@@ -25,6 +26,7 @@ namespace UndergroundFortress.Core.Services.Scene
         private readonly IStaticDataService _staticDataService;
         private readonly IProgressProviderService _progressProviderService;
         private readonly IProcessingPlayerStatsService _processingPlayerStatsService;
+        private readonly IPlayerUpdateLevelService _playerUpdateLevelService;
         private readonly IPlayerDressingService _playerDressingService;
         private readonly IStatsRestorationService _statsRestorationService;
 
@@ -43,6 +45,7 @@ namespace UndergroundFortress.Core.Services.Scene
             IStaticDataService staticDataService,
             IProgressProviderService progressProviderService,
             IProcessingPlayerStatsService processingPlayerStatsService,
+            IPlayerUpdateLevelService playerUpdateLevelService,
             IPlayerDressingService playerDressingService,
             IStatsRestorationService statsRestorationService)
         {
@@ -52,6 +55,7 @@ namespace UndergroundFortress.Core.Services.Scene
             _staticDataService = staticDataService;
             _progressProviderService = progressProviderService;
             _processingPlayerStatsService = processingPlayerStatsService;
+            _playerUpdateLevelService = playerUpdateLevelService;
             _playerDressingService = playerDressingService;
             _statsRestorationService = statsRestorationService;
         }
@@ -129,6 +133,7 @@ namespace UndergroundFortress.Core.Services.Scene
             initializerLevel.Initialize(
                 _progressProviderService,
                 _statsRestorationService,
+                _playerUpdateLevelService,
                 _currentDungeonId,
                 _currentLevelId);
 

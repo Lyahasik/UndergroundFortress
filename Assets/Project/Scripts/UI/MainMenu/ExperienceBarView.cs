@@ -12,15 +12,22 @@ namespace UndergroundFortress
         [SerializeField] private Image fill;
         
         private IStaticDataService _staticDataService;
+        private IProgressProviderService _progressProviderService;
 
-        public void Construct(IStaticDataService staticDataService)
+        public void Construct(IStaticDataService staticDataService, IProgressProviderService progressProviderService)
         {
             _staticDataService = staticDataService;
+            _progressProviderService = progressProviderService;
         }
         
-        public void Initialize(IProgressProviderService progressProviderService)
+        public void Initialize()
         {
-            Register(progressProviderService);
+            Register(_progressProviderService);
+        }
+
+        private void OnDestroy()
+        {
+            _progressProviderService.Unregister(this);
         }
 
         public void Register(IProgressProviderService progressProviderService)

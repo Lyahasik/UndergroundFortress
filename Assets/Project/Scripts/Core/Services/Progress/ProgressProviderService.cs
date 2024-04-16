@@ -79,6 +79,18 @@ namespace UndergroundFortress.Core.Services.Progress
             _progressWriters.Add(progressWriter);
         }
 
+        public void Unregister(IReadingProgress progressReader)
+        {
+            _progressReaders.Remove(progressReader);
+        }
+
+        public void Unregister(IWritingProgress progressWriter)
+        {
+            Unregister(progressWriter as IReadingProgress);
+
+            _progressWriters.Remove(progressWriter);
+        }
+
         private ProgressData LoadData(string json)
         {
             ProgressData progressData = null;

@@ -14,3 +14,43 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   name: Dungeon 2
+  levels:
+  - id: 0
+    numberStages: 2
+    enemies:
+    - probabilityWeight: 100
+      enemyStaticData: {fileID: 11400000, guid: 2848e158f63f40147bac5f21410ff6bf, type: 2}
+  - id: 1
+    numberStages: 2
+    enemies:
+    - probabilityWeight: 50
+      enemyStaticData: {fileID: 11400000, guid: 2848e158f63f40147bac5f21410ff6bf, type: 2}
+    - probabilityWeight: 100
+      enemyStaticData: {fileID: 11400000, guid: aaab4da015d1a70469ecb1106b323350, type: 2}
+  - id: 2
+    numberStages: 2
+    enemies:
+    - probabilityWeight: 25
+      enemyStaticData: {fileID: 11400000, guid: 2848e158f63f40147bac5f21410ff6bf, type: 2}
+    - probabilityWeight: 50
+      enemyStaticData: {fileID: 11400000, guid: aaab4da015d1a70469ecb1106b323350, type: 2}
+    - probabilityWeight: 100
+      enemyStaticData: {fileID: 11400000, guid: 0070359de52ca3542bb0a810f7792ac6, type: 2}
+  - id: 3
+    numberStages: 2
+    enemies:
+    - probabilityWeight: 25
+      enemyStaticData: {fileID: 11400000, guid: aaab4da015d1a70469ecb1106b323350, type: 2}
+    - probabilityWeight: 50
+      enemyStaticData: {fileID: 11400000, guid: 0070359de52ca3542bb0a810f7792ac6, type: 2}
+    - probabilityWeight: 100
+      enemyStaticData: {fileID: 11400000, guid: 4730e2875aa9edc47b47bd4b55d97dba, type: 2}
+  - id: 4
+    numberStages: 2
+    enemies:
+    - probabilityWeight: 25
+      enemyStaticData: {fileID: 11400000, guid: 0070359de52ca3542bb0a810f7792ac6, type: 2}
+    - probabilityWeight: 50
+      enemyStaticData: {fileID: 11400000, guid: 4730e2875aa9edc47b47bd4b55d97dba, type: 2}
+    - probabilityWeight: 100
+      enemyStaticData: {fileID: 11400000, guid: aca6d792b33ebd745a0d9572dd34eaf7, type: 2}

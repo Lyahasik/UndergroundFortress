@@ -9,6 +9,7 @@ namespace UndergroundFortress.Gameplay.StaticData
     {
         [Space]
         public int id;
+        public int experience;
         public EnemyData enemyData;
     }
 }

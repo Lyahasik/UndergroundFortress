@@ -11,6 +11,7 @@ using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.Scene;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Character.Services;
+using UndergroundFortress.Gameplay.Player.Level.Services;
 using UndergroundFortress.Gameplay.Stats.Services;
 using UndergroundFortress.UI.Loading;
 
@@ -40,6 +41,7 @@ namespace UndergroundFortress.Core.Initialize
             RegisterProgressProviderService(gameStateMachine);
             RegisterStatsRestorationService();
             RegisterProcessingPlayerStatsService();
+            RegisterPlayerUpdateLevelService();
             
             _servicesContainer.Register<IPlayerDressingService>(
                 new PlayerDressingService(_servicesContainer.Single<IProcessingPlayerStatsService>()));
@@ -59,6 +61,7 @@ namespace UndergroundFortress.Core.Initialize
                     _servicesContainer.Single<IStaticDataService>(),
                     _servicesContainer.Single<IProgressProviderService>(),
                     _servicesContainer.Single<IProcessingPlayerStatsService>(),
+                    _servicesContainer.Single<IPlayerUpdateLevelService>(),
                     _servicesContainer.Single<IPlayerDressingService>(),
                     _servicesContainer.Single<IStatsRestorationService>()));
             
@@ -103,6 +106,16 @@ namespace UndergroundFortress.Core.Initialize
             service.Initialization();
             
             _servicesContainer.Register<IProgressProviderService>(service);
+        }
+        
+        private void RegisterPlayerUpdateLevelService()
+        {
+            var service = new PlayerUpdateLevelService(
+                _servicesContainer.Single<IStaticDataService>(),
+                _servicesContainer.Single<IProgressProviderService>());
+            service.Initialize();
+            
+            _servicesContainer.Register<IPlayerUpdateLevelService>(service);
         }
 
         private LoadingCurtain CreateLoadingCurtain()
