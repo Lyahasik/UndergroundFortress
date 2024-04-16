@@ -24,7 +24,10 @@ namespace UndergroundFortress.Gameplay.Stats.Services
 
             if (!TryHit(statsAttacking, statsDefending))
             {
+                _statsWasteService.WasteStamina(statsAttacking, statsAttacking.MainStats[StatType.StaminaCost]);
+                dataAttacking.AttackEffect(StatType.Dodge);
                 dataDefending.TakeHitEffect(StatType.Dodge);
+                
                 return;
             }
             

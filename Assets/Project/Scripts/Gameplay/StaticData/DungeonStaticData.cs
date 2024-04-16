@@ -8,6 +8,7 @@ namespace UndergroundFortress.Gameplay.StaticData
     {
         public int id;
         public string name;
+        public Sprite background;
 
         [Space]
         public List<DungeonLevelStaticData> levels;

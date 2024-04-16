@@ -18,6 +18,7 @@ namespace UndergroundFortress.Core.Services.Factories.UI
         public InventoryView CreateInventory();
         public ShopView CreateShop();
         public StartLevelView CreateStartLevel();
+        public DungeonBackground CreateDungeonBackground();
         public HudView CreateHUD();
     }
 }

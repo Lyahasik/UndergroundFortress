@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaeb016654fb42c9b3276f31c9bac93c, type: 3}
   m_Name: LevelData
   m_EditorClassIdentifier: 
+  dungeonBackgroundPrefab: {fileID: 6566352902730450198, guid: 9f05bdc535fe97945bc20fd8c0c29d0b, type: 3}
   hudViewPrefab: {fileID: 8248891911705102734, guid: 073bd9816efa23744b122ab9897901ee, type: 3}
   gameplayCanvas: {fileID: 8550929980087478797, guid: 488c3a2932aea0f4c8ffc4544eb85a2d, type: 3}
   attackArea: {fileID: 6605593681225319175, guid: 2073283339ed4f74eb535e84aa53f82b, type: 3}
   player: {fileID: 4772884644810317102, guid: d738b982e00623c4aa820668777ad499, type: 3}
-  enemy: {fileID: 196345577061169572, guid: 2af187f85a3832e4ab5a1dcfdf59c78a, type: 3}

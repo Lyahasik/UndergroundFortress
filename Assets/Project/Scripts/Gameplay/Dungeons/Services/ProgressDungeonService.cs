@@ -28,6 +28,7 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
         private readonly ICheckerCurrentStatsService _checkerCurrentStatsService;
         private readonly IPlayerUpdateLevelService _playerUpdateLevelService;
 
+        private DungeonBackground _dungeonBackground;
         private Canvas _gameplayCanvas;
         private AttackArea _attackArea;
         private PlayerData _playerData;
@@ -63,15 +64,19 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
         }
 
         public void Initialize(Canvas gameplayCanvas,
+            DungeonBackground dungeonBackground,
             HudView hudView,
             PlayerData playerData,
             int dungeonId,
             int levelId)
         {
             _gameplayCanvas = gameplayCanvas;
+            _dungeonBackground = dungeonBackground;
+            
             _playerData = playerData;
             _nameLevelText = hudView.NameLevelText;
             UpdateLevel(dungeonId, levelId);
+            _dungeonBackground.UpdateBackground(_currentDungeon.background);
 
             _playerData.OnDead += DeadPlayer;
             
@@ -120,10 +125,15 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
         {
             _currentLevelId++;
 
-            if (_currentLevelId == _currentDungeon.levels.Count) 
+            if (_currentLevelId == _currentDungeon.levels.Count)
+            {
                 UpdateLevel(_currentDungeon.id + 1, 0);
+                _dungeonBackground.UpdateBackground(_currentDungeon.background);
+            }
             else
+            {
                 UpdateLevel(_currentDungeon.id, _currentLevelId);
+            }
             
             StartBattle();
         }

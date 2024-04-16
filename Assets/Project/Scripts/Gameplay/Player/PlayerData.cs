@@ -60,13 +60,13 @@ namespace UndergroundFortress.Gameplay.Character
                     damageHitFeedback.PlayFeedbacks();
                     break;
                 case StatType.Dodge:
-                    damageHitFeedback.PlayFeedbacks();
+                    dodgeHitFeedback.PlayFeedbacks();
                     break;
                 case StatType.Parry:
                     damageHitFeedback.PlayFeedbacks();
                     break;
                 case StatType.Block:
-                    damageHitFeedback.PlayFeedbacks();
+                    blockHitFeedback.PlayFeedbacks();
                     break;
                 case StatType.Stun:
                     stunHitFeedback.PlayFeedbacks();
@@ -86,8 +86,7 @@ namespace UndergroundFortress.Gameplay.Character
                     break;
                 case StatType.Accuracy:
                 //     accuracyFeedback.PlayFeedbacks();
-                
-                    attackFeedback.PlayFeedbacks();
+                attackFeedback.PlayFeedbacks();
                     break;
                 case StatType.Crit:
                     critFeedback.PlayFeedbacks();
@@ -106,7 +105,7 @@ namespace UndergroundFortress.Gameplay.Character
         {
             base.RemoveHitEffect();
             
-            stunFeedback.StopFeedbacks();
+            stunHitFeedback.StopFeedbacks();
         }
 
         public override void StartDead()

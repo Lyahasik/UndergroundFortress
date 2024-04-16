@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   name: Dungeon 1
+  background: {fileID: 21300000, guid: 374f8a4d5f47b2b4dbfbb2f837e0ad64, type: 3}
   levels:
   - id: 0
     numberStages: 10

@@ -12,6 +12,7 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
         public event Action<bool, bool> OnEndLevel;
 
         public void Initialize(Canvas gameplayCanvas,
+            DungeonBackground dungeonBackground,
             HudView hudView,
             PlayerData playerData,
             int dungeonId,

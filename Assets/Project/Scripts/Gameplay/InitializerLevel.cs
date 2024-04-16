@@ -55,9 +55,10 @@ namespace UndergroundFortress.Gameplay
         {
             RegisterGameplayServices(statsRestorationService, playerUpdateLevelService, progressProviderService);
                 
+            DungeonBackground dungeonBackground = _uiFactory.CreateDungeonBackground();
             HudView hudView = CreateHUD(progressProviderService, processingAdsService, statsRestorationService);
 
-            CreateGameplay(hudView, progressProviderService, processingAdsService, statsRestorationService, dungeonId, levelId);
+            CreateGameplay(dungeonBackground, hudView, progressProviderService, processingAdsService, statsRestorationService, dungeonId, levelId);
         }
 
         private void RegisterGameplayServices(IStatsRestorationService statsRestorationService,
@@ -86,7 +87,8 @@ namespace UndergroundFortress.Gameplay
 
         }
 
-        private void CreateGameplay(HudView hudView,
+        private void CreateGameplay(DungeonBackground dungeonBackground,
+            HudView hudView,
             IProgressProviderService progressProviderService,
             IProcessingAdsService processingAdsService,
             IStatsRestorationService statsRestorationService,
@@ -103,6 +105,7 @@ namespace UndergroundFortress.Gameplay
 
             var progressDungeonService = _gameplayServicesContainer.Single<IProgressDungeonService>();
             progressDungeonService.Initialize(gameplayCanvas,
+                dungeonBackground,
                 hudView,
                 _playerData,
                 dungeonId,
