@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 using UndergroundFortress.Constants;
+using UndergroundFortress.Core.Services.Ads;
 using UndergroundFortress.Core.Services.Characters;
 using UndergroundFortress.Core.Services.Factories.Gameplay;
 using UndergroundFortress.Core.Services.Factories.UI;
@@ -24,6 +25,7 @@ namespace UndergroundFortress.Core.Services.Scene
         private readonly IUIFactory _uiFactory;
         private readonly IGameplayFactory _gameplayFactory;
         private readonly IStaticDataService _staticDataService;
+        private readonly IProcessingAdsService _processingAdsService;
         private readonly IProgressProviderService _progressProviderService;
         private readonly IProcessingPlayerStatsService _processingPlayerStatsService;
         private readonly IPlayerUpdateLevelService _playerUpdateLevelService;
@@ -43,6 +45,7 @@ namespace UndergroundFortress.Core.Services.Scene
             IUIFactory uiFactory,
             IGameplayFactory gameplayFactory,
             IStaticDataService staticDataService,
+            IProcessingAdsService processingAdsService,
             IProgressProviderService progressProviderService,
             IProcessingPlayerStatsService processingPlayerStatsService,
             IPlayerUpdateLevelService playerUpdateLevelService,
@@ -53,6 +56,7 @@ namespace UndergroundFortress.Core.Services.Scene
             _uiFactory = uiFactory;
             _gameplayFactory = gameplayFactory;
             _staticDataService = staticDataService;
+            _processingAdsService = processingAdsService;
             _progressProviderService = progressProviderService;
             _processingPlayerStatsService = processingPlayerStatsService;
             _playerUpdateLevelService = playerUpdateLevelService;
@@ -132,6 +136,7 @@ namespace UndergroundFortress.Core.Services.Scene
                 _processingPlayerStatsService);
             initializerLevel.Initialize(
                 _progressProviderService,
+                _processingAdsService,
                 _statsRestorationService,
                 _playerUpdateLevelService,
                 _currentDungeonId,

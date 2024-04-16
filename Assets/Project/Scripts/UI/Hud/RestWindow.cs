@@ -2,7 +2,11 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
+using UndergroundFortress.Core.Services.Ads;
+using UndergroundFortress.Gameplay.Character;
 using UndergroundFortress.Gameplay.Dungeons.Services;
+using UndergroundFortress.Gameplay.Stats.Services;
+using UndergroundFortress.UI.Core.Buttons;
 
 namespace UndergroundFortress
 {
@@ -10,13 +14,26 @@ namespace UndergroundFortress
     {
         [SerializeField] private Button continueButton;
         [SerializeField] private Button nextButton;
-        [SerializeField] private Button recoveryButton;
         [SerializeField] private Button menuButton;
+        
+        [Space]
+        [SerializeField] private ButtonAds recoveryButton;
 
         [Space]
         [SerializeField] private GameObject cap;
 
+        private IStatsRestorationService _statsRestorationService;
+        private PlayerData _playerData;
+
+        public void Construct(IStatsRestorationService statsRestorationService,
+            PlayerData playerData)
+        {
+            _statsRestorationService = statsRestorationService;
+            _playerData = playerData;
+        }
+
         public void Initialize(IProgressDungeonService progressDungeonService,
+            IProcessingAdsService processingAdsService,
             UnityAction onContinue,
             UnityAction onNext,
             UnityAction onMenu)
@@ -31,8 +48,11 @@ namespace UndergroundFortress
             
             menuButton.onClick.AddListener(onMenu);
             menuButton.onClick.AddListener(Deactivate);
+            
+            recoveryButton.Construct(processingAdsService);
+            recoveryButton.Initialize(RestoreFullHealth);
         }
-        
+
         private void Subscribe(IProgressDungeonService progressDungeonService)
         {
             progressDungeonService.OnEndLevel += Activate;
@@ -51,6 +71,11 @@ namespace UndergroundFortress
         {
             cap.SetActive(false);
             gameObject.SetActive(false);
+        }
+
+        private void RestoreFullHealth()
+        {
+            _statsRestorationService.RestoreFullHealth(_playerData.Stats);
         }
     }
 }

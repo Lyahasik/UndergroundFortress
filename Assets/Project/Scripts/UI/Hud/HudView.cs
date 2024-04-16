@@ -2,11 +2,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
+using UndergroundFortress.Core.Services.Ads;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.Scene;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Character;
 using UndergroundFortress.Gameplay.Dungeons.Services;
+using UndergroundFortress.Gameplay.Stats.Services;
 
 namespace UndergroundFortress.UI.Hud
 {
@@ -42,15 +44,20 @@ namespace UndergroundFortress.UI.Hud
 
         public void Initialize(IStaticDataService staticDataService,
             IProgressDungeonService progressDungeonService,
-            IProgressProviderService progressProviderService)
+            IProcessingAdsService processingAdsService,
+            IProgressProviderService progressProviderService,
+            IStatsRestorationService statsRestorationService,
+            PlayerData playerData)
         {
             levelNumberView.Initialize(progressProviderService);
             
             experienceBarView.Construct(staticDataService, progressProviderService);
             experienceBarView.Initialize();
             
+            restWindow.Construct(statsRestorationService, playerData);
             restWindow.Initialize(
                 progressDungeonService,
+                processingAdsService,
                 progressDungeonService.StartBattle,
                 progressDungeonService.NextLevel, 
                 LoadMainScene);

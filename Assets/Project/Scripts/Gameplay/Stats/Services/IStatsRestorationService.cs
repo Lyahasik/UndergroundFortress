@@ -5,8 +5,9 @@ namespace UndergroundFortress.Gameplay.Stats.Services
 {
     public interface IStatsRestorationService : IService
     {
+        public void AddStats(CharacterStats stats);
+        public void RemoveStats(CharacterStats stats);
+        public void RestoreFullHealth(CharacterStats stats);
         public void RestoreStats();
-        void AddStats(CharacterStats stats);
-        void RemoveStats(CharacterStats stats);
     }
 }

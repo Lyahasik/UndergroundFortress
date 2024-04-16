@@ -28,6 +28,15 @@ namespace UndergroundFortress.Gameplay.Stats.Services
             _statCharacters.Remove(stats);
         }
 
+        public void RestoreFullHealth(CharacterStats stats)
+        {
+            if (stats.CurrentStats.Health >= stats.MainStats[StatType.Health])
+                return;
+
+            stats.CurrentStats.Health = stats.MainStats[StatType.Health];
+            stats.UpdateCurrent();
+        }
+
         public void RestoreStats()
         {
             if (_nextRestoreTime > Time.time)

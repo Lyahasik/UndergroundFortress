@@ -2,6 +2,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 using UndergroundFortress.Core.Services;
+using UndergroundFortress.Core.Services.Ads;
 using UndergroundFortress.Core.Services.Characters;
 using UndergroundFortress.Core.Services.Factories.Gameplay;
 using UndergroundFortress.Core.Services.Factories.UI;
@@ -35,6 +36,7 @@ namespace UndergroundFortress.Core.Initialize
             _servicesContainer = new ServicesContainer();
 
             RegisterStaticDataService();
+            _servicesContainer.Register<IProcessingAdsService>(new ProcessingAdsService());
 
             GameStateMachine gameStateMachine = new GameStateMachine();
             
@@ -59,6 +61,7 @@ namespace UndergroundFortress.Core.Initialize
                     _servicesContainer.Single<IUIFactory>(),
                     _servicesContainer.Single<IGameplayFactory>(),
                     _servicesContainer.Single<IStaticDataService>(),
+                    _servicesContainer.Single<IProcessingAdsService>(),
                     _servicesContainer.Single<IProgressProviderService>(),
                     _servicesContainer.Single<IProcessingPlayerStatsService>(),
                     _servicesContainer.Single<IPlayerUpdateLevelService>(),
@@ -77,6 +80,13 @@ namespace UndergroundFortress.Core.Initialize
             _servicesContainer.Register<IGameStateMachine>(gameStateMachine);
             
             DontDestroyOnLoad(gameData);
+        }
+
+        private void RegisterStaticDataService()
+        {
+            StaticDataService service = new StaticDataService();
+            service.Load();
+            _servicesContainer.Register<IStaticDataService>(service);
         }
 
         private void RegisterProcessingPlayerStatsService()
@@ -107,7 +117,7 @@ namespace UndergroundFortress.Core.Initialize
             
             _servicesContainer.Register<IProgressProviderService>(service);
         }
-        
+
         private void RegisterPlayerUpdateLevelService()
         {
             var service = new PlayerUpdateLevelService(
@@ -131,13 +141,6 @@ namespace UndergroundFortress.Core.Initialize
         {
             StatsRestorationHandler statsRestorationHandler = Instantiate(statsRestorationHandlerPrefab);
             statsRestorationHandler.Construct(_servicesContainer.Single<IStatsRestorationService>());
-        }
-
-        private void RegisterStaticDataService()
-        {
-            StaticDataService service = new StaticDataService();
-            service.Load();
-            _servicesContainer.Register<IStaticDataService>(service);
         }
 
         private GameData GameDataCreate(LoadingCurtain curtain, ServicesContainer servicesContainer)

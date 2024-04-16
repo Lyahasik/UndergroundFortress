@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 using UndergroundFortress.Core.Services;
+using UndergroundFortress.Core.Services.Ads;
 using UndergroundFortress.Core.Services.Factories.Gameplay;
 using UndergroundFortress.Core.Services.Factories.UI;
 using UndergroundFortress.Core.Services.Progress;
@@ -47,15 +48,16 @@ namespace UndergroundFortress.Gameplay
         }
 
         public void Initialize(IProgressProviderService progressProviderService,
+            IProcessingAdsService processingAdsService,
             IStatsRestorationService statsRestorationService,
             IPlayerUpdateLevelService playerUpdateLevelService,
             int dungeonId, int levelId)
         {
             RegisterGameplayServices(statsRestorationService, playerUpdateLevelService, progressProviderService);
                 
-            HudView hudView = CreateHUD(progressProviderService);
+            HudView hudView = CreateHUD(progressProviderService, processingAdsService, statsRestorationService);
 
-            CreateGameplay(hudView, dungeonId, levelId);
+            CreateGameplay(hudView, progressProviderService, processingAdsService, statsRestorationService, dungeonId, levelId);
         }
 
         private void RegisterGameplayServices(IStatsRestorationService statsRestorationService,
@@ -84,7 +86,11 @@ namespace UndergroundFortress.Gameplay
 
         }
 
-        private void CreateGameplay(HudView hudView, int dungeonId, int levelId)
+        private void CreateGameplay(HudView hudView,
+            IProgressProviderService progressProviderService,
+            IProcessingAdsService processingAdsService,
+            IStatsRestorationService statsRestorationService,
+            int dungeonId, int levelId)
         {
             Canvas gameplayCanvas = _gameplayFactory.CreateGameplayCanvas();
             
@@ -102,15 +108,22 @@ namespace UndergroundFortress.Gameplay
                 dungeonId,
                 levelId);
             progressDungeonService.StartBattle();
+            
+            hudView.Initialize(
+                _staticDataService, 
+                _gameplayServicesContainer.Single<IProgressDungeonService>(),
+                processingAdsService,
+                progressProviderService,
+                statsRestorationService,
+                _playerData);
         }
 
-        private HudView CreateHUD(IProgressProviderService progressProviderService)
+        private HudView CreateHUD(IProgressProviderService progressProviderService,
+            IProcessingAdsService processingAdsService,
+            IStatsRestorationService statsRestorationService)
         {
             HudView hudView = _uiFactory.CreateHUD();
             hudView.Construct(_sceneProviderService);
-            hudView.Initialize(_staticDataService, 
-                _gameplayServicesContainer.Single<IProgressDungeonService>(),
-                progressProviderService);
 
             return hudView;
         }
