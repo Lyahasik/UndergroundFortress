@@ -249,6 +249,9 @@ namespace UndergroundFortress.Core.Services.StaticData
         public Sprite GetIconMoneyByType(MoneyType moneyType) => 
             _moneys.moneysData.Find(data => data.type == moneyType).icon;
 
+        public List<DungeonStaticData> ForDungeons() => 
+            _dungeons;
+
         public DungeonStaticData GetDungeonById(int id) => 
             _dungeons.Find(data => data.id == id);
     }

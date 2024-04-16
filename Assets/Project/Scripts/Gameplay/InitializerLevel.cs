@@ -51,7 +51,7 @@ namespace UndergroundFortress.Gameplay
             IPlayerUpdateLevelService playerUpdateLevelService,
             int dungeonId, int levelId)
         {
-            RegisterGameplayServices(statsRestorationService, playerUpdateLevelService);
+            RegisterGameplayServices(statsRestorationService, playerUpdateLevelService, progressProviderService);
                 
             HudView hudView = CreateHUD(progressProviderService);
 
@@ -59,7 +59,8 @@ namespace UndergroundFortress.Gameplay
         }
 
         private void RegisterGameplayServices(IStatsRestorationService statsRestorationService,
-            IPlayerUpdateLevelService playerUpdateLevelService)
+            IPlayerUpdateLevelService playerUpdateLevelService,
+            IProgressProviderService progressProviderService)
         {
             _gameplayServicesContainer = new ServicesContainer();
             
@@ -74,6 +75,7 @@ namespace UndergroundFortress.Gameplay
             _gameplayServicesContainer.Register<IProgressDungeonService>(
                 new ProgressDungeonService(
                     _staticDataService,
+                    progressProviderService,
                     _gameplayFactory, 
                     _gameplayServicesContainer.Single<IAttackService>(),
                     statsRestorationService,

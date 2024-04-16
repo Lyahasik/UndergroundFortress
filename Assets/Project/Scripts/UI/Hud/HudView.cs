@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.Scene;
@@ -22,8 +23,9 @@ namespace UndergroundFortress.UI.Hud
         [SerializeField] private TMP_Text nameLevelText;
         [SerializeField] private LevelDungeonProgressBar levelDungeonProgressBar;
 
+        [FormerlySerializedAs("successWindow")]
         [Space]
-        [SerializeField] private SuccessWindow successWindow;
+        [SerializeField] private RestWindow restWindow;
 
         private ISceneProviderService _sceneProviderService;
         
@@ -47,7 +49,7 @@ namespace UndergroundFortress.UI.Hud
             experienceBarView.Construct(staticDataService, progressProviderService);
             experienceBarView.Initialize();
             
-            successWindow.Initialize(
+            restWindow.Initialize(
                 progressDungeonService,
                 progressDungeonService.StartBattle,
                 progressDungeonService.NextLevel, 

@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
 
+using UndergroundFortress.Constants;
+using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Core.Services.Factories.Gameplay;
+using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Character;
 using UndergroundFortress.Gameplay.Player.Level.Services;
@@ -14,9 +18,10 @@ using Random = UnityEngine.Random;
 
 namespace UndergroundFortress.Gameplay.Dungeons.Services
 {
-    public class ProgressDungeonService : IProgressDungeonService
+    public class ProgressDungeonService : IProgressDungeonService, IWritingProgress
     {
         private readonly IStaticDataService _staticDataService;
+        private readonly IProgressProviderService _progressProviderService;
         private readonly IGameplayFactory _gameplayFactory;
         private readonly IAttackService _attackService;
         private readonly IStatsRestorationService _statsRestorationService;
@@ -35,10 +40,13 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
         private EnemyStaticData _currentEnemyStaticData;
         private EnemyData _currentEnemy;
 
-        public event Action OnSuccessLevel;
+        private bool _isPause;
+
+        public event Action<bool, bool> OnEndLevel;
         public event Action<int> OnUpdateSteps;
 
         public ProgressDungeonService(IStaticDataService staticDataService,
+            IProgressProviderService progressProviderService,
             IGameplayFactory gameplayFactory,
             IAttackService attackService,
             IStatsRestorationService statsRestorationService,
@@ -46,6 +54,7 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
             IPlayerUpdateLevelService playerUpdateLevelService)
         {
             _staticDataService = staticDataService;
+            _progressProviderService = progressProviderService;
             _gameplayFactory = gameplayFactory;
             _attackService = attackService;
             _statsRestorationService = statsRestorationService;
@@ -64,6 +73,8 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
             _nameLevelText = hudView.NameLevelText;
             UpdateLevel(dungeonId, levelId);
 
+            _playerData.OnDead += DeadPlayer;
+            
             _attackArea = _gameplayFactory.CreateAttackArea(gameplayCanvas.transform);
             _attackArea.Construct(
                 _playerData,
@@ -71,6 +82,20 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
                 _attackService);
 
             hudView.LevelDungeonProgressBar.Subscribe(this);
+        }
+
+        public void Register(IProgressProviderService progressProviderService)
+        {
+            progressProviderService.Register(this);
+        }
+
+        public void LoadProgress(ProgressData progress) {}
+
+        public void UpdateProgress(ProgressData progress) {}
+
+        public void WriteProgress()
+        {
+            _progressProviderService.SaveProgress();
         }
 
         private void UpdateLevel(int dungeonId, int levelId)
@@ -83,6 +108,7 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
 
         public void StartBattle()
         {
+            _isPause = false;
             _currentStage = 0;
             OnUpdateSteps?.Invoke(_currentStage);
             
@@ -148,11 +174,21 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
             _attackArea.Deactivate();
         }
 
+        private void DeadPlayer()
+        {
+            Reset();
+            OnEndLevel?.Invoke(false, IsLastDungeon());
+        }
+
         private void DeadEnemy()
         {
+            _currentEnemy = null;
+            
+            if (_isPause)
+                return;
+                
             _playerUpdateLevelService.IncreaseExperience(_currentEnemyStaticData.experience);
             
-            _currentEnemy = null;
             OnUpdateSteps?.Invoke(_currentStage);
 
             if (_currentStage < _currentDungeon.levels[_currentLevelId].numberStages)
@@ -162,8 +198,38 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
             }
             else
             {
-                OnSuccessLevel?.Invoke();
+                SuccessDungeonLevel(_currentDungeon.id, _currentLevelId);
+                OnEndLevel?.Invoke(true, IsLastDungeon());
             }
+        }
+
+        private bool IsLastDungeon()
+        {
+            var dungeons = _staticDataService.ForDungeons();
+
+            return _currentDungeon.id + 1 == dungeons.Count && _currentLevelId + 1 == _currentDungeon.levels.Count;
+        }
+
+        private void SuccessDungeonLevel(int idDungeon, int idLevel)
+        {
+            var dungeons = _progressProviderService.ProgressData.Dungeons;
+
+            if (idLevel == ConstantValues.MAX_DUNGEON_LEVEL_ID)
+                dungeons[idDungeon + 1] = new HashSet<int> { 0 };
+            else
+                dungeons[idDungeon].Add(idLevel + 1);
+            
+            WriteProgress();
+        }
+
+        private void Reset()
+        {
+            _isPause = true;
+            
+            _currentEnemy.Dead();
+
+            _currentStage = 0;
+            OnUpdateSteps?.Invoke(_currentStage);
         }
     }
 }

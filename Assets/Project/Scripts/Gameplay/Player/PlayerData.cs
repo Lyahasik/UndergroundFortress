@@ -1,4 +1,5 @@
-﻿using MoreMountains.Feedbacks;
+﻿using System;
+using MoreMountains.Feedbacks;
 using UnityEngine;
 
 using UndergroundFortress.Gameplay.Stats;
@@ -24,6 +25,8 @@ namespace UndergroundFortress.Gameplay.Character
 
         private CurrentStatFillView _healthFillView;
         private CurrentStatFillView _staminaFillView;
+        
+        public event Action OnDead;
 
         public void Construct(CharacterStats stats,
             CurrentStatFillView healthFillView,
@@ -106,10 +109,9 @@ namespace UndergroundFortress.Gameplay.Character
             stunFeedback.StopFeedbacks();
         }
 
-        private void UpdateStats(CharacterStats stats)
+        public override void StartDead()
         {
-            _healthFillView.UpdateValue(Stats);
-            _staminaFillView.UpdateValue(Stats);
+            OnDead?.Invoke();
         }
     }
 }

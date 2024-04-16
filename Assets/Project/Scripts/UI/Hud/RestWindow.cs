@@ -6,16 +6,20 @@ using UndergroundFortress.Gameplay.Dungeons.Services;
 
 namespace UndergroundFortress
 {
-    public class SuccessWindow : MonoBehaviour
+    public class RestWindow : MonoBehaviour
     {
         [SerializeField] private Button continueButton;
         [SerializeField] private Button nextButton;
+        [SerializeField] private Button recoveryButton;
         [SerializeField] private Button menuButton;
 
         [Space]
         [SerializeField] private GameObject cap;
 
-        public void Initialize(IProgressDungeonService progressDungeonService, UnityAction onContinue, UnityAction onNext, UnityAction onMenu)
+        public void Initialize(IProgressDungeonService progressDungeonService,
+            UnityAction onContinue,
+            UnityAction onNext,
+            UnityAction onMenu)
         {
             Subscribe(progressDungeonService);
             
@@ -31,11 +35,14 @@ namespace UndergroundFortress
         
         private void Subscribe(IProgressDungeonService progressDungeonService)
         {
-            progressDungeonService.OnSuccessLevel += Activate;
+            progressDungeonService.OnEndLevel += Activate;
         }
 
-        public void Activate()
+        public void Activate(bool isSuccess, bool isLastLevel = false)
         {
+            recoveryButton.gameObject.SetActive(!isSuccess);
+            nextButton.gameObject.SetActive(isSuccess && !isLastLevel);
+            
             cap.SetActive(true);
             gameObject.SetActive(true);
         }

@@ -9,7 +9,7 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
 {
     public interface IProgressDungeonService : IService
     {
-        public event Action OnSuccessLevel;
+        public event Action<bool, bool> OnEndLevel;
 
         public void Initialize(Canvas gameplayCanvas,
             HudView hudView,

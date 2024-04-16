@@ -67,8 +67,6 @@ namespace UndergroundFortress.UI.MainMenu
             RegisterInventoryService();
             RegisterShoppingService();
 
-            RegisterDungeonLoaderService(sceneProviderService);
-
             _mainMenuServicesContainer.Register<ISwapCellsService>(
                 new SwapCellsService(
                     _progressProviderService,
@@ -87,14 +85,6 @@ namespace UndergroundFortress.UI.MainMenu
                 new CraftService(
                     _mainMenuServicesContainer.Single<IInventoryService>(),
                     _mainMenuServicesContainer.Single<IItemsGeneratorService>()));
-        }
-
-        private void RegisterDungeonLoaderService(ISceneProviderService sceneProviderService)
-        {
-            DungeonLoaderService service = new DungeonLoaderService(sceneProviderService, _progressProviderService);
-            service.Initialize();
-            
-            _mainMenuServicesContainer.Register<IDungeonLoaderService>(service);
         }
 
         private void RegisterSkillsUpgradeService()
@@ -185,7 +175,7 @@ namespace UndergroundFortress.UI.MainMenu
             shop.Initialize(_staticDataService, _mainMenuServicesContainer.Single<IShoppingService>());
 
             StartLevelView startLevel = _uiFactory.CreateStartLevel();
-            startLevel.Construct(_mainMenuServicesContainer.Single<IDungeonLoaderService>());
+            startLevel.Construct(sceneProviderService);
             startLevel.Initialize(_staticDataService, _progressProviderService);
 
             MainMenuView mainMenu = _uiFactory.CreateMainMenu();

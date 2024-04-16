@@ -16,19 +16,19 @@ MonoBehaviour:
   name: Dungeon 3
   levels:
   - id: 0
-    numberStages: 2
+    numberStages: 10
     enemies:
     - probabilityWeight: 100
       enemyStaticData: {fileID: 11400000, guid: ada05299173152b4094e560c444681ea, type: 2}
   - id: 1
-    numberStages: 2
+    numberStages: 10
     enemies:
     - probabilityWeight: 50
       enemyStaticData: {fileID: 11400000, guid: ada05299173152b4094e560c444681ea, type: 2}
     - probabilityWeight: 100
       enemyStaticData: {fileID: 11400000, guid: 1d242339ef3d81d41aa5031521d323d2, type: 2}
   - id: 2
-    numberStages: 2
+    numberStages: 10
     enemies:
     - probabilityWeight: 25
       enemyStaticData: {fileID: 11400000, guid: ada05299173152b4094e560c444681ea, type: 2}
@@ -37,7 +37,7 @@ MonoBehaviour:
     - probabilityWeight: 100
       enemyStaticData: {fileID: 11400000, guid: e524e4ba5d39cbc42a3b5fe4dd3c6885, type: 2}
   - id: 3
-    numberStages: 2
+    numberStages: 10
     enemies:
     - probabilityWeight: 25
       enemyStaticData: {fileID: 11400000, guid: 1d242339ef3d81d41aa5031521d323d2, type: 2}
@@ -46,7 +46,7 @@ MonoBehaviour:
     - probabilityWeight: 100
       enemyStaticData: {fileID: 11400000, guid: c4b77a06579b52e4d925a8be536fd8e8, type: 2}
   - id: 4
-    numberStages: 2
+    numberStages: 10
     enemies:
     - probabilityWeight: 25
       enemyStaticData: {fileID: 11400000, guid: e524e4ba5d39cbc42a3b5fe4dd3c6885, type: 2}
