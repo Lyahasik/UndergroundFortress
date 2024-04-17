@@ -140,13 +140,13 @@ namespace UndergroundFortress.Core.Services.Scene
                 _staticDataService,
                 _gameplayFactory,
                 _uiFactory,
-                _processingPlayerStatsService);
+                _processingPlayerStatsService,
+                _statsRestorationService);
             initializerLevel.Initialize(
                 _progressProviderService,
                 _processingAdsService,
                 _itemsGeneratorService,
                 _walletOperationService,
-                _statsRestorationService,
                 _playerUpdateLevelService,
                 _currentDungeonId,
                 _currentLevelId);

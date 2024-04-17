@@ -25,56 +25,58 @@ namespace UndergroundFortress.Gameplay
         private IGameplayFactory _gameplayFactory;
         private IUIFactory _uiFactory;
         private IProcessingPlayerStatsService _processingPlayerStatsService;
+        private IStatsRestorationService _statsRestorationService;
 
         private ServicesContainer _gameplayServicesContainer;
 
         private PlayerData _playerData;
         private CharacterStats _enemyStats;
 
-        private void OnDestroy()
-        {
-            ClearGameplayServices();
-        }
-
         public void Construct(ISceneProviderService sceneProviderService,
             IStaticDataService staticDataService,
             IGameplayFactory gameplayFactory,
             IUIFactory uiFactory,
-            IProcessingPlayerStatsService processingPlayerStatsService)
+            IProcessingPlayerStatsService processingPlayerStatsService,
+            IStatsRestorationService statsRestorationService)
         {
             _sceneProviderService = sceneProviderService;
             _staticDataService = staticDataService;
             _gameplayFactory = gameplayFactory;
             _uiFactory = uiFactory;
             _processingPlayerStatsService = processingPlayerStatsService;
+            _statsRestorationService = statsRestorationService;
         }
 
         public void Initialize(IProgressProviderService progressProviderService,
             IProcessingAdsService processingAdsService,
             IItemsGeneratorService itemsGeneratorService,
             IWalletOperationService walletOperationService,
-            IStatsRestorationService statsRestorationService,
             IPlayerUpdateLevelService playerUpdateLevelService,
             int dungeonId, int levelId)
         {
             RegisterGameplayServices(
                 itemsGeneratorService,
                 walletOperationService,
-                statsRestorationService,
+                _statsRestorationService,
                 playerUpdateLevelService,
                 progressProviderService);
                 
             DungeonBackground dungeonBackground = _uiFactory.CreateDungeonBackground();
-            HudView hudView = CreateHUD(progressProviderService, processingAdsService, statsRestorationService);
+            HudView hudView = CreateHUD();
 
             CreateGameplay(
                 dungeonBackground,
                 hudView,
                 progressProviderService,
                 processingAdsService,
-                statsRestorationService,
+                _statsRestorationService,
                 dungeonId,
                 levelId);
+        }
+
+        private void OnDestroy()
+        {
+            ClearGameplayServices();
         }
 
         private void RegisterGameplayServices(IItemsGeneratorService itemsGeneratorService,
@@ -93,18 +95,33 @@ namespace UndergroundFortress.Gameplay
                 new AttackService(
                     _gameplayServicesContainer.Single<IStatsWasteService>()));
 
-            _gameplayServicesContainer.Register<IProgressDungeonService>(
-                new ProgressDungeonService(
-                    _staticDataService,
-                    progressProviderService,
-                    _gameplayFactory, 
-                    _gameplayServicesContainer.Single<IAttackService>(),
-                    statsRestorationService,
-                    _gameplayServicesContainer.Single<ICheckerCurrentStatsService>(),
-                    playerUpdateLevelService,
-                    itemsGeneratorService,
-                    walletOperationService));
+            RegisterProgressDungeonService(
+                itemsGeneratorService,
+                walletOperationService,
+                statsRestorationService,
+                playerUpdateLevelService,
+                progressProviderService);
+        }
 
+        private void RegisterProgressDungeonService(IItemsGeneratorService itemsGeneratorService,
+            IWalletOperationService walletOperationService,
+            IStatsRestorationService statsRestorationService,
+            IPlayerUpdateLevelService playerUpdateLevelService,
+            IProgressProviderService progressProviderService)
+        {
+            var service = new ProgressDungeonService(
+                _staticDataService,
+                progressProviderService,
+                _gameplayFactory,
+                _gameplayServicesContainer.Single<IAttackService>(),
+                statsRestorationService,
+                _gameplayServicesContainer.Single<ICheckerCurrentStatsService>(),
+                playerUpdateLevelService,
+                itemsGeneratorService,
+                walletOperationService);
+            _statsRestorationService.ProgressDungeonService = service;
+            
+            _gameplayServicesContainer.Register<IProgressDungeonService>(service);
         }
 
         private void CreateGameplay(DungeonBackground dungeonBackground,
@@ -141,9 +158,7 @@ namespace UndergroundFortress.Gameplay
                 _playerData);
         }
 
-        private HudView CreateHUD(IProgressProviderService progressProviderService,
-            IProcessingAdsService processingAdsService,
-            IStatsRestorationService statsRestorationService)
+        private HudView CreateHUD()
         {
             HudView hudView = _uiFactory.CreateHUD();
             hudView.Construct(_sceneProviderService);
@@ -153,6 +168,7 @@ namespace UndergroundFortress.Gameplay
 
         private void ClearGameplayServices()
         {
+            _statsRestorationService.ProgressDungeonService = null;
             _gameplayServicesContainer.Clear();
             
             _gameplayServicesContainer = null;

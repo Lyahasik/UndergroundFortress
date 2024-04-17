@@ -10,6 +10,7 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
     public interface IProgressDungeonService : IService
     {
         public event Action<bool, bool> OnEndLevel;
+        public bool IsPause { get; }
 
         public void Initialize(Canvas gameplayCanvas,
             DungeonBackground dungeonBackground,

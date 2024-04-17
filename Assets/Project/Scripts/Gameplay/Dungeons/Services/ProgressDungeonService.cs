@@ -47,6 +47,8 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
 
         private bool _isPause;
 
+        public bool IsPause => _isPause;
+        
         public event Action<bool, bool> OnEndLevel;
         public event Action<int> OnUpdateSteps;
 
@@ -78,6 +80,8 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
             int dungeonId,
             int levelId)
         {
+            _statsRestorationService.ProgressDungeonService = this;
+            
             _gameplayCanvas = gameplayCanvas;
             _dungeonBackground = dungeonBackground;
             

@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 using UndergroundFortress.Core.Services.Ads;
 using UndergroundFortress.Core.Services.Progress;
@@ -25,7 +24,6 @@ namespace UndergroundFortress.UI.Hud
         [SerializeField] private TMP_Text nameLevelText;
         [SerializeField] private LevelDungeonProgressBar levelDungeonProgressBar;
 
-        [FormerlySerializedAs("successWindow")]
         [Space]
         [SerializeField] private RestWindow restWindow;
 

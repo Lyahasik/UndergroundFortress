@@ -4,14 +4,22 @@ using UnityEngine;
 
 using UndergroundFortress.Constants;
 using UndergroundFortress.Gameplay.Character;
+using UndergroundFortress.Gameplay.Dungeons.Services;
 
 namespace UndergroundFortress.Gameplay.Stats.Services
 {
     public class StatsRestorationService : IStatsRestorationService
     {
+        private IProgressDungeonService _progressDungeonService;
+        
         private List<CharacterStats> _statCharacters;
 
         private float _nextRestoreTime;
+
+        public IProgressDungeonService ProgressDungeonService
+        {
+            set => _progressDungeonService = value;
+        }
 
         public void Initialize()
         {
@@ -56,7 +64,8 @@ namespace UndergroundFortress.Gameplay.Stats.Services
 
         private void RestoreHealth(CharacterStats stats)
         {
-            if (stats.CurrentStats.Health >= stats.MainStats[StatType.Health])
+            if (_progressDungeonService is { IsPause: false }
+                || stats.CurrentStats.Health >= stats.MainStats[StatType.Health])
                 return;
 
             stats.CurrentStats.Health =
