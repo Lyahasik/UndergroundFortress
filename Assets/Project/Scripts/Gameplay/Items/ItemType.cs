@@ -19,6 +19,8 @@
         ResourceBlockSet,
         ResourceStunSet,
         
+        Money = 199,
+        
         Consumable = 200
     }
 }

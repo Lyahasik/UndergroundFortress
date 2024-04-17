@@ -11,10 +11,8 @@ namespace UndergroundFortress.Gameplay.StaticData
         [Space]
         public string description;
         public QualityType quality;
-        public Sprite icon;
 
         [Space]
-        public int priceTime;
         public int maxNumberForCell = ConstantValues.MIN_NUMBER_ITEM_FOR_CELL;
     }
 }

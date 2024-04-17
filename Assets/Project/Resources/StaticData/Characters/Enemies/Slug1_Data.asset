@@ -33,3 +33,8 @@ MonoBehaviour:
   id: 0
   experience: 1
   enemyData: {fileID: 196345577061169572, guid: 2af187f85a3832e4ab5a1dcfdf59c78a, type: 3}
+  priceTime: 10
+  lootItems:
+  - {fileID: 11400000, guid: c08704e06ab94ca4ca7e0db6f6f298b2, type: 2}
+  - {fileID: 11400000, guid: d710442e60159db48af8194dceac0679, type: 2}
+  - {fileID: 11400000, guid: 2b13afc6ab525a84d827e9f5efd51147, type: 2}

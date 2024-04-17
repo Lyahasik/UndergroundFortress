@@ -10,6 +10,8 @@ using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Character;
 using UndergroundFortress.Gameplay.Character.Services;
 using UndergroundFortress.Gameplay.Dungeons.Services;
+using UndergroundFortress.Gameplay.Inventory.Wallet.Services;
+using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.Gameplay.Player.Level.Services;
 using UndergroundFortress.Gameplay.Stats.Services;
 using UndergroundFortress.UI.Hud;
@@ -49,19 +51,35 @@ namespace UndergroundFortress.Gameplay
 
         public void Initialize(IProgressProviderService progressProviderService,
             IProcessingAdsService processingAdsService,
+            IItemsGeneratorService itemsGeneratorService,
+            IWalletOperationService walletOperationService,
             IStatsRestorationService statsRestorationService,
             IPlayerUpdateLevelService playerUpdateLevelService,
             int dungeonId, int levelId)
         {
-            RegisterGameplayServices(statsRestorationService, playerUpdateLevelService, progressProviderService);
+            RegisterGameplayServices(
+                itemsGeneratorService,
+                walletOperationService,
+                statsRestorationService,
+                playerUpdateLevelService,
+                progressProviderService);
                 
             DungeonBackground dungeonBackground = _uiFactory.CreateDungeonBackground();
             HudView hudView = CreateHUD(progressProviderService, processingAdsService, statsRestorationService);
 
-            CreateGameplay(dungeonBackground, hudView, progressProviderService, processingAdsService, statsRestorationService, dungeonId, levelId);
+            CreateGameplay(
+                dungeonBackground,
+                hudView,
+                progressProviderService,
+                processingAdsService,
+                statsRestorationService,
+                dungeonId,
+                levelId);
         }
 
-        private void RegisterGameplayServices(IStatsRestorationService statsRestorationService,
+        private void RegisterGameplayServices(IItemsGeneratorService itemsGeneratorService,
+            IWalletOperationService walletOperationService,
+            IStatsRestorationService statsRestorationService,
             IPlayerUpdateLevelService playerUpdateLevelService,
             IProgressProviderService progressProviderService)
         {
@@ -83,7 +101,9 @@ namespace UndergroundFortress.Gameplay
                     _gameplayServicesContainer.Single<IAttackService>(),
                     statsRestorationService,
                     _gameplayServicesContainer.Single<ICheckerCurrentStatsService>(),
-                    playerUpdateLevelService));
+                    playerUpdateLevelService,
+                    itemsGeneratorService,
+                    walletOperationService));
 
         }
 

@@ -49,12 +49,11 @@ namespace UndergroundFortress.UI.MainMenu
             IPlayerDressingService playerDressingService,
             ISceneProviderService sceneProviderService) 
         {
-            RegisterServices(sceneProviderService, playerDressingService);
+            RegisterServices(playerDressingService);
             CreateMainMenu(processingPlayerStatsService, sceneProviderService);
         }
         
-        private void RegisterServices(ISceneProviderService sceneProviderService,
-            IPlayerDressingService playerDressingService)
+        private void RegisterServices(IPlayerDressingService playerDressingService)
         {
             _mainMenuServicesContainer = new ServicesContainer();
             
@@ -175,7 +174,10 @@ namespace UndergroundFortress.UI.MainMenu
             shop.Initialize(_staticDataService, _mainMenuServicesContainer.Single<IShoppingService>());
 
             StartLevelView startLevel = _uiFactory.CreateStartLevel();
-            startLevel.Construct(sceneProviderService);
+            startLevel.Construct(
+                sceneProviderService, 
+                _mainMenuServicesContainer.Single<IItemsGeneratorService>(),
+                _mainMenuServicesContainer.Single<IWalletOperationService>());
             startLevel.Initialize(_staticDataService, _progressProviderService);
 
             MainMenuView mainMenu = _uiFactory.CreateMainMenu();

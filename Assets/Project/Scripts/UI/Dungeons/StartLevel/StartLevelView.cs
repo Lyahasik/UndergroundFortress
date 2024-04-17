@@ -4,6 +4,8 @@ using UnityEngine;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.Scene;
 using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Gameplay.Inventory.Wallet.Services;
+using UndergroundFortress.Gameplay.Items.Services;
 
 namespace UndergroundFortress.UI.MainMenu
 {
@@ -15,12 +17,18 @@ namespace UndergroundFortress.UI.MainMenu
         [SerializeField] private List<ListLevelsDungeon> listDungeons;
 
         private ISceneProviderService _sceneProviderService;
-        
+        private IItemsGeneratorService _itemsGeneratorService;
+        private IWalletOperationService _walletOperationService;
+
         private int _selectedDungeonId;
 
-        public void Construct(ISceneProviderService sceneProviderService)
+        public void Construct(ISceneProviderService sceneProviderService,
+            IItemsGeneratorService itemsGeneratorService,
+            IWalletOperationService walletOperationService)
         {
             _sceneProviderService = sceneProviderService;
+            _itemsGeneratorService = itemsGeneratorService;
+            _walletOperationService = walletOperationService;
         }
 
         public void Initialize(IStaticDataService staticDataService,
@@ -47,7 +55,7 @@ namespace UndergroundFortress.UI.MainMenu
 
         private void StartLevel(int idLevel)
         {
-            _sceneProviderService.LoadLevel(_selectedDungeonId, idLevel);
+            _sceneProviderService.LoadLevel(_itemsGeneratorService, _walletOperationService, _selectedDungeonId, idLevel);
             
             listDungeons.ForEach(data => data.Reset());
             gameObject.SetActive(false);

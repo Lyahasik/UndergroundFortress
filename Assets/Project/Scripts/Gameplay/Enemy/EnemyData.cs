@@ -41,7 +41,6 @@ namespace UndergroundFortress.Gameplay.Character
         private Action _onDead;
         private Action<EnemyData> _onReady;
 
-
         public void Construct(CharacterStats stats,
             IStatsRestorationService statsRestorationService,
             IAttackService attackService,

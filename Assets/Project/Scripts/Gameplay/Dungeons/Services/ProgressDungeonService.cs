@@ -10,6 +10,9 @@ using UndergroundFortress.Core.Services.Factories.Gameplay;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Character;
+using UndergroundFortress.Gameplay.Inventory.Wallet.Services;
+using UndergroundFortress.Gameplay.Items;
+using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.Gameplay.Player.Level.Services;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats.Services;
@@ -27,6 +30,8 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
         private readonly IStatsRestorationService _statsRestorationService;
         private readonly ICheckerCurrentStatsService _checkerCurrentStatsService;
         private readonly IPlayerUpdateLevelService _playerUpdateLevelService;
+        private readonly IItemsGeneratorService _itemsGeneratorService;
+        private readonly IWalletOperationService _walletOperationService;
 
         private DungeonBackground _dungeonBackground;
         private Canvas _gameplayCanvas;
@@ -52,7 +57,9 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
             IAttackService attackService,
             IStatsRestorationService statsRestorationService,
             ICheckerCurrentStatsService checkerCurrentStatsService,
-            IPlayerUpdateLevelService playerUpdateLevelService)
+            IPlayerUpdateLevelService playerUpdateLevelService,
+            IItemsGeneratorService itemsGeneratorService,
+            IWalletOperationService walletOperationService)
         {
             _staticDataService = staticDataService;
             _progressProviderService = progressProviderService;
@@ -61,6 +68,8 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
             _statsRestorationService = statsRestorationService;
             _checkerCurrentStatsService = checkerCurrentStatsService;
             _playerUpdateLevelService = playerUpdateLevelService;
+            _itemsGeneratorService = itemsGeneratorService;
+            _walletOperationService = walletOperationService;
         }
 
         public void Initialize(Canvas gameplayCanvas,
@@ -210,6 +219,39 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
             {
                 SuccessDungeonLevel(_currentDungeon.id, _currentLevelId);
                 OnEndLevel?.Invoke(true, IsLastDungeon());
+            }
+
+            CreateLoot();
+        }
+
+        private void CreateLoot()
+        {
+            int priceTimeEnemy = _currentEnemyStaticData.priceTime;
+            
+            var lootItems = _currentEnemyStaticData.lootItems;
+            int totalWeight = lootItems.Sum(data => data.probabilityWeight);
+            int accident = Random.Range(0, totalWeight + 1);
+
+            while (priceTimeEnemy > 0)
+            {
+                int priceTimeItem = int.MaxValue;
+                
+                foreach (ItemStaticData item in lootItems)
+                {
+                    accident -= item.probabilityWeight;
+                    if (accident < 0)
+                    {
+                        if (item.type == ItemType.Money)
+                            _walletOperationService.AddMoney(((MoneyStaticData) item).moneyType, 1);
+                        else
+                            _itemsGeneratorService.GenerateResourceById(item.id);
+                        
+                        priceTimeItem = item.priceTime;
+                        break;
+                    }
+                }
+
+                priceTimeEnemy -= priceTimeItem;
             }
         }
 

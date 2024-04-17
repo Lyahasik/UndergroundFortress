@@ -11,7 +11,6 @@ namespace UndergroundFortress.Gameplay.StaticData
         [Space]
         public int maxLevel;
         public string name;
-        public Sprite icon;
         public int maxNumberForCell = ConstantValues.MIN_NUMBER_ITEM_FOR_CELL;
         
         [Space]

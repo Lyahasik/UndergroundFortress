@@ -13,6 +13,8 @@ using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay;
 using UndergroundFortress.Gameplay.Character.Services;
+using UndergroundFortress.Gameplay.Inventory.Wallet.Services;
+using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.Gameplay.Player.Level.Services;
 using UndergroundFortress.Gameplay.Stats.Services;
 using UndergroundFortress.UI.MainMenu;
@@ -31,8 +33,9 @@ namespace UndergroundFortress.Core.Services.Scene
         private readonly IPlayerUpdateLevelService _playerUpdateLevelService;
         private readonly IPlayerDressingService _playerDressingService;
         private readonly IStatsRestorationService _statsRestorationService;
-
-        private ServicesContainer _match3ServicesContainer;
+        
+        private IItemsGeneratorService _itemsGeneratorService;
+        private IWalletOperationService _walletOperationService;
 
         private string _nameNewActiveScene;
 
@@ -79,8 +82,12 @@ namespace UndergroundFortress.Core.Services.Scene
             LoadScene(ConstantValues.SCENE_NAME_MAIN_MENU, PrepareMainMenuScene);
         }
 
-        public void LoadLevel(int idDungeon, int idLevel)
+        public void LoadLevel(IItemsGeneratorService itemsGeneratorService,
+            IWalletOperationService walletOperationService,
+            int idDungeon, int idLevel)
         {
+            _itemsGeneratorService = itemsGeneratorService;
+            _walletOperationService = walletOperationService;
             _currentDungeonId = idDungeon;
             _currentLevelId = idLevel;
             
@@ -137,6 +144,8 @@ namespace UndergroundFortress.Core.Services.Scene
             initializerLevel.Initialize(
                 _progressProviderService,
                 _processingAdsService,
+                _itemsGeneratorService,
+                _walletOperationService,
                 _statsRestorationService,
                 _playerUpdateLevelService,
                 _currentDungeonId,
