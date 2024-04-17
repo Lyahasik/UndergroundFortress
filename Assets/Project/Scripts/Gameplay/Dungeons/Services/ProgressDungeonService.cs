@@ -11,7 +11,6 @@ using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Character;
 using UndergroundFortress.Gameplay.Inventory.Wallet.Services;
-using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.Gameplay.Player.Level.Services;
 using UndergroundFortress.Gameplay.StaticData;
@@ -157,6 +156,9 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
             _currentEnemy = _gameplayFactory.CreateEnemy(_currentEnemyStaticData.enemyData, _gameplayCanvas.transform);
             _currentEnemy.Construct(
                 enemyStats,
+                _staticDataService,
+                _walletOperationService,
+                _itemsGeneratorService,
                 _statsRestorationService,
                 _attackService,
                 _checkerCurrentStatsService,
@@ -201,6 +203,9 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
 
         private void DeadEnemy()
         {
+            if (!_isPause)
+                CreateLoot();
+            
             _currentEnemy = null;
             
             if (_isPause)
@@ -220,10 +225,9 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
                 SuccessDungeonLevel(_currentDungeon.id, _currentLevelId);
                 OnEndLevel?.Invoke(true, IsLastDungeon());
             }
-
-            CreateLoot();
         }
 
+        //TODO take it to another place
         private void CreateLoot()
         {
             int priceTimeEnemy = _currentEnemyStaticData.priceTime;
@@ -241,10 +245,7 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
                     accident -= item.probabilityWeight;
                     if (accident < 0)
                     {
-                        if (item.type == ItemType.Money)
-                            _walletOperationService.AddMoney(((MoneyStaticData) item).moneyType, 1);
-                        else
-                            _itemsGeneratorService.GenerateResourceById(item.id);
+                        _currentEnemy.DroppingItem(item);
                         
                         priceTimeItem = item.priceTime;
                         break;

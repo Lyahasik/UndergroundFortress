@@ -11,6 +11,16 @@ namespace UndergroundFortress.Extensions
 
             return PointBetweenTwo(point, LeftDownVertex(vertices), RightUpVertex(vertices));
         }
+
+        public static Vector2 RandomInsidePoint(this RectTransform rect)
+        {
+            Vector3[] vertices = new Vector3[4];
+            rect.GetWorldCorners(vertices);
+
+            return new Vector2(
+                Random.Range(LeftDownVertex(vertices).x, RightDownVertex(vertices).x),
+                Random.Range(LeftDownVertex(vertices).y, LeftUpVertex(vertices).y));
+        }
         
         public static bool IsIntersectingRectangles(this RectTransform rect1, RectTransform rect2)
         {

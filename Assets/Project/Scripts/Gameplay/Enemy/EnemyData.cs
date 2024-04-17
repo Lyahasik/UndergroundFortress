@@ -1,9 +1,16 @@
 ﻿using System;
+using DG.Tweening;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 
+using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Extensions;
+using UndergroundFortress.Gameplay.Inventory.Wallet.Services;
+using UndergroundFortress.Gameplay.Items.Services;
+using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats;
 using UndergroundFortress.Gameplay.Stats.Services;
+using Random = UnityEngine.Random;
 
 namespace UndergroundFortress.Gameplay.Character
 {
@@ -13,6 +20,7 @@ namespace UndergroundFortress.Gameplay.Character
 
         [Space]
         [SerializeField] private CurrentStatFillView healthFillView;
+        [SerializeField] private RectTransform dropItemArea;
         
         [Space]
         [SerializeField] private MMF_Player damageHitFeedback;
@@ -31,7 +39,10 @@ namespace UndergroundFortress.Gameplay.Character
         
         [Space]
         [SerializeField] private MMF_Player deadFeedback;
-        
+
+        private IStaticDataService _staticDataService;
+        private IWalletOperationService _walletOperationService;
+        private IItemsGeneratorService _itemsGeneratorService;
         private IStatsRestorationService _statsRestorationService;
         private IAttackService _attackService;
         private ICheckerCurrentStatsService _checkerCurrentStatsService;
@@ -41,7 +52,11 @@ namespace UndergroundFortress.Gameplay.Character
         private Action _onDead;
         private Action<EnemyData> _onReady;
 
+
         public void Construct(CharacterStats stats,
+            IStaticDataService staticDataService,
+            IWalletOperationService walletOperationService,
+            IItemsGeneratorService itemsGeneratorService,
             IStatsRestorationService statsRestorationService,
             IAttackService attackService,
             ICheckerCurrentStatsService checkerCurrentStatsService,
@@ -51,7 +66,10 @@ namespace UndergroundFortress.Gameplay.Character
             Action<EnemyData> onReady)
         {
             base.Construct(stats);
-            
+
+            _staticDataService = staticDataService;
+            _walletOperationService = walletOperationService;
+            _itemsGeneratorService = itemsGeneratorService;
             _statsRestorationService = statsRestorationService;
             _attackService = attackService;
             _checkerCurrentStatsService = checkerCurrentStatsService;
@@ -61,7 +79,7 @@ namespace UndergroundFortress.Gameplay.Character
             _onDead = onDead;
             _onReady = onReady;
         }
-        
+
         public override void Initialize()
         {
             base.Initialize();
@@ -148,6 +166,16 @@ namespace UndergroundFortress.Gameplay.Character
             _onReady?.Invoke(this);
             
             attacking.Construct(_attackService, _checkerCurrentStatsService, this, _playerData);
+        }
+
+        public void DroppingItem(ItemStaticData itemData)
+        {
+            DropItemView dropItem = Instantiate(_staticDataService.ForLevel().dropItemPrefab, dropItemArea.position, Quaternion.identity, transform.parent);
+            dropItem.Construct(_walletOperationService, _itemsGeneratorService, itemData);
+            float duration = dropItem.DurationDrop;
+            dropItem.transform.DOJump(dropItemArea.RandomInsidePoint(), 250f, 1, duration);
+            dropItem.transform.DORotate(new Vector3(0f, 0f, Random.Range(0f, 360f)), duration);
+            dropItem.Initialize();
         }
 
         public override void StartDead()

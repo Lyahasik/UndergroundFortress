@@ -25,6 +25,11 @@ namespace UndergroundFortress
         private IStatsRestorationService _statsRestorationService;
         private PlayerData _playerData;
 
+        private void Start()
+        {
+            gameObject.SetActive(false);
+        }
+
         public void Construct(IStatsRestorationService statsRestorationService,
             PlayerData playerData)
         {
