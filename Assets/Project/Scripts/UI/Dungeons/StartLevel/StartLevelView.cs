@@ -48,6 +48,9 @@ namespace UndergroundFortress.UI.MainMenu
         public void ActivationUpdate(WindowType type)
         {
             gameObject.SetActive(type == windowType);
+
+            if (type != windowType)
+                listDungeons.ForEach(data => { data.Reset(); });
         }
 
         private void UpdateSelectDungeon(int id)
