@@ -45,6 +45,12 @@ namespace UndergroundFortress.Gameplay.Stats.Services
             stats.UpdateCurrent();
         }
 
+        public void RestoreHealth(CharacterStats stats, int value)
+        {
+            stats.CurrentStats.Health = Math.Clamp(stats.CurrentStats.Health + value, 0, stats.MainStats[StatType.Health]);
+            stats.UpdateCurrent();
+        }
+
         public void RestoreStats()
         {
             if (_nextRestoreTime > Time.time)

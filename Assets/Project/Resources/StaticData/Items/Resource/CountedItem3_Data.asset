@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 377b875646b74f71a1a0cc9875cf9f69, type: 3}
-  m_Name: CountedItem1_Data
+  m_Name: CountedItem3_Data
   m_EditorClassIdentifier: 
-  id: 1003
-  icon: {fileID: 21300000, guid: 2995e8b42f2570f4b8f662b92a63ebe4, type: 3}
+  id: 1009
+  icon: {fileID: 21300000, guid: 8499941b83940414ab88785a47523ead, type: 3}
   type: 200
   priceTime: 0
   probabilityWeight: 0
@@ -21,4 +21,4 @@ MonoBehaviour:
   description: 
   quality: 2
   maxNumberForCell: 99
-  consumableType: 1
+  consumableType: 3

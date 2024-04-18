@@ -177,7 +177,7 @@ namespace UndergroundFortress.UI.MainMenu
             startLevel.Construct(
                 sceneProviderService, 
                 _mainMenuServicesContainer.Single<IItemsGeneratorService>(),
-                _mainMenuServicesContainer.Single<IWalletOperationService>());
+                _mainMenuServicesContainer.Single<IInventoryService>());
             startLevel.Initialize(_staticDataService, _progressProviderService);
 
             MainMenuView mainMenu = _uiFactory.CreateMainMenu();

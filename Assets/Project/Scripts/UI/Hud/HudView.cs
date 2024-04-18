@@ -7,6 +7,7 @@ using UndergroundFortress.Core.Services.Scene;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Character;
 using UndergroundFortress.Gameplay.Dungeons.Services;
+using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Stats.Services;
 
 namespace UndergroundFortress.UI.Hud
@@ -19,6 +20,7 @@ namespace UndergroundFortress.UI.Hud
         [Space]
         [SerializeField] private CurrentStatFillView playerHealthFill;
         [SerializeField] private CurrentStatFillView playerStaminaFill;
+        [SerializeField] private ConsumableItemView consumableItemView;
 
         [Space]
         [SerializeField] private TMP_Text nameLevelText;
@@ -41,16 +43,21 @@ namespace UndergroundFortress.UI.Hud
         }
 
         public void Initialize(IStaticDataService staticDataService,
+            IInventoryService inventoryService,
             IProgressDungeonService progressDungeonService,
             IProcessingAdsService processingAdsService,
             IProgressProviderService progressProviderService,
             IStatsRestorationService statsRestorationService,
+            IAttackService attackService,
             PlayerData playerData)
         {
             levelNumberView.Initialize(progressProviderService);
             
             experienceBarView.Construct(staticDataService, progressProviderService);
             experienceBarView.Initialize();
+            
+            consumableItemView.Construct(staticDataService, inventoryService, statsRestorationService, attackService, playerData);
+            consumableItemView.Initialize();
             
             restWindow.Construct(statsRestorationService, playerData);
             restWindow.Initialize(

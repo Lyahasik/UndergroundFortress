@@ -5,6 +5,7 @@ using UndergroundFortress.Gameplay.Items.Resource;
 using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.Gameplay.Stats;
 using UndergroundFortress.UI.Craft.Recipe;
+using UndergroundFortress.UI.Inventory;
 
 namespace UndergroundFortress.Gameplay.Craft.Services
 {
@@ -81,16 +82,17 @@ namespace UndergroundFortress.Gameplay.Craft.Services
         private void PayPrice(int moneyPrice, ListPrice listPrice, ItemData crystal = null)
         {
             if (crystal != null)
-                _inventoryService.RemoveItemsByType(crystal.Type, 1);
+                _inventoryService.RemoveItemsByType(InventoryCellType.Bag, crystal.Type, 1);
             
             _inventoryService.WalletOperationService.RemoveMoney1(moneyPrice);
-            listPrice.PriceResources.ForEach(data => _inventoryService.RemoveItemsById(data.ItemId, data.Required));
+            listPrice.PriceResources.ForEach(data => 
+                _inventoryService.RemoveItemsById(InventoryCellType.Bag, data.ItemId, data.Required));
         }
 
         private void PayPriceWithSurcharge(int moneyPrice, ListPrice listPrice, ItemData crystal = null)
         {
             if (crystal != null)
-                _inventoryService.RemoveItemsByType(crystal.Type, 1);
+                _inventoryService.RemoveItemsByType(InventoryCellType.Bag, crystal.Type, 1);
             
             var wallet = _inventoryService.WalletOperationService;
             if (!wallet.IsEnoughMoney(moneyPrice))
@@ -103,7 +105,7 @@ namespace UndergroundFortress.Gameplay.Craft.Services
                 
                 var numberItems = _inventoryService.GetNumberItemsById(data.ItemId);
                 if (numberItems > 0)
-                    _inventoryService.RemoveItemsById(data.ItemId, numberItems);
+                    _inventoryService.RemoveItemsById(InventoryCellType.Bag, data.ItemId, numberItems);
             });
         }
     }

@@ -4,6 +4,7 @@
     {
         Empty = 0,
         Resource,
-        Equipment
+        Equipment,
+        Consumable
     }
 }

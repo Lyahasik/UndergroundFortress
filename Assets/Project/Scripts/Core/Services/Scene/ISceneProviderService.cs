@@ -1,4 +1,4 @@
-using UndergroundFortress.Gameplay.Inventory.Wallet.Services;
+using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items.Services;
 
 namespace UndergroundFortress.Core.Services.Scene
@@ -7,7 +7,7 @@ namespace UndergroundFortress.Core.Services.Scene
     {
         public void LoadMainScene();
         public void LoadLevel(IItemsGeneratorService itemsGeneratorService, 
-            IWalletOperationService walletOperationService,
+            IInventoryService inventoryService,
             int idDungeon,
             int idLevel);
     }

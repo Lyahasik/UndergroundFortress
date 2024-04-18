@@ -52,7 +52,7 @@ namespace UndergroundFortress.Gameplay.Character
                 || !_checkerCurrentStatsService.IsEnoughStamina(_playerData.Stats))
                 return;
             
-            _attackService.Attack(_playerData, _enemyData);
+            _attackService.Attack(_playerData, _enemyData, true);
         }
     }
 }

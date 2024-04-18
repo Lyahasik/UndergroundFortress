@@ -38,7 +38,6 @@ namespace UndergroundFortress.Gameplay.Character.Services
         {
             LoadingBaseStats();
             _skillsPlayerStats = new Dictionary<StatType, float>();
-            
 
             Register(_progressProviderService);
         }
@@ -58,12 +57,12 @@ namespace UndergroundFortress.Gameplay.Character.Services
             _statsRestorationService.AddStats(_playerStats);
             
             UpdateProgress(progress);
+            _playerStats.UpdateCurrentStats();
         }
 
         public void UpdateProgress(ProgressData progress)
         {
             UpdateStats();
-            _playerStats.UpdateCurrentStats();
         }
 
         public void UpStat(in StatType type, in float value)
@@ -80,20 +79,18 @@ namespace UndergroundFortress.Gameplay.Character.Services
 
         public void UpHealth(in float value)
         {
-            float oldValue = _equipmentPlayerStats[StatType.Health];
             _equipmentPlayerStats[StatType.Health] += value;
-            RecalculateCurrentHealth(oldValue);
             
             UpdateStats();
+            RecalculateCurrentHealth();
         }
 
         public void DownHealth(in float value)
         {
-            float oldValue = _equipmentPlayerStats[StatType.Health];
             _equipmentPlayerStats[StatType.Health] -= value;
-            RecalculateCurrentHealth(oldValue);
             
             UpdateStats();
+            RecalculateCurrentHealth();
         }
 
         private void LoadingBaseStats()
@@ -189,10 +186,10 @@ namespace UndergroundFortress.Gameplay.Character.Services
         private void AddedPassiveStat(Dictionary<StatType, float> newStats, SkillData skillData) => 
             newStats[skillData.statType] = skillData.value * _progressSkills[skillData.statType].CurrentLevel;
 
-        private void RecalculateCurrentHealth(in float oldValue)
+        private void RecalculateCurrentHealth()
         {
-            float healthRatio = oldValue / _equipmentPlayerStats[StatType.Health];
-            _playerStats.SetCurrentHealth(_playerStats.CurrentStats.Health * healthRatio);
+            if (_playerStats.CurrentStats.Health > _playerStats.MainStats[StatType.Health])
+                _playerStats.SetCurrentHealth(_playerStats.MainStats[StatType.Health]);
         }
     }
 }

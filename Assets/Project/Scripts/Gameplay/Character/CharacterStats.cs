@@ -38,7 +38,7 @@ namespace UndergroundFortress.Gameplay.Character
 
         public void UpdateCurrentStats()
         {
-            _currentStats = new CurrentStats(_mainStats[StatType.Health], _mainStats[StatType.Stamina]);
+            _currentStats ??= new CurrentStats(_mainStats[StatType.Health], _mainStats[StatType.Stamina]);
             UpdateCurrent();
         }
 

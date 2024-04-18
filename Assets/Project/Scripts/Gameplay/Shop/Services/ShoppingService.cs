@@ -35,13 +35,13 @@ namespace UndergroundFortress.Gameplay.Shop
 
         public void SaleResource(CellSaleView cellSale, int number, int price)
         {
-            _inventoryService.RemoveItemsByCell(cellSale, number);
+            _inventoryService.RemoveItemsByCell(InventoryCellType.Bag, cellSale, number);
             _walletOperationService.AddMoney1(price);
         }
 
         public void SaleEquipment(CellSaleView cellSale, int price)
         {
-            _inventoryService.ClearCell(cellSale);
+            _inventoryService.ClearCell(InventoryCellType.Bag, cellSale);
             _walletOperationService.AddMoney1(price);
         }
 

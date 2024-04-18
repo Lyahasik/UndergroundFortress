@@ -83,12 +83,25 @@ namespace UndergroundFortress.Gameplay.Items.Services
             if (_inventoryService.IsBagFullForResource(resourceStaticData.type, resourceStaticData.id))
                 return null;
 
-            ResourceData resourceData = new ResourceData(
-            resourceStaticData.id,
-            resourceStaticData.name,
-            resourceStaticData.type,
-            resourceStaticData.quality);
-            
+            ResourceData resourceData;
+            if (resourceStaticData is ConsumableStaticData data)
+            {
+                resourceData = new ConsumableResourceData(
+                    data.id,
+                    data.name,
+                    data.type,
+                    data.quality,
+                    data.consumableType);
+            }
+            else
+            {
+                resourceData = new ResourceData(
+                    resourceStaticData.id,
+                    resourceStaticData.name,
+                    resourceStaticData.type,
+                    resourceStaticData.quality);
+            }
+
             _inventoryService.AddItem(resourceData);
 
             return resourceData;
@@ -96,11 +109,24 @@ namespace UndergroundFortress.Gameplay.Items.Services
 
         private void CreateResources(ResourceStaticData resourceStaticData, int number)
         {
-            ResourceData resourceData = new ResourceData(
-            resourceStaticData.id,
-            resourceStaticData.name,
-            resourceStaticData.type,
-            resourceStaticData.quality);
+            ResourceData resourceData;
+            if (resourceStaticData is ConsumableStaticData data)
+            {
+                resourceData = new ConsumableResourceData(
+                    data.id,
+                    data.name,
+                    data.type,
+                    data.quality,
+                    data.consumableType);
+            }
+            else
+            {
+                resourceData = new ResourceData(
+                    resourceStaticData.id,
+                    resourceStaticData.name,
+                    resourceStaticData.type,
+                    resourceStaticData.quality);
+            }
             
             _inventoryService.AddItems(resourceData, number);
         }

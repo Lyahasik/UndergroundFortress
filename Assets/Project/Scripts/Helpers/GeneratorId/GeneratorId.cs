@@ -19,6 +19,7 @@ namespace UndergroundFortress.Helpers.GeneratorId
                 case ItemStaticDataType.Equipment:
                     return CreateId(generatedIdsStaticData.equipmentIds, ConstantValues.EQUIPMENT_START_ID);
                 case ItemStaticDataType.Resource:
+                case ItemStaticDataType.Consumable:
                     return CreateId(generatedIdsStaticData.resourcesIds, ConstantValues.RESOURCES_START_ID);
             }
 

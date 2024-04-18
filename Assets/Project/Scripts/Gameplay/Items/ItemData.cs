@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+using UndergroundFortress.Gameplay.StaticData;
+
 namespace UndergroundFortress.Gameplay.Items
 {
     public class ItemData
@@ -8,6 +10,7 @@ namespace UndergroundFortress.Gameplay.Items
         public string Name;
         public ItemType Type;
         public QualityType QualityType;
+        public ConsumableType ConsumableType;
         
         public int Level;
         public bool IsSet;

@@ -11,6 +11,7 @@ namespace UndergroundFortress.Gameplay.Stats.Services
         public void AddStats(CharacterStats stats);
         public void RemoveStats(CharacterStats stats);
         public void RestoreFullHealth(CharacterStats stats);
+        public void RestoreHealth(CharacterStats stats, int value);
         public void RestoreStats();
     }
 }

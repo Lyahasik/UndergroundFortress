@@ -63,6 +63,8 @@ namespace UndergroundFortress.Helpers.CreateItemWindowEditor.Editor
             {
                 case ItemStaticDataType.Resource:
                     return CreateItemAsset<ResourceStaticData>(PathResource);
+                case ItemStaticDataType.Consumable:
+                    return CreateItemAsset<ConsumableStaticData>(PathResource);
                 case ItemStaticDataType.Equipment:
                     return CreateItemAsset<EquipmentStaticData>(PathEquipment);
             }
@@ -85,7 +87,8 @@ namespace UndergroundFortress.Helpers.CreateItemWindowEditor.Editor
 
         private void TryCreateRecipeAsset(in int id)
         {
-            if (_itemType != ItemStaticDataType.Equipment)
+            if (_itemType != ItemStaticDataType.Equipment
+                && _itemType != ItemStaticDataType.Consumable)
                 return;
             
             string fullName = $"{PathMain}{PathRecipe}{_itemName}_Data.asset";

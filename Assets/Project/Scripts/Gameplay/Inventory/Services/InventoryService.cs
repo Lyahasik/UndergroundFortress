@@ -167,7 +167,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             if (itemData.Type >= ItemType.Resource)
                 AddCountedItemToBag(itemData);
             else
-                AddNewItem(itemData);
+                AddNewBagItem(itemData);
             
             WriteProgress();
         }
@@ -179,18 +179,18 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                 if (itemData.Type >= ItemType.Resource)
                     AddCountedItemToBag(itemData);
                 else
-                    AddNewItem(itemData);
+                    AddNewBagItem(itemData);
             }
 
             WriteProgress();
         }
 
         public void AddItemById(int itemId) => 
-            AddItem(GetCellByItemId(itemId).ItemData);
+            AddItem(GetCellByItemId(InventoryCellType.Bag, itemId).ItemData);
 
         public void AddItemsById(int itemId, int number)
         {
-            var itemData = GetCellByItemId(itemId)?.ItemData;
+            var itemData = GetCellByItemId(InventoryCellType.Bag, itemId)?.ItemData;
 
             if (itemData == null)
                 _staticDataService.GetItemById(itemId);
@@ -199,58 +199,58 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                 AddItem(itemData);
         }
 
-        public void RemoveItem(ItemData itemData)
+        public void RemoveItem(InventoryCellType cellType, ItemData itemData)
         {
             if (itemData == null)
                 return;
             
-            int itemBagId = GetItemId(itemData);
+            int itemBagId = GetItemId(cellType, itemData);
             
-            _inventory[InventoryCellType.Bag][itemBagId].ItemData = null;
-            _inventory[InventoryCellType.Bag][itemBagId].Number = 0;
+            _inventory[cellType][itemBagId].ItemData = null;
+            _inventory[cellType][itemBagId].Number = 0;
             
-            UpdateItemToCell(InventoryCellType.Bag, itemBagId);
-            
-            WriteProgress();
-        }
-
-        public void ClearCell(CellInventoryView cellInventoryView)
-        {
-            _inventory[InventoryCellType.Bag][cellInventoryView.Id].ItemData = null;
-            _inventory[InventoryCellType.Bag][cellInventoryView.Id].Number = 0;
-            
-            UpdateItemToCell(InventoryCellType.Bag, cellInventoryView.Id);
+            UpdateItemToCell(cellType, itemBagId);
             
             WriteProgress();
         }
 
-        public void RemoveItemsByCell(CellInventoryView cellInventoryView, int requiredNumber)
+        public void ClearCell(InventoryCellType cellType, CellInventoryView cellInventoryView)
         {
-            if (requiredNumber == _inventory[InventoryCellType.Bag][cellInventoryView.Id].Number)
+            _inventory[cellType][cellInventoryView.Id].ItemData = null;
+            _inventory[cellType][cellInventoryView.Id].Number = 0;
+            
+            UpdateItemToCell(cellType, cellInventoryView.Id);
+            
+            WriteProgress();
+        }
+
+        public void RemoveItemsByCell(InventoryCellType cellType, CellInventoryView cellInventoryView, int requiredNumber)
+        {
+            if (requiredNumber == _inventory[cellType][cellInventoryView.Id].Number)
             {
-                ClearCell(cellInventoryView);
+                ClearCell(cellType, cellInventoryView);
             }
             else
             {
-                _inventory[InventoryCellType.Bag][cellInventoryView.Id].Number -= requiredNumber;
+                _inventory[cellType][cellInventoryView.Id].Number -= requiredNumber;
             
-                UpdateItemToCell(InventoryCellType.Bag, cellInventoryView.Id);
+                UpdateItemToCell(cellType, cellInventoryView.Id);
             
                 WriteProgress();
             }
         }
 
-        public void RemoveItemsById(int itemId, int requiredNumber)
+        public void RemoveItemsById(InventoryCellType cellType, int itemId, int requiredNumber)
         {
-            DecrementItems(itemId, requiredNumber);
+            DecrementItems(cellType, itemId, requiredNumber);
             UpdateResources();
         }
 
-        public void RemoveItemsByType(ItemType itemType, int requiredNumber)
+        public void RemoveItemsByType(InventoryCellType cellType, ItemType itemType, int requiredNumber)
         {
-            int itemId = GetItemIdByType(itemType);
+            int itemId = GetItemIdByType(cellType, itemType);
             
-            DecrementItems(itemId, requiredNumber);
+            DecrementItems(cellType, itemId, requiredNumber);
             UpdateResources();
             
             WriteProgress();
@@ -291,28 +291,30 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
         public int GetNumberItemsById(int id) => 
             Bag.Where(cellData => cellData?.ItemData?.Id == id).Sum(cellData => cellData.Number);
 
-        private void DecrementItems(int itemId, int number)
+        private void DecrementItems(InventoryCellType cellType, int itemId, int number)
         {
             while (number > 0)
             {
-                CellData cellData = GetCellByItemId(itemId);
+                CellData cellData = GetCellByItemId(cellType, itemId);
 
                 if (number >= cellData.Number)
                 {
                     number -= cellData.Number;
-                    RemoveItem(cellData.ItemData);
+                    RemoveItem(cellType, cellData.ItemData);
                 }
                 else
                 {
                     cellData.Number -= number;
+                    UpdateItemToCell(cellType, GetItemId(cellType, cellData.ItemData));
+                    
                     WriteProgress();
                     return;
                 }
             }
         }
 
-        private CellData GetCellByItemId(int itemId) => 
-            Bag.Find(data => data.ItemData?.Id == itemId);
+        private CellData GetCellByItemId(InventoryCellType cellType, int itemId) => 
+            _inventory[cellType].Find(data => data.ItemData?.Id == itemId);
 
         private bool TryEquipmentComparison(ItemData itemData)
         {
@@ -333,7 +335,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
 
         private void AddCountedItemToBag(ItemData itemData)
         {
-            int itemBagId = GetCountedItemId(itemData);
+            int itemBagId = GetCountedItemId(InventoryCellType.Bag, itemData);
 
             if (itemBagId != ConstantValues.ERROR_ID)
             {
@@ -341,36 +343,36 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                 UpdateItemToCell(InventoryCellType.Bag, itemBagId);
             }
             else
-                AddNewItem(itemData);
+                AddNewBagItem(itemData);
         }
 
-        private int GetItemId(ItemData itemData)
+        private int GetItemId(InventoryCellType cellType, ItemData itemData)
         {
-            List<CellData> bag = _inventory[InventoryCellType.Bag];
+            List<CellData> cellsData = _inventory[cellType];
 
-            for (int i = 0; i < bag.Count; i++)
+            for (int i = 0; i < cellsData.Count; i++)
             {
-                if (bag[i].ItemData == itemData)
+                if (cellsData[i].ItemData == itemData)
                     return i;
             }
 
             return ConstantValues.ERROR_ID;
         }
 
-        private int GetItemIdByType(ItemType itemType) => 
-            Bag.Find(data => data.ItemData?.Type == itemType).ItemData.Id;
+        private int GetItemIdByType(InventoryCellType cellType, ItemType itemType) => 
+            _inventory[cellType].Find(data => data.ItemData?.Type == itemType).ItemData.Id;
 
-        private int GetCountedItemId(ItemData itemData)
+        private int GetCountedItemId(InventoryCellType cellType, ItemData itemData)
         {
-            List<CellData> bag = _inventory[InventoryCellType.Bag];
+            List<CellData> cellsData = _inventory[cellType];
             
-            for (int i = 0; i < bag.Count; i++)
+            for (int i = 0; i < cellsData.Count; i++)
             {
-                if (bag[i].ItemData == null)
+                if (cellsData[i].ItemData == null)
                     continue;
                     
-                if (bag[i].ItemData.Id == itemData.Id
-                    && bag[i].Number < _staticDataService.GetItemMaxNumberForCellById(itemData.Id))
+                if (cellsData[i].ItemData.Id == itemData.Id
+                    && cellsData[i].Number < _staticDataService.GetItemMaxNumberForCellById(itemData.Id))
                 {
                     return i;
                 }
@@ -379,7 +381,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             return ConstantValues.ERROR_ID;
         }
 
-        private void AddNewItem(ItemData itemData)
+        private void AddNewBagItem(ItemData itemData)
         {
             List<CellData> bag = _inventory[InventoryCellType.Bag];
 

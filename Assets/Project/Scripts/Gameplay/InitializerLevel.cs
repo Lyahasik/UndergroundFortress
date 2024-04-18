@@ -10,6 +10,7 @@ using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Character;
 using UndergroundFortress.Gameplay.Character.Services;
 using UndergroundFortress.Gameplay.Dungeons.Services;
+using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Inventory.Wallet.Services;
 using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.Gameplay.Player.Level.Services;
@@ -50,6 +51,7 @@ namespace UndergroundFortress.Gameplay
         public void Initialize(IProgressProviderService progressProviderService,
             IProcessingAdsService processingAdsService,
             IItemsGeneratorService itemsGeneratorService,
+            IInventoryService inventoryService,
             IWalletOperationService walletOperationService,
             IPlayerUpdateLevelService playerUpdateLevelService,
             int dungeonId, int levelId)
@@ -69,6 +71,7 @@ namespace UndergroundFortress.Gameplay
                 hudView,
                 progressProviderService,
                 processingAdsService,
+                inventoryService,
                 _statsRestorationService,
                 dungeonId,
                 levelId);
@@ -93,7 +96,8 @@ namespace UndergroundFortress.Gameplay
                 new StatsWasteService());
             _gameplayServicesContainer.Register<IAttackService>(
                 new AttackService(
-                    _gameplayServicesContainer.Single<IStatsWasteService>()));
+                    _gameplayServicesContainer.Single<IStatsWasteService>(),
+                    statsRestorationService));
 
             RegisterProgressDungeonService(
                 itemsGeneratorService,
@@ -128,6 +132,7 @@ namespace UndergroundFortress.Gameplay
             HudView hudView,
             IProgressProviderService progressProviderService,
             IProcessingAdsService processingAdsService,
+            IInventoryService inventoryService,
             IStatsRestorationService statsRestorationService,
             int dungeonId, int levelId)
         {
@@ -150,11 +155,13 @@ namespace UndergroundFortress.Gameplay
             progressDungeonService.StartBattle();
             
             hudView.Initialize(
-                _staticDataService, 
+                _staticDataService,
+                inventoryService,
                 _gameplayServicesContainer.Single<IProgressDungeonService>(),
                 processingAdsService,
                 progressProviderService,
                 statsRestorationService,
+                _gameplayServicesContainer.Single<IAttackService>(),
                 _playerData);
         }
 

@@ -26,11 +26,11 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
         public void AddItemById(int itemId);
         public void AddItemsById(int itemId, int number);
 
-        public void RemoveItem(ItemData itemData);
-        public void ClearCell(CellInventoryView cellInventoryView);
-        public void RemoveItemsByCell(CellInventoryView cellInventoryView, int requiredNumber);
-        public void RemoveItemsById(int itemId, int requiredNumber);
-        public void RemoveItemsByType(ItemType itemType, int requiredNumber);
+        public void RemoveItem(InventoryCellType cellType, ItemData itemData);
+        public void ClearCell(InventoryCellType cellType, CellInventoryView cellInventoryView);
+        public void RemoveItemsByCell(InventoryCellType cellType, CellInventoryView cellInventoryView, int requiredNumber);
+        public void RemoveItemsById(InventoryCellType cellType, int itemId, int requiredNumber);
+        public void RemoveItemsByType(InventoryCellType cellType, ItemType itemType, int requiredNumber);
 
         public int GetEmptyCellId();
         public List<ItemData> GetCrystals();

@@ -1,9 +1,8 @@
 ﻿using System;
-using UnityEngine;
 
 using UndergroundFortress.Constants;
 using UndergroundFortress.Gameplay.Character;
-
+using UndergroundFortress.Gameplay.StaticData;
 using Random = UnityEngine.Random;
 
 namespace UndergroundFortress.Gameplay.Stats.Services
@@ -11,13 +10,22 @@ namespace UndergroundFortress.Gameplay.Stats.Services
     public class AttackService : IAttackService
     {
         private readonly IStatsWasteService _statsWasteService;
+        private readonly IStatsRestorationService _statsRestorationService;
+        
+        private bool _isDoubleDamage;
+        private bool _isVampireDamage;
 
-        public AttackService(IStatsWasteService statsWasteService)
+        public bool IsDoubleDamage => _isDoubleDamage;
+        public bool IsVampireDamage => _isVampireDamage;
+
+        public AttackService(IStatsWasteService statsWasteService,
+            IStatsRestorationService statsRestorationService)
         {
             _statsWasteService = statsWasteService;
+            _statsRestorationService = statsRestorationService;
         }
 
-        public void Attack(CharacterData dataAttacking, CharacterData dataDefending)
+        public void Attack(CharacterData dataAttacking, CharacterData dataDefending, bool isPlayer = false)
         {
             CharacterStats statsAttacking = dataAttacking.Stats;
             CharacterStats statsDefending = dataDefending.Stats;
@@ -30,9 +38,14 @@ namespace UndergroundFortress.Gameplay.Stats.Services
                 
                 return;
             }
-            
-            float damage = statsAttacking.MainStats[StatType.Damage] - statsDefending.MainStats[StatType.Defense];
-            damage = Math.Clamp(damage, 0, float.MaxValue);
+
+            float damage = statsAttacking.MainStats[StatType.Damage];
+            if (isPlayer && _isDoubleDamage)
+            {
+                damage *= 2;
+                _isDoubleDamage = false;
+            }
+            damage = Math.Clamp(damage - statsDefending.MainStats[StatType.Defense], 0, float.MaxValue);
 
             if (TryBreakThrough(statsAttacking, statsDefending, ref damage))
                 dataDefending.TakeHitEffect(StatType.Damage);
@@ -41,12 +54,21 @@ namespace UndergroundFortress.Gameplay.Stats.Services
                 
             if (TryApplyCrit(statsAttacking, statsDefending, ref damage))
                 dataAttacking.AttackEffect(StatType.Crit);
-            
+
             _statsWasteService.WasteHealth(statsDefending, (int) damage);
             _statsWasteService.WasteStamina(statsAttacking, statsAttacking.MainStats[StatType.StaminaCost]);
+            if (isPlayer && _isVampireDamage)
+            {
+                _statsRestorationService.RestoreHealth(statsAttacking, (int) (damage * 0.5f));
+            }
 
             if (TryDead(dataDefending))
+            {
+                if (!isPlayer)
+                    Reset();
+
                 return;
+            }
 
             if (TryStun(statsAttacking, dataDefending))
             {
@@ -55,6 +77,19 @@ namespace UndergroundFortress.Gameplay.Stats.Services
             }
             
             dataAttacking.AttackEffect(StatType.Damage);
+        }
+
+        public void ActivateConsumable(ConsumableType consumableType)
+        {
+            switch (consumableType)
+            {
+                case ConsumableType.Type2:
+                    _isDoubleDamage = true;
+                    break;
+                case ConsumableType.Type3:
+                    _isVampireDamage = true;
+                    break;
+            }
         }
 
         private bool TryHit(CharacterStats statsAttacking, CharacterStats statsDefending)
@@ -117,6 +152,12 @@ namespace UndergroundFortress.Gameplay.Stats.Services
 
             dataDefending.StartDead();
             return true;
+        }
+
+        private void Reset()
+        {
+            _isDoubleDamage = false;
+            _isVampireDamage = false;
         }
     }
 }
