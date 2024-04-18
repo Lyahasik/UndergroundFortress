@@ -10,6 +10,7 @@ namespace UndergroundFortress.UI.Inventory
     {
         public int itemId;
         public int number;
+        public int level;
 
         [Space]
         public QualityType qualityType;

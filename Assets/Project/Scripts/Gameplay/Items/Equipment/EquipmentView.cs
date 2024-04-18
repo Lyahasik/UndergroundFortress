@@ -46,7 +46,8 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
             if (cellItemView != null)
                 cellItemView.SetValues(
                     _staticDataService.GetItemIcon(equipmentData.Id),
-                    _staticDataService.GetQualityBackground(equipmentData.QualityType));
+                    _staticDataService.GetQualityBackground(equipmentData.QualityType),
+                    equipmentData.Level);
             
             UpdateStatsView(mainStats, equipmentData.MainStats);
             UpdateStatsView(stats, equipmentData.AdditionalStats);

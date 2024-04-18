@@ -15,6 +15,12 @@ namespace UndergroundFortress.UI.Inventory
     {
         [SerializeField] private ItemType itemType;
         [SerializeField] private CellItemView itemView;
+        
+        [Space]
+        [SerializeField] private GameObject numberLevelView;
+        [SerializeField] private TMP_Text numberLevelText;
+        
+        [Space]
         [SerializeField] private GameObject numberView;
         [SerializeField] private TMP_Text numberText;
         
@@ -97,15 +103,16 @@ namespace UndergroundFortress.UI.Inventory
                 return;
             
             itemView.Show();
-            
-            if (numberText.text != string.Empty)
-                numberView.SetActive(true);
+
+            numberView.SetActive(numberText.text != string.Empty);
+            numberLevelView.SetActive(numberText.text == string.Empty);
         }
 
         public void Hide()
         {
             itemView.Hide();
             numberView.SetActive(false);
+            numberLevelView.SetActive(false);
         }
 
         public void Reset(in InventoryCellType inventoryCellType = InventoryCellType.Bag)
@@ -117,6 +124,7 @@ namespace UndergroundFortress.UI.Inventory
             
             itemView.Reset();
             numberView.SetActive(false);
+            numberLevelView.SetActive(false);
         }
 
         private void SetValues(ItemData itemData, int number)
@@ -126,8 +134,10 @@ namespace UndergroundFortress.UI.Inventory
             
             itemView.SetValues(
                 _staticDataService.GetItemIcon(_itemData.Id),
-                _staticDataService.GetQualityBackground(_itemData.QualityType));
+                _staticDataService.GetQualityBackground(_itemData.QualityType),
+                itemData.Level);
             
+            TryShowLevel();
             TryShowNumber(number.ToString());
         }
 
@@ -158,6 +168,19 @@ namespace UndergroundFortress.UI.Inventory
                 SetValues(cellData.ItemData, cellData.Number);
             else
                 Reset();
+        }
+
+        private void TryShowLevel()
+        {
+            if (_itemData.Type.IsEquipment())
+            {
+                numberLevelView.SetActive(true);
+                numberLevelText.text = _itemData.Level.ToString();
+            }
+            else
+            {
+                numberLevelView.SetActive(false);
+            }
         }
 
         private void TryShowNumber(string number)

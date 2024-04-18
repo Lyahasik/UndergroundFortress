@@ -11,6 +11,8 @@ namespace UndergroundFortress.UI.Inventory
     public class CellPurchaseView : MonoBehaviour
     {
         [SerializeField] private Image icon;
+        [SerializeField] private GameObject numberLevelView;
+        [SerializeField] private TMP_Text numberLevelText;
         [SerializeField] private GameObject numberObject;
         [SerializeField] private TMP_Text numberText;
         [SerializeField] private PriceMoneyView priceMoneyView;
@@ -62,6 +64,18 @@ namespace UndergroundFortress.UI.Inventory
             gameObject.name = nameof(CellPurchaseView) + _purchaseStaticData.id;
 
             icon.sprite = purchaseStaticData.icon;
+
+            if (purchaseStaticData.rewardData.items.Count + purchaseStaticData.rewardData.moneys.Count == 1
+                && purchaseStaticData.rewardData.items.Count > 0)
+            {
+                numberLevelView.SetActive(purchaseStaticData.rewardData.items[0].level > 0);
+                numberLevelText.text = purchaseStaticData.rewardData.items[0].level.ToString();
+            }
+            else
+            {
+                numberLevelView.SetActive(false);
+            }
+            
             numberText.text = purchaseStaticData.rewardData.moneys.Count > 0 
                 ? purchaseStaticData.rewardData.moneys[0].number.ToString()
                 : purchaseStaticData.rewardData.items[0].number.ToString();

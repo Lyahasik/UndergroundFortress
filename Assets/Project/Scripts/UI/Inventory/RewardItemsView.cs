@@ -82,7 +82,7 @@ namespace UndergroundFortress.UI.Information
                         _itemsGeneratorService.GenerateEquipments(
                             data.itemId,
                             data.number,
-                            _progressProviderService.ProgressData.LevelData.Level,
+                            data.level,
                             qualityType: data.qualityType);
                     else
                         _itemsGeneratorService.GenerateResourcesById(data.itemId, data.number);

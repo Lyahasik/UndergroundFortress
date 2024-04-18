@@ -1000,6 +1000,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CellItemView
       objectReference: {fileID: 0}
+    - target: {fileID: 2697474846968019917, guid: cc6eff48e41e1474db547cdc9d7fe1c6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.99998474
+      objectReference: {fileID: 0}
     - target: {fileID: 7410165132562582956, guid: cc6eff48e41e1474db547cdc9d7fe1c6, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.23391724

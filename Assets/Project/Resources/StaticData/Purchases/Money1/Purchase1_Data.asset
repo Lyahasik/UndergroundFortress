@@ -22,4 +22,5 @@ MonoBehaviour:
     items:
     - itemId: 10
       number: 5
+      level: 5
       qualityType: 5

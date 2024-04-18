@@ -19,7 +19,7 @@ namespace UndergroundFortress.Gameplay.Items.Resource
         
         [Space]
         [SerializeField] private Slider numberSlider;
-        [SerializeField] private TMP_Text maxNumberText;
+        [SerializeField] private TMP_Text currentNumberText;
         [SerializeField] private TMP_Text selectedPriceText;
         [SerializeField] private Button saleButton;
 
@@ -55,7 +55,7 @@ namespace UndergroundFortress.Gameplay.Items.Resource
             _currentPrice = CalculatePrice(resourceStaticData);
             priceText.text = _currentPrice.ToString();
 
-            maxNumberText.text = _selectedCell.Number.ToString();
+            currentNumberText.text = _selectedCell.Number.ToString();
             numberSlider.maxValue = _selectedCell.Number;
             numberSlider.value = numberSlider.maxValue;
             
@@ -84,6 +84,8 @@ namespace UndergroundFortress.Gameplay.Items.Resource
         {
             _selectedNumber = (int) value;
             _selectedPrice = _selectedNumber * _currentPrice;
+            
+            currentNumberText.text = _selectedNumber.ToString();
             selectedPriceText.text = _selectedPrice.ToString();
         }
 
