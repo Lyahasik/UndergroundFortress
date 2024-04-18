@@ -27,6 +27,14 @@ namespace UndergroundFortress.UI.Skills
                 .skillsData[id]
                 .levelsData
                 .Find(data => data.level == _currentProgressData.CurrentLevel);
+
+            if (currentLevelData == null)
+            {
+                progressBarFill.fillAmount = 1f;
+                progressValue.gameObject.SetActive(false);
+                return;
+            }
+            
             progressBarFill.fillAmount = (float) _currentProgressData.CurrentProgress / currentLevelData.progressTarget;
             progressValue.text = $"{ _currentProgressData.CurrentProgress }/{ currentLevelData.progressTarget }";
         }

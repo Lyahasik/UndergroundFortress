@@ -269,6 +269,8 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
 
         private void SuccessDungeonLevel(int idDungeon, int idLevel)
         {
+            _isPause = true;
+            
             var dungeons = _progressProviderService.ProgressData.Dungeons;
 
             if (idLevel == ConstantValues.MAX_DUNGEON_LEVEL_ID)

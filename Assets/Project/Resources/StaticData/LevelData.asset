@@ -18,3 +18,4 @@ MonoBehaviour:
   attackArea: {fileID: 6605593681225319175, guid: 2073283339ed4f74eb535e84aa53f82b, type: 3}
   player: {fileID: 4772884644810317102, guid: d738b982e00623c4aa820668777ad499, type: 3}
   dropItemPrefab: {fileID: 2903420123419162585, guid: 43f7d5555e2136743be0e2c113dba0ba, type: 3}
+  damageValuePrefab: {fileID: 1492138016797512389, guid: 86691195dd307a54db3c308d54b4ea18, type: 3}

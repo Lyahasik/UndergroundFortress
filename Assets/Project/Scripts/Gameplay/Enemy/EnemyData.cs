@@ -10,6 +10,7 @@ using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats;
 using UndergroundFortress.Gameplay.Stats.Services;
+
 using Random = UnityEngine.Random;
 
 namespace UndergroundFortress.Gameplay.Character
@@ -21,6 +22,7 @@ namespace UndergroundFortress.Gameplay.Character
         [Space]
         [SerializeField] private CurrentStatFillView healthFillView;
         [SerializeField] private RectTransform dropItemArea;
+        [SerializeField] private RectTransform damageValueSpawnArea;
         
         [Space]
         [SerializeField] private MMF_Player damageHitFeedback;
@@ -103,7 +105,7 @@ namespace UndergroundFortress.Gameplay.Character
             Stats.CurrentStats.Stamina = 0;
         }
 
-        public override void TakeHitEffect(StatType hitType)
+        public override void TakeHitEffect(StatType hitType, int damage = 0)
         {
             switch (hitType)
             {
@@ -111,6 +113,8 @@ namespace UndergroundFortress.Gameplay.Character
                     damageHitFeedback.PlayFeedbacks();
                     break;
                 case StatType.Dodge:
+                    //TODO locale
+                    GenerateDamageView("@missed");
                     dodgeHitFeedback.PlayFeedbacks();
                     break;
                 case StatType.Parry:
@@ -129,6 +133,9 @@ namespace UndergroundFortress.Gameplay.Character
                     //     strengthHitFeedback.PlayFeedbacks();
                     break;
             }
+
+            if (damage > 0)
+                GenerateDamageView(damage.ToString());
         }
 
         public override void AttackEffect(StatType attackType)
@@ -192,6 +199,13 @@ namespace UndergroundFortress.Gameplay.Character
             _onDead?.Invoke();
             
             base.Dead();
+        }
+
+        private void GenerateDamageView(string value)
+        {
+            DamageValueView damageValueView
+                = Instantiate(_staticDataService.ForLevel().damageValuePrefab, damageValueSpawnArea.RandomInsidePoint(), Quaternion.identity, transform.parent);
+            damageValueView.SetValue(value);
         }
     }
 }

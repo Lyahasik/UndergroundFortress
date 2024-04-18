@@ -6,6 +6,7 @@ using UndergroundFortress.Core.Services.Scene;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items.Services;
+using UndergroundFortress.Gameplay.Skills.Services;
 
 namespace UndergroundFortress.UI.MainMenu
 {
@@ -19,16 +20,19 @@ namespace UndergroundFortress.UI.MainMenu
         private ISceneProviderService _sceneProviderService;
         private IItemsGeneratorService _itemsGeneratorService;
         private IInventoryService _inventoryService;
+        private ISkillsUpgradeService _skillsUpgradeService;
 
         private int _selectedDungeonId;
 
         public void Construct(ISceneProviderService sceneProviderService,
             IItemsGeneratorService itemsGeneratorService,
-            IInventoryService inventoryService)
+            IInventoryService inventoryService,
+            ISkillsUpgradeService skillsUpgradeService)
         {
             _sceneProviderService = sceneProviderService;
             _itemsGeneratorService = itemsGeneratorService;
             _inventoryService = inventoryService;
+            _skillsUpgradeService = skillsUpgradeService;
         }
 
         public void Initialize(IStaticDataService staticDataService,
@@ -58,6 +62,7 @@ namespace UndergroundFortress.UI.MainMenu
             _sceneProviderService.LoadLevel(
                 _itemsGeneratorService,
                 _inventoryService,
+                _skillsUpgradeService,
                 _selectedDungeonId,
                 idLevel);
             

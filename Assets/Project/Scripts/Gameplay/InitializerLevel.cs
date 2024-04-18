@@ -14,6 +14,7 @@ using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Inventory.Wallet.Services;
 using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.Gameplay.Player.Level.Services;
+using UndergroundFortress.Gameplay.Skills.Services;
 using UndergroundFortress.Gameplay.Stats.Services;
 using UndergroundFortress.UI.Hud;
 
@@ -54,6 +55,7 @@ namespace UndergroundFortress.Gameplay
             IInventoryService inventoryService,
             IWalletOperationService walletOperationService,
             IPlayerUpdateLevelService playerUpdateLevelService,
+            ISkillsUpgradeService skillsUpgradeService,
             int dungeonId, int levelId)
         {
             RegisterGameplayServices(
@@ -61,7 +63,8 @@ namespace UndergroundFortress.Gameplay
                 walletOperationService,
                 _statsRestorationService,
                 playerUpdateLevelService,
-                progressProviderService);
+                progressProviderService,
+                skillsUpgradeService);
                 
             DungeonBackground dungeonBackground = _uiFactory.CreateDungeonBackground();
             HudView hudView = CreateHUD();
@@ -86,7 +89,8 @@ namespace UndergroundFortress.Gameplay
             IWalletOperationService walletOperationService,
             IStatsRestorationService statsRestorationService,
             IPlayerUpdateLevelService playerUpdateLevelService,
-            IProgressProviderService progressProviderService)
+            IProgressProviderService progressProviderService,
+            ISkillsUpgradeService skillsUpgradeService)
         {
             _gameplayServicesContainer = new ServicesContainer();
             
@@ -97,7 +101,8 @@ namespace UndergroundFortress.Gameplay
             _gameplayServicesContainer.Register<IAttackService>(
                 new AttackService(
                     _gameplayServicesContainer.Single<IStatsWasteService>(),
-                    statsRestorationService));
+                    statsRestorationService,
+                    skillsUpgradeService));
 
             RegisterProgressDungeonService(
                 itemsGeneratorService,

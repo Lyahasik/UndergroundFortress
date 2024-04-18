@@ -52,7 +52,7 @@ namespace UndergroundFortress.Gameplay.Character
             _staminaFillView.Unsubscribe(Stats);
         }
 
-        public override void TakeHitEffect(StatType hitType)
+        public override void TakeHitEffect(StatType hitType, int damage = 0)
         {
             switch (hitType)
             {

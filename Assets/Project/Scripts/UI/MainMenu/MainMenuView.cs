@@ -27,24 +27,18 @@ namespace UndergroundFortress.UI.MainMenu
         [SerializeField] private WalletView walletView;
         [SerializeField] private AmountSpaceBag amountSpaceBag;
 
-        private ISceneProviderService _sceneProviderService;
         private IItemsGeneratorService _itemsGeneratorService;
         private IActivationRecipesService _activationRecipesService;
-        private ISkillsUpgradeService _skillsUpgradeService;
 
         private List<IWindow> _windows;
         
         public CurrentStatFillView PlayerHealthFill => playerHealthFill;
 
-        public void Construct(ISceneProviderService sceneProviderService,
-            IItemsGeneratorService itemsGeneratorService,
-            IActivationRecipesService activationRecipesService,
-            ISkillsUpgradeService skillsUpgradeService)
+        public void Construct(IItemsGeneratorService itemsGeneratorService,
+            IActivationRecipesService activationRecipesService)
         {
-            _sceneProviderService = sceneProviderService;
             _itemsGeneratorService = itemsGeneratorService;
             _activationRecipesService = activationRecipesService;
-            _skillsUpgradeService = skillsUpgradeService;
         }
 
         public void Initialize(
@@ -96,19 +90,6 @@ namespace UndergroundFortress.UI.MainMenu
         public void CreateRecipeResource()
         {
             _activationRecipesService.ActivateRecipe(_idRecipeResource++);
-        }
-        
-        //TODO temporary
-        public void UpgradeProgressSkill()
-        {
-            _skillsUpgradeService.UpdateProgressSkill(SkillsType.Dodge, StatType.Dodge);
-            _skillsUpgradeService.UpdateProgressSkill(SkillsType.Dodge, StatType.Accuracy);
-            _skillsUpgradeService.UpdateProgressSkill(SkillsType.Crit, StatType.Crit);
-            _skillsUpgradeService.UpdateProgressSkill(SkillsType.Crit, StatType.Parry);
-            _skillsUpgradeService.UpdateProgressSkill(SkillsType.Block, StatType.Block);
-            _skillsUpgradeService.UpdateProgressSkill(SkillsType.Block, StatType.BreakThrough);
-            _skillsUpgradeService.UpdateProgressSkill(SkillsType.Stun, StatType.Stun);
-            _skillsUpgradeService.UpdateProgressSkill(SkillsType.Stun, StatType.Strength);
         }
 
         public void ActivateWindow(int idWindow)

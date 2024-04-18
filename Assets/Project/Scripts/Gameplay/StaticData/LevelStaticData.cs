@@ -16,5 +16,6 @@ namespace UndergroundFortress.Gameplay.StaticData
         public AttackArea attackArea;
         public PlayerData player;
         public DropItemView dropItemPrefab;
+        public DamageValueView damageValuePrefab;
     }
 }

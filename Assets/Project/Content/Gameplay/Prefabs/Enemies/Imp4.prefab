@@ -41,6 +41,41 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1298961010403376840
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4708442944089895488}
+  m_Layer: 5
+  m_Name: ValueDamageArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4708442944089895488
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1298961010403376840}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2617217159782763054}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 6.3444824, y: -124.78308}
+  m_SizeDelta: {x: 225.3203, y: 482.9726}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2764244104764507584
 GameObject:
   m_ObjectHideFlags: 0
@@ -966,6 +1001,8 @@ RectTransform:
   - {fileID: 7636335883921510973}
   - {fileID: 7713660088796695504}
   - {fileID: 8514536752110018565}
+  - {fileID: 8048378084689879291}
+  - {fileID: 4708442944089895488}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -1009,6 +1046,8 @@ MonoBehaviour:
   stunned: {fileID: 5096586035696396846}
   attacking: {fileID: 1304840734863591187}
   healthFillView: {fileID: 988297437475665348}
+  dropItemArea: {fileID: 8048378084689879291}
+  damageValueSpawnArea: {fileID: 4708442944089895488}
   damageHitFeedback: {fileID: 3325187145845161998}
   dodgeHitFeedback: {fileID: 7080157213329476843}
   parryHitFeedback: {fileID: 0}
@@ -1913,6 +1952,41 @@ MonoBehaviour:
         FloatValueMin: 0
         FloatValueMax: 5
         FloatIncrement: 1
+--- !u!1 &6121159343143301264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8048378084689879291}
+  m_Layer: 5
+  m_Name: DropItemArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8048378084689879291
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6121159343143301264}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2617217159782763054}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -373}
+  m_SizeDelta: {x: 600, y: 98.73}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1215771254901008059
 PrefabInstance:
   m_ObjectHideFlags: 0

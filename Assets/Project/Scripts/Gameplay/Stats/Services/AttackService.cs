@@ -2,6 +2,7 @@
 
 using UndergroundFortress.Constants;
 using UndergroundFortress.Gameplay.Character;
+using UndergroundFortress.Gameplay.Skills.Services;
 using UndergroundFortress.Gameplay.StaticData;
 using Random = UnityEngine.Random;
 
@@ -11,7 +12,8 @@ namespace UndergroundFortress.Gameplay.Stats.Services
     {
         private readonly IStatsWasteService _statsWasteService;
         private readonly IStatsRestorationService _statsRestorationService;
-        
+        private readonly ISkillsUpgradeService _skillsUpgradeService;
+
         private bool _isDoubleDamage;
         private bool _isVampireDamage;
 
@@ -19,13 +21,15 @@ namespace UndergroundFortress.Gameplay.Stats.Services
         public bool IsVampireDamage => _isVampireDamage;
 
         public AttackService(IStatsWasteService statsWasteService,
-            IStatsRestorationService statsRestorationService)
+            IStatsRestorationService statsRestorationService,
+            ISkillsUpgradeService skillsUpgradeService)
         {
             _statsWasteService = statsWasteService;
             _statsRestorationService = statsRestorationService;
+            _skillsUpgradeService = skillsUpgradeService;
         }
 
-        public void Attack(CharacterData dataAttacking, CharacterData dataDefending, bool isPlayer = false)
+        public void Attack(CharacterData dataAttacking, CharacterData dataDefending, bool isPlayerAttack = false)
         {
             CharacterStats statsAttacking = dataAttacking.Stats;
             CharacterStats statsDefending = dataDefending.Stats;
@@ -33,38 +37,61 @@ namespace UndergroundFortress.Gameplay.Stats.Services
             if (!TryHit(statsAttacking, statsDefending))
             {
                 _statsWasteService.WasteStamina(statsAttacking, statsAttacking.MainStats[StatType.StaminaCost]);
+                
                 dataAttacking.AttackEffect(StatType.Dodge);
                 dataDefending.TakeHitEffect(StatType.Dodge);
+                if (!isPlayerAttack)
+                    _skillsUpgradeService.UpdateProgressSkill(SkillsType.Dodge, StatType.Dodge);
                 
                 return;
             }
+            
+            if (isPlayerAttack)
+                _skillsUpgradeService.UpdateProgressSkill(SkillsType.Dodge, StatType.Accuracy);
 
             float damage = statsAttacking.MainStats[StatType.Damage];
-            if (isPlayer && _isDoubleDamage)
+            if (isPlayerAttack && _isDoubleDamage)
             {
                 damage *= 2;
                 _isDoubleDamage = false;
             }
-            damage = Math.Clamp(damage - statsDefending.MainStats[StatType.Defense], 0, float.MaxValue);
+            damage = Math.Clamp(damage - statsDefending.MainStats[StatType.Defense], ConstantValues.MIN_DAMAGE, float.MaxValue);
 
             if (TryBreakThrough(statsAttacking, statsDefending, ref damage))
-                dataDefending.TakeHitEffect(StatType.Damage);
+            {
+                dataDefending.TakeHitEffect(StatType.Damage, (int) damage);
+                if (isPlayerAttack)
+                    _skillsUpgradeService.UpdateProgressSkill(SkillsType.Block, StatType.BreakThrough);
+            }
             else
-                dataDefending.TakeHitEffect(StatType.Block);
-                
+            {
+                dataDefending.TakeHitEffect(StatType.Block, (int) damage);
+                if (!isPlayerAttack)
+                    _skillsUpgradeService.UpdateProgressSkill(SkillsType.Block, StatType.Block);
+            }
+
             if (TryApplyCrit(statsAttacking, statsDefending, ref damage))
+            {
                 dataAttacking.AttackEffect(StatType.Crit);
+                if (isPlayerAttack)
+                    _skillsUpgradeService.UpdateProgressSkill(SkillsType.Crit, StatType.Crit);
+            }
+            else
+            {
+                if (!isPlayerAttack)
+                    _skillsUpgradeService.UpdateProgressSkill(SkillsType.Crit, StatType.Parry);
+            }
 
             _statsWasteService.WasteHealth(statsDefending, (int) damage);
             _statsWasteService.WasteStamina(statsAttacking, statsAttacking.MainStats[StatType.StaminaCost]);
-            if (isPlayer && _isVampireDamage)
+            if (isPlayerAttack && _isVampireDamage)
             {
                 _statsRestorationService.RestoreHealth(statsAttacking, (int) (damage * 0.5f));
             }
 
             if (TryDead(dataDefending))
             {
-                if (!isPlayer)
+                if (!isPlayerAttack)
                     Reset();
 
                 return;
@@ -73,7 +100,15 @@ namespace UndergroundFortress.Gameplay.Stats.Services
             if (TryStun(statsAttacking, dataDefending))
             {
                 dataAttacking.AttackEffect(StatType.Stun);
+                if (isPlayerAttack)
+                    _skillsUpgradeService.UpdateProgressSkill(SkillsType.Stun, StatType.Stun);
+                
                 dataDefending.TakeHitEffect(StatType.Stun);
+            }
+            else
+            {
+                if (!isPlayerAttack)
+                    _skillsUpgradeService.UpdateProgressSkill(SkillsType.Stun, StatType.Strength);
             }
             
             dataAttacking.AttackEffect(StatType.Damage);

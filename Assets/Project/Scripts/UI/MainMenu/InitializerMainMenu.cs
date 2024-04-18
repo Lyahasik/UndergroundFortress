@@ -8,7 +8,6 @@ using UndergroundFortress.Core.Services.Scene;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Character.Services;
 using UndergroundFortress.Gameplay.Craft.Services;
-using UndergroundFortress.Gameplay.Dungeons.Services;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Inventory.Wallet.Services;
 using UndergroundFortress.Gameplay.Items.Services;
@@ -177,14 +176,13 @@ namespace UndergroundFortress.UI.MainMenu
             startLevel.Construct(
                 sceneProviderService, 
                 _mainMenuServicesContainer.Single<IItemsGeneratorService>(),
-                _mainMenuServicesContainer.Single<IInventoryService>());
+                _mainMenuServicesContainer.Single<IInventoryService>(),
+                _mainMenuServicesContainer.Single<ISkillsUpgradeService>());
             startLevel.Initialize(_staticDataService, _progressProviderService);
 
             MainMenuView mainMenu = _uiFactory.CreateMainMenu();
-            mainMenu.Construct(sceneProviderService, 
-                _mainMenuServicesContainer.Single<IItemsGeneratorService>(),
-                _mainMenuServicesContainer.Single<IActivationRecipesService>(),
-                _mainMenuServicesContainer.Single<ISkillsUpgradeService>());
+            mainMenu.Construct(_mainMenuServicesContainer.Single<IItemsGeneratorService>(),
+                _mainMenuServicesContainer.Single<IActivationRecipesService>());
             mainMenu.Initialize(home, skills, craft, inventory, shop, startLevel, _staticDataService, _progressProviderService);
             
             mainMenu.PlayerHealthFill.Subscribe(processingPlayerStatsService.PlayerStats);

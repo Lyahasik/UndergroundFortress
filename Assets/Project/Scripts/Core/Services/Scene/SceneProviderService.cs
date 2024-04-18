@@ -16,6 +16,7 @@ using UndergroundFortress.Gameplay.Character.Services;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.Gameplay.Player.Level.Services;
+using UndergroundFortress.Gameplay.Skills.Services;
 using UndergroundFortress.Gameplay.Stats.Services;
 using UndergroundFortress.UI.MainMenu;
 
@@ -33,9 +34,10 @@ namespace UndergroundFortress.Core.Services.Scene
         private readonly IPlayerUpdateLevelService _playerUpdateLevelService;
         private readonly IPlayerDressingService _playerDressingService;
         private readonly IStatsRestorationService _statsRestorationService;
-        
+
         private IItemsGeneratorService _itemsGeneratorService;
         private IInventoryService _inventoryService;
+        private ISkillsUpgradeService _skillsUpgradeService;
 
         private string _nameNewActiveScene;
 
@@ -84,10 +86,12 @@ namespace UndergroundFortress.Core.Services.Scene
 
         public void LoadLevel(IItemsGeneratorService itemsGeneratorService,
             IInventoryService inventoryService,
+            ISkillsUpgradeService skillsUpgradeService,
             int idDungeon, int idLevel)
         {
             _itemsGeneratorService = itemsGeneratorService;
             _inventoryService = inventoryService;
+            _skillsUpgradeService = skillsUpgradeService;
             _currentDungeonId = idDungeon;
             _currentLevelId = idLevel;
             
@@ -149,6 +153,7 @@ namespace UndergroundFortress.Core.Services.Scene
                 _inventoryService,
                 _inventoryService.WalletOperationService,
                 _playerUpdateLevelService,
+                _skillsUpgradeService,
                 _currentDungeonId,
                 _currentLevelId);
 

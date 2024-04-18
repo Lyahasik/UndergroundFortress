@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74fff693ccbe42ffb249675a614b2336, type: 3}
   m_Name: Slug1_Data
   m_EditorClassIdentifier: 
-  health: 10
+  health: 3
   healthRecoveryRate: 0
   stamina: 100
   staminaRecoveryRate: 50
   staminaCost: 100
-  damage: 11
+  damage: 1
   defense: 0
   dodge: 0
   accuracy: 0
@@ -31,7 +31,7 @@ MonoBehaviour:
   strength: 0
   stunDuration: 0
   id: 0
-  experience: 1
+  experience: 100
   enemyData: {fileID: 196345577061169572, guid: 2af187f85a3832e4ab5a1dcfdf59c78a, type: 3}
   priceTime: 10
   lootItems:

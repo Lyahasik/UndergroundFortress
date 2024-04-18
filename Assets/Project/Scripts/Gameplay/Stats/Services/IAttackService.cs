@@ -10,7 +10,7 @@ namespace UndergroundFortress.Gameplay.Stats.Services
 
         public bool IsVampireDamage { get; }
         
-        public void Attack(CharacterData dataAttacking, CharacterData dataDefending, bool isPlayer = false);
+        public void Attack(CharacterData dataAttacking, CharacterData dataDefending, bool isPlayerAttack = false);
         public void ActivateConsumable(ConsumableType consumableType);
     }
 }

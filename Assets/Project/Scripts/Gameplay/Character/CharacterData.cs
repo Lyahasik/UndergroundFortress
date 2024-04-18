@@ -28,7 +28,7 @@ namespace UndergroundFortress.Gameplay.Character
             _stats.IsFreeze = true;
         }
 
-        public abstract void TakeHitEffect(StatType hitType);
+        public abstract void TakeHitEffect(StatType hitType, int damage = 0);
         public abstract void AttackEffect(StatType attackType);
 
         public virtual void RemoveHitEffect()
