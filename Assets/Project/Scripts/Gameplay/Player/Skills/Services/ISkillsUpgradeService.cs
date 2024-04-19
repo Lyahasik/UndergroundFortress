@@ -9,5 +9,6 @@ namespace UndergroundFortress.Gameplay.Skills.Services
         public bool IsEnoughPoints { get; }
         public void ActivationSkill(SkillsType skillsType, int skillId);
         public void UpdateProgressSkill(SkillsType skillsType, StatType statType);
+        public void ResetSkills();
     }
 }

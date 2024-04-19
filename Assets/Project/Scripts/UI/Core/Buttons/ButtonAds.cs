@@ -15,8 +15,6 @@ namespace UndergroundFortress.UI.Core.Buttons
 
         private IProcessingAdsService _processingAdsService;
 
-        private int _currentPrice;
-
         private Action _onReward;
 
         public void Construct(IProcessingAdsService processingAdsService)

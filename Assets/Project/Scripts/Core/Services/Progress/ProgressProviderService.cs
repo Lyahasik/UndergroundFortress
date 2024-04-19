@@ -91,6 +91,22 @@ namespace UndergroundFortress.Core.Services.Progress
             _progressWriters.Remove(progressWriter);
         }
 
+        public void ResetActiveSkills()
+        {
+            _progressData.SkillPointsData.Spent = 0;
+            
+            _progressData.ActiveSkills.Clear();
+            foreach (SkillsType type in (SkillsType[])Enum.GetValues(typeof(SkillsType)))
+            {
+                if (type == SkillsType.Empty)
+                    continue;
+            
+                var set = new HashSet<int>();
+                set.Add(0);
+                _progressData.ActiveSkills.Add(type, set);
+            }
+        }
+
         private ProgressData LoadData(string json)
         {
             ProgressData progressData = null;

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 using UndergroundFortress.Core.Services;
+using UndergroundFortress.Core.Services.Ads;
 using UndergroundFortress.Core.Services.Characters;
 using UndergroundFortress.Core.Services.Factories.UI;
 using UndergroundFortress.Core.Services.Progress;
@@ -25,9 +26,10 @@ namespace UndergroundFortress.UI.MainMenu
     public class InitializerMainMenu : MonoBehaviour
     {
         private IStaticDataService _staticDataService;
+        private IProcessingAdsService _processingAdsService;
         private IUIFactory _uiFactory;
         private IProgressProviderService _progressProviderService;
-        
+
         private ServicesContainer _mainMenuServicesContainer;
 
         private void OnDestroy()
@@ -36,10 +38,12 @@ namespace UndergroundFortress.UI.MainMenu
         }
 
         public void Construct(IStaticDataService staticDataService,
+            IProcessingAdsService processingAdsService,
             IUIFactory uiFactory,
             IProgressProviderService progressProviderService)
         {
             _staticDataService = staticDataService;
+            _processingAdsService = processingAdsService;
             _uiFactory = uiFactory;
             _progressProviderService = progressProviderService;
         }
@@ -146,10 +150,13 @@ namespace UndergroundFortress.UI.MainMenu
             home.Initialize(_staticDataService);
             
             SkillsView skills = _uiFactory.CreateSkills();
+            skills.Construct(
+                _mainMenuServicesContainer.Single<ISkillsUpgradeService>(),
+                _progressProviderService);
             skills.Initialize(
                 _staticDataService, 
-                _mainMenuServicesContainer.Single<IInformationService>(), 
-                _progressProviderService);
+                _processingAdsService,
+                _mainMenuServicesContainer.Single<IInformationService>());
 
             CraftView craft = _uiFactory.CreateCraft();
             craft.Construct(

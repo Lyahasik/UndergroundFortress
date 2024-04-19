@@ -125,7 +125,7 @@ namespace UndergroundFortress.Core.Services.Scene
             {
                 InitializerMainMenu initializerMainMenu = new GameObject().AddComponent<InitializerMainMenu>();
                 initializerMainMenu.name = nameof(InitializerMainMenu);
-                initializerMainMenu.Construct(_staticDataService, _uiFactory, _progressProviderService);
+                initializerMainMenu.Construct(_staticDataService, _processingAdsService, _uiFactory, _progressProviderService);
                 initializerMainMenu.Initialize(_processingPlayerStatsService, _playerDressingService, this);
             }
             

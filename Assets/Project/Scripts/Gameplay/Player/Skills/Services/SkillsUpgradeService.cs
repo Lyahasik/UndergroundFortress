@@ -86,5 +86,13 @@ namespace UndergroundFortress.Gameplay.Skills.Services
             
             WriteProgress();
         }
+
+        public void ResetSkills()
+        {
+            _progressProviderService.ResetActiveSkills();
+            _activeSkills = _progressProviderService.ProgressData.ActiveSkills;
+            
+            WriteProgress();
+        }
     }
 }
