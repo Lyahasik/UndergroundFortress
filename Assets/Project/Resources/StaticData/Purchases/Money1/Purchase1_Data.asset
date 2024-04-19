@@ -16,8 +16,10 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 1c2a6e397639888449752a5a6c9b4c45, type: 3}
   moneyType: 0
   price: 10
+  dungeonIdUnlock: 1
+  dungeonIdLock: 0
   rewardData:
-    nameReward: Purchase1
+    nameReward: Purchase 2
     moneys: []
     items:
     - itemId: 10

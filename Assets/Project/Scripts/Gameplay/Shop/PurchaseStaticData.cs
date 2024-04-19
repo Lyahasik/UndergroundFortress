@@ -10,6 +10,9 @@ namespace UndergroundFortress.UI.Inventory
         public MoneyType moneyType;
         public float price;
 
+        public int dungeonIdUnlock;
+        public int dungeonIdLock;
+
         public RewardData rewardData;
     }
 }

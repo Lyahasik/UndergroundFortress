@@ -16,16 +16,21 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: a94c8e1f6f30de444844f20106926296, type: 3}
   moneyType: 2
   price: 10
+  dungeonIdUnlock: 2
+  dungeonIdLock: 3
   rewardData:
-    nameReward: 
+    nameReward: Purchase 3
     moneys: []
     items:
     - itemId: 1000
       number: 99
+      level: 0
       qualityType: 0
     - itemId: 1001
       number: 99
+      level: 0
       qualityType: 0
     - itemId: 1002
       number: 99
+      level: 0
       qualityType: 0

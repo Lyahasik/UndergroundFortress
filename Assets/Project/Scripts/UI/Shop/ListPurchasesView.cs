@@ -88,7 +88,8 @@ namespace UndergroundFortress.UI.Craft
         {
             ResetLists();
             
-            List<PurchaseStaticData> purchaseBag = _staticDataService.ForPurchasesByMoneyType(moneyType);
+            List<PurchaseStaticData> purchaseBag = _shoppingService.GetPurchaseBagByMoneyType(moneyType);
+            
             IncreasePurchaseBagSizeView(purchaseBag.Count);
 
             for (int i = 0; i < purchaseBag.Count; i++)

@@ -136,6 +136,8 @@ namespace UndergroundFortress.UI.MainMenu
         private void RegisterShoppingService()
         {
             ShoppingService shoppingService = new ShoppingService(
+                _staticDataService,
+                _progressProviderService,
                 _mainMenuServicesContainer.Single<IWalletOperationService>(),
                 _mainMenuServicesContainer.Single<IInventoryService>(),
                 _mainMenuServicesContainer.Single<IInformationService>());
