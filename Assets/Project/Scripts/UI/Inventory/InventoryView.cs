@@ -78,8 +78,8 @@ namespace UndergroundFortress.UI.Inventory
             {
                 cellsEquipment[i].Construct(i, _staticDataService, _movingItemService, _inventoryService);
                 cellsEquipment[i].Subscribe();
-                cellsEquipment[i].Subscribe(bagActiveArea);
-                cellsEquipment[i].Subscribe(equipmentActiveArea);
+                cellsEquipment[i].Subscribe(bagActiveArea, false);
+                cellsEquipment[i].Subscribe(equipmentActiveArea, true);
                 
                 ItemData itemData = equipment[i].ItemData;
                 if (itemData != null
@@ -115,8 +115,8 @@ namespace UndergroundFortress.UI.Inventory
                 cellInventoryView.Construct(i, _staticDataService, _movingItemService, _inventoryService);
                 cellInventoryView.Initialize();
                 cellInventoryView.Subscribe();
-                cellInventoryView.Subscribe(bagActiveArea);
-                cellInventoryView.Subscribe(equipmentActiveArea);
+                cellInventoryView.Subscribe(bagActiveArea, true);
+                cellInventoryView.Subscribe(equipmentActiveArea, false);
                 _cellsBag.Add(cellInventoryView);
             }
         }

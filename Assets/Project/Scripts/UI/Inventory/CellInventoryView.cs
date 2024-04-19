@@ -33,6 +33,7 @@ namespace UndergroundFortress.UI.Inventory
         protected RectTransform _rect;
         protected IInventoryService _inventoryService;
 
+        private ActiveArea _parentArea;
         protected int _number;
 
         public ItemType ItemType
@@ -82,8 +83,11 @@ namespace UndergroundFortress.UI.Inventory
         public void Subscribe() => 
             _inventoryService.OnUpdateCell += UpdateValue;
 
-        public void Subscribe(ActiveArea activeArea)
+        public void Subscribe(ActiveArea activeArea, bool isParentArea)
         {
+            if (isParentArea)
+                _parentArea = activeArea;
+            
             activeArea.OnUp += Hit;
             activeArea.OnStartMove += HitInMovement;
             activeArea.OnEndMove += HitInMovement;
@@ -150,9 +154,10 @@ namespace UndergroundFortress.UI.Inventory
             _inventoryService.ShowItem(_itemData, _inventoryCellType);
         }
 
-        private void HitInMovement(Vector3 position)
+        private void HitInMovement(Vector3 position, ActiveArea activeArea, bool isDotInsideArea)
         {
-            if (!_rect.IsDotInside(position))
+            if (!_rect.IsDotInside(position)
+                || !isDotInsideArea && _parentArea == activeArea)
                 return;
             
             _movingItemService.AddItem(this, position);
