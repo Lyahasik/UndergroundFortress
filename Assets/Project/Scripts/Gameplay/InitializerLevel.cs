@@ -2,6 +2,7 @@
 
 using UndergroundFortress.Core.Services;
 using UndergroundFortress.Core.Services.Ads;
+using UndergroundFortress.Core.Services.Bonuses;
 using UndergroundFortress.Core.Services.Factories.Gameplay;
 using UndergroundFortress.Core.Services.Factories.UI;
 using UndergroundFortress.Core.Services.Progress;
@@ -56,6 +57,7 @@ namespace UndergroundFortress.Gameplay
             IWalletOperationService walletOperationService,
             IPlayerUpdateLevelService playerUpdateLevelService,
             ISkillsUpgradeService skillsUpgradeService,
+            IProcessingBonusesService processingBonusesService,
             int dungeonId, int levelId)
         {
             RegisterGameplayServices(
@@ -64,7 +66,8 @@ namespace UndergroundFortress.Gameplay
                 _statsRestorationService,
                 playerUpdateLevelService,
                 progressProviderService,
-                skillsUpgradeService);
+                skillsUpgradeService,
+                processingBonusesService);
                 
             DungeonBackground dungeonBackground = _uiFactory.CreateDungeonBackground();
             HudView hudView = CreateHUD();
@@ -90,7 +93,8 @@ namespace UndergroundFortress.Gameplay
             IStatsRestorationService statsRestorationService,
             IPlayerUpdateLevelService playerUpdateLevelService,
             IProgressProviderService progressProviderService,
-            ISkillsUpgradeService skillsUpgradeService)
+            ISkillsUpgradeService skillsUpgradeService,
+            IProcessingBonusesService processingBonusesService)
         {
             _gameplayServicesContainer = new ServicesContainer();
             
@@ -102,7 +106,8 @@ namespace UndergroundFortress.Gameplay
                 new AttackService(
                     _gameplayServicesContainer.Single<IStatsWasteService>(),
                     statsRestorationService,
-                    skillsUpgradeService));
+                    skillsUpgradeService,
+                    processingBonusesService));
 
             RegisterProgressDungeonService(
                 itemsGeneratorService,

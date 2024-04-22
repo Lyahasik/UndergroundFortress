@@ -38,7 +38,7 @@ namespace UndergroundFortress.UI.Information
                 RewardItemView rewardItemView = Instantiate(prefabRewardItemView, transform);
 
                 Sprite qualitySprite = _staticDataService.GetQualityBackground(data.qualityType);
-                rewardItemView.Initialize(_staticDataService.GetItemIcon(data.itemId), data.number, data.level , qualitySprite);
+                rewardItemView.Initialize(_staticDataService.GetItemIcon(data.itemData.id), data.number, data.level , qualitySprite);
                 _listItems.Add(rewardItemView);
             });
         }

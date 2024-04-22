@@ -17,14 +17,14 @@ MonoBehaviour:
     targetExperience: 10
     numberSkillPoints: 3
   - level: 1
-    targetExperience: 10
+    targetExperience: 40
     numberSkillPoints: 1
   - level: 2
-    targetExperience: 10
+    targetExperience: 60
     numberSkillPoints: 1
   - level: 3
-    targetExperience: 10
+    targetExperience: 80
     numberSkillPoints: 1
   - level: 4
-    targetExperience: 10
+    targetExperience: 100
     numberSkillPoints: 1

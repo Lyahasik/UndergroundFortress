@@ -33,3 +33,16 @@ MonoBehaviour:
   id: 12
   experience: 13
   enemyData: {fileID: 196345577061169572, guid: 7ebaf7dc33e45b44c92278b91920193f, type: 3}
+  priceTime: 625
+  lootItems:
+  - {fileID: 11400000, guid: c08704e06ab94ca4ca7e0db6f6f298b2, type: 2}
+  - {fileID: 11400000, guid: d710442e60159db48af8194dceac0679, type: 2}
+  - {fileID: 11400000, guid: e71a606240dc77b48905eb0a7c473a35, type: 2}
+  - {fileID: 11400000, guid: d907ec60d1a4fee479ec4a86988ae357, type: 2}
+  - {fileID: 11400000, guid: 16ae0a53385a78648a20fc1db9bb47de, type: 2}
+  - {fileID: 11400000, guid: b23ae9f069de97e49ae92df15174604c, type: 2}
+  - {fileID: 11400000, guid: e0e3020e3bdf96b4a82b2d4c1f567b69, type: 2}
+  - {fileID: 11400000, guid: a9adb812b4554e248a65a9878fc075b4, type: 2}
+  - {fileID: 11400000, guid: 08b437570caf9d24b8aaf9d44dd42730, type: 2}
+  - {fileID: 11400000, guid: d2cc62756a5c4d84d9379c39b5a381da, type: 2}
+  - {fileID: 11400000, guid: daab9efbe1dea1d4c93ad89a163e30ee, type: 2}

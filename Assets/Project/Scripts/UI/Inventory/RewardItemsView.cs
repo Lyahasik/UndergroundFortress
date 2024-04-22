@@ -78,14 +78,14 @@ namespace UndergroundFortress.UI.Information
             _rewardItems
                 .ForEach(data =>
                 {
-                    if (_staticDataService.GetItemById(data.itemId).type.IsEquipment())
+                    if (_staticDataService.GetItemById(data.itemData.id).type.IsEquipment())
                         _itemsGeneratorService.GenerateEquipments(
-                            data.itemId,
+                            data.itemData.id,
                             data.number,
                             data.level,
                             qualityType: data.qualityType);
                     else
-                        _itemsGeneratorService.GenerateResourcesById(data.itemId, data.number);
+                        _itemsGeneratorService.GenerateResourcesById(data.itemData.id, data.number);
                 });
         }
 

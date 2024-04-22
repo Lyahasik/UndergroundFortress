@@ -2,13 +2,14 @@
 using UnityEngine;
 
 using UndergroundFortress.Gameplay;
+using UndergroundFortress.Gameplay.StaticData;
 
 namespace UndergroundFortress.UI.Inventory
 {
     [Serializable]
     public class ItemNumberData
     {
-        public int itemId;
+        public ItemStaticData itemData;
         public int number;
         public int level;
 

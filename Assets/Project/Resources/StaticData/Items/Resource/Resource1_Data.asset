@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Resource1_Data
   m_EditorClassIdentifier: 
   id: 1000
-  icon: {fileID: 21300000, guid: 49e6a234e730ae044b9acceb2418b9b6, type: 3}
+  icon: {fileID: 21300000, guid: cac4400bee6e5234f9f60dc6ac775eba, type: 3}
   type: 20
-  priceTime: 10
+  priceTime: 5
   probabilityWeight: 100
-  name: Name1
-  description: 
+  name: '@TornSkin'
+  description: '@TornSkinDescription'
   quality: 1
   maxNumberForCell: 99

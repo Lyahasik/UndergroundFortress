@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 
+using UndergroundFortress.Core.Services.Bonuses;
 using UndergroundFortress.Gameplay.Inventory;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.Player.Level;
@@ -22,6 +23,8 @@ namespace UndergroundFortress.Core.Progress
         public List<CellData> Equipment;
         public List<CellData> Bag;
         public int FilledNumberBag;
+
+        public Dictionary<BonusType, float> BonusesLifetime;
 
         public Dictionary<int, HashSet<int>> Dungeons;
     }

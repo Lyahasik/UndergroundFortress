@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 50
   healthRecoveryRate: 1
-  stamina: 100
-  staminaRecoveryRate: 10
-  staminaCost: 3
+  stamina: 3
+  staminaRecoveryRate: 1
+  staminaCost: 1
   damage: 1
   defense: 0
   dodge: 0
@@ -29,4 +29,4 @@ MonoBehaviour:
   blockAttackDamage: 0
   stun: 0
   strength: 0
-  stunDuration: 0
+  stunDuration: 1

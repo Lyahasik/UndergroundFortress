@@ -1,6 +1,7 @@
 ﻿using System;
 
 using UndergroundFortress.Constants;
+using UndergroundFortress.Core.Services.Bonuses;
 using UndergroundFortress.Gameplay.Character;
 using UndergroundFortress.Gameplay.Skills.Services;
 using UndergroundFortress.Gameplay.StaticData;
@@ -13,6 +14,7 @@ namespace UndergroundFortress.Gameplay.Stats.Services
         private readonly IStatsWasteService _statsWasteService;
         private readonly IStatsRestorationService _statsRestorationService;
         private readonly ISkillsUpgradeService _skillsUpgradeService;
+        private readonly IProcessingBonusesService _processingBonusesService;
 
         private bool _isDoubleDamage;
         private bool _isVampireDamage;
@@ -22,11 +24,13 @@ namespace UndergroundFortress.Gameplay.Stats.Services
 
         public AttackService(IStatsWasteService statsWasteService,
             IStatsRestorationService statsRestorationService,
-            ISkillsUpgradeService skillsUpgradeService)
+            ISkillsUpgradeService skillsUpgradeService,
+            IProcessingBonusesService processingBonusesService)
         {
             _statsWasteService = statsWasteService;
             _statsRestorationService = statsRestorationService;
             _skillsUpgradeService = skillsUpgradeService;
+            _processingBonusesService = processingBonusesService;
         }
 
         public void Attack(CharacterData dataAttacking, CharacterData dataDefending, bool isPlayerAttack = false)
@@ -34,9 +38,10 @@ namespace UndergroundFortress.Gameplay.Stats.Services
             CharacterStats statsAttacking = dataAttacking.Stats;
             CharacterStats statsDefending = dataDefending.Stats;
 
-            if (!TryHit(statsAttacking, statsDefending))
+            if (!TryHit(statsAttacking, statsDefending, isPlayerAttack))
             {
-                _statsWasteService.WasteStamina(statsAttacking, statsAttacking.MainStats[StatType.StaminaCost]);
+                if (!isPlayerAttack || !_processingBonusesService.IsBuffActivate(BonusType.InfiniteStamina))
+                    _statsWasteService.WasteStamina(statsAttacking, statsAttacking.MainStats[StatType.StaminaCost]);
                 
                 dataAttacking.AttackEffect(StatType.Dodge);
                 dataDefending.TakeHitEffect(StatType.Dodge);
@@ -50,6 +55,9 @@ namespace UndergroundFortress.Gameplay.Stats.Services
                 _skillsUpgradeService.UpdateProgressSkill(SkillsType.Dodge, StatType.Accuracy);
 
             float damage = statsAttacking.MainStats[StatType.Damage];
+            if (isPlayerAttack)
+                damage += _processingBonusesService.GetBuffValue(BonusType.IncreasedDamage);
+            
             if (isPlayerAttack && _isDoubleDamage)
             {
                 damage *= 2;
@@ -57,7 +65,19 @@ namespace UndergroundFortress.Gameplay.Stats.Services
             }
             damage = Math.Clamp(damage - statsDefending.MainStats[StatType.Defense], ConstantValues.MIN_DAMAGE, float.MaxValue);
 
-            if (TryBreakThrough(statsAttacking, statsDefending, ref damage))
+            if (TryApplyCrit(statsAttacking, statsDefending, ref damage, isPlayerAttack))
+            {
+                dataAttacking.AttackEffect(StatType.Crit);
+                if (isPlayerAttack)
+                    _skillsUpgradeService.UpdateProgressSkill(SkillsType.Crit, StatType.Crit);
+            }
+            else
+            {
+                if (!isPlayerAttack)
+                    _skillsUpgradeService.UpdateProgressSkill(SkillsType.Crit, StatType.Parry);
+            }
+
+            if (TryBreakThrough(statsAttacking, statsDefending, ref damage, isPlayerAttack))
             {
                 dataDefending.TakeHitEffect(StatType.Damage, (int) damage);
                 if (isPlayerAttack)
@@ -70,20 +90,10 @@ namespace UndergroundFortress.Gameplay.Stats.Services
                     _skillsUpgradeService.UpdateProgressSkill(SkillsType.Block, StatType.Block);
             }
 
-            if (TryApplyCrit(statsAttacking, statsDefending, ref damage))
-            {
-                dataAttacking.AttackEffect(StatType.Crit);
-                if (isPlayerAttack)
-                    _skillsUpgradeService.UpdateProgressSkill(SkillsType.Crit, StatType.Crit);
-            }
-            else
-            {
-                if (!isPlayerAttack)
-                    _skillsUpgradeService.UpdateProgressSkill(SkillsType.Crit, StatType.Parry);
-            }
-
             _statsWasteService.WasteHealth(statsDefending, (int) damage);
-            _statsWasteService.WasteStamina(statsAttacking, statsAttacking.MainStats[StatType.StaminaCost]);
+            if (!isPlayerAttack || !_processingBonusesService.IsBuffActivate(BonusType.InfiniteStamina))
+                _statsWasteService.WasteStamina(statsAttacking, statsAttacking.MainStats[StatType.StaminaCost]);
+            
             if (isPlayerAttack && _isVampireDamage)
             {
                 _statsRestorationService.RestoreHealth(statsAttacking, (int) (damage * 0.5f));
@@ -97,7 +107,7 @@ namespace UndergroundFortress.Gameplay.Stats.Services
                 return;
             }
 
-            if (TryStun(statsAttacking, dataDefending))
+            if (TryStun(statsAttacking, dataDefending, isPlayerAttack))
             {
                 dataAttacking.AttackEffect(StatType.Stun);
                 if (isPlayerAttack)
@@ -127,36 +137,45 @@ namespace UndergroundFortress.Gameplay.Stats.Services
             }
         }
 
-        private bool TryHit(CharacterStats statsAttacking, CharacterStats statsDefending)
+        private bool TryHit(CharacterStats statsAttacking, CharacterStats statsDefending, bool isPlayerAttack)
         {
-            float probabilityMiss
-                = statsDefending.MainStats[StatType.Dodge] - statsAttacking.MainStats[StatType.Accuracy];
-            probabilityMiss = Math.Clamp(probabilityMiss, 0, statsDefending.MainStats[StatType.Dodge]);
+            float attackedProbability = statsDefending.MainStats[StatType.Dodge];
+            if (!isPlayerAttack)
+                attackedProbability += _processingBonusesService.GetBuffValue(BonusType.IncreasedDodge);
+            
+            float probabilityMiss = attackedProbability - statsAttacking.MainStats[StatType.Accuracy];
+            probabilityMiss = Math.Clamp(probabilityMiss, 0, attackedProbability);
 
             float result = Random.Range(0f, ConstantValues.MAX_PERCENTAGE);
 
             return result >= probabilityMiss;
         }
 
-        private bool TryBreakThrough(CharacterStats statsAttacking, CharacterStats statsDefending, ref float damage)
+        private bool TryBreakThrough(CharacterStats statsAttacking, CharacterStats statsDefending, ref float damage, bool isPlayerAttack)
         {
-            float probabilityBlock =
-                statsDefending.MainStats[StatType.Block] - statsAttacking.MainStats[StatType.BreakThrough];
-            probabilityBlock = Math.Clamp(probabilityBlock, 0, statsDefending.MainStats[StatType.Block]);
+            float attackedProbability = statsDefending.MainStats[StatType.Block];
+            if (!isPlayerAttack)
+                attackedProbability += _processingBonusesService.GetBuffValue(BonusType.IncreasedBlock);
+            
+            float probabilityBlock = attackedProbability - statsAttacking.MainStats[StatType.BreakThrough];
+            probabilityBlock = Math.Clamp(probabilityBlock, 0, attackedProbability);
 
             float result = Random.Range(0f, ConstantValues.MAX_PERCENTAGE);
 
             if (result < probabilityBlock)
-                damage -= damage * (statsAttacking.MainStats[StatType.BlockAttackDamage] / ConstantValues.MAX_PERCENTAGE);
+                damage -= damage * (statsDefending.MainStats[StatType.BlockAttackDamage] / ConstantValues.MAX_PERCENTAGE);
 
             return result >= probabilityBlock;
         }
 
-        private bool TryApplyCrit(CharacterStats statsAttacking, CharacterStats statsDefending, ref float damage)
+        private bool TryApplyCrit(CharacterStats statsAttacking, CharacterStats statsDefending, ref float damage, bool isPlayerAttack)
         {
-            float probabilityCrit =
-                statsAttacking.MainStats[StatType.Crit] - statsDefending.MainStats[StatType.Parry];
-            probabilityCrit = Math.Clamp(probabilityCrit, 0, statsAttacking.MainStats[StatType.Crit]);
+            float attackedProbability = statsAttacking.MainStats[StatType.Crit];
+            if (isPlayerAttack)
+                attackedProbability += _processingBonusesService.GetBuffValue(BonusType.IncreasedCrit);
+            
+            float probabilityCrit = attackedProbability - statsDefending.MainStats[StatType.Parry];
+            probabilityCrit = Math.Clamp(probabilityCrit, 0, attackedProbability);
 
             float result = Random.Range(0f, ConstantValues.MAX_PERCENTAGE);
 
@@ -166,11 +185,14 @@ namespace UndergroundFortress.Gameplay.Stats.Services
             return result < probabilityCrit;
         }
 
-        private bool TryStun(CharacterStats statsAttacking, CharacterData dataDefending)
+        private bool TryStun(CharacterStats statsAttacking, CharacterData dataDefending, bool isPlayerAttack)
         {
-            float probabilityStun =
-                statsAttacking.MainStats[StatType.Stun] - dataDefending.Stats.MainStats[StatType.Strength];
-            probabilityStun = Math.Clamp(probabilityStun, 0, statsAttacking.MainStats[StatType.Stun]);
+            float attackedProbability = statsAttacking.MainStats[StatType.Stun];
+            if (isPlayerAttack)
+                attackedProbability += _processingBonusesService.GetBuffValue(BonusType.IncreasedStun);
+            
+            float probabilityStun = attackedProbability - dataDefending.Stats.MainStats[StatType.Strength];
+            probabilityStun = Math.Clamp(probabilityStun, 0, attackedProbability);
 
             float result = Random.Range(0f, ConstantValues.MAX_PERCENTAGE);
 

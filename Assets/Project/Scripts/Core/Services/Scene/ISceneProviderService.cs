@@ -1,3 +1,4 @@
+using UndergroundFortress.Core.Services.Bonuses;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.Gameplay.Skills.Services;
@@ -10,6 +11,7 @@ namespace UndergroundFortress.Core.Services.Scene
         public void LoadLevel(IItemsGeneratorService itemsGeneratorService, 
             IInventoryService inventoryService,
             ISkillsUpgradeService skillsUpgradeService,
+            IProcessingBonusesService processingBonusesService,
             int idDungeon,
             int idLevel);
     }

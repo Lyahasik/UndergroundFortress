@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Resource3_Data
   m_EditorClassIdentifier: 
   id: 1002
+  icon: {fileID: 21300000, guid: 9fa7a55a842e25b458c3454cb278da1f, type: 3}
   type: 20
-  name: Name3
-  description: 
+  priceTime: 5
+  probabilityWeight: 100
+  name: '@WoodChip'
+  description: '@WoodChipDescription'
   quality: 1
-  icon: {fileID: 21300000, guid: 7fa3e9cdf19c32f40a6f700f7da8ab35, type: 3}
-  priceTime: 10
   maxNumberForCell: 99

@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Sword2_Data
   m_EditorClassIdentifier: 
   id: 23
-  type: 1
-  maxLevel: 10
-  name: '@sword2'
   icon: {fileID: 21300000, guid: 9376e2df4ed9d2e4fbc5098d0b413789, type: 3}
+  type: 1
+  priceTime: 0
+  probabilityWeight: 0
+  maxLevel: 10
+  name: '@Sword2'
   maxNumberForCell: 1
   typeStat: 31
   qualityValues:

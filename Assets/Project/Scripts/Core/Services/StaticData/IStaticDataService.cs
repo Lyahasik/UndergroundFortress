@@ -37,5 +37,6 @@ namespace UndergroundFortress.Core.Services.StaticData
         public Sprite GetIconMoneyByType(MoneyType moneyType);
         public List<DungeonStaticData> ForDungeons();
         public DungeonStaticData GetDungeonById(int id);
+        public BonusesStaticData ForBonuses();
     }
 }

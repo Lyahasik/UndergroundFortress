@@ -5,9 +5,11 @@ using UnityEngine;
 
 using UndergroundFortress.Constants;
 using UndergroundFortress.Core.Progress;
+using UndergroundFortress.Core.Services.Bonuses;
 using UndergroundFortress.Core.Services.GameStateMachine;
 using UndergroundFortress.Core.Services.GameStateMachine.States;
 using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Core.Update;
 using UndergroundFortress.Gameplay.Inventory;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.Player.Level;
@@ -16,7 +18,7 @@ using UndergroundFortress.Gameplay.Stats;
 
 namespace UndergroundFortress.Core.Services.Progress
 {
-    public partial class ProgressProviderService : IProgressProviderService
+    public partial class ProgressProviderService : IProgressProviderService, IUpdating
     {
         private readonly IStaticDataService _staticDataService;
         private readonly IGameStateMachine _gameStateMachine;
@@ -25,6 +27,9 @@ namespace UndergroundFortress.Core.Services.Progress
 
         private List<IReadingProgress> _progressReaders;
         private List<IWritingProgress> _progressWriters;
+        
+        private bool _isWasChange;
+        private float _waitingSavingTime;
 
         public ProgressData ProgressData => _progressData;
 
@@ -35,10 +40,17 @@ namespace UndergroundFortress.Core.Services.Progress
             _gameStateMachine = gameStateMachine;
         }
 
-        public void Initialization()
+        public void Initialization(UpdateHandler updateHandler)
         {
             _progressReaders ??= new List<IReadingProgress>();
             _progressWriters ??= new List<IWritingProgress>();
+            
+            updateHandler.AddUpdatedObject(this);
+        }
+
+        public void Update()
+        {
+            RegularSave();
         }
 
         public void LoadProgress()
@@ -49,6 +61,8 @@ namespace UndergroundFortress.Core.Services.Progress
             
             foreach (IReadingProgress progressReader in _progressReaders)
                 progressReader.LoadProgress(_progressData);
+            
+            _waitingSavingTime = ConstantValues.DELAY_SAVING;
 
             _gameStateMachine.Enter<LoadSceneState>();
         }
@@ -62,6 +76,8 @@ namespace UndergroundFortress.Core.Services.Progress
             
             string json = JsonConvert.SerializeObject(_progressData, new JsonSerializerSettings());
             PlayerPrefs.SetString(ConstantValues.KEY_LOCAL_PROGRESS, json);
+            
+            _waitingSavingTime = ConstantValues.DELAY_SAVING;
         }
 
         public void Register(IReadingProgress progressReader)
@@ -107,6 +123,23 @@ namespace UndergroundFortress.Core.Services.Progress
             }
         }
 
+        public void WasChange()
+        {
+            _isWasChange = true;
+        }
+
+        private void RegularSave()
+        {
+            _waitingSavingTime -= Time.deltaTime;
+            
+            if (!_isWasChange
+                || _waitingSavingTime > 0)
+                return;
+            
+            SaveProgress();
+            _isWasChange = false;
+        }
+
         private ProgressData LoadData(string json)
         {
             ProgressData progressData = null;
@@ -132,6 +165,8 @@ namespace UndergroundFortress.Core.Services.Progress
                 ActiveRecipes = CreateActiveRecipes(),
                 Bag = CreateBag(),
                 FilledNumberBag = 0,
+                
+                BonusesLifetime = new Dictionary<BonusType, float>(),
                 
                 Dungeons = new Dictionary<int, HashSet<int>> { { 0, new HashSet<int> { 0 } } }
             };

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using UndergroundFortress.Constants;
+using UndergroundFortress.Core.Services.Bonuses;
 using UndergroundFortress.Gameplay.Character;
 using UndergroundFortress.Gameplay.Dungeons.Services;
 
@@ -10,8 +11,9 @@ namespace UndergroundFortress.Gameplay.Stats.Services
 {
     public class StatsRestorationService : IStatsRestorationService
     {
+        private IProcessingBonusesService _processingBonusesService;
         private IProgressDungeonService _progressDungeonService;
-        
+
         private List<CharacterStats> _statCharacters;
 
         private float _nextRestoreTime;
@@ -19,6 +21,11 @@ namespace UndergroundFortress.Gameplay.Stats.Services
         public IProgressDungeonService ProgressDungeonService
         {
             set => _progressDungeonService = value;
+        }
+
+        public IProcessingBonusesService ProcessingBonusesService
+        {
+            set => _processingBonusesService = value;
         }
 
         public void Initialize()
@@ -74,9 +81,11 @@ namespace UndergroundFortress.Gameplay.Stats.Services
                 || stats.CurrentStats.Health >= stats.MainStats[StatType.Health])
                 return;
 
-            stats.CurrentStats.Health =
-                Math.Clamp(stats.CurrentStats.Health + stats.MainStats[StatType.HealthRecoveryRate],
-                    0, stats.MainStats[StatType.Health]);
+            float recoveryRate = stats.MainStats[StatType.HealthRecoveryRate];
+            if (_processingBonusesService.IsBuffActivate(BonusType.DoubleRecoveryHealth))
+                recoveryRate *= 2f;
+                
+            stats.CurrentStats.Health = Math.Clamp(stats.CurrentStats.Health + recoveryRate, 0, stats.MainStats[StatType.Health]);
             stats.UpdateCurrent();
         }
 

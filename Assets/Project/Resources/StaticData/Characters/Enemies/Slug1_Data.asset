@@ -17,7 +17,7 @@ MonoBehaviour:
   stamina: 100
   staminaRecoveryRate: 50
   staminaCost: 100
-  damage: 1
+  damage: 4
   defense: 0
   dodge: 0
   accuracy: 0
@@ -33,8 +33,10 @@ MonoBehaviour:
   id: 0
   experience: 100
   enemyData: {fileID: 196345577061169572, guid: 2af187f85a3832e4ab5a1dcfdf59c78a, type: 3}
-  priceTime: 10
+  priceTime: 15
   lootItems:
   - {fileID: 11400000, guid: c08704e06ab94ca4ca7e0db6f6f298b2, type: 2}
-  - {fileID: 11400000, guid: d710442e60159db48af8194dceac0679, type: 2}
   - {fileID: 11400000, guid: 2b13afc6ab525a84d827e9f5efd51147, type: 2}
+  - {fileID: 11400000, guid: e11097b93e583ed419966f2e28aba2e6, type: 2}
+  - {fileID: 11400000, guid: 34e54a1d5d4da8d468137ae57df34316, type: 2}
+  - {fileID: 11400000, guid: d6dbf507aadcce9408e99bf53938356d, type: 2}

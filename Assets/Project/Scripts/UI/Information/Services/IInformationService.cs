@@ -1,4 +1,6 @@
-﻿using UndergroundFortress.Core.Progress;
+﻿using System;
+
+using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Core.Services;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.StaticData;
@@ -16,5 +18,7 @@ namespace UndergroundFortress.UI.Information.Services
         public void ShowPurchase(CellPurchaseView cellPurchase);
         public void ShowEquipmentComparison(ItemData equipmentData1, ItemData equipmentData2);
         public void ShowWarning(string text);
+        public void UpdateBonusOffer(BonusData bonusData, Action onBonusActivate);
+        public void ShowBonusOffer();
     }
 }

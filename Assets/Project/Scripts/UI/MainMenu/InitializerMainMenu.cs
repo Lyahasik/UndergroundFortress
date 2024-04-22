@@ -2,11 +2,13 @@
 
 using UndergroundFortress.Core.Services;
 using UndergroundFortress.Core.Services.Ads;
+using UndergroundFortress.Core.Services.Bonuses;
 using UndergroundFortress.Core.Services.Characters;
 using UndergroundFortress.Core.Services.Factories.UI;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.Scene;
 using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Core.Update;
 using UndergroundFortress.Gameplay.Character.Services;
 using UndergroundFortress.Gameplay.Craft.Services;
 using UndergroundFortress.Gameplay.Inventory.Services;
@@ -14,6 +16,7 @@ using UndergroundFortress.Gameplay.Inventory.Wallet.Services;
 using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.Gameplay.Shop;
 using UndergroundFortress.Gameplay.Skills.Services;
+using UndergroundFortress.Gameplay.Stats.Services;
 using UndergroundFortress.UI.Craft;
 using UndergroundFortress.UI.Information;
 using UndergroundFortress.UI.Information.Services;
@@ -48,15 +51,19 @@ namespace UndergroundFortress.UI.MainMenu
             _progressProviderService = progressProviderService;
         }
 
-        public void Initialize(IProcessingPlayerStatsService processingPlayerStatsService,
+        public void Initialize(UpdateHandler updateHandler,
+            IProcessingPlayerStatsService processingPlayerStatsService,
             IPlayerDressingService playerDressingService,
-            ISceneProviderService sceneProviderService) 
+            ISceneProviderService sceneProviderService,
+            IStatsRestorationService statsRestorationService) 
         {
-            RegisterServices(playerDressingService);
+            RegisterServices(updateHandler, playerDressingService, statsRestorationService);
             CreateMainMenu(processingPlayerStatsService, sceneProviderService);
         }
         
-        private void RegisterServices(IPlayerDressingService playerDressingService)
+        private void RegisterServices(UpdateHandler updateHandler,
+            IPlayerDressingService playerDressingService,
+            IStatsRestorationService statsRestorationService)
         {
             _mainMenuServicesContainer = new ServicesContainer();
             
@@ -82,11 +89,24 @@ namespace UndergroundFortress.UI.MainMenu
                     _staticDataService,
                     _mainMenuServicesContainer.Single<IInventoryService>()
                     ));
-            
+
+            RegisterProcessingBonusesService(updateHandler);
+            statsRestorationService.ProcessingBonusesService = _mainMenuServicesContainer.Single<IProcessingBonusesService>();
+
             _mainMenuServicesContainer.Register<ICraftService>(
                 new CraftService(
                     _mainMenuServicesContainer.Single<IInventoryService>(),
                     _mainMenuServicesContainer.Single<IItemsGeneratorService>()));
+        }
+
+        private void RegisterProcessingBonusesService(UpdateHandler updateHandler)
+        {
+            ProcessingBonusesService processingBonusesService = new ProcessingBonusesService(
+                _staticDataService,
+                _progressProviderService,
+                _mainMenuServicesContainer.Single<IItemsGeneratorService>());
+            updateHandler.AddUpdatedObject(processingBonusesService);
+            _mainMenuServicesContainer.Register<IProcessingBonusesService>(processingBonusesService);
         }
 
         private void RegisterSkillsUpgradeService()
@@ -186,18 +206,23 @@ namespace UndergroundFortress.UI.MainMenu
                 sceneProviderService, 
                 _mainMenuServicesContainer.Single<IItemsGeneratorService>(),
                 _mainMenuServicesContainer.Single<IInventoryService>(),
-                _mainMenuServicesContainer.Single<ISkillsUpgradeService>());
+                _mainMenuServicesContainer.Single<ISkillsUpgradeService>(),
+                _mainMenuServicesContainer.Single<IProcessingBonusesService>());
             startLevel.Initialize(_staticDataService, _progressProviderService);
 
             MainMenuView mainMenu = _uiFactory.CreateMainMenu();
-            mainMenu.Construct(_mainMenuServicesContainer.Single<IItemsGeneratorService>(),
+            mainMenu.Construct(
+                _uiFactory,
+                _mainMenuServicesContainer.Single<IInformationService>(),
+                _mainMenuServicesContainer.Single<IItemsGeneratorService>(),
                 _mainMenuServicesContainer.Single<IActivationRecipesService>());
             mainMenu.Initialize(home, skills, craft, inventory, shop, startLevel, _staticDataService, _progressProviderService);
             
             mainMenu.PlayerHealthFill.Subscribe(processingPlayerStatsService.PlayerStats);
             
             InformationView information = _uiFactory.CreateInformation();
-            information.Initialize(_staticDataService, 
+            information.Initialize(_staticDataService,
+                _processingAdsService,
                 _progressProviderService,
                 _mainMenuServicesContainer.Single<ISkillsUpgradeService>(), 
                 _mainMenuServicesContainer.Single<IItemsGeneratorService>(),
@@ -209,6 +234,8 @@ namespace UndergroundFortress.UI.MainMenu
             movingItemService.Initialize(information.CellItemView);
             movingItemService.Subscribe(inventory.BagActiveArea);
             movingItemService.Subscribe(inventory.EquipmentActiveArea);
+            
+            _mainMenuServicesContainer.Single<IProcessingBonusesService>().Initialize(mainMenu);
         }
         
         private void ClearMainMenuServices()

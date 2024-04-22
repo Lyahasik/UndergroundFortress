@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Chest2_Data
   m_EditorClassIdentifier: 
   id: 5
-  type: 6
-  maxLevel: 10
-  name: '@chest2'
   icon: {fileID: 21300000, guid: 786846d173ed0fc45917424a25cbab94, type: 3}
+  type: 6
+  priceTime: 0
+  probabilityWeight: 0
+  maxLevel: 10
+  name: '@Chest2'
   maxNumberForCell: 1
   typeStat: 41
   qualityValues:

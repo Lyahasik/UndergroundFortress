@@ -12,5 +12,6 @@ namespace UndergroundFortress.Core.Services.Progress
         public void Unregister(IReadingProgress progressReader);
         public void Unregister(IWritingProgress progressWriter);
         public void ResetActiveSkills();
+        public void WasChange();
     }
 }

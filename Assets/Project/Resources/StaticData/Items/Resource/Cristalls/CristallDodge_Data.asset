@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: CristallDodge_Data
   m_EditorClassIdentifier: 
   id: 1007
-  type: 21
-  name: '@dodge_crystal'
-  description: '@dodge_crystal_description'
+  icon: {fileID: 21300000, guid: ba772b2fdbd41814b8aee648fef76c37, type: 3}
+  type: 0
+  priceTime: 500
+  probabilityWeight: 25
+  name: '@CrystalDodge'
+  description: '@CrystalDodgeDescription'
   quality: 4
-  icon: {fileID: 21300000, guid: f2341ac386290414eb847effb366ed21, type: 3}
-  priceTime: 0
   maxNumberForCell: 10

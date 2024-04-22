@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: CristallCrit_Data
   m_EditorClassIdentifier: 
   id: 1006
-  type: 22
-  name: '@crit_crystal'
-  description: '@crit_crystal_description'
+  icon: {fileID: 21300000, guid: 2fcab374df852a841b1aa72e7d9ccfb2, type: 3}
+  type: 0
+  priceTime: 500
+  probabilityWeight: 25
+  name: '@CrystalCrit'
+  description: '@CrystalCritDescription'
   quality: 4
-  icon: {fileID: 21300000, guid: 748df0c1d8144a048bffd474eabeb74a, type: 3}
-  priceTime: 0
   maxNumberForCell: 10

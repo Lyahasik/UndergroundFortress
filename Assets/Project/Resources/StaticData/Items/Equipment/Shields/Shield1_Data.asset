@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Shield1_Data
   m_EditorClassIdentifier: 
   id: 20
-  type: 5
-  maxLevel: 10
-  name: '@shield1'
   icon: {fileID: 21300000, guid: 6ed206268e8b74d468adf4b4bdd5354e, type: 3}
+  type: 5
+  priceTime: 0
+  probabilityWeight: 0
+  maxLevel: 10
+  name: '@Shield1'
   maxNumberForCell: 1
   typeStat: 73
   qualityValues:

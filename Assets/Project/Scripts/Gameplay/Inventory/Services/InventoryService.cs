@@ -110,7 +110,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                                           && cellData.Number < _staticDataService.GetItemMaxNumberForCellById(cellData.ItemData.Id));
             foreach (ItemNumberData purchaseNumberData in purchasesNumberData)
             {
-                var itemStaticData = _staticDataService.GetItemById(purchaseNumberData.itemId);
+                var itemStaticData = _staticDataService.GetItemById(purchaseNumberData.itemData.id);
                 
                 if (itemStaticData.type.IsEquipment())
                 {
@@ -119,16 +119,16 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                 }
                 
                 int numberItem = purchaseNumberData.number;
-                if (partiallyFilledCells.All(data => data.ItemData.Id != purchaseNumberData.itemId))
+                if (partiallyFilledCells.All(data => data.ItemData.Id != purchaseNumberData.itemData.id))
                 {
-                    requiredCells = IncrementRequiredCells(purchaseNumberData.itemId, requiredCells, numberItem);
+                    requiredCells = IncrementRequiredCells(purchaseNumberData.itemData.id, requiredCells, numberItem);
                     continue;
                 }
 
                 partiallyFilledCells.ForEach(data =>
                 {
                     if (numberItem > 0
-                        && data.ItemData.Id == purchaseNumberData.itemId)
+                        && data.ItemData.Id == purchaseNumberData.itemData.id)
                         numberItem -= _staticDataService.GetItemMaxNumberForCellById(data.ItemData.Id) - data.Number;
                 });
 
@@ -138,7 +138,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                     return true;
                 }
 
-                requiredCells = IncrementRequiredCells(purchaseNumberData.itemId, requiredCells, numberItem);
+                requiredCells = IncrementRequiredCells(purchaseNumberData.itemData.id, requiredCells, numberItem);
             }
 
             bool isFull = requiredCells > GetNumberEmptyCells();

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+using UndergroundFortress.Core.Services.Bonuses;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.Scene;
 using UndergroundFortress.Core.Services.StaticData;
@@ -21,18 +22,21 @@ namespace UndergroundFortress.UI.MainMenu
         private IItemsGeneratorService _itemsGeneratorService;
         private IInventoryService _inventoryService;
         private ISkillsUpgradeService _skillsUpgradeService;
+        private IProcessingBonusesService _processingBonusesService;
 
         private int _selectedDungeonId;
 
         public void Construct(ISceneProviderService sceneProviderService,
             IItemsGeneratorService itemsGeneratorService,
             IInventoryService inventoryService,
-            ISkillsUpgradeService skillsUpgradeService)
+            ISkillsUpgradeService skillsUpgradeService,
+            IProcessingBonusesService processingBonusesService)
         {
             _sceneProviderService = sceneProviderService;
             _itemsGeneratorService = itemsGeneratorService;
             _inventoryService = inventoryService;
             _skillsUpgradeService = skillsUpgradeService;
+            _processingBonusesService = processingBonusesService;
         }
 
         public void Initialize(IStaticDataService staticDataService,
@@ -66,6 +70,7 @@ namespace UndergroundFortress.UI.MainMenu
                 _itemsGeneratorService,
                 _inventoryService,
                 _skillsUpgradeService,
+                _processingBonusesService,
                 _selectedDungeonId,
                 idLevel);
             

@@ -19,6 +19,7 @@ namespace UndergroundFortress.Constants
         public const string RESOURCES_DATA_PATH = "StaticData/Items/Resource";
         public const string EQUIPMENTS_DATA_PATH = "StaticData/Items/Equipment";
         public const string RECIPES_DATA_PATH = "StaticData/Recipes";
+        public const string BONUSES_DATA_PATH = "StaticData/Bonuses/BonusesData";
         
         public const string PURCHASES_MONEY1_DATA_PATH = "StaticData/Purchases/Money1";
         public const string PURCHASES_MONEY2_DATA_PATH = "StaticData/Purchases/Money2";

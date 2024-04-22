@@ -20,3 +20,4 @@ MonoBehaviour:
   inventoryViewPrefab: {fileID: 3123479720991398716, guid: b8c703003f9ef19468f130e0297b02c6, type: 3}
   shopViewPrefab: {fileID: 7189956399880035136, guid: b84c5bc47ae1e2048ba1c0b5f8ac101a, type: 3}
   startLevelViewPrefab: {fileID: 2907022837834252587, guid: b8ed2ff33f553e640a97c4e9c03d4944, type: 3}
+  buffViewPrefab: {fileID: 1785918049564830561, guid: d7b4b0b5940c42a4da33efba71afee40, type: 3}

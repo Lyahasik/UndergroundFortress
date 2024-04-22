@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Gloves3_Data
   m_EditorClassIdentifier: 
   id: 12
-  type: 9
-  maxLevel: 15
-  name: '@gloves3'
   icon: {fileID: 21300000, guid: c52765f67daf4984090709ba99bd9f39, type: 3}
+  type: 9
+  priceTime: 0
+  probabilityWeight: 0
+  maxLevel: 15
+  name: '@Gloves3'
   maxNumberForCell: 1
   typeStat: 41
   qualityValues:

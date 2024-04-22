@@ -3,8 +3,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-using UndergroundFortress.Constants;
-
 namespace UndergroundFortress.UI.Inventory
 {
     [RequireComponent(typeof(Button))]
@@ -21,7 +19,7 @@ namespace UndergroundFortress.UI.Inventory
         
         public void UpdateText(bool isAds)
         {
-            text.text = isAds ? ConstantValues.LOCALE_ADS : ConstantValues.LOCALE_BUY;
+            // text.text = isAds ? ConstantValues.LOCALE_ADS : ConstantValues.LOCALE_BUY;
         }
     }
 }

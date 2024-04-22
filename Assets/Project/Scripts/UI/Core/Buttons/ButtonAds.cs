@@ -17,6 +17,8 @@ namespace UndergroundFortress.UI.Core.Buttons
 
         private Action _onReward;
 
+        public Button Button => button;
+
         public void Construct(IProcessingAdsService processingAdsService)
         {
             _processingAdsService = processingAdsService;
@@ -29,6 +31,12 @@ namespace UndergroundFortress.UI.Core.Buttons
             button.onClick.AddListener(ShowAds);
             
             Subscribe();
+        }
+
+        public void UpdateRewardData(Action onReward, int newRewardId)
+        {
+            _onReward = onReward;
+            rewardId = newRewardId;
         }
 
         private void OnDestroy()

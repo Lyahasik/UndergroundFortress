@@ -30,12 +30,13 @@ namespace UndergroundFortress.Core.Services.StaticData
         private List<ResourceStaticData> _resources;
         private List<EquipmentStaticData> _equipments;
         private List<RecipeStaticData> _recipes;
-        
+        private BonusesStaticData _bonuses;
+
         private List<PurchaseStaticData> _purchasesMoney1;
         private List<PurchaseStaticData> _purchasesMoney2;
         private List<PurchaseStaticData> _purchasesMoney3;
         private List<PurchaseStaticData> _purchasesAds;
-        
+
         private List<DungeonStaticData> _dungeons;
 
         public void Load()
@@ -75,6 +76,8 @@ namespace UndergroundFortress.Core.Services.StaticData
             _recipes = Resources
                 .LoadAll<RecipeStaticData>(ConstantPaths.RECIPES_DATA_PATH)
                 .ToList();
+            _bonuses = Resources
+                .Load<BonusesStaticData>(ConstantPaths.BONUSES_DATA_PATH);
             
             _purchasesMoney1 = Resources
                 .LoadAll<PurchaseStaticData>(ConstantPaths.PURCHASES_MONEY1_DATA_PATH)
@@ -254,5 +257,8 @@ namespace UndergroundFortress.Core.Services.StaticData
 
         public DungeonStaticData GetDungeonById(int id) => 
             _dungeons.Find(data => data.id == id);
+
+        public BonusesStaticData ForBonuses() => 
+            _bonuses;
     }
 }

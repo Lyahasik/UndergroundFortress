@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Resource2_Data
   m_EditorClassIdentifier: 
   id: 1001
+  icon: {fileID: 21300000, guid: 02c008da7cb5e8d4aaf034b9c5846b08, type: 3}
   type: 20
-  name: Name2
-  description: 
+  priceTime: 5
+  probabilityWeight: 100
+  name: '@MetalFragment'
+  description: '@MetalFragmentDescription'
   quality: 1
-  icon: {fileID: 21300000, guid: f9cb10425f8122d4290453091c029ed4, type: 3}
-  priceTime: 10
   maxNumberForCell: 99

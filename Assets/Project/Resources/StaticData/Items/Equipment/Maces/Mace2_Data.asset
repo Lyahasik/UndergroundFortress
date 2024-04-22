@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Mace2_Data
   m_EditorClassIdentifier: 
   id: 15
-  type: 4
-  maxLevel: 15
-  name: '@mace2'
   icon: {fileID: 21300000, guid: 3f96e3311d253b74899403498e093bc9, type: 3}
+  type: 4
+  priceTime: 0
+  probabilityWeight: 0
+  maxLevel: 15
+  name: '@Mace2'
   maxNumberForCell: 1
   typeStat: 31
   qualityValues:

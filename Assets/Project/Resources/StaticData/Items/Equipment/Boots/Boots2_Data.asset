@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Boots2_Data
   m_EditorClassIdentifier: 
   id: 1
-  type: 8
-  maxLevel: 10
-  name: '@boots2'
   icon: {fileID: 21300000, guid: 52e50cb6b20a74d4494dc86de203ba37, type: 3}
+  type: 8
+  priceTime: 0
+  probabilityWeight: 0
+  maxLevel: 10
+  name: '@Boots2'
   maxNumberForCell: 1
   typeStat: 41
   qualityValues:

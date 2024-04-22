@@ -11,6 +11,7 @@ using UndergroundFortress.Core.Services.GameStateMachine.States;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.Scene;
 using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Core.Update;
 using UndergroundFortress.Gameplay.Character.Services;
 using UndergroundFortress.Gameplay.Player.Level.Services;
 using UndergroundFortress.Gameplay.Stats.Services;
@@ -21,6 +22,7 @@ namespace UndergroundFortress.Core.Initialize
     public class InitializerGame : MonoBehaviour
     {
         [SerializeField] private LoadingCurtain curtainPrefab;
+        [SerializeField] private UpdateHandler updateHandlerPrefab;
         [SerializeField] private StatsRestorationHandler statsRestorationHandlerPrefab;
 
         private ServicesContainer _servicesContainer;
@@ -35,12 +37,14 @@ namespace UndergroundFortress.Core.Initialize
         {
             _servicesContainer = new ServicesContainer();
 
+            UpdateHandler updateHandler = CreateUpdateHandler();
+
             RegisterStaticDataService();
             _servicesContainer.Register<IProcessingAdsService>(new ProcessingAdsService());
 
             GameStateMachine gameStateMachine = new GameStateMachine();
             
-            RegisterProgressProviderService(gameStateMachine);
+            RegisterProgressProviderService(gameStateMachine, updateHandler);
             RegisterStatsRestorationService();
             RegisterProcessingPlayerStatsService();
             RegisterPlayerUpdateLevelService();
@@ -58,6 +62,7 @@ namespace UndergroundFortress.Core.Initialize
             _servicesContainer.Register<ISceneProviderService>(
                 new SceneProviderService(
                     gameStateMachine,
+                    updateHandler,
                     _servicesContainer.Single<IUIFactory>(),
                     _servicesContainer.Single<IGameplayFactory>(),
                     _servicesContainer.Single<IStaticDataService>(),
@@ -81,6 +86,9 @@ namespace UndergroundFortress.Core.Initialize
             
             DontDestroyOnLoad(gameData);
         }
+
+        private UpdateHandler CreateUpdateHandler() => 
+            Instantiate(updateHandlerPrefab);
 
         private void RegisterStaticDataService()
         {
@@ -107,13 +115,13 @@ namespace UndergroundFortress.Core.Initialize
             _servicesContainer.Register<IStatsRestorationService>(statsRestorationService);
         }
 
-        private void RegisterProgressProviderService(GameStateMachine gameStateMachine)
+        private void RegisterProgressProviderService(GameStateMachine gameStateMachine, UpdateHandler updateHandler)
         {
             var service = new ProgressProviderService(
                 _servicesContainer.Single<IStaticDataService>(),
                 gameStateMachine);
             
-            service.Initialization();
+            service.Initialization(updateHandler);
             
             _servicesContainer.Register<IProgressProviderService>(service);
         }

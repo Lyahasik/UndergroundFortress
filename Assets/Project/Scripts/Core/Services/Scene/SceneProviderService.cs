@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 using UndergroundFortress.Constants;
 using UndergroundFortress.Core.Services.Ads;
+using UndergroundFortress.Core.Services.Bonuses;
 using UndergroundFortress.Core.Services.Characters;
 using UndergroundFortress.Core.Services.Factories.Gameplay;
 using UndergroundFortress.Core.Services.Factories.UI;
@@ -11,6 +12,7 @@ using UndergroundFortress.Core.Services.GameStateMachine;
 using UndergroundFortress.Core.Services.GameStateMachine.States;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Core.Update;
 using UndergroundFortress.Gameplay;
 using UndergroundFortress.Gameplay.Character.Services;
 using UndergroundFortress.Gameplay.Inventory.Services;
@@ -25,6 +27,7 @@ namespace UndergroundFortress.Core.Services.Scene
     public class SceneProviderService : ISceneProviderService
     {
         private readonly IGameStateMachine _gameStateMachine;
+        private readonly UpdateHandler _updateHandler;
         private readonly IUIFactory _uiFactory;
         private readonly IGameplayFactory _gameplayFactory;
         private readonly IStaticDataService _staticDataService;
@@ -38,6 +41,7 @@ namespace UndergroundFortress.Core.Services.Scene
         private IItemsGeneratorService _itemsGeneratorService;
         private IInventoryService _inventoryService;
         private ISkillsUpgradeService _skillsUpgradeService;
+        private IProcessingBonusesService _processingBonusesService;
 
         private string _nameNewActiveScene;
 
@@ -47,6 +51,7 @@ namespace UndergroundFortress.Core.Services.Scene
         private int _currentLevelId;
 
         public SceneProviderService(IGameStateMachine gameStateMachine,
+            UpdateHandler updateHandler,
             IUIFactory uiFactory,
             IGameplayFactory gameplayFactory,
             IStaticDataService staticDataService,
@@ -58,6 +63,7 @@ namespace UndergroundFortress.Core.Services.Scene
             IStatsRestorationService statsRestorationService)
         {
             _gameStateMachine = gameStateMachine;
+            _updateHandler = updateHandler;
             _uiFactory = uiFactory;
             _gameplayFactory = gameplayFactory;
             _staticDataService = staticDataService;
@@ -87,11 +93,13 @@ namespace UndergroundFortress.Core.Services.Scene
         public void LoadLevel(IItemsGeneratorService itemsGeneratorService,
             IInventoryService inventoryService,
             ISkillsUpgradeService skillsUpgradeService,
+            IProcessingBonusesService processingBonusesService,
             int idDungeon, int idLevel)
         {
             _itemsGeneratorService = itemsGeneratorService;
             _inventoryService = inventoryService;
             _skillsUpgradeService = skillsUpgradeService;
+            _processingBonusesService = processingBonusesService;
             _currentDungeonId = idDungeon;
             _currentLevelId = idLevel;
             
@@ -126,7 +134,12 @@ namespace UndergroundFortress.Core.Services.Scene
                 InitializerMainMenu initializerMainMenu = new GameObject().AddComponent<InitializerMainMenu>();
                 initializerMainMenu.name = nameof(InitializerMainMenu);
                 initializerMainMenu.Construct(_staticDataService, _processingAdsService, _uiFactory, _progressProviderService);
-                initializerMainMenu.Initialize(_processingPlayerStatsService, _playerDressingService, this);
+                initializerMainMenu.Initialize(
+                    _updateHandler,
+                    _processingPlayerStatsService,
+                    _playerDressingService, 
+                    this,
+                    _statsRestorationService);
             }
             
             Debug.Log("Main scene loaded.");
@@ -154,6 +167,7 @@ namespace UndergroundFortress.Core.Services.Scene
                 _inventoryService.WalletOperationService,
                 _playerUpdateLevelService,
                 _skillsUpgradeService,
+                _processingBonusesService,
                 _currentDungeonId,
                 _currentLevelId);
 

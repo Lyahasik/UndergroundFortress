@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: CountedItem1_Data
   m_EditorClassIdentifier: 
   id: 1003
-  icon: {fileID: 21300000, guid: 2995e8b42f2570f4b8f662b92a63ebe4, type: 3}
+  icon: {fileID: 21300000, guid: 5c268ff265fa7a741880d1318f6f074a, type: 3}
   type: 200
-  priceTime: 0
+  priceTime: 60
   probabilityWeight: 0
-  name: Name1
-  description: 
+  name: '@PotionHealth'
+  description: '@PotionHealthDescription'
   quality: 2
   maxNumberForCell: 99
   consumableType: 1
