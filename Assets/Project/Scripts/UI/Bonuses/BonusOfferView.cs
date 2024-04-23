@@ -24,7 +24,6 @@ namespace UndergroundFortress.UI.Bonuses
             confirmButton.Construct(processingAdsService);
             confirmButton.Initialize(null);
             confirmButton.Button.onClick.AddListener(onClose);
-            
         }
 
         public void Show()

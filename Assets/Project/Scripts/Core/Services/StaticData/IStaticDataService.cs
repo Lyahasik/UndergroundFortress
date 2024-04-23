@@ -38,5 +38,6 @@ namespace UndergroundFortress.Core.Services.StaticData
         public List<DungeonStaticData> ForDungeons();
         public DungeonStaticData GetDungeonById(int id);
         public BonusesStaticData ForBonuses();
+        public RewardsStaticData ForRewards();
     }
 }

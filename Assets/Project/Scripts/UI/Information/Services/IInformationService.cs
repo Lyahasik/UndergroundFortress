@@ -20,5 +20,7 @@ namespace UndergroundFortress.UI.Information.Services
         public void ShowWarning(string text);
         public void UpdateBonusOffer(BonusData bonusData, Action onBonusActivate);
         public void ShowBonusOffer();
+        public void UpdateAccumulatedReward(RewardsData rewardsData);
+        public void ShowAccumulatedReward();
     }
 }

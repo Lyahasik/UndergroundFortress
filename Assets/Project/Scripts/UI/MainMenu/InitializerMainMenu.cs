@@ -6,6 +6,7 @@ using UndergroundFortress.Core.Services.Bonuses;
 using UndergroundFortress.Core.Services.Characters;
 using UndergroundFortress.Core.Services.Factories.UI;
 using UndergroundFortress.Core.Services.Progress;
+using UndergroundFortress.Core.Services.Rewards;
 using UndergroundFortress.Core.Services.Scene;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Core.Update;
@@ -55,10 +56,11 @@ namespace UndergroundFortress.UI.MainMenu
             IProcessingPlayerStatsService processingPlayerStatsService,
             IPlayerDressingService playerDressingService,
             ISceneProviderService sceneProviderService,
-            IStatsRestorationService statsRestorationService) 
+            IStatsRestorationService statsRestorationService,
+            IAccumulationRewardsService accumulationRewardsService) 
         {
             RegisterServices(updateHandler, playerDressingService, statsRestorationService);
-            CreateMainMenu(processingPlayerStatsService, sceneProviderService);
+            CreateMainMenu(processingPlayerStatsService, sceneProviderService, accumulationRewardsService);
         }
         
         private void RegisterServices(UpdateHandler updateHandler,
@@ -167,7 +169,8 @@ namespace UndergroundFortress.UI.MainMenu
         }
 
         private void CreateMainMenu(IProcessingPlayerStatsService processingPlayerStatsService,
-            ISceneProviderService sceneProviderService)
+            ISceneProviderService sceneProviderService,
+            IAccumulationRewardsService accumulationRewardsService)
         {
             HomeView home = _uiFactory.CreateHome();
             home.Construct(processingPlayerStatsService);
@@ -228,8 +231,13 @@ namespace UndergroundFortress.UI.MainMenu
                 _mainMenuServicesContainer.Single<ISkillsUpgradeService>(), 
                 _mainMenuServicesContainer.Single<IItemsGeneratorService>(),
                 _mainMenuServicesContainer.Single<IInventoryService>(),
-                _mainMenuServicesContainer.Single<IShoppingService>());
+                _mainMenuServicesContainer.Single<IShoppingService>(),
+                accumulationRewardsService);
             _mainMenuServicesContainer.Single<IInformationService>().Initialize(information);
+            
+            accumulationRewardsService.Initialize(
+                _mainMenuServicesContainer.Single<IInventoryService>(),
+                mainMenu);
             
             IMovingItemService movingItemService = _mainMenuServicesContainer.Single<IMovingItemService>();
             movingItemService.Initialize(information.CellItemView);

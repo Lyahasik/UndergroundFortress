@@ -25,6 +25,7 @@ namespace UndergroundFortress.Core.Progress
         public int FilledNumberBag;
 
         public Dictionary<BonusType, float> BonusesLifetime;
+        public RewardsData RewardsData;
 
         public Dictionary<int, HashSet<int>> Dungeons;
     }

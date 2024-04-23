@@ -9,6 +9,7 @@ using UndergroundFortress.Core.Services.Factories.UI;
 using UndergroundFortress.Core.Services.GameStateMachine;
 using UndergroundFortress.Core.Services.GameStateMachine.States;
 using UndergroundFortress.Core.Services.Progress;
+using UndergroundFortress.Core.Services.Rewards;
 using UndergroundFortress.Core.Services.Scene;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Core.Update;
@@ -49,6 +50,8 @@ namespace UndergroundFortress.Core.Initialize
             RegisterProcessingPlayerStatsService();
             RegisterPlayerUpdateLevelService();
             
+            RegisterAccumulationRewardsService(updateHandler);
+
             _servicesContainer.Register<IPlayerDressingService>(
                 new PlayerDressingService(_servicesContainer.Single<IProcessingPlayerStatsService>()));
             
@@ -71,7 +74,8 @@ namespace UndergroundFortress.Core.Initialize
                     _servicesContainer.Single<IProcessingPlayerStatsService>(),
                     _servicesContainer.Single<IPlayerUpdateLevelService>(),
                     _servicesContainer.Single<IPlayerDressingService>(),
-                    _servicesContainer.Single<IStatsRestorationService>()));
+                    _servicesContainer.Single<IStatsRestorationService>(),
+                    _servicesContainer.Single<IAccumulationRewardsService>()));
             
             LoadingCurtain curtain = CreateLoadingCurtain();
             CreateStatsRestorationHandler();
@@ -85,6 +89,15 @@ namespace UndergroundFortress.Core.Initialize
             _servicesContainer.Register<IGameStateMachine>(gameStateMachine);
             
             DontDestroyOnLoad(gameData);
+        }
+
+        private void RegisterAccumulationRewardsService(UpdateHandler updateHandler)
+        {
+            AccumulationRewardsService service = new AccumulationRewardsService(
+                _servicesContainer.Single<IStaticDataService>(),
+                _servicesContainer.Single<IProgressProviderService>());
+            _servicesContainer.Register<IAccumulationRewardsService>(service);
+            updateHandler.AddUpdatedObject(service);
         }
 
         private UpdateHandler CreateUpdateHandler() => 

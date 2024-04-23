@@ -6,6 +6,7 @@ using UndergroundFortress.Core.Services.Bonuses;
 using UndergroundFortress.Core.Services.Factories.UI;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Gameplay.Character;
 using UndergroundFortress.Gameplay.Craft.Services;
 using UndergroundFortress.Gameplay.StaticData;
@@ -29,6 +30,7 @@ namespace UndergroundFortress.UI.MainMenu
 
         [Space]
         [SerializeField] private BonusOfferButton offerButton;
+        [SerializeField] private AccumulatedRewardButton accumulatedRewardButton;
         [SerializeField] private GameObject listBuffs;
 
         private IUIFactory _uiFactory;
@@ -39,6 +41,7 @@ namespace UndergroundFortress.UI.MainMenu
         private WindowType _currentWindowType;
 
         private BonusData _bonusData;
+        private RewardsData _rewardsData;
 
         public CurrentStatFillView PlayerHealthFill => playerHealthFill;
 
@@ -78,9 +81,11 @@ namespace UndergroundFortress.UI.MainMenu
             amountSpaceBag.Register(progressProviderService);
             
             offerButton.Initialize(ShowBonusOffer);
+            accumulatedRewardButton.Initialize(ShowAccumulatedReward);
         }
 
         //TODO temporary
+
         private static int _idRecipeEquip;
 
         public void CreateRecipeEquip()
@@ -89,6 +94,7 @@ namespace UndergroundFortress.UI.MainMenu
         }
 
         //TODO temporary
+
         private static int _idRecipeResource = 1000;
 
         public void CreateRecipeResource()
@@ -105,11 +111,21 @@ namespace UndergroundFortress.UI.MainMenu
             
             if (offerButton.IsActive)
                 offerButton.gameObject.SetActive(_currentWindowType == WindowType.StartLevel);
-            if (_currentWindowType == WindowType.StartLevel
-                && _bonusData != null)
+            if (accumulatedRewardButton.IsActive)
+                accumulatedRewardButton.gameObject.SetActive(_currentWindowType == WindowType.StartLevel);
+            if (_currentWindowType == WindowType.StartLevel)
             {
-                offerButton.Activate(_bonusData.iconOffer, _bonusData.lifetimeOffer);
-                _bonusData = null;
+                if (_bonusData != null)
+                {
+                    offerButton.Activate(_bonusData.iconOffer, _bonusData.lifetimeOffer);
+                    _bonusData = null;
+                }
+                
+                if (_rewardsData != null)
+                {
+                    accumulatedRewardButton.Activate();
+                    _rewardsData = null;
+                }
             }
             
             listBuffs.SetActive(_currentWindowType == WindowType.StartLevel);
@@ -140,6 +156,26 @@ namespace UndergroundFortress.UI.MainMenu
         {
             offerButton.Deactivate();
             _informationService.ShowBonusOffer();
+        }
+
+        public void ActivateAccumulatedRewardButton(RewardsData rewardsData)
+        {
+            _rewardsData = rewardsData;
+            
+            _informationService.UpdateAccumulatedReward(_rewardsData);
+            
+            if (_currentWindowType != WindowType.StartLevel
+                && _currentWindowType != WindowType.Empty)
+                return;
+            
+            accumulatedRewardButton.Activate();
+            _rewardsData = null;
+        }
+
+        private void ShowAccumulatedReward()
+        {
+            accumulatedRewardButton.Deactivate();
+            _informationService.ShowAccumulatedReward();
         }
     }
 }

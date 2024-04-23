@@ -5,6 +5,7 @@ using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Core.Services.Ads;
 using UndergroundFortress.Core.Services.Progress;
+using UndergroundFortress.Core.Services.Rewards;
 using UndergroundFortress.Extensions;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
@@ -45,6 +46,7 @@ namespace UndergroundFortress.UI.Information
 
         [Space]
         [SerializeField] private BonusOfferView bonusOfferView;
+        [SerializeField] private AccumulatedRewardView accumulatedRewardView;
 
         [Space]
         [SerializeField] private CellItemView cellItemView;
@@ -62,7 +64,8 @@ namespace UndergroundFortress.UI.Information
             ISkillsUpgradeService skillsUpgradeService,
             IItemsGeneratorService itemsGeneratorService,
             IInventoryService inventoryService,
-            IShoppingService shoppingService)
+            IShoppingService shoppingService,
+            IAccumulationRewardsService accumulationRewardsService)
         {
             skillView.Construct(staticDataService, skillsUpgradeService);
             skillView.Initialize(CloseView);
@@ -94,6 +97,9 @@ namespace UndergroundFortress.UI.Information
             purchaseRewardItemsView.Initialize(CloseView);
             
             bonusOfferView.Initialize(processingAdsService, CloseView);
+            
+            accumulatedRewardView.Construct(accumulationRewardsService);
+            accumulatedRewardView.Initialize(CloseView);
         }
 
         public void ShowSkill(SkillsType skillsType, SkillData skillData, bool isCanUpgrade, ProgressSkillData progressSkillData = null)
@@ -153,6 +159,7 @@ namespace UndergroundFortress.UI.Information
             purchaseRewardItemsView.Hide();
             
             bonusOfferView.Hide();
+            accumulatedRewardView.Hide();
             
             warningPrompt.Hide();
         }
@@ -201,6 +208,18 @@ namespace UndergroundFortress.UI.Information
             CapActivate();
 
             bonusOfferView.Show();
+        }
+
+        public void UpdateAccumulatedReward(RewardsData rewardsData)
+        {
+            accumulatedRewardView.UpdateValues(rewardsData);
+        }
+
+        public void ShowAccumulatedReward()
+        {
+            CapActivate();
+
+            accumulatedRewardView.Show();
         }
 
         private void CapActivate()

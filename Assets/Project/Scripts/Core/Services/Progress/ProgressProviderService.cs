@@ -167,6 +167,7 @@ namespace UndergroundFortress.Core.Services.Progress
                 FilledNumberBag = 0,
                 
                 BonusesLifetime = new Dictionary<BonusType, float>(),
+                RewardsData = new RewardsData(),
                 
                 Dungeons = new Dictionary<int, HashSet<int>> { { 0, new HashSet<int> { 0 } } }
             };

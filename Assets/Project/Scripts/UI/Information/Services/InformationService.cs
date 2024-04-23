@@ -64,5 +64,15 @@ namespace UndergroundFortress.UI.Information.Services
         {
             _informationView.ShowBonusOffer();
         }
+
+        public void UpdateAccumulatedReward(RewardsData rewardsData)
+        {
+            _informationView.UpdateAccumulatedReward(rewardsData);
+        }
+
+        public void ShowAccumulatedReward()
+        {
+            _informationView.ShowAccumulatedReward();
+        }
     }
 }

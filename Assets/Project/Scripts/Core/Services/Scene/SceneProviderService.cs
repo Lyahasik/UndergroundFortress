@@ -11,6 +11,7 @@ using UndergroundFortress.Core.Services.Factories.UI;
 using UndergroundFortress.Core.Services.GameStateMachine;
 using UndergroundFortress.Core.Services.GameStateMachine.States;
 using UndergroundFortress.Core.Services.Progress;
+using UndergroundFortress.Core.Services.Rewards;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Core.Update;
 using UndergroundFortress.Gameplay;
@@ -37,6 +38,7 @@ namespace UndergroundFortress.Core.Services.Scene
         private readonly IPlayerUpdateLevelService _playerUpdateLevelService;
         private readonly IPlayerDressingService _playerDressingService;
         private readonly IStatsRestorationService _statsRestorationService;
+        private readonly IAccumulationRewardsService _accumulationRewardsService;
 
         private IItemsGeneratorService _itemsGeneratorService;
         private IInventoryService _inventoryService;
@@ -60,7 +62,8 @@ namespace UndergroundFortress.Core.Services.Scene
             IProcessingPlayerStatsService processingPlayerStatsService,
             IPlayerUpdateLevelService playerUpdateLevelService,
             IPlayerDressingService playerDressingService,
-            IStatsRestorationService statsRestorationService)
+            IStatsRestorationService statsRestorationService,
+            IAccumulationRewardsService accumulationRewardsService)
         {
             _gameStateMachine = gameStateMachine;
             _updateHandler = updateHandler;
@@ -73,6 +76,7 @@ namespace UndergroundFortress.Core.Services.Scene
             _playerUpdateLevelService = playerUpdateLevelService;
             _playerDressingService = playerDressingService;
             _statsRestorationService = statsRestorationService;
+            _accumulationRewardsService = accumulationRewardsService;
         }
 
         public void LoadMainScene()
@@ -139,7 +143,8 @@ namespace UndergroundFortress.Core.Services.Scene
                     _processingPlayerStatsService,
                     _playerDressingService, 
                     this,
-                    _statsRestorationService);
+                    _statsRestorationService,
+                    _accumulationRewardsService);
             }
             
             Debug.Log("Main scene loaded.");
