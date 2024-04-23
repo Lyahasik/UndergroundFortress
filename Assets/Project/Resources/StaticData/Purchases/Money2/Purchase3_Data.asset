@@ -12,25 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea65408071fc4ac5b34f15fb01ba7ee3, type: 3}
   m_Name: Purchase3_Data
   m_EditorClassIdentifier: 
-  id: 3
-  icon: {fileID: 21300000, guid: 8d5cccff6c91a18408cfe329fafd9868, type: 3}
+  id: 4
+  icon: {fileID: 21300000, guid: ba772b2fdbd41814b8aee648fef76c37, type: 3}
   moneyType: 1
-  price: 10
+  price: 25
   dungeonIdUnlock: 2
   dungeonIdLock: 0
   rewardData:
-    nameReward: Purchase 4
+    nameReward: '@CrystalPurchase3'
     moneys: []
     items:
-    - itemId: 1000
-      number: 99
+    - itemData: {fileID: 11400000, guid: 16ae0a53385a78648a20fc1db9bb47de, type: 2}
+      number: 5
       level: 0
-      qualityType: 0
-    - itemId: 1001
-      number: 99
-      level: 0
-      qualityType: 0
-    - itemId: 1002
-      number: 99
-      level: 0
-      qualityType: 0
+      qualityType: 4

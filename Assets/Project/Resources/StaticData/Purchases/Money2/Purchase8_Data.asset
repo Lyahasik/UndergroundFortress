@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea65408071fc4ac5b34f15fb01ba7ee3, type: 3}
+  m_Name: Purchase8_Data
+  m_EditorClassIdentifier: 
+  id: 9
+  icon: {fileID: 21300000, guid: 79ef52c9a16a6a840986fedc784641b8, type: 3}
+  moneyType: 1
+  price: 15
+  dungeonIdUnlock: 1
+  dungeonIdLock: 0
+  rewardData:
+    nameReward: '@CrystalPurchase8'
+    moneys: []
+    items:
+    - itemData: {fileID: 11400000, guid: b006c276b984ccc40b731ab0921a14c3, type: 2}
+      number: 20
+      level: 0
+      qualityType: 1
+    - itemData: {fileID: 11400000, guid: 360131ca9cfa3f04ea27db6cd11fb083, type: 2}
+      number: 20
+      level: 0
+      qualityType: 1
+    - itemData: {fileID: 11400000, guid: 7eefea48b7137c64a83b26432128429e, type: 2}
+      number: 20
+      level: 0
+      qualityType: 1

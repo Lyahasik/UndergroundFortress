@@ -10,27 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ea65408071fc4ac5b34f15fb01ba7ee3, type: 3}
-  m_Name: Purchase0_Data
+  m_Name: Purchase7_Data
   m_EditorClassIdentifier: 
-  id: 0
-  icon: {fileID: 21300000, guid: c548daa1a817197458618f0f907ae106, type: 3}
-  moneyType: 1
-  price: 10
-  dungeonIdUnlock: 0
+  id: 10
+  icon: {fileID: 21300000, guid: 98988f0e06ae3254abadc877427b0294, type: 3}
+  moneyType: 3
+  price: 1
+  dungeonIdUnlock: 2
   dungeonIdLock: 0
   rewardData:
-    nameReward: Purchase 1
+    nameReward: '@AdsPurchase7'
     moneys: []
     items:
-    - itemId: 1000
-      number: 99
+    - itemData: {fileID: 11400000, guid: d2cc62756a5c4d84d9379c39b5a381da, type: 2}
+      number: 12
       level: 0
-      qualityType: 0
-    - itemId: 1001
-      number: 99
-      level: 0
-      qualityType: 0
-    - itemId: 1002
-      number: 99
-      level: 0
-      qualityType: 0
+      qualityType: 3
