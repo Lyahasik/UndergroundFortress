@@ -81,15 +81,19 @@ namespace UndergroundFortress.Core.Services.StaticData
             
             _purchasesMoney1 = Resources
                 .LoadAll<PurchaseStaticData>(ConstantPaths.PURCHASES_MONEY1_DATA_PATH)
+                .OrderBy(data => data.id)
                 .ToList();
             _purchasesMoney2 = Resources
                 .LoadAll<PurchaseStaticData>(ConstantPaths.PURCHASES_MONEY2_DATA_PATH)
+                .OrderBy(data => data.id)
                 .ToList();
             _purchasesMoney3 = Resources
                 .LoadAll<PurchaseStaticData>(ConstantPaths.PURCHASES_MONEY3_DATA_PATH)
+                .OrderBy(data => data.id)
                 .ToList();
             _purchasesAds = Resources
                 .LoadAll<PurchaseStaticData>(ConstantPaths.PURCHASES_ADS_DATA_PATH)
+                .OrderBy(data => data.id)
                 .ToList();
             
             _dungeons = Resources

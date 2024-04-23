@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 12
   icon: {fileID: 21300000, guid: 9376e2df4ed9d2e4fbc5098d0b413789, type: 3}
+  qualityType: 5
   moneyType: 2
   price: 60
   dungeonIdUnlock: 1

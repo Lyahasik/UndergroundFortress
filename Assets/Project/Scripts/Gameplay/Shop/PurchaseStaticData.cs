@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UndergroundFortress.Gameplay;
+using UnityEngine;
 
 namespace UndergroundFortress.UI.Inventory
 {
@@ -7,6 +8,7 @@ namespace UndergroundFortress.UI.Inventory
     {
         public int id;
         public Sprite icon;
+        public QualityType qualityType;
         public MoneyType moneyType;
         public float price;
 
