@@ -157,7 +157,8 @@ namespace UndergroundFortress.UI.Inventory
         private void HitInMovement(Vector3 position, ActiveArea activeArea, bool isDotInsideArea)
         {
             if (!_rect.IsDotInside(position)
-                || !isDotInsideArea && _parentArea == activeArea)
+                || !isDotInsideArea && _parentArea == activeArea
+                || isDotInsideArea && _parentArea != activeArea)
                 return;
             
             _movingItemService.AddItem(this, position);

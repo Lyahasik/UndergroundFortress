@@ -110,6 +110,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                 {
                     if (IsLeftHandItem(cellBag))
                     {
+                        _playerDressingService.PutOnAnItem(cellBag.ItemData);
                         _playerDressingService.RemoveAnItem(_leftHandCell.ItemData);
                         return Swap(equipment, bag, _leftHandCell, cellBag);
                     }
@@ -198,6 +199,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                 || !IsFilledCell(_rightHandCell))
             {
                 _playerDressingService.PutOnAnItem(cellBag.ItemData);
+                _playerDressingService.RemoveAnItem(_leftHandCell.ItemData);
                 return Swap(bag, equipment, cellBag, _leftHandCell);
             }
 
