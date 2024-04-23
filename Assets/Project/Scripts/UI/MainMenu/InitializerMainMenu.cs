@@ -120,7 +120,9 @@ namespace UndergroundFortress.UI.MainMenu
         private void RegisterWalletOperationService()
         {
             var service = new WalletOperationService();
-            service.Construct(_progressProviderService);
+            service.Construct(
+                _progressProviderService,
+                _mainMenuServicesContainer.Single<IInformationService>());
             service.Initialize();
             
             _mainMenuServicesContainer.Register<IWalletOperationService>(service);

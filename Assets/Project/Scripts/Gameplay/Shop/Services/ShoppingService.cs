@@ -38,9 +38,10 @@ namespace UndergroundFortress.Gameplay.Shop
 
         public void ShowPurchase(CellPurchaseView cellPurchase)
         {
-            if (_inventoryService.IsBagFullForItems(cellPurchase.PurchaseStaticData.rewardData.items))
+            if (!_inventoryService.WalletOperationService.IsEnoughMoney(cellPurchase.PurchaseStaticData.moneyType, cellPurchase.PurchaseStaticData.price)
+                || _inventoryService.IsBagFullForItems(cellPurchase.PurchaseStaticData.rewardData.items))
                 return;
-            
+
             _informationService.ShowPurchase(cellPurchase);
         }
 

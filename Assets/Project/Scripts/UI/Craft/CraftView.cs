@@ -13,6 +13,7 @@ using UndergroundFortress.Gameplay.Items.Equipment;
 using UndergroundFortress.UI.Core.Buttons;
 using UndergroundFortress.UI.Craft.Recipe;
 using UndergroundFortress.UI.Information.Services;
+using UndergroundFortress.UI.Inventory;
 using UndergroundFortress.UI.MainMenu;
 
 namespace UndergroundFortress.UI.Craft
@@ -140,7 +141,7 @@ namespace UndergroundFortress.UI.Craft
 
         private void UpdatePriceMoney2(ListPrice listPrice)
         {
-            bool isEnough = _inventoryService.WalletOperationService.IsEnoughMoney(_moneyPrice) && listPrice.IsEnough;
+            bool isEnough = _inventoryService.WalletOperationService.IsEnoughMoney(MoneyType.Money1, _moneyPrice) && listPrice.IsEnough;
             
             buttonStartCraft.UpdatePrice(isEnough ? 0 : CurrencyConverter.PriceTimeToMoney2(listPrice.TotalPriceTime()));
         }

@@ -74,7 +74,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             bool isFull = _inventory[InventoryCellType.Bag].All(cellData => cellData.ItemData != null);
             
             if (isShowMessage && isFull)
-                _informationService.ShowWarning("Bag is full.");
+                _informationService.ShowWarning("@Bag is full.");
 
             return isFull;
         }
@@ -93,7 +93,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             bool isFull = cells.All(cellData => cellData.Number >= _staticDataService.GetItemMaxNumberForCellById(cellData.ItemData.Id));
             
             if (isFull)
-                _informationService.ShowWarning("Bag is full.");
+                _informationService.ShowWarning("@Bag is full.");
 
             return isFull;
         }
@@ -141,7 +141,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             bool isFull = requiredCells > GetNumberEmptyCells();
             
             if (isFull)
-                _informationService.ShowWarning("Bag is full.");
+                _informationService.ShowWarning("@Bag is full.");
 
             return isFull;
         }

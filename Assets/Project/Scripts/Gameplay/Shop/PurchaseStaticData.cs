@@ -11,7 +11,7 @@ namespace UndergroundFortress.UI.Inventory
         public Sprite icon;
         public QualityType qualityType;
         public MoneyType moneyType;
-        public float price;
+        public int price;
         public int rewardIdAds;
 
         public int dungeonIdUnlock;

@@ -3389,7 +3389,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: EXP
+  m_text: '@EXP'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3416,7 +3416,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28.3
+  m_fontSize: 27.9
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3684,8 +3684,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5140678410931033470, guid: 65aed9afef301b94aab190eca23bebd0, type: 3}
+      propertyPath: m_text
+      value: '@HP'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5140678410931033470, guid: 65aed9afef301b94aab190eca23bebd0, type: 3}
       propertyPath: m_fontSize
-      value: 39.85
+      value: 22.85
       objectReference: {fileID: 0}
     - target: {fileID: 6859709442437622889, guid: 65aed9afef301b94aab190eca23bebd0, type: 3}
       propertyPath: m_fontSize
@@ -3766,11 +3770,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4330565613005071056, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
       propertyPath: m_text
-      value: Dunge
+      value: '@DUNGE'
       objectReference: {fileID: 0}
     - target: {fileID: 4330565613005071056, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
       propertyPath: m_fontSize
-      value: 29.05
+      value: 18.9
       objectReference: {fileID: 0}
     - target: {fileID: 4330565613005071056, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
       propertyPath: m_fontStyle
@@ -3948,11 +3952,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4330565613005071056, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
       propertyPath: m_text
-      value: HOME
+      value: '@HOME'
       objectReference: {fileID: 0}
     - target: {fileID: 4330565613005071056, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
       propertyPath: m_fontSize
-      value: 29.35
+      value: 21.95
       objectReference: {fileID: 0}
     - target: {fileID: 4330565613005071056, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
       propertyPath: m_fontStyle
@@ -4130,11 +4134,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4330565613005071056, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
       propertyPath: m_text
-      value: SKILLS
+      value: '@SKILLS'
       objectReference: {fileID: 0}
     - target: {fileID: 4330565613005071056, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
       propertyPath: m_fontSize
-      value: 25.15
+      value: 19.5
       objectReference: {fileID: 0}
     - target: {fileID: 4330565613005071056, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
       propertyPath: m_fontStyle
@@ -4312,11 +4316,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4330565613005071056, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
       propertyPath: m_text
-      value: SHOP
+      value: '@SHOP'
       objectReference: {fileID: 0}
     - target: {fileID: 4330565613005071056, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
       propertyPath: m_fontSize
-      value: 30.95
+      value: 22.8
       objectReference: {fileID: 0}
     - target: {fileID: 4330565613005071056, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
       propertyPath: m_fontStyle
@@ -4494,11 +4498,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4330565613005071056, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
       propertyPath: m_text
-      value: CRAFT
+      value: '@CRAFT'
       objectReference: {fileID: 0}
     - target: {fileID: 4330565613005071056, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
       propertyPath: m_fontSize
-      value: 26.05
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4330565613005071056, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
       propertyPath: m_fontStyle

@@ -1004,7 +1004,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4330565613005071056, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
       propertyPath: m_text
-      value: CLOSE
+      value: '@Close'
       objectReference: {fileID: 0}
     - target: {fileID: 4330565613005071056, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
       propertyPath: m_fontSize
@@ -1171,7 +1171,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4330565613005071056, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
       propertyPath: m_text
-      value: Close
+      value: '@Close'
       objectReference: {fileID: 0}
     - target: {fileID: 4330565613005071056, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
       propertyPath: m_fontSize
@@ -2274,6 +2274,10 @@ PrefabInstance:
     - target: {fileID: 6142541171871620649, guid: 1b264a08e0f1a3740ae35e772bc2c9df, type: 3}
       propertyPath: m_Name
       value: BonusOfferView
+      objectReference: {fileID: 0}
+    - target: {fileID: 6142541171871620649, guid: 1b264a08e0f1a3740ae35e772bc2c9df, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7767169189564329251, guid: 1b264a08e0f1a3740ae35e772bc2c9df, type: 3}
       propertyPath: m_Pivot.x

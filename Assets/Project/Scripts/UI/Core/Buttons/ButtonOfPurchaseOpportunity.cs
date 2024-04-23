@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.UI.Information.Services;
+using UndergroundFortress.UI.Inventory;
 
 namespace UndergroundFortress.UI.Core.Buttons
 {
@@ -62,9 +63,9 @@ namespace UndergroundFortress.UI.Core.Buttons
                 return;
             }
 
-            if (!_inventoryService.WalletOperationService.IsEnoughRealMoney(_currentPrice))
+            if (!_inventoryService.WalletOperationService.IsEnoughMoney(MoneyType.Money2, _currentPrice))
             {
-                _informationService.ShowWarning("Not enough diamonds");
+                _informationService.ShowWarning("@Not enough diamonds");
                 return;
             }
             
