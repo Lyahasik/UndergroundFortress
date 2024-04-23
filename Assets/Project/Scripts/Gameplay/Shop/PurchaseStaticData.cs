@@ -1,5 +1,6 @@
-﻿using UndergroundFortress.Gameplay;
-using UnityEngine;
+﻿using UnityEngine;
+
+using UndergroundFortress.Gameplay;
 
 namespace UndergroundFortress.UI.Inventory
 {
@@ -11,6 +12,7 @@ namespace UndergroundFortress.UI.Inventory
         public QualityType qualityType;
         public MoneyType moneyType;
         public float price;
+        public int rewardIdAds;
 
         public int dungeonIdUnlock;
         public int dungeonIdLock;

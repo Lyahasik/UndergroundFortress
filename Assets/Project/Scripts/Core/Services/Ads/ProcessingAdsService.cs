@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace UndergroundFortress.Core.Services.Ads
 {
@@ -16,6 +17,7 @@ namespace UndergroundFortress.Core.Services.Ads
 
         private void ClaimReward()
         {
+            Debug.Log($"[ProcessingAdsService] Show ads { _currentRewardId } id.");
             OnClaimReward?.Invoke(_currentRewardId);
         }
     }

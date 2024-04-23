@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1006
   icon: {fileID: 21300000, guid: 2fcab374df852a841b1aa72e7d9ccfb2, type: 3}
-  type: 0
+  type: 22
   priceTime: 500
   probabilityWeight: 25
   name: '@CrystalCrit'

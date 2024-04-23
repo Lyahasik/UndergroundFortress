@@ -17,6 +17,7 @@ MonoBehaviour:
   qualityType: 4
   moneyType: 3
   price: 1
+  rewardIdAds: 15
   dungeonIdUnlock: 1
   dungeonIdLock: 2
   rewardData:

@@ -84,7 +84,13 @@ namespace UndergroundFortress.UI.Information
             rewardItemsView.Construct(staticDataService, progressProviderService, itemsGeneratorService, inventoryService);
             rewardItemsView.Initialize(CloseView);
 
-            purchaseRewardItemsView.Construct(staticDataService, progressProviderService, itemsGeneratorService, inventoryService, shoppingService);
+            purchaseRewardItemsView.Construct(
+                staticDataService,
+                progressProviderService,
+                itemsGeneratorService,
+                inventoryService,
+                shoppingService,
+                processingAdsService);
             purchaseRewardItemsView.Initialize(CloseView);
             
             bonusOfferView.Initialize(processingAdsService, CloseView);

@@ -100,8 +100,8 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
 
         public bool IsBagFullForItems(List<ItemNumberData> purchasesNumberData)
         {
-            if (IsBagFull())
-                return true;
+            if (purchasesNumberData.All(data => data.itemData.type == ItemType.Money))
+                return false;
             
             int requiredCells = 0;
             List<CellData> partiallyFilledCells
@@ -114,7 +114,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                 
                 if (itemStaticData.type.IsEquipment())
                 {
-                    requiredCells++;
+                    requiredCells += purchaseNumberData.number;
                     continue;
                 }
                 
@@ -133,10 +133,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
                 });
 
                 if (numberItem <= 0)
-                {
-                    _informationService.ShowWarning("Bag is full.");
-                    return true;
-                }
+                    continue;
 
                 requiredCells = IncrementRequiredCells(purchaseNumberData.itemData.id, requiredCells, numberItem);
             }

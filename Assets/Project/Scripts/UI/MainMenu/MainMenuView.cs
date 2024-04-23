@@ -8,7 +8,6 @@ using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Character;
 using UndergroundFortress.Gameplay.Craft.Services;
-using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.UI.Craft;
 using UndergroundFortress.UI.Information.Services;
@@ -34,7 +33,6 @@ namespace UndergroundFortress.UI.MainMenu
 
         private IUIFactory _uiFactory;
         private IInformationService _informationService;
-        private IItemsGeneratorService _itemsGeneratorService;
         private IActivationRecipesService _activationRecipesService;
 
         private List<IWindow> _windows;
@@ -46,12 +44,10 @@ namespace UndergroundFortress.UI.MainMenu
 
         public void Construct(IUIFactory uiFactory,
             IInformationService informationService,
-            IItemsGeneratorService itemsGeneratorService,
             IActivationRecipesService activationRecipesService)
         {
             _uiFactory = uiFactory;
             _informationService = informationService;
-            _itemsGeneratorService = itemsGeneratorService;
             _activationRecipesService = activationRecipesService;
         }
 
@@ -82,15 +78,6 @@ namespace UndergroundFortress.UI.MainMenu
             amountSpaceBag.Register(progressProviderService);
             
             offerButton.Initialize(ShowBonusOffer);
-        }
-        
-        //TODO temporary
-        public void CreateResource(int id)
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                _itemsGeneratorService.GenerateResourceById(id);
-            }
         }
 
         //TODO temporary

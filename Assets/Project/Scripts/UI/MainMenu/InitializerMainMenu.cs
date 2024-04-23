@@ -214,7 +214,6 @@ namespace UndergroundFortress.UI.MainMenu
             mainMenu.Construct(
                 _uiFactory,
                 _mainMenuServicesContainer.Single<IInformationService>(),
-                _mainMenuServicesContainer.Single<IItemsGeneratorService>(),
                 _mainMenuServicesContainer.Single<IActivationRecipesService>());
             mainMenu.Initialize(home, skills, craft, inventory, shop, startLevel, _staticDataService, _progressProviderService);
             

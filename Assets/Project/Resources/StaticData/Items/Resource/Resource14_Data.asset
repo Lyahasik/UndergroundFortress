@@ -19,5 +19,5 @@ MonoBehaviour:
   probabilityWeight: 33
   name: '@BoneDust'
   description: '@BoneDustDescription'
-  quality: 1
+  quality: 3
   maxNumberForCell: 99

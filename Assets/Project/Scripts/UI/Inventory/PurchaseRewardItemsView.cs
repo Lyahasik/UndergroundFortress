@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
+using UndergroundFortress.Core.Services.Ads;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Inventory.Services;
@@ -16,6 +17,7 @@ namespace UndergroundFortress.UI.Information
         [SerializeField] private BuyButton buyButton;
         
         private IShoppingService _shoppingService;
+        private IProcessingAdsService _processingAdsService;
         
         private PurchaseStaticData _purchaseStaticData;
 
@@ -23,18 +25,26 @@ namespace UndergroundFortress.UI.Information
             IProgressProviderService progressProviderService,
             IItemsGeneratorService itemsGeneratorService,
             IInventoryService inventoryService,
-            IShoppingService shoppingService)
+            IShoppingService shoppingService,
+            IProcessingAdsService processingAdsService)
         {
             base.Construct(staticDataService, progressProviderService, itemsGeneratorService, inventoryService);
 
             _shoppingService = shoppingService;
+            _processingAdsService = processingAdsService;
         }
 
         public override void Initialize(UnityAction onClose)
         {
+            Subscribe();
             priceMoneyView.Construct(_staticDataService);
             
             base.Initialize(onClose);
+        }
+
+        private void Subscribe()
+        {
+            _processingAdsService.OnClaimReward += ClaimRewards;
         }
         
         public void Show(PurchaseStaticData purchaseStaticData)
@@ -49,8 +59,22 @@ namespace UndergroundFortress.UI.Information
 
         protected override void ClaimRewards()
         {
+            if (_purchaseStaticData.moneyType == MoneyType.Ads)
+            {
+                _processingAdsService.ShowAds(_purchaseStaticData.rewardIdAds);
+                return;
+            }
+            
             _shoppingService.Pay(_purchaseStaticData.moneyType, (int) _purchaseStaticData.price);
             
+            base.ClaimRewards();
+        }
+
+        private void ClaimRewards(int rewardIdAds)
+        {
+            if (rewardIdAds != _purchaseStaticData.rewardIdAds)
+                return;
+
             base.ClaimRewards();
         }
     }

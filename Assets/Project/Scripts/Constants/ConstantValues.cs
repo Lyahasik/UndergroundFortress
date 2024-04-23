@@ -17,8 +17,8 @@
         public const int DELTA_EQUIPMENT_MAX_LEVEL = 5;
         public const float MAX_PERCENTAGE = 100f;
 
-        public const int PRICE_TIME_BY_MONEY1 = 10;
-        public const int PRICE_TIME_BY_MONEY2 = 50;
+        public const int PRICE_TIME_BY_MONEY1 = 5;
+        public const int PRICE_TIME_BY_MONEY2 = 100;
         
         public const int BASE_SIZE_BAG = 40;
         public const int MIN_NUMBER_ITEM_FOR_CELL = 1;
