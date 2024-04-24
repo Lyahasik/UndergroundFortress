@@ -11,6 +11,9 @@ namespace UndergroundFortress.Gameplay.StaticData
         public Sprite background;
 
         [Space]
+        public List<RecipeStaticData> unlockRecipes;
+
+        [Space]
         public List<DungeonLevelStaticData> levels;
     }
 }

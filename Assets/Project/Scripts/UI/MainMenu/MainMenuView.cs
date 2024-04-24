@@ -35,7 +35,6 @@ namespace UndergroundFortress.UI.MainMenu
 
         private IUIFactory _uiFactory;
         private IInformationService _informationService;
-        private IActivationRecipesService _activationRecipesService;
 
         private List<IWindow> _windows;
         private WindowType _currentWindowType;
@@ -46,12 +45,10 @@ namespace UndergroundFortress.UI.MainMenu
         public CurrentStatFillView PlayerHealthFill => playerHealthFill;
 
         public void Construct(IUIFactory uiFactory,
-            IInformationService informationService,
-            IActivationRecipesService activationRecipesService)
+            IInformationService informationService)
         {
             _uiFactory = uiFactory;
             _informationService = informationService;
-            _activationRecipesService = activationRecipesService;
         }
 
         public void Initialize(
@@ -82,24 +79,6 @@ namespace UndergroundFortress.UI.MainMenu
             
             offerButton.Initialize(ShowBonusOffer);
             accumulatedRewardButton.Initialize(ShowAccumulatedReward);
-        }
-
-        //TODO temporary
-
-        private static int _idRecipeEquip;
-
-        public void CreateRecipeEquip()
-        {
-            _activationRecipesService.ActivateRecipe(_idRecipeEquip++);
-        }
-
-        //TODO temporary
-
-        private static int _idRecipeResource = 1000;
-
-        public void CreateRecipeResource()
-        {
-            _activationRecipesService.ActivateRecipe(_idRecipeResource++);
         }
 
         public void ActivateWindow(int idWindow)

@@ -31,8 +31,11 @@ namespace UndergroundFortress.Gameplay.Craft.Services
         public void Register(IProgressProviderService progressProviderService) => 
             progressProviderService.Register(this);
 
-        public void LoadProgress(ProgressData progress) => 
+        public void LoadProgress(ProgressData progress)
+        {
             _activeRecipes = progress.ActiveRecipes;
+            TryFirstActivation();
+        }
 
         public void UpdateProgress(ProgressData progress) {}
 
@@ -57,6 +60,15 @@ namespace UndergroundFortress.Gameplay.Craft.Services
             }
 
             WriteProgress();
+        }
+
+        private void TryFirstActivation()
+        {
+            if (_activeRecipes[ItemType.Boots].Count != 0)
+                return;
+            
+            var recipes = _staticDataService.GetDungeonById(0).unlockRecipes;
+            recipes.ForEach(data => ActivateRecipe(data.itemData.id));
         }
     }
 }

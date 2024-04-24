@@ -15,6 +15,17 @@ MonoBehaviour:
   id: 1
   name: '@Dungeon2'
   background: {fileID: 21300000, guid: 56879dbf6f160d64c89cf9c3cc55983b, type: 3}
+  unlockRecipes:
+  - {fileID: 11400000, guid: 52102d1481554424aa3c3dc39548c028, type: 2}
+  - {fileID: 11400000, guid: 822b3e76366f17c4287e7876cc4d5c4d, type: 2}
+  - {fileID: 11400000, guid: 4599e7382f1622245832fc631e360b6b, type: 2}
+  - {fileID: 11400000, guid: 5f533cd2a77c0e542a7d3b5614dadc45, type: 2}
+  - {fileID: 11400000, guid: d3eb04e340f075342ade86db2dcdd748, type: 2}
+  - {fileID: 11400000, guid: 2baf1633f6a98d0448f53f54c09f0b90, type: 2}
+  - {fileID: 11400000, guid: c76a2e9c697740f458b51ae3dd3de3a8, type: 2}
+  - {fileID: 11400000, guid: ec49a5263de07984394b582bfe177dca, type: 2}
+  - {fileID: 11400000, guid: 6e9224068cef8dc45968a5fb4c498e0c, type: 2}
+  - {fileID: 11400000, guid: 825dba30edc4209428518d089e182694, type: 2}
   levels:
   - id: 0
     numberStages: 1

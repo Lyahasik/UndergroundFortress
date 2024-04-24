@@ -16,6 +16,7 @@ using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Core.Update;
 using UndergroundFortress.Gameplay;
 using UndergroundFortress.Gameplay.Character.Services;
+using UndergroundFortress.Gameplay.Craft.Services;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.Gameplay.Player.Level.Services;
@@ -44,6 +45,7 @@ namespace UndergroundFortress.Core.Services.Scene
         private IInventoryService _inventoryService;
         private ISkillsUpgradeService _skillsUpgradeService;
         private IProcessingBonusesService _processingBonusesService;
+        private IActivationRecipesService _activationRecipesService;
 
         private string _nameNewActiveScene;
 
@@ -98,12 +100,14 @@ namespace UndergroundFortress.Core.Services.Scene
             IInventoryService inventoryService,
             ISkillsUpgradeService skillsUpgradeService,
             IProcessingBonusesService processingBonusesService,
+            IActivationRecipesService activationRecipesService,
             int idDungeon, int idLevel)
         {
             _itemsGeneratorService = itemsGeneratorService;
             _inventoryService = inventoryService;
             _skillsUpgradeService = skillsUpgradeService;
             _processingBonusesService = processingBonusesService;
+            _activationRecipesService = activationRecipesService;
             _currentDungeonId = idDungeon;
             _currentLevelId = idLevel;
             
@@ -173,6 +177,7 @@ namespace UndergroundFortress.Core.Services.Scene
                 _playerUpdateLevelService,
                 _skillsUpgradeService,
                 _processingBonusesService,
+                _activationRecipesService,
                 _currentDungeonId,
                 _currentLevelId);
 

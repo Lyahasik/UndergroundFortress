@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65cb73a5de074c9f9ff2c15288c0f7c4, type: 3}
-  m_Name: Recipe_1004_Data
+  m_Name: RecipeCountedItem3_Data
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: 5eee9a1eedf995641a4bf3e32af55566, type: 2}
+  itemData: {fileID: 11400000, guid: 56866ac5c8bfd7d4c9f8acd9f1673528, type: 2}
   levelsPrice:
   - level: 0
-    money1: 15
+    money1: 60
     resourcesPrice:
-    - itemStaticData: {fileID: 11400000, guid: d9b6f43f3636c6c4f982eccc0c851134, type: 2}
-      required: 3
+    - itemStaticData: {fileID: 11400000, guid: daab9efbe1dea1d4c93ad89a163e30ee, type: 2}
+      required: 2

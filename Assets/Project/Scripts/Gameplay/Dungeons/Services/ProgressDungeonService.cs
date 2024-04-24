@@ -10,6 +10,7 @@ using UndergroundFortress.Core.Services.Factories.Gameplay;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Character;
+using UndergroundFortress.Gameplay.Craft.Services;
 using UndergroundFortress.Gameplay.Inventory.Wallet.Services;
 using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.Gameplay.Player.Level.Services;
@@ -31,6 +32,7 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
         private readonly IPlayerUpdateLevelService _playerUpdateLevelService;
         private readonly IItemsGeneratorService _itemsGeneratorService;
         private readonly IWalletOperationService _walletOperationService;
+        private readonly IActivationRecipesService _activationRecipesService;
 
         private DungeonBackground _dungeonBackground;
         private Canvas _gameplayCanvas;
@@ -60,6 +62,7 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
             ICheckerCurrentStatsService checkerCurrentStatsService,
             IPlayerUpdateLevelService playerUpdateLevelService,
             IItemsGeneratorService itemsGeneratorService,
+            IActivationRecipesService activationRecipesService,
             IWalletOperationService walletOperationService)
         {
             _staticDataService = staticDataService;
@@ -70,6 +73,7 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
             _checkerCurrentStatsService = checkerCurrentStatsService;
             _playerUpdateLevelService = playerUpdateLevelService;
             _itemsGeneratorService = itemsGeneratorService;
+            _activationRecipesService = activationRecipesService;
             _walletOperationService = walletOperationService;
         }
 
@@ -274,9 +278,20 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
             var dungeons = _progressProviderService.ProgressData.Dungeons;
 
             if (idLevel == ConstantValues.MAX_DUNGEON_LEVEL_ID)
+            {
                 dungeons[idDungeon + 1] = new HashSet<int> { 0 };
+
+                var nextDungeonData = _staticDataService.GetDungeonById(idDungeon + 1);
+                if (nextDungeonData == null)
+                    return;
+                
+                var recipes = nextDungeonData.unlockRecipes;
+                recipes.ForEach(data => _activationRecipesService.ActivateRecipe(data.itemData.id));
+            }
             else
+            {
                 dungeons[idDungeon].Add(idLevel + 1);
+            }
             
             WriteProgress();
         }

@@ -1,4 +1,5 @@
 using UndergroundFortress.Core.Services.Bonuses;
+using UndergroundFortress.Gameplay.Craft.Services;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.Gameplay.Skills.Services;
@@ -12,6 +13,7 @@ namespace UndergroundFortress.Core.Services.Scene
             IInventoryService inventoryService,
             ISkillsUpgradeService skillsUpgradeService,
             IProcessingBonusesService processingBonusesService,
+            IActivationRecipesService activationRecipesService,
             int idDungeon,
             int idLevel);
     }
