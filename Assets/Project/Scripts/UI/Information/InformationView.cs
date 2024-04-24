@@ -76,13 +76,13 @@ namespace UndergroundFortress.UI.Information
             equipmentView.Construct(staticDataService);
             equipmentView.Initialize();
             saleEquipmentView.Construct(staticDataService, shoppingService);
-            saleEquipmentView.Initialize(CloseView);
+            saleEquipmentView.Initialize(progressProviderService, CloseView);
             
             equipmentComparisonView.Initialize(staticDataService);
             
             resourceView.Construct(staticDataService);
             saleResourceView.Construct(staticDataService, shoppingService);
-            saleResourceView.Initialize(CloseView);
+            saleResourceView.Initialize(progressProviderService, CloseView);
             
             rewardItemsView.Construct(staticDataService, progressProviderService, itemsGeneratorService, inventoryService);
             rewardItemsView.Initialize(CloseView);

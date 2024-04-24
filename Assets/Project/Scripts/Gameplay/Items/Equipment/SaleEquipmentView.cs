@@ -4,23 +4,27 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 
 using UndergroundFortress.Core.Converters;
+using UndergroundFortress.Core.Progress;
+using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
+using UndergroundFortress.Gameplay.Player.Level;
 using UndergroundFortress.Gameplay.Shop;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.UI.Inventory;
 
 namespace UndergroundFortress.Gameplay.Items.Equipment
 {
-    public class SaleEquipmentView : EquipmentView
+    public class SaleEquipmentView : EquipmentView, IReadingProgress
     {
         [SerializeField] private TMP_Text priceText;
         [SerializeField] private Button saleButton;
         
         private IShoppingService _shoppingService;
+        private PlayerLevelData _levelData;
 
         private CellSaleView _selectedCell;
         private int _currentPrice;
-        
+
         public void Construct(IStaticDataService staticDataService,
             IShoppingService shoppingService)
         {
@@ -28,13 +32,27 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
 
             _shoppingService = shoppingService;
         }
-        
-        public void Initialize(UnityAction onClose)
+
+        public void Initialize(IProgressProviderService progressProviderService, UnityAction onClose)
         {
             saleButton.onClick.AddListener(onClose);
             saleButton.onClick.AddListener(SaleEquipment);
+            
+            Register(progressProviderService);
         }
-        
+
+        public void Register(IProgressProviderService progressProviderService)
+        {
+            progressProviderService.Register(this);
+        }
+
+        public void LoadProgress(ProgressData progress)
+        {
+            _levelData = progress.LevelData;
+        }
+
+        public void UpdateProgress(ProgressData progress) {}
+
         public void Show(CellSaleView cellSale)
         {
             _selectedCell = cellSale;
@@ -50,11 +68,11 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
         {
             var recipeStaticData = _staticDataService.GetRecipeById(equipmentStaticData.id);
 
-            int price = recipeStaticData.money1;
-            recipeStaticData.resourcesPrice.ForEach(data =>
+            int price = recipeStaticData.GetLevelPrice(_levelData.Level).money1;
+            recipeStaticData.GetLevelPrice(_levelData.Level).resourcesPrice.ForEach(data =>
             {
                 int priceMoney =
-                    CurrencyConverter.PriceTimeToMoney1(_staticDataService.GetResourceById(data.idItem).priceTime);
+                    CurrencyConverter.PriceTimeToMoney1(_staticDataService.GetResourceById(data.itemStaticData.id).priceTime);
                 price += data.required * priceMoney;
             });
 
@@ -81,7 +99,7 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
         {
             _shoppingService.SaleEquipment(_selectedCell, _currentPrice);
         }
-        
+
         private void Reset()
         {
             _selectedCell = null;

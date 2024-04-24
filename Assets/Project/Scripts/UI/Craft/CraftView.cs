@@ -70,7 +70,7 @@ namespace UndergroundFortress.UI.Craft
             additionalStatDropdown.Initialise();
             
             listRecipesView.Construct(this, _staticDataService, _inventoryService, activationRecipesService);
-            listRecipesView.Initialize();
+            listRecipesView.Initialize(_progressProviderService);
 
             foreach (ItemGroupButton itemGroupButton in itemGroupButtons) 
                 itemGroupButton.Construct(this);

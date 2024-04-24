@@ -19,6 +19,6 @@ MonoBehaviour:
   probabilityWeight: 0
   name: '@PotionHealth'
   description: '@PotionHealthDescription'
-  quality: 2
+  quality: 0
   maxNumberForCell: 99
-  consumableType: 1
+  consumableType: 0

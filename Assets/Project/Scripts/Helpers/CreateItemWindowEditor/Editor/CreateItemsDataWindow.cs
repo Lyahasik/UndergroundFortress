@@ -47,7 +47,7 @@ namespace UndergroundFortress.Helpers.CreateItemWindowEditor.Editor
                 _itemName = BaseName;
             
             ItemStaticData itemAsset = CreateItemAsset();
-            TryCreateRecipeAsset(itemAsset.id);
+            TryCreateRecipeAsset(itemAsset);
 
             AssetDatabase.SaveAssets();
 
@@ -85,7 +85,7 @@ namespace UndergroundFortress.Helpers.CreateItemWindowEditor.Editor
             return itemData;
         }
 
-        private void TryCreateRecipeAsset(in int id)
+        private void TryCreateRecipeAsset(ItemStaticData itemAsset)
         {
             if (_itemType != ItemStaticDataType.Equipment
                 && _itemType != ItemStaticDataType.Consumable)
@@ -93,7 +93,7 @@ namespace UndergroundFortress.Helpers.CreateItemWindowEditor.Editor
             
             string fullName = $"{PathMain}{PathRecipe}{_itemName}_Data.asset";
             RecipeStaticData recipeData = CreateInstance<RecipeStaticData>();
-            recipeData.idItem = id;
+            recipeData.itemData = itemAsset;
             
             AssetDatabase.CreateAsset(recipeData, fullName);
         }

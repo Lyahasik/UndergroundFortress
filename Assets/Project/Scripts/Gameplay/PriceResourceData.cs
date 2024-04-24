@@ -1,11 +1,12 @@
 ﻿using System;
+using UndergroundFortress.Gameplay.StaticData;
 
 namespace UndergroundFortress.Gameplay
 {
     [Serializable]
     public class PriceResourceData
     {
-        public int idItem;
+        public ItemStaticData itemStaticData;
         public int required;
     }
 }

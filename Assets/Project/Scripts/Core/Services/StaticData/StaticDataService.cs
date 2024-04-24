@@ -203,7 +203,7 @@ namespace UndergroundFortress.Core.Services.StaticData
         public RecipeStaticData GetRecipeById(int itemId)
         {
             foreach (RecipeStaticData recipeStaticData in _recipes)
-                if (recipeStaticData.idItem == itemId)
+                if (recipeStaticData.itemData.id == itemId)
                     return recipeStaticData;
 
             Debug.LogWarning($"[StaticDataService] Not found of id for recipe data");

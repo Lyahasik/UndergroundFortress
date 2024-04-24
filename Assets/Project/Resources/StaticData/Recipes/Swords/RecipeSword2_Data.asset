@@ -12,10 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65cb73a5de074c9f9ff2c15288c0f7c4, type: 3}
   m_Name: RecipeSword2_Data
   m_EditorClassIdentifier: 
-  idItem: 23
-  money1: 0
-  resourcesPrice:
-  - idItem: 1001
-    required: 1
-  - idItem: 1002
-    required: 3
+  itemData: {fileID: 11400000, guid: 4d7ae33ec805cf24e9deb3bf3a1ff1f2, type: 2}
+  levelsPrice:
+  - level: 6
+    money1: 15
+    resourcesPrice:
+    - itemStaticData: {fileID: 11400000, guid: 360131ca9cfa3f04ea27db6cd11fb083, type: 2}
+      required: 3
+  - level: 7
+    money1: 20
+    resourcesPrice:
+    - itemStaticData: {fileID: 11400000, guid: 360131ca9cfa3f04ea27db6cd11fb083, type: 2}
+      required: 4
+  - level: 8
+    money1: 25
+    resourcesPrice:
+    - itemStaticData: {fileID: 11400000, guid: 360131ca9cfa3f04ea27db6cd11fb083, type: 2}
+      required: 5
+  - level: 9
+    money1: 30
+    resourcesPrice:
+    - itemStaticData: {fileID: 11400000, guid: 360131ca9cfa3f04ea27db6cd11fb083, type: 2}
+      required: 5
+    - itemStaticData: {fileID: 11400000, guid: 7eefea48b7137c64a83b26432128429e, type: 2}
+      required: 1
+  - level: 10
+    money1: 35
+    resourcesPrice:
+    - itemStaticData: {fileID: 11400000, guid: 360131ca9cfa3f04ea27db6cd11fb083, type: 2}
+      required: 5
+    - itemStaticData: {fileID: 11400000, guid: 7eefea48b7137c64a83b26432128429e, type: 2}
+      required: 2

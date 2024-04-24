@@ -12,6 +12,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65cb73a5de074c9f9ff2c15288c0f7c4, type: 3}
   m_Name: RecipePants2_Data
   m_EditorClassIdentifier: 
-  idItem: 17
-  money1: 0
-  resourcesPrice: []
+  itemData: {fileID: 11400000, guid: 21b8af909cca5474298f051f34d77868, type: 2}
+  levelsPrice:
+  - level: 6
+    money1: 10
+    resourcesPrice:
+    - itemStaticData: {fileID: 11400000, guid: b006c276b984ccc40b731ab0921a14c3, type: 2}
+      required: 1
+    - itemStaticData: {fileID: 11400000, guid: 360131ca9cfa3f04ea27db6cd11fb083, type: 2}
+      required: 1
+    - itemStaticData: {fileID: 11400000, guid: 7eefea48b7137c64a83b26432128429e, type: 2}
+      required: 2
+  - level: 7
+    money1: 15
+    resourcesPrice:
+    - itemStaticData: {fileID: 11400000, guid: b006c276b984ccc40b731ab0921a14c3, type: 2}
+      required: 2
+    - itemStaticData: {fileID: 11400000, guid: 360131ca9cfa3f04ea27db6cd11fb083, type: 2}
+      required: 1
+    - itemStaticData: {fileID: 11400000, guid: 7eefea48b7137c64a83b26432128429e, type: 2}
+      required: 2
+  - level: 8
+    money1: 20
+    resourcesPrice:
+    - itemStaticData: {fileID: 11400000, guid: b006c276b984ccc40b731ab0921a14c3, type: 2}
+      required: 2
+    - itemStaticData: {fileID: 11400000, guid: 360131ca9cfa3f04ea27db6cd11fb083, type: 2}
+      required: 1
+    - itemStaticData: {fileID: 11400000, guid: 7eefea48b7137c64a83b26432128429e, type: 2}
+      required: 3
+  - level: 9
+    money1: 25
+    resourcesPrice:
+    - itemStaticData: {fileID: 11400000, guid: b006c276b984ccc40b731ab0921a14c3, type: 2}
+      required: 2
+    - itemStaticData: {fileID: 11400000, guid: 360131ca9cfa3f04ea27db6cd11fb083, type: 2}
+      required: 1
+    - itemStaticData: {fileID: 11400000, guid: 7eefea48b7137c64a83b26432128429e, type: 2}
+      required: 4
+  - level: 10
+    money1: 30
+    resourcesPrice:
+    - itemStaticData: {fileID: 11400000, guid: b006c276b984ccc40b731ab0921a14c3, type: 2}
+      required: 3
+    - itemStaticData: {fileID: 11400000, guid: 360131ca9cfa3f04ea27db6cd11fb083, type: 2}
+      required: 1
+    - itemStaticData: {fileID: 11400000, guid: 7eefea48b7137c64a83b26432128429e, type: 2}
+      required: 4

@@ -6,6 +6,7 @@ using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
+using UndergroundFortress.Gameplay.Player.Level;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats;
 
@@ -47,15 +48,18 @@ namespace UndergroundFortress.UI.Craft.Recipe
             _inventoryService = inventoryService;
         }
 
-        public void Initialize(
-            RecipeStaticData recipeData,
-            ItemStaticData equipmentData)
+        public void Initialize(RecipeStaticData recipeData,
+            ItemStaticData equipmentData,
+            PlayerLevelData playerLevelData)
         {
-            _moneyPrice = recipeData.money1;
+            _moneyPrice = recipeData.levelsPrice.Count > 1
+                ? recipeData.GetLevelPrice(playerLevelData.Level).money1
+                : recipeData.levelsPrice[0].money1;
+
             textMoneyPrice.text = _moneyPrice.ToString();
             
             listPrice.Construct(_staticDataService, _inventoryService, recipeData);
-            listPrice.Init();
+            listPrice.Initialize(playerLevelData);
             
             button.onClick.AddListener(ActivateRecipe);
             

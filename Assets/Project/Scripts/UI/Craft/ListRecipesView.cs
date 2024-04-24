@@ -1,17 +1,20 @@
 using System;
 using System.Collections.Generic;
+using UndergroundFortress.Core.Progress;
+using UndergroundFortress.Core.Services.Progress;
 using UnityEngine;
 
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Craft.Services;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
+using UndergroundFortress.Gameplay.Player.Level;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.UI.Craft.Recipe;
 
 namespace UndergroundFortress.UI.Craft
 {
-    public class ListRecipesView : MonoBehaviour
+    public class ListRecipesView : MonoBehaviour, IReadingProgress
     {
         [SerializeField] private List<ItemTypeButton> itemTypeButtons;
         [SerializeField] private RecipeView prefabRecipeView;
@@ -20,7 +23,8 @@ namespace UndergroundFortress.UI.Craft
         private IStaticDataService _staticDataService;
         private IInventoryService _inventoryService;
         private IActivationRecipesService _activationRecipesService;
-        
+        private PlayerLevelData _levelData;
+
         private List<RecipeView> _recipes;
 
         public event Action<int> OnActivateRecipe;
@@ -36,10 +40,24 @@ namespace UndergroundFortress.UI.Craft
             _activationRecipesService = activationRecipesService;
         }
 
-        public void Initialize()
+        public void Initialize(IProgressProviderService progressProviderService)
         {
             _recipes = new List<RecipeView>();
+            
+            Register(progressProviderService);
         }
+        
+        public void Register(IProgressProviderService progressProviderService)
+        {
+            progressProviderService.Register(this);
+        }
+
+        public void LoadProgress(ProgressData progress)
+        {
+            _levelData = progress.LevelData;
+        }
+
+        public void UpdateProgress(ProgressData progress) {}
 
         public void FillList(ItemType itemType)
         {
@@ -55,7 +73,7 @@ namespace UndergroundFortress.UI.Craft
             
             foreach (int itemId in activeRecipes[itemType])
             {
-                RecipeStaticData recipeData = recipesStaticData.Find(v => v.idItem == itemId);
+                RecipeStaticData recipeData = recipesStaticData.Find(v => v.itemData.id == itemId);
                 
                 RecipeView recipeView = Instantiate(prefabRecipeView, gameObject.transform);
                 recipeView.Construct(_staticDataService, _craftView, this, _inventoryService);
@@ -63,18 +81,20 @@ namespace UndergroundFortress.UI.Craft
                 if (IsEquipment(itemType))
                 {
                     EquipmentStaticData equipmentData
-                        = equipmentsStaticData.Find(v => v.id == recipeData.idItem);
+                        = equipmentsStaticData.Find(v => v.id == recipeData.itemData.id);
                     recipeView.Initialize(
                         recipeData,
-                        equipmentData);
+                        equipmentData,
+                        _levelData);
                 }
                 else
                 {
                     ResourceStaticData resourceData
-                        = resourcesStaticData.Find(v => v.id == recipeData.idItem);
+                        = resourcesStaticData.Find(v => v.id == recipeData.itemData.id);
                     recipeView.Initialize(
                         recipeData,
-                        resourceData);
+                        resourceData,
+                        _levelData);
                 }
                 
                 recipeView.Subscribe();

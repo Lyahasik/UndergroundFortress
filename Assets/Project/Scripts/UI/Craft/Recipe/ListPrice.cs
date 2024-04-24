@@ -6,6 +6,7 @@ using UndergroundFortress.Core.Converters;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay;
 using UndergroundFortress.Gameplay.Inventory.Services;
+using UndergroundFortress.Gameplay.Player.Level;
 using UndergroundFortress.Gameplay.StaticData;
 
 namespace UndergroundFortress.UI.Craft.Recipe
@@ -17,16 +18,12 @@ namespace UndergroundFortress.UI.Craft.Recipe
         private IStaticDataService _staticDataService;
         private IInventoryService _inventoryService;
         private RecipeStaticData _recipeStaticData;
+        private int _currentLevel;
 
         private List<PriceResource> MissingResources => priceResources.Where(data => data.IsInit && !data.IsEnough).ToList();
 
         public List<PriceResource> PriceResources => priceResources;
         public bool IsEnough => priceResources.All(data => !data.IsInit || data.IsEnough);
-
-        public void Init()
-        {
-            FillPrices();
-        }
 
         public void Construct(IStaticDataService staticDataService,
             IInventoryService inventoryService,
@@ -37,12 +34,19 @@ namespace UndergroundFortress.UI.Craft.Recipe
             _recipeStaticData = recipeStaticData;
         }
 
+        public void Initialize(PlayerLevelData playerLevelData)
+        {
+            _currentLevel = _recipeStaticData.levelsPrice.Count > 1 ? playerLevelData.Level : 0;
+            
+            FillPrices();
+        }
+
         public void UpdateCurrentResources()
         {
-            for (int i = 0; i < _recipeStaticData.resourcesPrice.Count; i++)
+            for (int i = 0; i < _recipeStaticData.levelsPrice[_currentLevel].resourcesPrice.Count; i++)
             {
                 priceResources[i].UpdateInStock(
-                    _inventoryService.GetNumberItemsById(_recipeStaticData.resourcesPrice[i].idItem));
+                    _inventoryService.GetNumberItemsById(_recipeStaticData.levelsPrice[_currentLevel].resourcesPrice[i].itemStaticData.id));
             }
         }
 
@@ -50,8 +54,8 @@ namespace UndergroundFortress.UI.Craft.Recipe
         {
             int totalPrice = 0;
 
-            if (_recipeStaticData.money1 > _inventoryService.WalletOperationService.Money1)
-                totalPrice += CurrencyConverter.Money1ToPriceTime(_recipeStaticData.money1 - _inventoryService.WalletOperationService.Money1);
+            if (_recipeStaticData.levelsPrice[_currentLevel].money1 > _inventoryService.WalletOperationService.Money1)
+                totalPrice += CurrencyConverter.Money1ToPriceTime(_recipeStaticData.levelsPrice[_currentLevel].money1 - _inventoryService.WalletOperationService.Money1);
             
             foreach (PriceResource resource in MissingResources)
             {
@@ -65,17 +69,17 @@ namespace UndergroundFortress.UI.Craft.Recipe
         private void FillPrices()
         {
             priceResources.ForEach(data => data.gameObject.SetActive(false));
-            
-            for (int i = 0; i < _recipeStaticData.resourcesPrice.Count; i++)
+
+            for (int i = 0; i < _recipeStaticData.levelsPrice[_currentLevel].resourcesPrice.Count; i++)
             {
-                PriceResourceData priceResource = _recipeStaticData.resourcesPrice[i];
+                PriceResourceData priceResource = _recipeStaticData.levelsPrice[_currentLevel].resourcesPrice[i];
                 
                 Sprite icon = _staticDataService
                     .ForResources()
-                    .Find(data => data.id == priceResource.idItem)
+                    .Find(data => data.id == priceResource.itemStaticData.id)
                     .icon;
                 
-                priceResources[i].Init(priceResource.idItem, icon, priceResource.required);
+                priceResources[i].Init(priceResource.itemStaticData.id, icon, priceResource.required);
                 priceResources[i].gameObject.SetActive(true);
             }
 

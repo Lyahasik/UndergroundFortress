@@ -12,8 +12,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65cb73a5de074c9f9ff2c15288c0f7c4, type: 3}
   m_Name: RecipeDagger1_Data
   m_EditorClassIdentifier: 
-  idItem: 8
-  money1: 0
-  resourcesPrice:
-  - idItem: 1002
-    required: 4
+  itemData: {fileID: 11400000, guid: 117a25bf50d3dcb429d1263d9ba9d712, type: 2}
+  levelsPrice:
+  - level: 6
+    money1: 3
+    resourcesPrice:
+    - itemStaticData: {fileID: 11400000, guid: 360131ca9cfa3f04ea27db6cd11fb083, type: 2}
+      required: 1
+    - itemStaticData: {fileID: 11400000, guid: 068492d2ceda73a4388f51d973ef3ca5, type: 2}
+      required: 1
+  - level: 7
+    money1: 3
+    resourcesPrice:
+    - itemStaticData: {fileID: 11400000, guid: 360131ca9cfa3f04ea27db6cd11fb083, type: 2}
+      required: 2
+    - itemStaticData: {fileID: 11400000, guid: 068492d2ceda73a4388f51d973ef3ca5, type: 2}
+      required: 1
+  - level: 8
+    money1: 8
+    resourcesPrice:
+    - itemStaticData: {fileID: 11400000, guid: 360131ca9cfa3f04ea27db6cd11fb083, type: 2}
+      required: 2
+    - itemStaticData: {fileID: 11400000, guid: 068492d2ceda73a4388f51d973ef3ca5, type: 2}
+      required: 1
+  - level: 9
+    money1: 8
+    resourcesPrice:
+    - itemStaticData: {fileID: 11400000, guid: 360131ca9cfa3f04ea27db6cd11fb083, type: 2}
+      required: 2
+    - itemStaticData: {fileID: 11400000, guid: 7eefea48b7137c64a83b26432128429e, type: 2}
+      required: 1
+    - itemStaticData: {fileID: 11400000, guid: 068492d2ceda73a4388f51d973ef3ca5, type: 2}
+      required: 1
+  - level: 10
+    money1: 13
+    resourcesPrice:
+    - itemStaticData: {fileID: 11400000, guid: 360131ca9cfa3f04ea27db6cd11fb083, type: 2}
+      required: 2
+    - itemStaticData: {fileID: 11400000, guid: 7eefea48b7137c64a83b26432128429e, type: 2}
+      required: 1
+    - itemStaticData: {fileID: 11400000, guid: 068492d2ceda73a4388f51d973ef3ca5, type: 2}
+      required: 1
