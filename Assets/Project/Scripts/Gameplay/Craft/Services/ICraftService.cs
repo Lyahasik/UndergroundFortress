@@ -2,6 +2,7 @@
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.Items.Equipment;
 using UndergroundFortress.Gameplay.Items.Resource;
+using UndergroundFortress.Gameplay.Stats;
 using UndergroundFortress.UI.Craft.Recipe;
 
 namespace UndergroundFortress.Gameplay.Craft.Services
@@ -12,6 +13,7 @@ namespace UndergroundFortress.Gameplay.Craft.Services
             int currentLevel,
             int moneyPrice,
             ListPrice listPrice,
+            StatType additionalStatType = StatType.Empty,
             ItemData crystal = null,
             bool isEnoughResources = true);
         public ResourceData TryCreateResource(int itemId,

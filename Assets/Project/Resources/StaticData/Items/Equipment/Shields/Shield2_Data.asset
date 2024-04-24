@@ -23,6 +23,7 @@ MonoBehaviour:
   name: '@Shield2'
   maxNumberForCell: 1
   typeStat: 73
+  additionalStatType: 71
   qualityValues:
   - qualityType: 1
     minValue: 0

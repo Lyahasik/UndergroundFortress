@@ -264,6 +264,9 @@ namespace UndergroundFortress.Gameplay.Items.Services
                     GetStaticQualityValues(additionalMainType),
                     qualityEquipment,
                     additionalMainType);
+                if (additionalMainType == StatType.Dodge)
+                    qualityValue /= 2f;
+                
                 stats.Add(new StatItemData(additionalMainType, qualityEquipment, qualityValue));
             }
 

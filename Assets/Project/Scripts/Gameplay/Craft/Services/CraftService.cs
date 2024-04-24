@@ -25,10 +25,13 @@ namespace UndergroundFortress.Gameplay.Craft.Services
             int currentLevel,
             int moneyPrice,
             ListPrice listPrice,
+            StatType additionalStatType = StatType.Empty,
             ItemData crystal = null,
             bool isEnoughResources = true)
         {
-            EquipmentData equipmentData = _itemsGeneratorService.GenerateEquipment(itemId, currentLevel, GetStatTypeByItem(crystal));
+            if (additionalStatType == StatType.Empty)
+                additionalStatType = GetStatTypeByItem(crystal);
+            EquipmentData equipmentData = _itemsGeneratorService.GenerateEquipment(itemId, currentLevel, additionalStatType);
 
             if (equipmentData == null)
                 return null;

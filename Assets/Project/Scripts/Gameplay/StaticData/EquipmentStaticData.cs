@@ -17,6 +17,7 @@ namespace UndergroundFortress.Gameplay.StaticData
         
         [Space]
         public StatType typeStat;
+        public StatType additionalStatType;
         public List<QualityValue> qualityValues;
     }
 }

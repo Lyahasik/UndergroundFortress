@@ -161,8 +161,14 @@ namespace UndergroundFortress.UI.Craft
 
         private void CreateEquipment(bool isEnoughResources)
         {
-            EquipmentData equipmentData = _craftService.TryCreateEquipment(_idItem, _progressProviderService.ProgressData.LevelData.Level,
-                _moneyPrice, _listPrice, additionalStatDropdown.CurrentCrystal, isEnoughResources);
+            EquipmentData equipmentData = _craftService.TryCreateEquipment(
+                _idItem,
+                _progressProviderService.ProgressData.LevelData.Level,
+                _moneyPrice,
+                _listPrice,
+                _staticDataService.GetEquipmentById(_idItem).additionalStatType,
+                additionalStatDropdown.CurrentCrystal,
+                isEnoughResources);
             
             if (equipmentData != null)
                 equipmentInfo.Show(equipmentData);

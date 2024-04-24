@@ -17,13 +17,14 @@ MonoBehaviour:
   qualityType: 3
   moneyType: 1
   price: 45
+  rewardIdAds: 0
   dungeonIdUnlock: 2
   dungeonIdLock: 0
   rewardData:
     nameReward: '@CrystalPurchase12'
     moneys: []
     items:
-    - itemData: {fileID: 11400000, guid: 068492d2ceda73a4388f51d973ef3ca5, type: 2}
+    - itemData: {fileID: 11400000, guid: d2cc62756a5c4d84d9379c39b5a381da, type: 2}
       number: 12
       level: 0
       qualityType: 3

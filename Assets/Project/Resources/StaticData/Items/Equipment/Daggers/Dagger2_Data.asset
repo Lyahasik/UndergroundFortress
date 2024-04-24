@@ -23,6 +23,7 @@ MonoBehaviour:
   name: '@Dagger2'
   maxNumberForCell: 1
   typeStat: 31
+  additionalStatType: 51
   qualityValues:
   - qualityType: 1
     minValue: 0
