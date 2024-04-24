@@ -139,10 +139,9 @@ namespace UndergroundFortress.Gameplay.Items.Services
             if (_inventoryService.IsBagFull())
                 return null;
 
-            EquipmentStaticData equipmentStaticData
-                = _staticDataService.ForEquipments().Find(equipment => equipment.id == id);
+            EquipmentStaticData equipmentStaticData = _staticDataService.GetEquipmentById(id);
 
-            currentLevel = Math.Clamp(currentLevel, 0, equipmentStaticData.maxLevel);
+            currentLevel = Math.Clamp(currentLevel, equipmentStaticData.minLevel, equipmentStaticData.maxLevel);
 
             if (qualityType == QualityType.Empty)
                 qualityType = qualityType.Random(_staticDataService.ForQualities().qualitiesData);
@@ -151,6 +150,7 @@ namespace UndergroundFortress.Gameplay.Items.Services
                 equipmentStaticData.qualityValues,
                 qualityType,
                 equipmentStaticData.typeStat,
+                equipmentStaticData.statValuePerLevel * currentLevel,
                 setStatType);
 
             int numberAdditionalStats = (int)qualityType - (int)QualityType.Grey;
@@ -249,9 +249,10 @@ namespace UndergroundFortress.Gameplay.Items.Services
         private List<StatItemData> GetMainStats(List<QualityValue> equipQualityValues,
             QualityType qualityEquipment, 
             StatType mainType, 
+            float baseValue,
             StatType additionalMainType = StatType.Empty)
         {
-            float qualityValue = GetQualityValue(equipQualityValues, qualityEquipment, mainType);
+            float qualityValue = baseValue + GetQualityValue(equipQualityValues, qualityEquipment, mainType);
             List<StatItemData> stats = new List<StatItemData>
             {
                 new (mainType, qualityEquipment, qualityValue)

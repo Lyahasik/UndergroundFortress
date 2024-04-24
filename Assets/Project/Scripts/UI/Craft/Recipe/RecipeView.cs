@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -63,7 +64,7 @@ namespace UndergroundFortress.UI.Craft.Recipe
             
             button.onClick.AddListener(ActivateRecipe);
             
-            SetValues(equipmentData);
+            SetValues(equipmentData, playerLevelData.Level);
             UpdateCurrentResources();
         }
 
@@ -79,16 +80,16 @@ namespace UndergroundFortress.UI.Craft.Recipe
             _listRecipesView.OnActivateRecipe -= SetInteractable;
         }
 
-        private void SetValues(ItemStaticData itemData)
+        private void SetValues(ItemStaticData itemData, int currentLevel)
         {
             if (itemData is EquipmentStaticData equipmentData)
-                SetEquipmentValues(equipmentData);
+                SetEquipmentValues(equipmentData, currentLevel);
             
             if (itemData is ResourceStaticData resourceData)
                 SetResourcesValues(resourceData);
         }
 
-        private void SetEquipmentValues(EquipmentStaticData equipmentData)
+        private void SetEquipmentValues(EquipmentStaticData equipmentData, int currentLevel)
         {
             _idItem = equipmentData.id;
             _itemType = equipmentData.type;
@@ -98,8 +99,17 @@ namespace UndergroundFortress.UI.Craft.Recipe
             maximumLevelItem.SetValue(equipmentData.maxLevel);
 
             StatStaticData statStaticData = _staticDataService.GetStatByType(equipmentData.typeStat);
-            QualityValue qualityValue = equipmentData.qualityValues[(int)QualityType.Grey];
-            statView.SetValues(statStaticData.keyName, statStaticData.icon, qualityValue.minValue, qualityValue.maxValue);
+            QualityValue qualityValueFirst = equipmentData.qualityValues[(int)QualityType.Green - 1];
+            QualityValue qualityValueLast = equipmentData.qualityValues[(int)QualityType.Purple - 1];
+            
+            float baseValue
+                = equipmentData.statValuePerLevel * Math.Clamp(currentLevel, equipmentData.minLevel, equipmentData.maxLevel);
+            
+            statView.SetValues(
+                statStaticData.keyName,
+                statStaticData.icon,
+                baseValue + qualityValueFirst.minValue,
+                baseValue + qualityValueLast.maxValue);
         }
 
         private void SetResourcesValues(ResourceStaticData resourceData)

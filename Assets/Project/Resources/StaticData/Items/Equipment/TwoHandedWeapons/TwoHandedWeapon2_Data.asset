@@ -17,29 +17,31 @@ MonoBehaviour:
   type: 2
   priceTime: 0
   probabilityWeight: 0
+  minLevel: 11
   maxLevel: 15
+  statValuePerLevel: 6
   name: '@TwoHandedWeapon2'
   maxNumberForCell: 1
   typeStat: 31
   qualityValues:
   - qualityType: 1
-    minValue: 0.1
-    maxValue: 5
+    minValue: 0
+    maxValue: 0
   - qualityType: 2
-    minValue: 5
-    maxValue: 10
+    minValue: 2
+    maxValue: 4
   - qualityType: 3
-    minValue: 10
-    maxValue: 15
+    minValue: 3
+    maxValue: 5
   - qualityType: 4
-    minValue: 15
-    maxValue: 20
+    minValue: 4
+    maxValue: 6
   - qualityType: 5
-    minValue: 20
-    maxValue: 25
+    minValue: 5
+    maxValue: 7
   - qualityType: 6
-    minValue: 25
-    maxValue: 30
+    minValue: 6
+    maxValue: 8
   - qualityType: 7
-    minValue: 30
-    maxValue: 35
+    minValue: 7
+    maxValue: 9
