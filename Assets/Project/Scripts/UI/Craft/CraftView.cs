@@ -103,6 +103,7 @@ namespace UndergroundFortress.UI.Craft
                 _currentGroupType = groupType;
 
             itemWindow.SetActive(false);
+            equipmentInfo.Hide();
 
             foreach (ItemGroupButton itemGroupButton in itemGroupButtons) 
                 itemGroupButton.Change(_currentGroupType);
