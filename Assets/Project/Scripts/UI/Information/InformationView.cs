@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 using UndergroundFortress.Core.Services.StaticData;
@@ -47,6 +48,7 @@ namespace UndergroundFortress.UI.Information
         [Space]
         [SerializeField] private BonusOfferView bonusOfferView;
         [SerializeField] private AccumulatedRewardView accumulatedRewardView;
+        [SerializeField] private DailyRewardsView dailyRewardsView;
 
         [Space]
         [SerializeField] private CellItemView cellItemView;
@@ -65,7 +67,8 @@ namespace UndergroundFortress.UI.Information
             IItemsGeneratorService itemsGeneratorService,
             IInventoryService inventoryService,
             IShoppingService shoppingService,
-            IAccumulationRewardsService accumulationRewardsService)
+            IAccumulationRewardsService accumulationRewardsService,
+            IDailyRewardsService dailyRewardsService)
         {
             skillView.Construct(staticDataService, skillsUpgradeService);
             skillView.Initialize(CloseView);
@@ -100,6 +103,8 @@ namespace UndergroundFortress.UI.Information
             
             accumulatedRewardView.Construct(accumulationRewardsService);
             accumulatedRewardView.Initialize(CloseView);
+            dailyRewardsView.Construct(staticDataService);
+            dailyRewardsView.Initialize(dailyRewardsService, CloseView);
         }
 
         public void ShowSkill(SkillsType skillsType, SkillData skillData, bool isCanUpgrade, ProgressSkillData progressSkillData = null)
@@ -160,6 +165,7 @@ namespace UndergroundFortress.UI.Information
             
             bonusOfferView.Hide();
             accumulatedRewardView.Hide();
+            dailyRewardsView.Hide();
             
             warningPrompt.Hide();
         }
@@ -220,6 +226,13 @@ namespace UndergroundFortress.UI.Information
             CapActivate();
 
             accumulatedRewardView.Show();
+        }
+
+        public void ShowDailyRewards(List<RewardData> dailyRewards, RewardsData rewardsData)
+        {
+            capArea.SetActive(true);
+            
+            dailyRewardsView.Show(dailyRewards, rewardsData);
         }
 
         private void CapActivate()

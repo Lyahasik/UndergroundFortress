@@ -60,7 +60,10 @@ namespace UndergroundFortress.UI.MainMenu
             IAccumulationRewardsService accumulationRewardsService) 
         {
             RegisterServices(updateHandler, playerDressingService, statsRestorationService);
-            CreateMainMenu(processingPlayerStatsService, sceneProviderService, accumulationRewardsService);
+            CreateMainMenu(
+                processingPlayerStatsService,
+                sceneProviderService,
+                accumulationRewardsService);
         }
         
         private void RegisterServices(UpdateHandler updateHandler,
@@ -91,6 +94,8 @@ namespace UndergroundFortress.UI.MainMenu
                     _staticDataService,
                     _mainMenuServicesContainer.Single<IInventoryService>()
                     ));
+            
+            RegisterDailyRewardsService();
 
             RegisterProcessingBonusesService(updateHandler);
             statsRestorationService.ProcessingBonusesService = _mainMenuServicesContainer.Single<IProcessingBonusesService>();
@@ -99,6 +104,18 @@ namespace UndergroundFortress.UI.MainMenu
                 new CraftService(
                     _mainMenuServicesContainer.Single<IInventoryService>(),
                     _mainMenuServicesContainer.Single<IItemsGeneratorService>()));
+        }
+
+        private void RegisterDailyRewardsService()
+        {
+            var service = new DailyRewardsService(
+                _staticDataService,
+                _progressProviderService,
+                _mainMenuServicesContainer.Single<IItemsGeneratorService>(),
+                _mainMenuServicesContainer.Single<IWalletOperationService>(),
+                _mainMenuServicesContainer.Single<IInformationService>()
+            );
+            _mainMenuServicesContainer.Register<IDailyRewardsService>(service);
         }
 
         private void RegisterProcessingBonusesService(UpdateHandler updateHandler)
@@ -232,8 +249,10 @@ namespace UndergroundFortress.UI.MainMenu
                 _mainMenuServicesContainer.Single<IItemsGeneratorService>(),
                 _mainMenuServicesContainer.Single<IInventoryService>(),
                 _mainMenuServicesContainer.Single<IShoppingService>(),
-                accumulationRewardsService);
+                accumulationRewardsService,
+                _mainMenuServicesContainer.Single<IDailyRewardsService>());
             _mainMenuServicesContainer.Single<IInformationService>().Initialize(information);
+            _mainMenuServicesContainer.Single<IDailyRewardsService>().Initialize();
             
             accumulationRewardsService.Initialize(
                 _mainMenuServicesContainer.Single<IInventoryService>(),

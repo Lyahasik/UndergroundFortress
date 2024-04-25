@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.Collections.Generic;
 using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.StaticData;
@@ -73,6 +73,11 @@ namespace UndergroundFortress.UI.Information.Services
         public void ShowAccumulatedReward()
         {
             _informationView.ShowAccumulatedReward();
+        }
+
+        public void ShowDailyRewards(List<RewardData> dailyRewards, RewardsData rewardsData)
+        {
+            _informationView.ShowDailyRewards(dailyRewards, rewardsData);
         }
     }
 }

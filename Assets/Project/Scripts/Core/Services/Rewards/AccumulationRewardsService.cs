@@ -79,10 +79,11 @@ namespace UndergroundFortress.Core.Services.Rewards
 
         public void ClaimRewards()
         {
-            _inventoryService.WalletOperationService.AddMoney(MoneyType.Money1, _rewardsData.NumberCoins);
+            int numberCoins = _rewardsData.NumberCoins;
             
             _rewardsData.NumberCoins = 0;
-            WriteProgress();
+            _rewardsData.LastCalculateTime = DateTime.Now.Ticks;
+            _inventoryService.WalletOperationService.AddMoney(MoneyType.Money1, numberCoins);
         }
 
         private void CalculateOfflineTime()
@@ -90,17 +91,17 @@ namespace UndergroundFortress.Core.Services.Rewards
             if (_levelData.Level < ConstantValues.MIN_LEVEL)
                 return;
             
-             long deltaTicks = DateTime.Now.Ticks - _rewardsData.LastCalculateTime;
-             TimeSpan timeSpan = new TimeSpan(deltaTicks);
+            long deltaTicks = DateTime.Now.Ticks - _rewardsData.LastCalculateTime;
+            TimeSpan timeSpan = new TimeSpan(deltaTicks);
              
-             float stepBySeconds = _rewardsStaticData.maxAccumulationSeconds / _rewardsStaticData.delayAccrualSeconds;
-             int offlineReward = (int) (timeSpan.TotalSeconds / stepBySeconds * (_levelData.Level * _rewardsStaticData.numberCoinsByLevel));
+            int offlineReward
+                = (int) (timeSpan.TotalSeconds / _rewardsStaticData.delayAccrualSeconds * (_levelData.Level * _rewardsStaticData.numberCoinsByLevel));
                  
-             _rewardsData.NumberCoins = Math.Clamp(_rewardsData.NumberCoins + offlineReward, 0, _maxRewardNumberCoins);
-             _rewardsData.LastCalculateTime = DateTime.Now.Ticks;
+            _rewardsData.NumberCoins = Math.Clamp(_rewardsData.NumberCoins + offlineReward, 0, _maxRewardNumberCoins);
+            _rewardsData.LastCalculateTime = DateTime.Now.Ticks;
              
-             if (_rewardsData.NumberCoins >= _levelData.Level * _rewardsStaticData.numberToDisplayByLevel)
-                 _mainMenuView.ActivateAccumulatedRewardButton(_rewardsData);
+            if (_rewardsData.NumberCoins >= _levelData.Level * _rewardsStaticData.numberToDisplayByLevel)
+                _mainMenuView.ActivateAccumulatedRewardButton(_rewardsData);
         }
 
         private void TryIncreaseReward()

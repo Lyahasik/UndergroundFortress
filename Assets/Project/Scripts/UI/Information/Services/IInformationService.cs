@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Core.Services;
@@ -22,5 +23,6 @@ namespace UndergroundFortress.UI.Information.Services
         public void ShowBonusOffer();
         public void UpdateAccumulatedReward(RewardsData rewardsData);
         public void ShowAccumulatedReward();
+        public void ShowDailyRewards(List<RewardData> dailyRewards, RewardsData rewardsData);
     }
 }

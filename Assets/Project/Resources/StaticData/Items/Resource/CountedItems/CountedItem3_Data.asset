@@ -19,6 +19,6 @@ MonoBehaviour:
   probabilityWeight: 0
   name: '@PotionVampirism'
   description: '@PotionVampirismDescription'
-  quality: 0
+  quality: 3
   maxNumberForCell: 99
-  consumableType: 0
+  consumableType: 3

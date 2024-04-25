@@ -12,7 +12,7 @@ namespace UndergroundFortress.UI.Information
         
         private IStaticDataService _staticDataService;
         
-        private List<RewardItemView> _listItems;
+        protected List<RewardItemView> _listItems;
 
         public void Construct(IStaticDataService staticDataService)
         {

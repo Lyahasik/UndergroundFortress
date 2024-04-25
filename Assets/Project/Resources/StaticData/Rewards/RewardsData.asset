@@ -16,3 +16,49 @@ MonoBehaviour:
   numberToDisplayByLevel: 10
   delayAccrualSeconds: 60
   maxAccumulationSeconds: 14400
+  dailyRewards:
+  - nameReward: 
+    moneys:
+    - moneyType: 0
+      number: 30
+    items: []
+  - nameReward: 
+    moneys: []
+    items:
+    - itemData: {fileID: 11400000, guid: f9be33fe9aec23944a122b660d9ad6e8, type: 2}
+      number: 10
+      level: 0
+      qualityType: 1
+  - nameReward: 
+    moneys: []
+    items:
+    - itemData: {fileID: 11400000, guid: 4d7ae33ec805cf24e9deb3bf3a1ff1f2, type: 2}
+      number: 1
+      level: 0
+      qualityType: 5
+  - nameReward: 
+    moneys:
+    - moneyType: 1
+      number: 15
+    items: []
+  - nameReward: 
+    moneys: []
+    items:
+    - itemData: {fileID: 11400000, guid: 5eee9a1eedf995641a4bf3e32af55566, type: 2}
+      number: 10
+      level: 0
+      qualityType: 2
+  - nameReward: 
+    moneys: []
+    items:
+    - itemData: {fileID: 11400000, guid: 56866ac5c8bfd7d4c9f8acd9f1673528, type: 2}
+      number: 10
+      level: 0
+      qualityType: 3
+  - nameReward: 
+    moneys: []
+    items:
+    - itemData: {fileID: 11400000, guid: e595c8f57ec0df14ea83dd01aef15ba8, type: 2}
+      number: 1
+      level: 0
+      qualityType: 5
