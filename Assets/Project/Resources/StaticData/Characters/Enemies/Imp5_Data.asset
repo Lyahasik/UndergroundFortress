@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74fff693ccbe42ffb249675a614b2336, type: 3}
   m_Name: Imp5_Data
   m_EditorClassIdentifier: 
-  health: 150
+  health: 700
   healthRecoveryRate: 0
-  stamina: 100
-  staminaRecoveryRate: 50
-  staminaCost: 100
-  damage: 11
+  stamina: 300
+  staminaRecoveryRate: 100
+  staminaCost: 140
+  damage: 100
   defense: 0
   dodge: 0
   accuracy: 0

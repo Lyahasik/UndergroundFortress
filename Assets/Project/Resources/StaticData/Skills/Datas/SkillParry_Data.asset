@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba209137d6224d8595558ce6ab835432, type: 3}
+  m_Name: SkillParry_Data
+  m_EditorClassIdentifier: 
+  statType: 62
+  value: 1
+  name: '@SkillParry'
+  description: '@SkillParryDescription'
+  icon: {fileID: 21300000, guid: f25bfe1691f0df64fa20ab8656f132da, type: 3}

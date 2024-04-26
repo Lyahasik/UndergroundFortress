@@ -36,7 +36,7 @@ namespace UndergroundFortress.UI.Craft.Recipe
 
         public void Initialize(PlayerLevelData playerLevelData)
         {
-            _currentLevel = _recipeStaticData.levelsPrice.Count > 1 ? playerLevelData.Level : 0;
+            _currentLevel = _recipeStaticData.levelsPrice.Count > 1 ? playerLevelData.Level % 5 : 0;
             
             FillPrices();
         }

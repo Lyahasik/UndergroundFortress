@@ -17,14 +17,59 @@ MonoBehaviour:
     targetExperience: 10
     numberSkillPoints: 3
   - level: 1
-    targetExperience: 40
+    targetExperience: 20
     numberSkillPoints: 1
   - level: 2
-    targetExperience: 60
+    targetExperience: 30
     numberSkillPoints: 1
   - level: 3
-    targetExperience: 80
+    targetExperience: 40
     numberSkillPoints: 1
   - level: 4
-    targetExperience: 100
+    targetExperience: 50
+    numberSkillPoints: 3
+  - level: 5
+    targetExperience: 60
     numberSkillPoints: 1
+  - level: 6
+    targetExperience: 70
+    numberSkillPoints: 1
+  - level: 7
+    targetExperience: 80
+    numberSkillPoints: 1
+  - level: 8
+    targetExperience: 90
+    numberSkillPoints: 1
+  - level: 9
+    targetExperience: 100
+    numberSkillPoints: 3
+  - level: 10
+    targetExperience: 110
+    numberSkillPoints: 1
+  - level: 11
+    targetExperience: 120
+    numberSkillPoints: 1
+  - level: 12
+    targetExperience: 130
+    numberSkillPoints: 1
+  - level: 13
+    targetExperience: 140
+    numberSkillPoints: 1
+  - level: 14
+    targetExperience: 150
+    numberSkillPoints: 3
+  - level: 15
+    targetExperience: 850
+    numberSkillPoints: 1
+  - level: 16
+    targetExperience: 900
+    numberSkillPoints: 1
+  - level: 17
+    targetExperience: 950
+    numberSkillPoints: 1
+  - level: 18
+    targetExperience: 1000
+    numberSkillPoints: 1
+  - level: 19
+    targetExperience: 1050
+    numberSkillPoints: 3

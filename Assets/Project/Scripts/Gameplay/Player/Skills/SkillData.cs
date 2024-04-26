@@ -10,11 +10,7 @@ namespace UndergroundFortress.Gameplay.StaticData
     public class SkillData
     {
         public int id;
-        public StatType statType;
-        public float value;
-        public string name;
-        public string description;
-        public Sprite icon;
+        public SkillStaticData data;
 
         [Space]
         public List<SkillLevelData> levelsData;

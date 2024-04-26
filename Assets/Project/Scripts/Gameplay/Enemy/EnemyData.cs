@@ -53,7 +53,10 @@ namespace UndergroundFortress.Gameplay.Character
         private Action _onStartDead;
         private Action _onDead;
         private Action<EnemyData> _onReady;
+        
+        private bool _isDead;
 
+        public bool IsDead => _isDead;
 
         public void Construct(CharacterStats stats,
             IStaticDataService staticDataService,
@@ -107,6 +110,9 @@ namespace UndergroundFortress.Gameplay.Character
 
         public override void TakeHitEffect(StatType hitType, int damage = 0)
         {
+            if (_isDead)
+                return;
+            
             switch (hitType)
             {
                 case StatType.Damage:
@@ -140,6 +146,9 @@ namespace UndergroundFortress.Gameplay.Character
 
         public override void AttackEffect(StatType attackType)
         {
+            if (_isDead)
+                return;
+            
             attackFeedback.PlayFeedbacks();
             
             // switch (attackType)
@@ -196,6 +205,7 @@ namespace UndergroundFortress.Gameplay.Character
 
         public override void Dead()
         {
+            _isDead = true;
             _onDead?.Invoke();
             
             base.Dead();

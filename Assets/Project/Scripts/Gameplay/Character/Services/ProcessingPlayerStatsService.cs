@@ -165,7 +165,7 @@ namespace UndergroundFortress.Gameplay.Character.Services
                         .ForSkillsByType(keyValuePair.Key).skillsData
                         .Find(data => data.id == id);
 
-                    if (skillData.statType.IsPassiveProgress())
+                    if (skillData.data.statType.IsPassiveProgress())
                         AddedPassiveStat(newStats, skillData);
                     else
                         AddedStat(newStats, skillData);
@@ -177,14 +177,14 @@ namespace UndergroundFortress.Gameplay.Character.Services
 
         private void AddedStat(Dictionary<StatType, float> newStats, SkillData skillData)
         {
-            if (newStats.ContainsKey(skillData.statType))
-                newStats[skillData.statType] += skillData.value;
+            if (newStats.ContainsKey(skillData.data.statType))
+                newStats[skillData.data.statType] += skillData.data.value;
             else
-                newStats[skillData.statType] = skillData.value;
+                newStats[skillData.data.statType] = skillData.data.value;
         }
 
         private void AddedPassiveStat(Dictionary<StatType, float> newStats, SkillData skillData) => 
-            newStats[skillData.statType] = skillData.value * _progressSkills[skillData.statType].CurrentLevel;
+            newStats[skillData.data.statType] = skillData.data.value * _progressSkills[skillData.data.statType].CurrentLevel;
 
         private void RecalculateCurrentHealth()
         {

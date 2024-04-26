@@ -47,7 +47,7 @@ namespace UndergroundFortress.UI.Skills
 
         public void Initialize(IProgressProviderService progressProviderService)
         {
-            icon.sprite = _skillData.icon;
+            icon.sprite = _skillData.data.icon;
             
             Register(progressProviderService);
         }

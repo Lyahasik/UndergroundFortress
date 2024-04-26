@@ -72,7 +72,8 @@ namespace UndergroundFortress.UI.Information
 
         private void ClaimRewards(int rewardIdAds)
         {
-            if (rewardIdAds != _purchaseStaticData.rewardIdAds)
+            if (_purchaseStaticData == null
+                || rewardIdAds != _purchaseStaticData.rewardIdAds)
                 return;
 
             base.ClaimRewards();

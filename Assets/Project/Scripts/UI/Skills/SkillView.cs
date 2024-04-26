@@ -46,12 +46,12 @@ namespace UndergroundFortress.UI.Skills
             _currentSkillsType = skillsType;
             _currentSkillData = skillData;
             
-            icon.sprite = skillData.icon;
-            nameSkill.text = skillData.name;
-            description.text = skillData.description;
+            icon.sprite = skillData.data.icon;
+            nameSkill.text = skillData.data.name;
+            description.text = skillData.data.description;
 
-            statIcon.sprite = _staticDataService.GetStatByType(skillData.statType).icon;
-            statValue.text = skillData.statType.IncreaseIndicatorToString(skillData.value);
+            statIcon.sprite = _staticDataService.GetStatByType(skillData.data.statType).icon;
+            statValue.text = skillData.data.statType.IncreaseIndicatorToString(skillData.data.value);
             
             gameObject.SetActive(true);
             confirmButton.gameObject.SetActive(isCanUpgrade);

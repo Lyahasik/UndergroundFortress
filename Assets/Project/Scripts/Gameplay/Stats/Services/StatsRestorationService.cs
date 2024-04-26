@@ -16,8 +16,6 @@ namespace UndergroundFortress.Gameplay.Stats.Services
 
         private List<CharacterStats> _statCharacters;
 
-        private float _nextRestoreTime;
-
         public IProgressDungeonService ProgressDungeonService
         {
             set => _progressDungeonService = value;
@@ -60,9 +58,6 @@ namespace UndergroundFortress.Gameplay.Stats.Services
 
         public void RestoreStats()
         {
-            if (_nextRestoreTime > Time.time)
-                return;
-            
             foreach (CharacterStats stats in _statCharacters)
             {
                 if (stats.IsFreeze)
@@ -71,8 +66,6 @@ namespace UndergroundFortress.Gameplay.Stats.Services
                 RestoreHealth(stats);
                 RestoreStamina(stats);
             }
-
-            _nextRestoreTime = Time.time + ConstantValues.DELAY_RESTORE_STATS;
         }
 
         private void RestoreHealth(CharacterStats stats)
@@ -84,7 +77,8 @@ namespace UndergroundFortress.Gameplay.Stats.Services
             float recoveryRate = stats.MainStats[StatType.HealthRecoveryRate];
             if (_processingBonusesService.IsBuffActivate(BonusType.DoubleRecoveryHealth))
                 recoveryRate *= 2f;
-                
+
+            recoveryRate *= Time.deltaTime;
             stats.CurrentStats.Health = Math.Clamp(stats.CurrentStats.Health + recoveryRate, 0, stats.MainStats[StatType.Health]);
             stats.UpdateCurrent();
         }
@@ -95,7 +89,7 @@ namespace UndergroundFortress.Gameplay.Stats.Services
                 return;
 
             stats.CurrentStats.Stamina =
-                Math.Clamp(stats.CurrentStats.Stamina + stats.MainStats[StatType.StaminaRecoveryRate],
+                Math.Clamp(stats.CurrentStats.Stamina + stats.MainStats[StatType.StaminaRecoveryRate] * Time.deltaTime,
                     0, stats.MainStats[StatType.Stamina]);
             stats.UpdateCurrent();
         }

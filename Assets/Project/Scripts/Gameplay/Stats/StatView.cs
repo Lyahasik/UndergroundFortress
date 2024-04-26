@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +19,7 @@ namespace UndergroundFortress.Gameplay.Stats
 
             //TODO locale
             nameText.text = keyName;
-            valueText.text = value.ToString();
+            valueText.text = Math.Round(value, 2).ToString();
             
             gameObject.SetActive(true);
         }

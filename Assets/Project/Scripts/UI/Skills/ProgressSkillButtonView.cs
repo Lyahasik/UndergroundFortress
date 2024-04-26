@@ -19,7 +19,7 @@ namespace UndergroundFortress.UI.Skills
         {
             base.UpdateProgress(progress);
 
-            _currentProgressData = progress.ProgressSkills[_skillData.statType];
+            _currentProgressData = progress.ProgressSkills[_skillData.data.statType];
             level.text = _currentProgressData.CurrentLevel.ToString();
             
             var currentLevelData = _staticDataService

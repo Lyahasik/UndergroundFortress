@@ -15,122 +15,150 @@ MonoBehaviour:
   type: 4
   skillsData:
   - id: 0
-    statType: 81
-    value: 1
-    name: '@skill_stun'
-    description: '@skill_stun_description'
-    icon: {fileID: 21300000, guid: 49a5da99149106b4a86f714c5c8814db, type: 3}
+    data: {fileID: 11400000, guid: 63c7a37c8ee78ac49a2977182dae52c3, type: 2}
     levelsData:
     - level: 0
       progressTarget: 5
     - level: 1
       progressTarget: 10
+    - level: 2
+      progressTarget: 15
+    - level: 3
+      progressTarget: 20
+    - level: 4
+      progressTarget: 25
+    - level: 5
+      progressTarget: 30
+    - level: 6
+      progressTarget: 35
+    - level: 7
+      progressTarget: 40
+    - level: 8
+      progressTarget: 45
+    - level: 9
+      progressTarget: 50
+    - level: 10
+      progressTarget: 55
+    - level: 11
+      progressTarget: 60
+    - level: 12
+      progressTarget: 65
+    - level: 13
+      progressTarget: 70
+    - level: 14
+      progressTarget: 75
+    - level: 15
+      progressTarget: 80
+    - level: 16
+      progressTarget: 85
+    - level: 17
+      progressTarget: 90
+    - level: 18
+      progressTarget: 95
+    - level: 19
+      progressTarget: 100
+    - level: 20
+      progressTarget: 105
+    - level: 21
+      progressTarget: 110
+    - level: 22
+      progressTarget: 115
+    - level: 23
+      progressTarget: 120
+    - level: 24
+      progressTarget: 125
   - id: 1
-    statType: 2
-    value: 5
-    name: '@skill_health_recovery_rate'
-    description: '@skill_health_recovery_rate_description'
-    icon: {fileID: 21300000, guid: c548daa1a817197458618f0f907ae106, type: 3}
+    data: {fileID: 11400000, guid: d45000974a721604bb4fffc1c0193b45, type: 2}
     levelsData: []
   - id: 2
-    statType: 11
-    value: 5
-    name: '@skill_stamina'
-    description: '@skill_stamina_description'
-    icon: {fileID: 21300000, guid: c548daa1a817197458618f0f907ae106, type: 3}
+    data: {fileID: 11400000, guid: 4bf308d68c270d2458c91cc34ce6d326, type: 2}
     levelsData: []
   - id: 3
-    statType: 12
-    value: 5
-    name: '@skill_stamina_recovery_rate'
-    description: '@skill_stamina_recovery_rate_description'
-    icon: {fileID: 21300000, guid: c548daa1a817197458618f0f907ae106, type: 3}
+    data: {fileID: 11400000, guid: e6a81a08ca1fb324cbc46af30072dbe5, type: 2}
     levelsData: []
   - id: 4
-    statType: 1
-    value: 5
-    name: '@skill_health'
-    description: '@skill_health_description'
-    icon: {fileID: 21300000, guid: c548daa1a817197458618f0f907ae106, type: 3}
+    data: {fileID: 11400000, guid: 9ffe182c4b8b0904a89e1765cf1f57f2, type: 2}
     levelsData: []
   - id: 5
-    statType: 13
-    value: 5
-    name: '@skill_stamina_cost'
-    description: '@skill_stamina_cost_description'
-    icon: {fileID: 21300000, guid: c548daa1a817197458618f0f907ae106, type: 3}
+    data: {fileID: 11400000, guid: 4bf308d68c270d2458c91cc34ce6d326, type: 2}
     levelsData: []
   - id: 6
-    statType: 31
-    value: 5
-    name: '@skill_damage'
-    description: '@skill_damage_description'
-    icon: {fileID: 21300000, guid: c548daa1a817197458618f0f907ae106, type: 3}
+    data: {fileID: 11400000, guid: 04aa766e64a33fb438dffd6e703ca9bb, type: 2}
     levelsData: []
   - id: 7
-    statType: 41
-    value: 5
-    name: '@skill_defense'
-    description: '@skill_defense_description'
-    icon: {fileID: 21300000, guid: c548daa1a817197458618f0f907ae106, type: 3}
+    data: {fileID: 11400000, guid: 9ffe182c4b8b0904a89e1765cf1f57f2, type: 2}
     levelsData: []
   - id: 8
-    statType: 82
-    value: 1
-    name: '@skill_strength'
-    description: '@skill_strength_description'
-    icon: {fileID: 21300000, guid: ee1d77e9939b7d549b69e5d377774805, type: 3}
+    data: {fileID: 11400000, guid: 7ebc263ee4ac7ba4aaa8d92ce35bac89, type: 2}
     levelsData:
     - level: 0
-      progressTarget: 7
+      progressTarget: 10
     - level: 1
-      progressTarget: 14
+      progressTarget: 15
+    - level: 2
+      progressTarget: 20
+    - level: 3
+      progressTarget: 30
+    - level: 4
+      progressTarget: 45
+    - level: 5
+      progressTarget: 65
+    - level: 6
+      progressTarget: 90
+    - level: 7
+      progressTarget: 135
+    - level: 8
+      progressTarget: 200
+    - level: 9
+      progressTarget: 250
+    - level: 10
+      progressTarget: 300
+    - level: 11
+      progressTarget: 350
+    - level: 12
+      progressTarget: 400
+    - level: 13
+      progressTarget: 450
+    - level: 14
+      progressTarget: 500
+    - level: 15
+      progressTarget: 550
+    - level: 16
+      progressTarget: 600
+    - level: 17
+      progressTarget: 650
+    - level: 18
+      progressTarget: 700
+    - level: 19
+      progressTarget: 750
+    - level: 20
+      progressTarget: 800
+    - level: 21
+      progressTarget: 850
+    - level: 22
+      progressTarget: 900
+    - level: 23
+      progressTarget: 950
+    - level: 24
+      progressTarget: 1000
   - id: 9
-    statType: 41
-    value: 5
-    name: '@skill_defense'
-    description: '@skill_defense_description'
-    icon: {fileID: 21300000, guid: c548daa1a817197458618f0f907ae106, type: 3}
+    data: {fileID: 11400000, guid: d45000974a721604bb4fffc1c0193b45, type: 2}
     levelsData: []
   - id: 10
-    statType: 41
-    value: 5
-    name: '@skill_defense'
-    description: '@skill_defense_description'
-    icon: {fileID: 21300000, guid: c548daa1a817197458618f0f907ae106, type: 3}
+    data: {fileID: 11400000, guid: 6e380e81fddc2c74481747240f427361, type: 2}
     levelsData: []
   - id: 11
-    statType: 41
-    value: 5
-    name: '@skill_defense'
-    description: '@skill_defense_description'
-    icon: {fileID: 21300000, guid: c548daa1a817197458618f0f907ae106, type: 3}
+    data: {fileID: 11400000, guid: 9ffe182c4b8b0904a89e1765cf1f57f2, type: 2}
     levelsData: []
   - id: 12
-    statType: 41
-    value: 5
-    name: '@skill_defense'
-    description: '@skill_defense_description'
-    icon: {fileID: 21300000, guid: c548daa1a817197458618f0f907ae106, type: 3}
+    data: {fileID: 11400000, guid: e6a81a08ca1fb324cbc46af30072dbe5, type: 2}
     levelsData: []
   - id: 13
-    statType: 41
-    value: 5
-    name: '@skill_defense'
-    description: '@skill_defense_description'
-    icon: {fileID: 21300000, guid: c548daa1a817197458618f0f907ae106, type: 3}
+    data: {fileID: 11400000, guid: 4bf308d68c270d2458c91cc34ce6d326, type: 2}
     levelsData: []
   - id: 14
-    statType: 41
-    value: 5
-    name: '@skill_defense'
-    description: '@skill_defense_description'
-    icon: {fileID: 21300000, guid: c548daa1a817197458618f0f907ae106, type: 3}
+    data: {fileID: 11400000, guid: 04aa766e64a33fb438dffd6e703ca9bb, type: 2}
     levelsData: []
   - id: 15
-    statType: 41
-    value: 5
-    name: '@skill_defense'
-    description: '@skill_defense_description'
-    icon: {fileID: 21300000, guid: c548daa1a817197458618f0f907ae106, type: 3}
+    data: {fileID: 11400000, guid: 9ffe182c4b8b0904a89e1765cf1f57f2, type: 2}
     levelsData: []

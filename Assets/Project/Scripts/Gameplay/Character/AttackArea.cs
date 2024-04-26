@@ -49,6 +49,7 @@ namespace UndergroundFortress.Gameplay.Character
         private void Attack()
         {
             if (_playerData.Stats.IsFreeze
+                || _enemyData.IsDead
                 || !_checkerCurrentStatsService.IsEnoughStamina(_playerData.Stats))
                 return;
             

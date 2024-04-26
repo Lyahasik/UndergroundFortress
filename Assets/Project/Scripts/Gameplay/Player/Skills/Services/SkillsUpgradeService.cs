@@ -69,7 +69,7 @@ namespace UndergroundFortress.Gameplay.Skills.Services
         {
             var skillData = _staticDataService
                 .ForSkillsByType(skillsType).skillsData
-                .Find(data => data.statType == statType);
+                .Find(data => data.data.statType == statType);
             var levelData = skillData.levelsData.Find(data => data.level == _progressSkills[statType].CurrentLevel);
             
             if (!_activeSkills[skillsType].Contains(skillData.id)
