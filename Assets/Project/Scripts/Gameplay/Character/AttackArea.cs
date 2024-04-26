@@ -1,3 +1,4 @@
+using UndergroundFortress.Gameplay.Stats;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -53,7 +54,10 @@ namespace UndergroundFortress.Gameplay.Character
                 || !_checkerCurrentStatsService.IsEnoughStamina(_playerData.Stats))
                 return;
             
-            _attackService.Attack(_playerData, _enemyData, true);
+            _attackService.Attack(_playerData,
+                _enemyData,
+                _playerData.Stats.MainStats[StatType.StaminaCost],
+                true);
         }
     }
 }

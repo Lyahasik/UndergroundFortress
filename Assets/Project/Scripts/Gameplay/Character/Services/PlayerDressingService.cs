@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
-
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UndergroundFortress.Gameplay.Character.Services;
+using UndergroundFortress.Gameplay.Inventory;
+using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.Stats;
 
@@ -20,6 +23,7 @@ namespace UndergroundFortress.Core.Services.Characters
             if (itemData == null)
                 return;
             
+            UpdateStaminaCost(itemData, _processingPlayerStatsService.UpStatEquipment);
             ApplyStats(itemData.MainStats);
             ApplyStats(itemData.AdditionalStats);
         }
@@ -28,7 +32,8 @@ namespace UndergroundFortress.Core.Services.Characters
         {
             if (itemData == null)
                 return;
-            
+
+            UpdateStaminaCost(itemData, _processingPlayerStatsService.DownStatEquipment);
             CancelStats(itemData.MainStats);
             CancelStats(itemData.AdditionalStats);
         }
@@ -43,11 +48,11 @@ namespace UndergroundFortress.Core.Services.Characters
                 switch (statData.Type)
                 {
                     case StatType.Health:
-                        _processingPlayerStatsService.UpHealth(statData.Value);
+                        _processingPlayerStatsService.UpHealthEquipment(statData.Value);
                         break;
 
                     default:
-                        _processingPlayerStatsService.UpStat(statData.Type, statData.Value);
+                        _processingPlayerStatsService.UpStatEquipment(statData.Type, statData.Value);
                         break;
                 }
             }
@@ -63,14 +68,27 @@ namespace UndergroundFortress.Core.Services.Characters
                 switch (statData.Type)
                 {
                     case StatType.Health:
-                        _processingPlayerStatsService.DownHealth(statData.Value);
+                        _processingPlayerStatsService.DownHealthEquipment(statData.Value);
                         break;
 
                     default:
-                        _processingPlayerStatsService.DownStat(statData.Type, statData.Value);
+                        _processingPlayerStatsService.DownStatEquipment(statData.Type, statData.Value);
                         break;
                 }
             }
+        }
+
+        private void UpdateStaminaCost(ItemData itemData, Action<StatType, float> onUpdate)
+        {
+            float cost = itemData.Type switch
+            {
+                ItemType.Sword or ItemType.Mace => 1f,
+                ItemType.Dagger => 0.35f,
+                ItemType.TwoHandedWeapon => 1.5f,
+                _ => 0f
+            };
+
+            onUpdate(StatType.StaminaCost, cost);
         }
     }
 }

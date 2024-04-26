@@ -16,8 +16,6 @@ namespace UndergroundFortress.Extensions
         {
             return type is StatType.Health
                 or StatType.HealthRecoveryRate
-                or StatType.Stamina
-                or StatType.StaminaRecoveryRate
                 or StatType.Dodge
                 or StatType.Accuracy
                 or StatType.Crit

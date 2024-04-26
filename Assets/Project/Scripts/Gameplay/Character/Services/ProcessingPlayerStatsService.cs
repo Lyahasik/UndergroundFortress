@@ -67,19 +67,25 @@ namespace UndergroundFortress.Gameplay.Character.Services
             RecalculateCurrentStamina();
         }
 
-        public void UpStat(in StatType type, in float value)
+        public void SetStatEquipment(StatType type, float value)
+        {
+            _equipmentPlayerStats[type] = value;
+            UpdateStats();
+        }
+
+        public void UpStatEquipment(StatType type, float value)
         {
             _equipmentPlayerStats[type] += value;
             UpdateStats();
         }
 
-        public void DownStat(in StatType type, in float value)
+        public void DownStatEquipment(StatType type, float value)
         {
             _equipmentPlayerStats[type] -= value;
             UpdateStats();
         }
 
-        public void UpHealth(in float value)
+        public void UpHealthEquipment(in float value)
         {
             _equipmentPlayerStats[StatType.Health] += value;
             
@@ -87,7 +93,7 @@ namespace UndergroundFortress.Gameplay.Character.Services
             RecalculateCurrentHealth();
         }
 
-        public void DownHealth(in float value)
+        public void DownHealthEquipment(in float value)
         {
             _equipmentPlayerStats[StatType.Health] -= value;
             

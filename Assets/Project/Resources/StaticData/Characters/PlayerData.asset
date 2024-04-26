@@ -16,7 +16,7 @@ MonoBehaviour:
   healthRecoveryRate: 1
   stamina: 3
   staminaRecoveryRate: 1
-  staminaCost: 1
+  staminaCost: 0.3
   damage: 1
   defense: 0
   dodge: 0

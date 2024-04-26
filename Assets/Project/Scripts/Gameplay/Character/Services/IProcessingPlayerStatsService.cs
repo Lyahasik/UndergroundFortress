@@ -6,9 +6,9 @@ namespace UndergroundFortress.Gameplay.Character.Services
     public interface IProcessingPlayerStatsService : IService
     {
         public CharacterStats PlayerStats { get; }
-        public void UpStat(in StatType type, in float value);
-        public void DownStat(in StatType type, in float value);
-        public void UpHealth(in float value);
-        public void DownHealth(in float value);
+        public void UpStatEquipment(StatType type, float value);
+        public void DownStatEquipment(StatType type, float value);
+        public void UpHealthEquipment(in float value);
+        public void DownHealthEquipment(in float value);
     }
 }
