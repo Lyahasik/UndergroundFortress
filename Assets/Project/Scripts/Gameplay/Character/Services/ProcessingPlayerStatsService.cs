@@ -56,13 +56,15 @@ namespace UndergroundFortress.Gameplay.Character.Services
             
             _statsRestorationService.AddStats(_playerStats);
             
-            UpdateProgress(progress);
+            UpdateStats();
             _playerStats.UpdateCurrentStats();
         }
 
         public void UpdateProgress(ProgressData progress)
         {
             UpdateStats();
+            RecalculateCurrentHealth();
+            RecalculateCurrentStamina();
         }
 
         public void UpStat(in StatType type, in float value)
@@ -190,6 +192,12 @@ namespace UndergroundFortress.Gameplay.Character.Services
         {
             if (_playerStats.CurrentStats.Health > _playerStats.MainStats[StatType.Health])
                 _playerStats.SetCurrentHealth(_playerStats.MainStats[StatType.Health]);
+        }
+
+        private void RecalculateCurrentStamina()
+        {
+            if (_playerStats.CurrentStats.Stamina > _playerStats.MainStats[StatType.Stamina])
+                _playerStats.SetCurrentStamina(_playerStats.MainStats[StatType.Stamina]);
         }
     }
 }
