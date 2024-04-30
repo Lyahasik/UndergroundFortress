@@ -17,7 +17,7 @@ MonoBehaviour:
   type: 20
   priceTime: 75
   probabilityWeight: 33
-  name: '@TrollFang'
-  description: '@TrollFangDescription'
+  name: '@ResourceTrollFang'
+  description: '@ResourceTrollFangDescription'
   quality: 2
   maxNumberForCell: 99

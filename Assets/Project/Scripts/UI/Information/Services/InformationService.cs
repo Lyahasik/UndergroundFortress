@@ -20,9 +20,10 @@ namespace UndergroundFortress.UI.Information.Services
         public void ShowSkill(SkillsType skillsType,
             SkillData skillData,
             bool isCanUpgrade = false, 
-            ProgressSkillData progressSkillData = null)
+            ProgressSkillData progressSkillData = null,
+            bool isCapping = true)
         {
-            _informationView.ShowSkill(skillsType, skillData, isCanUpgrade, progressSkillData);
+            _informationView.ShowSkill(skillsType, skillData, isCanUpgrade, progressSkillData, isCapping);
         }
 
         public void ShowItem(ItemData itemData)
@@ -30,9 +31,9 @@ namespace UndergroundFortress.UI.Information.Services
             _informationView.ShowItem(itemData);
         }
 
-        public void ShowSaleItem(CellSaleView cellSale)
+        public void ShowSaleItem(CellSaleView cellSale, bool isCapping = true)
         {
-            _informationView.ShowSaleItem(cellSale);
+            _informationView.ShowSaleItem(cellSale, isCapping);
         }
 
         public void ShowReward(RewardData rewardData)
@@ -40,9 +41,9 @@ namespace UndergroundFortress.UI.Information.Services
             _informationView.ShowReward(rewardData);
         }
 
-        public void ShowPurchase(CellPurchaseView cellPurchase)
+        public void ShowPurchase(CellPurchaseView cellPurchase, bool isCapping = true)
         {
-            _informationView.ShowPurchase(cellPurchase);
+            _informationView.ShowPurchase(cellPurchase, isCapping);
         }
 
         public void ShowEquipmentComparison(ItemData equipmentData1, ItemData equipmentData2)

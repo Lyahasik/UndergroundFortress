@@ -15,6 +15,6 @@ namespace UndergroundFortress.Gameplay.Inventory.Wallet.Services
         public void RemoveMoney1(in int value);
         public void AddMoney2(in int value);
         public void RemoveMoney2(in int value);
-        public bool IsEnoughMoney(MoneyType moneyType, in int value);
+        public bool IsEnoughMoney(MoneyType moneyType, in int value, bool isShowingWarning = true);
     }
 }

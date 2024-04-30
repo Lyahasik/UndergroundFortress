@@ -16,6 +16,7 @@ using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.Gameplay.Player.Level.Services;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats.Services;
+using UndergroundFortress.Gameplay.Tutorial.Services;
 using UndergroundFortress.UI.Hud;
 using Random = UnityEngine.Random;
 
@@ -32,6 +33,7 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
         private readonly IPlayerUpdateLevelService _playerUpdateLevelService;
         private readonly IItemsGeneratorService _itemsGeneratorService;
         private readonly IWalletOperationService _walletOperationService;
+        private readonly IProgressTutorialService _progressTutorialService;
         private readonly IActivationRecipesService _activationRecipesService;
 
         private DungeonBackground _dungeonBackground;
@@ -63,7 +65,8 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
             IPlayerUpdateLevelService playerUpdateLevelService,
             IItemsGeneratorService itemsGeneratorService,
             IActivationRecipesService activationRecipesService,
-            IWalletOperationService walletOperationService)
+            IWalletOperationService walletOperationService,
+            IProgressTutorialService progressTutorialService)
         {
             _staticDataService = staticDataService;
             _progressProviderService = progressProviderService;
@@ -75,6 +78,7 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
             _itemsGeneratorService = itemsGeneratorService;
             _activationRecipesService = activationRecipesService;
             _walletOperationService = walletOperationService;
+            _progressTutorialService = progressTutorialService;
         }
 
         public void Initialize(Canvas gameplayCanvas,
@@ -129,6 +133,9 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
 
         public void StartBattle()
         {
+            if (TryActivateTutorial())
+                return;
+            
             _isPause = false;
             _currentStage = 0;
             OnUpdateSteps?.Invoke(_currentStage);
@@ -287,12 +294,24 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
                 
                 var recipes = nextDungeonData.unlockRecipes;
                 recipes.ForEach(data => _activationRecipesService.ActivateRecipe(data.itemData.id));
+                
+                if (idDungeon == 0)
+                    _progressTutorialService.TryActivateStage(TutorialStageType.SuccessDungeon1);
+                else if (idDungeon == 1)
+                    _progressTutorialService.TryActivateStage(TutorialStageType.SuccessDungeon2);
             }
             else
             {
                 dungeons[idDungeon].Add(idLevel + 1);
             }
             
+            if (idLevel == 0)
+                _progressTutorialService.TryActivateStage(TutorialStageType.FirstCreateEquipment);
+            else if (idLevel == 1)
+                _progressTutorialService.TryActivateStage(TutorialStageType.FirstEquipmentPotion);
+            else if (idLevel == 2)
+                _progressTutorialService.TryActivateStage(TutorialStageType.UpgradeSkills);
+
             WriteProgress();
         }
 
@@ -305,5 +324,8 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
             _currentStage = 0;
             OnUpdateSteps?.Invoke(_currentStage);
         }
+
+        private bool TryActivateTutorial() => 
+            _progressTutorialService.TryActivateStage(TutorialStageType.FirstBattle, StartBattle);
     }
 }

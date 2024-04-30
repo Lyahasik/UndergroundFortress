@@ -41,6 +41,9 @@ namespace UndergroundFortress.Core.Services.Factories.UI
         public BuffView CreateBuff() => 
             PrefabInstantiate(_staticDataService.ForMainMenu().buffViewPrefab);
 
+        public TutorialView CreateTutorial() => 
+            PrefabInstantiate(_staticDataService.ForMainMenu().tutorialView);
+
         public DungeonBackground CreateDungeonBackground() => 
             PrefabInstantiate(_staticDataService.ForLevel().dungeonBackgroundPrefab);
 

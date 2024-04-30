@@ -18,6 +18,7 @@ using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.Gameplay.Shop;
 using UndergroundFortress.Gameplay.Skills.Services;
 using UndergroundFortress.Gameplay.Stats.Services;
+using UndergroundFortress.Gameplay.Tutorial.Services;
 using UndergroundFortress.UI.Craft;
 using UndergroundFortress.UI.Information;
 using UndergroundFortress.UI.Information.Services;
@@ -104,6 +105,10 @@ namespace UndergroundFortress.UI.MainMenu
                 new CraftService(
                     _mainMenuServicesContainer.Single<IInventoryService>(),
                     _mainMenuServicesContainer.Single<IItemsGeneratorService>()));
+            
+            _mainMenuServicesContainer.Register<IProgressTutorialService>(new ProgressTutorialService(
+                _progressProviderService,
+                _mainMenuServicesContainer.Single<IItemsGeneratorService>()));
         }
 
         private void RegisterDailyRewardsService()
@@ -209,7 +214,9 @@ namespace UndergroundFortress.UI.MainMenu
                 _mainMenuServicesContainer.Single<ICraftService>(),
                 _mainMenuServicesContainer.Single<IInventoryService>(),
                 _mainMenuServicesContainer.Single<IInformationService>());
-            craft.Initialize(_mainMenuServicesContainer.Single<IActivationRecipesService>());
+            craft.Initialize(
+                _mainMenuServicesContainer.Single<IActivationRecipesService>(),
+                _mainMenuServicesContainer.Single<IProgressTutorialService>());
 
             InventoryView inventory = _uiFactory.CreateInventory();
             inventory.Construct(
@@ -230,7 +237,8 @@ namespace UndergroundFortress.UI.MainMenu
                 _mainMenuServicesContainer.Single<IInventoryService>(),
                 _mainMenuServicesContainer.Single<ISkillsUpgradeService>(),
                 _mainMenuServicesContainer.Single<IProcessingBonusesService>(),
-                _mainMenuServicesContainer.Single<IActivationRecipesService>());
+                _mainMenuServicesContainer.Single<IActivationRecipesService>(),
+                _mainMenuServicesContainer.Single<IProgressTutorialService>());
             startLevel.Initialize(_staticDataService, _progressProviderService);
 
             MainMenuView mainMenu = _uiFactory.CreateMainMenu();
@@ -262,7 +270,18 @@ namespace UndergroundFortress.UI.MainMenu
             movingItemService.Initialize(information.CellItemView);
             movingItemService.Subscribe(inventory.BagActiveArea);
             movingItemService.Subscribe(inventory.EquipmentActiveArea);
-            
+
+            TutorialView tutorialView = _uiFactory.CreateTutorial();
+            _mainMenuServicesContainer.Single<IProgressTutorialService>().Initialize(
+                mainMenu,
+                craft,
+                inventory,
+                shop,
+                _mainMenuServicesContainer.Single<IShoppingService>(),
+                _mainMenuServicesContainer.Single<ISkillsUpgradeService>(),
+                skills,
+                tutorialView);
+
             _mainMenuServicesContainer.Single<IProcessingBonusesService>().Initialize(mainMenu);
         }
         

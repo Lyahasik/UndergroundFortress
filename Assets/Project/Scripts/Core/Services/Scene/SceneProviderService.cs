@@ -22,6 +22,7 @@ using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.Gameplay.Player.Level.Services;
 using UndergroundFortress.Gameplay.Skills.Services;
 using UndergroundFortress.Gameplay.Stats.Services;
+using UndergroundFortress.Gameplay.Tutorial.Services;
 using UndergroundFortress.UI.MainMenu;
 
 namespace UndergroundFortress.Core.Services.Scene
@@ -46,6 +47,7 @@ namespace UndergroundFortress.Core.Services.Scene
         private ISkillsUpgradeService _skillsUpgradeService;
         private IProcessingBonusesService _processingBonusesService;
         private IActivationRecipesService _activationRecipesService;
+        private IProgressTutorialService _progressTutorialService;
 
         private string _nameNewActiveScene;
 
@@ -90,6 +92,7 @@ namespace UndergroundFortress.Core.Services.Scene
                 _gameStateMachine.Enter<LoadSceneState>();
                 
                 PrepareMainMenu();
+                _progressTutorialService.SuccessStep();
                 return;
             }
 
@@ -101,6 +104,7 @@ namespace UndergroundFortress.Core.Services.Scene
             ISkillsUpgradeService skillsUpgradeService,
             IProcessingBonusesService processingBonusesService,
             IActivationRecipesService activationRecipesService,
+            IProgressTutorialService progressTutorialService,
             int idDungeon, int idLevel)
         {
             _itemsGeneratorService = itemsGeneratorService;
@@ -108,6 +112,7 @@ namespace UndergroundFortress.Core.Services.Scene
             _skillsUpgradeService = skillsUpgradeService;
             _processingBonusesService = processingBonusesService;
             _activationRecipesService = activationRecipesService;
+            _progressTutorialService = progressTutorialService;
             _currentDungeonId = idDungeon;
             _currentLevelId = idLevel;
             
@@ -178,6 +183,7 @@ namespace UndergroundFortress.Core.Services.Scene
                 _skillsUpgradeService,
                 _processingBonusesService,
                 _activationRecipesService,
+                _progressTutorialService,
                 _currentDungeonId,
                 _currentLevelId);
 

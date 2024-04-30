@@ -5,6 +5,8 @@ using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Inventory.Wallet.Services;
+using UndergroundFortress.Gameplay.Items;
+using UndergroundFortress.Gameplay.Tutorial.Services;
 using UndergroundFortress.UI.Information.Services;
 using UndergroundFortress.UI.Inventory;
 
@@ -17,6 +19,8 @@ namespace UndergroundFortress.Gameplay.Shop
         private readonly IWalletOperationService _walletOperationService;
         private readonly IInventoryService _inventoryService;
         private readonly IInformationService _informationService;
+        
+        private ProgressTutorialService _progressTutorialService;
 
         public ShoppingService(IStaticDataService staticDataService,
             IProgressProviderService progressProviderService,
@@ -33,7 +37,11 @@ namespace UndergroundFortress.Gameplay.Shop
 
         public void ShowSaleItem(CellSaleView cellSale)
         {
-            _informationService.ShowSaleItem(cellSale);
+            bool isCapping = true;
+            if (cellSale.ItemData.Type == ItemType.ResourceCritSet)
+                isCapping = !TryCheckTutorial();
+            
+            _informationService.ShowSaleItem(cellSale, isCapping);
         }
 
         public void ShowPurchase(CellPurchaseView cellPurchase)
@@ -41,12 +49,16 @@ namespace UndergroundFortress.Gameplay.Shop
             if (!_inventoryService.WalletOperationService.IsEnoughMoney(cellPurchase.PurchaseStaticData.moneyType, cellPurchase.PurchaseStaticData.price)
                 || _inventoryService.IsBagFullForItems(cellPurchase.PurchaseStaticData.rewardData.items))
                 return;
-
-            _informationService.ShowPurchase(cellPurchase);
+            
+            bool isCapping = !TryCheckTutorial();
+            _informationService.ShowPurchase(cellPurchase, isCapping);
         }
 
         public void SaleResource(CellSaleView cellSale, int number, int price)
         {
+            if (cellSale.ItemData.Type == ItemType.ResourceCritSet)
+                TryCheckTutorial();
+            
             _inventoryService.RemoveItemsByCell(InventoryCellType.Bag, cellSale, number);
             _walletOperationService.AddMoney1(price);
         }
@@ -75,6 +87,26 @@ namespace UndergroundFortress.Gameplay.Shop
         public void Pay(MoneyType moneyType, int price)
         {
             _walletOperationService.RemoveMoney(moneyType, price);
+            TryCheckTutorial();
+        }
+        
+        public void ActivateTutorial(ProgressTutorialService progressTutorialService)
+        {
+            _progressTutorialService = progressTutorialService;
+        }
+
+        public void DeactivateTutorial()
+        {
+            _progressTutorialService = null;
+        }
+
+        private bool TryCheckTutorial()
+        {
+            if (_progressTutorialService == null)
+                return false;
+            
+            _progressTutorialService.SuccessStep();
+            return true;
         }
     }
 }

@@ -73,7 +73,7 @@ namespace UndergroundFortress.UI.Craft
             //TODO locale
             _options.Add(crystal != null
                 ? new TMP_Dropdown.OptionData(crystal.Name, _staticDataService.GetItemIcon(crystal.Id))
-                : new TMP_Dropdown.OptionData("@without_crystal", null));
+                : new TMP_Dropdown.OptionData("@WithoutCrystal", null));
             
             _crystals.Add(crystal);
         }

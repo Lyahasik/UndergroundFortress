@@ -6,6 +6,7 @@ using UndergroundFortress.Constants;
 using UndergroundFortress.Gameplay.Inventory;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
+using UndergroundFortress.Gameplay.Tutorial.Services;
 using UndergroundFortress.UI.MainMenu;
 
 namespace UndergroundFortress.UI.Inventory
@@ -69,6 +70,18 @@ namespace UndergroundFortress.UI.Inventory
 
         public CellInventoryView GetCellEquipmentByItemType(ItemType itemType) => 
             cellsEquipment.Find(cell => cell.ItemType == itemType);
+
+        public void ActivateTutorial(ProgressTutorialService progressTutorialService)
+        {
+            cellsEquipment[4].ActivateTutorial(progressTutorialService);
+            cellsEquipment[6].ActivateTutorial(progressTutorialService);
+        }
+
+        public void DeactivateTutorial()
+        {
+            cellsEquipment[4].DeactivateTutorial();
+            cellsEquipment[6].DeactivateTutorial();
+        }
 
         private void FillEquipment()
         {

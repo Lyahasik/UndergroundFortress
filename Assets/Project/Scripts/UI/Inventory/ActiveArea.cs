@@ -1,10 +1,10 @@
 ﻿using System;
-using UndergroundFortress.Extensions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 using UndergroundFortress.Gameplay.Inventory.Services;
+using UndergroundFortress.Extensions;
 
 namespace UndergroundFortress.UI.Inventory
 {

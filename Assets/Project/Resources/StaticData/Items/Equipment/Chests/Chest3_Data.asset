@@ -20,9 +20,10 @@ MonoBehaviour:
   minLevel: 11
   maxLevel: 15
   statValuePerLevel: 1
-  name: '@Chest3'
+  name: '@EquipmentChest3'
   maxNumberForCell: 1
   typeStat: 41
+  additionalStatType: 0
   qualityValues:
   - qualityType: 1
     minValue: 0

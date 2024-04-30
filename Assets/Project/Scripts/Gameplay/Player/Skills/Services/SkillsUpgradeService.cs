@@ -6,6 +6,7 @@ using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats;
+using UndergroundFortress.Gameplay.Tutorial.Services;
 
 namespace UndergroundFortress.Gameplay.Skills.Services
 {
@@ -13,6 +14,8 @@ namespace UndergroundFortress.Gameplay.Skills.Services
     {
         private readonly IStaticDataService _staticDataService;
         private readonly IProgressProviderService _progressProviderService;
+        
+        private ProgressTutorialService _progressTutorialService;
 
         private SkillPointsData _skillPointsData;
         private Dictionary<SkillsType, HashSet<int>> _activeSkills;
@@ -62,6 +65,7 @@ namespace UndergroundFortress.Gameplay.Skills.Services
             _activeSkills[skillsType].Add(skillId);
             _skillPointsData.Spent++;
             
+            CheckTutorial();
             WriteProgress();
         }
 
@@ -93,6 +97,21 @@ namespace UndergroundFortress.Gameplay.Skills.Services
             _activeSkills = _progressProviderService.ProgressData.ActiveSkills;
             
             WriteProgress();
+        }
+
+        public void ActivateTutorial(ProgressTutorialService progressTutorialService)
+        {
+            _progressTutorialService = progressTutorialService;
+        }
+        
+        public void DeactivateTutorial()
+        {
+            _progressTutorialService = null;
+        }
+
+        private void CheckTutorial()
+        {
+            _progressTutorialService?.SuccessStep();
         }
     }
 }

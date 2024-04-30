@@ -20,7 +20,7 @@ MonoBehaviour:
   minLevel: 6
   maxLevel: 10
   statValuePerLevel: 3
-  name: '@Shield1'
+  name: '@EquipmentShield1'
   maxNumberForCell: 1
   typeStat: 73
   additionalStatType: 71

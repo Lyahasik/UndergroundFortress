@@ -4,6 +4,7 @@ using UnityEngine;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.StaticData;
+using UndergroundFortress.Gameplay.Tutorial.Services;
 using UndergroundFortress.UI.Information.Services;
 
 namespace UndergroundFortress.UI.Skills
@@ -35,6 +36,16 @@ namespace UndergroundFortress.UI.Skills
                     _staticDataService.ForSkillsByType(skillsType).skillsData[data.Id]);
                 data.Initialize(progressProviderService);
             });
+        }
+        
+        public void ActivateTutorial(ProgressTutorialService progressTutorialService)
+        {
+            skills.ForEach(data => data.ActivateTutorial(progressTutorialService));
+        }
+        
+        public void DeactivateTutorial()
+        {
+            skills.ForEach(data => data.DeactivateTutorial());
         }
     }
 }

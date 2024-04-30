@@ -17,7 +17,7 @@ MonoBehaviour:
   type: 20
   priceTime: 375
   probabilityWeight: 33
-  name: '@ImpHorn'
-  description: '@ImpHornDescription'
+  name: '@ResourceImpHorn'
+  description: '@ResourceImpHornDescription'
   quality: 3
   maxNumberForCell: 99

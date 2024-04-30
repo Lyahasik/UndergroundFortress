@@ -73,7 +73,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Wallet.Services
             }
         }
 
-        public bool IsEnoughMoney(MoneyType moneyType, in int value)
+        public bool IsEnoughMoney(MoneyType moneyType, in int value, bool isShowingWarning = true)
         {
             bool isEnough = false;
             
@@ -81,12 +81,12 @@ namespace UndergroundFortress.Gameplay.Inventory.Wallet.Services
             {
                 case MoneyType.Money1:
                     isEnough = _walletData.Money1 >= value;
-                    if (!isEnough)
+                    if (isShowingWarning && !isEnough)
                         _informationService.ShowWarning("@Not enough coins.");
                     break;
                 case MoneyType.Money2:
                     isEnough = _walletData.Money2 >= value;
-                    if (!isEnough)
+                    if (isShowingWarning && !isEnough)
                         _informationService.ShowWarning("@Not enough diamonds.");
                     break;
                 case MoneyType.Ads:

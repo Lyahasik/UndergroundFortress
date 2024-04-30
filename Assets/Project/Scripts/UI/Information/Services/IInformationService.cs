@@ -12,11 +12,11 @@ namespace UndergroundFortress.UI.Information.Services
     public interface IInformationService : IService
     {
         public void Initialize(InformationView informationView);
-        public void ShowSkill(SkillsType skillsType, SkillData skillData, bool isCanUpgrade = false, ProgressSkillData progressSkillData = null);
+        public void ShowSkill(SkillsType skillsType, SkillData skillData, bool isCanUpgrade = false, ProgressSkillData progressSkillData = null, bool isCapping = true);
         public void ShowItem(ItemData itemData);
-        public void ShowSaleItem(CellSaleView cellSale);
+        public void ShowSaleItem(CellSaleView cellSale, bool isCapping = true);
         public void ShowReward(RewardData rewardData);
-        public void ShowPurchase(CellPurchaseView cellPurchase);
+        public void ShowPurchase(CellPurchaseView cellPurchase, bool isCapping = true);
         public void ShowEquipmentComparison(ItemData equipmentData1, ItemData equipmentData2);
         public void ShowWarning(string text);
         public void UpdateBonusOffer(BonusData bonusData, Action onBonusActivate);

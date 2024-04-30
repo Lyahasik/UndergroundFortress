@@ -10,6 +10,7 @@ using UndergroundFortress.Gameplay.Craft.Services;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.Items.Equipment;
+using UndergroundFortress.Gameplay.Tutorial.Services;
 using UndergroundFortress.UI.Core.Buttons;
 using UndergroundFortress.UI.Craft.Recipe;
 using UndergroundFortress.UI.Information.Services;
@@ -41,6 +42,7 @@ namespace UndergroundFortress.UI.Craft
         private ICraftService _craftService;
         private IInventoryService _inventoryService;
         private IInformationService _informationService;
+        private IProgressTutorialService _progressTutorialService;
 
         private int _idItem;
         private ItemGroupType _currentGroupType;
@@ -61,14 +63,15 @@ namespace UndergroundFortress.UI.Craft
             _informationService = informationService;
         }
 
-        public void Initialize(IActivationRecipesService activationRecipesService)
+        public void Initialize(IActivationRecipesService activationRecipesService, IProgressTutorialService progressTutorialService)
         {
+            _progressTutorialService = progressTutorialService;
+            
             equipmentInfo.Construct(_staticDataService);
             equipmentInfo.Initialize();
             
             additionalStatDropdown.Construct(_staticDataService, _inventoryService);
-            additionalStatDropdown.Initialise();
-            
+            additionalStatDropdown.Initialise();          
             listRecipesView.Construct(this, _staticDataService, _inventoryService, activationRecipesService);
             listRecipesView.Initialize(_progressProviderService);
 
@@ -138,17 +141,34 @@ namespace UndergroundFortress.UI.Craft
 
             equipmentInfo.Hide();
             UpdateCraftState(_itemType.IsBaseEquipment());
+            
+            CheckTutorial();
+        }
+
+        public void ActivateTutorial(ProgressTutorialService progressTutorialService)
+        {
+            itemTypeButtons[1].ActivateTutorial(progressTutorialService);
+            itemTypeButtons[2].ActivateTutorial(progressTutorialService);
+            itemTypeButtons[3].ActivateTutorial(progressTutorialService);
+        }
+        
+        private void CheckTutorial()
+        {
+            _progressTutorialService?.SuccessStep();
         }
 
         private void UpdatePriceMoney2(ListPrice listPrice)
         {
-            bool isEnough = _inventoryService.WalletOperationService.IsEnoughMoney(MoneyType.Money1, _moneyPrice) && listPrice.IsEnough;
+            bool isEnough = _inventoryService.WalletOperationService.IsEnoughMoney(MoneyType.Money1, _moneyPrice, false) && listPrice.IsEnough;
             
             buttonStartCraft.UpdatePrice(isEnough ? 0 : CurrencyConverter.PriceTimeToMoney2(listPrice.TotalPriceTime()));
         }
 
-        public void UpdateCraftState(bool isEquipment) => 
-            additionalStatDropdown.gameObject.SetActive(isEquipment);
+        public void UpdateCraftState(bool isEquipment)
+        {
+            if (_progressTutorialService.IdSuccessStage(TutorialStageType.SuccessDungeon2))
+                additionalStatDropdown.gameObject.SetActive(isEquipment);
+        }
 
         private void CreateItem(bool isEnoughResources)
         {
@@ -158,6 +178,8 @@ namespace UndergroundFortress.UI.Craft
                 CreateResource(isEnoughResources);
             
             UpdatePriceMoney2(_listPrice);
+            CheckTutorial();
+            _progressTutorialService.TryActivateStage(TutorialStageType.FirstShopping);
         }
 
         private void CreateEquipment(bool isEnoughResources)
@@ -204,6 +226,7 @@ namespace UndergroundFortress.UI.Craft
             itemTypeButtons[3].UpdateType(ItemType.Boots);
             
             itemTypeButtons[0].ActivateTypeList();
+            CheckTutorial();
         }
     }
 }

@@ -42,8 +42,8 @@ MonoBehaviour:
     probabilityWeight: 100
     value: 0
     lifetimeBonus: 300
-  - name: '@IncreasedDamage'
-    description: '@IncreasedDamageDescription'
+  - name: '@BonusIncreasedDamage'
+    description: '@BonusIncreasedDamageDescription'
     iconOffer: {fileID: 0}
     lifetimeOffer: 30
     rewardIdAds: 6
@@ -51,8 +51,8 @@ MonoBehaviour:
     probabilityWeight: 100
     value: 5
     lifetimeBonus: 600
-  - name: '@IncreasedDodge'
-    description: '@IncreasedDodgeDescription'
+  - name: '@BonusIncreasedDodge'
+    description: '@BonusIncreasedDodgeDescription'
     iconOffer: {fileID: 0}
     lifetimeOffer: 30
     rewardIdAds: 7
@@ -60,8 +60,8 @@ MonoBehaviour:
     probabilityWeight: 100
     value: 25
     lifetimeBonus: 600
-  - name: '@IncreasedCrit'
-    description: '@IncreasedCritDescription'
+  - name: '@BonusIncreasedCrit'
+    description: '@BonusIncreasedCritDescription'
     iconOffer: {fileID: 0}
     lifetimeOffer: 30
     rewardIdAds: 8
@@ -69,8 +69,8 @@ MonoBehaviour:
     probabilityWeight: 100
     value: 25
     lifetimeBonus: 600
-  - name: '@IncreasedBlock'
-    description: '@IncreasedBlockDescription'
+  - name: '@BonusIncreasedBlock'
+    description: '@BonusIncreasedBlockDescription'
     iconOffer: {fileID: 0}
     lifetimeOffer: 30
     rewardIdAds: 9
@@ -78,8 +78,8 @@ MonoBehaviour:
     probabilityWeight: 100
     value: 25
     lifetimeBonus: 600
-  - name: '@IncreasedStun'
-    description: '@IncreasedStunDescription'
+  - name: '@BonusIncreasedStun'
+    description: '@BonusIncreasedStunDescription'
     iconOffer: {fileID: 0}
     lifetimeOffer: 30
     rewardIdAds: 10

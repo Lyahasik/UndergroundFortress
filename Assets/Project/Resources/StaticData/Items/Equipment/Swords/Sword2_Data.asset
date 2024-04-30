@@ -20,9 +20,10 @@ MonoBehaviour:
   minLevel: 6
   maxLevel: 10
   statValuePerLevel: 4
-  name: '@Sword2'
+  name: '@EquipmentSword2'
   maxNumberForCell: 1
   typeStat: 31
+  additionalStatType: 0
   qualityValues:
   - qualityType: 1
     minValue: 0

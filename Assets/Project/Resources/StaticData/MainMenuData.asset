@@ -21,3 +21,4 @@ MonoBehaviour:
   shopViewPrefab: {fileID: 7189956399880035136, guid: b84c5bc47ae1e2048ba1c0b5f8ac101a, type: 3}
   startLevelViewPrefab: {fileID: 2907022837834252587, guid: b8ed2ff33f553e640a97c4e9c03d4944, type: 3}
   buffViewPrefab: {fileID: 1785918049564830561, guid: d7b4b0b5940c42a4da33efba71afee40, type: 3}
+  tutorialView: {fileID: 1803878998535700916, guid: 3e87276939cff3346941c543e7156064, type: 3}

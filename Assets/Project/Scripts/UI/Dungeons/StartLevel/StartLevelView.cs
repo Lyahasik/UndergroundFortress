@@ -9,6 +9,7 @@ using UndergroundFortress.Gameplay.Craft.Services;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.Gameplay.Skills.Services;
+using UndergroundFortress.Gameplay.Tutorial.Services;
 
 namespace UndergroundFortress.UI.MainMenu
 {
@@ -25,6 +26,7 @@ namespace UndergroundFortress.UI.MainMenu
         private ISkillsUpgradeService _skillsUpgradeService;
         private IProcessingBonusesService _processingBonusesService;
         private IActivationRecipesService _activationRecipesService;
+        private IProgressTutorialService _progressTutorialService;
 
         private int _selectedDungeonId;
 
@@ -33,7 +35,8 @@ namespace UndergroundFortress.UI.MainMenu
             IInventoryService inventoryService,
             ISkillsUpgradeService skillsUpgradeService,
             IProcessingBonusesService processingBonusesService,
-            IActivationRecipesService activationRecipesService)
+            IActivationRecipesService activationRecipesService,
+            IProgressTutorialService progressTutorialService)
         {
             _sceneProviderService = sceneProviderService;
             _itemsGeneratorService = itemsGeneratorService;
@@ -41,6 +44,7 @@ namespace UndergroundFortress.UI.MainMenu
             _skillsUpgradeService = skillsUpgradeService;
             _processingBonusesService = processingBonusesService;
             _activationRecipesService = activationRecipesService;
+            _progressTutorialService = progressTutorialService;
         }
 
         public void Initialize(IStaticDataService staticDataService,
@@ -76,6 +80,7 @@ namespace UndergroundFortress.UI.MainMenu
                 _skillsUpgradeService,
                 _processingBonusesService,
                 _activationRecipesService,
+                _progressTutorialService,
                 _selectedDungeonId,
                 idLevel);
             

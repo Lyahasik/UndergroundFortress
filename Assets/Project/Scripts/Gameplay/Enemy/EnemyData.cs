@@ -120,7 +120,7 @@ namespace UndergroundFortress.Gameplay.Character
                     break;
                 case StatType.Dodge:
                     //TODO locale
-                    GenerateDamageView("@missed");
+                    GenerateDamageView("@Missed");
                     dodgeHitFeedback.PlayFeedbacks();
                     break;
                 case StatType.Parry:

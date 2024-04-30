@@ -11,6 +11,8 @@ namespace UndergroundFortress.Core.Progress
 {
     public class ProgressData
     {
+        public HashSet<int> TutorialStages;
+
         public PlayerLevelData LevelData;
         public SkillPointsData SkillPointsData;
         public Dictionary<StatType, float> MainStats;

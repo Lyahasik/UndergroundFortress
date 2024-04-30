@@ -17,7 +17,7 @@ MonoBehaviour:
   type: 20
   priceTime: 25
   probabilityWeight: 100
-  name: '@Skin'
-  description: '@SkinDescription'
+  name: '@ResourceSkin'
+  description: '@ResourceSkinDescription'
   quality: 1
   maxNumberForCell: 99

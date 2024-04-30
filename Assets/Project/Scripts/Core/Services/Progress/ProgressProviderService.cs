@@ -154,13 +154,15 @@ namespace UndergroundFortress.Core.Services.Progress
         {
             ProgressData progressData = new ProgressData
             {
+                TutorialStages = new HashSet<int>(),
+                
                 LevelData = new PlayerLevelData(),
                 SkillPointsData = new SkillPointsData(),
                 MainStats = CreateMainStats(),
                 ActiveSkills = CreateActiveSkills(),
                 ProgressSkills = CreateProgressSkills(),
                 
-                Wallet = new WalletData(500, 50),
+                Wallet = new WalletData(0, 100),
                 Equipment = CreateEquipment(),
                 ActiveRecipes = CreateActiveRecipes(),
                 Bag = CreateBag(),

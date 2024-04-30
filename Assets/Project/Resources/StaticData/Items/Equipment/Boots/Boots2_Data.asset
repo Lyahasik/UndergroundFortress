@@ -20,9 +20,10 @@ MonoBehaviour:
   minLevel: 6
   maxLevel: 10
   statValuePerLevel: 1
-  name: '@Boots2'
+  name: '@EquipmentBoots2'
   maxNumberForCell: 1
   typeStat: 41
+  additionalStatType: 0
   qualityValues:
   - qualityType: 1
     minValue: 0

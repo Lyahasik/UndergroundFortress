@@ -6,6 +6,7 @@ using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Inventory;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
+using UndergroundFortress.Gameplay.Tutorial.Services;
 using UndergroundFortress.UI.Information;
 
 namespace UndergroundFortress.UI.Inventory
@@ -32,6 +33,7 @@ namespace UndergroundFortress.UI.Inventory
 
         protected RectTransform _rect;
         protected IInventoryService _inventoryService;
+        private ProgressTutorialService _progressTutorialService;
 
         private ActiveArea _parentArea;
         protected int _number;
@@ -130,6 +132,25 @@ namespace UndergroundFortress.UI.Inventory
             numberView.SetActive(false);
             numberLevelView.SetActive(false);
         }
+        
+        public void ActivateTutorial(ProgressTutorialService progressTutorialService)
+        {
+            _progressTutorialService = progressTutorialService;
+        }
+
+        public void DeactivateTutorial()
+        {
+            _progressTutorialService = null;
+        }
+        
+        private void CheckTutorial()
+        {
+            if (_progressTutorialService != null)
+            {
+                _progressTutorialService.SuccessStep();
+                _progressTutorialService = null;
+            }
+        }
 
         private void SetValues(ItemData itemData, int number)
         {
@@ -162,6 +183,7 @@ namespace UndergroundFortress.UI.Inventory
                 return;
             
             _movingItemService.AddItem(this, position);
+            CheckTutorial();
         }
 
         protected void UpdateValue(InventoryCellType inventoryCellType, int id, CellData cellData)

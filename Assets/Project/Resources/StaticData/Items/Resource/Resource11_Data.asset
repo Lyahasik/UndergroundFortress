@@ -17,7 +17,7 @@ MonoBehaviour:
   type: 20
   priceTime: 125
   probabilityWeight: 100
-  name: '@IronOre'
-  description: '@IronOreDescription'
+  name: '@ResourceIronOre'
+  description: '@ResourceIronOreDescription'
   quality: 2
   maxNumberForCell: 99

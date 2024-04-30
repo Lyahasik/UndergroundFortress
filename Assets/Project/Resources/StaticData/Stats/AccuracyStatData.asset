@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a27ffef2bcd14ea6bfe8fe082cdf7a4e, type: 3}
   m_Name: AccuracyStatData
   m_EditorClassIdentifier: 
-  keyName: '@accuracy'
+  keyName: '@StatAccuracy'
   type: 52
   icon: {fileID: 21300000, guid: 9dae0fd54c52cbf4ea5e5e682e776be1, type: 3}
   qualityValues:

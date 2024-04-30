@@ -5,6 +5,7 @@ using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.StaticData;
+using UndergroundFortress.Gameplay.Tutorial.Services;
 using UndergroundFortress.UI.Information.Services;
 
 namespace UndergroundFortress.UI.Skills
@@ -24,6 +25,7 @@ namespace UndergroundFortress.UI.Skills
 
         protected IStaticDataService _staticDataService;
         protected IInformationService _informationService;
+        private ProgressTutorialService _progressTutorialService;
         protected SkillsType _skillsType;
         protected SkillData _skillData;
 
@@ -73,7 +75,26 @@ namespace UndergroundFortress.UI.Skills
 
         protected virtual void ShowInformation()
         {
-            _informationService.ShowSkill(_skillsType, _skillData, isCanUpgrade: frame.activeSelf);
+            _informationService.ShowSkill(_skillsType, _skillData, isCanUpgrade: frame.activeSelf, isCapping: !TryCheckTutorial());
+        }
+
+        public void ActivateTutorial(ProgressTutorialService progressTutorialService)
+        {
+            _progressTutorialService = progressTutorialService;
+        }
+
+        public void DeactivateTutorial()
+        {
+            _progressTutorialService = null;
+        }
+
+        private bool TryCheckTutorial()
+        {
+            if (_progressTutorialService == null)
+                return false;
+            
+            _progressTutorialService.SuccessStep();
+            return true;
         }
     }
 }

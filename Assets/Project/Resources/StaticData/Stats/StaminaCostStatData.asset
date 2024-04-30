@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a27ffef2bcd14ea6bfe8fe082cdf7a4e, type: 3}
   m_Name: StaminaCostStatData
   m_EditorClassIdentifier: 
-  keyName: '@stamina_cost'
+  keyName: '@StatStaminaCost'
   type: 13
   icon: {fileID: 21300000, guid: ccd81da3aa4dc8e429423ec25b05007e, type: 3}
   qualityValues:

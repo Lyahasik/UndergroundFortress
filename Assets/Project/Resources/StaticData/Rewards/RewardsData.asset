@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: RewardsData
   m_EditorClassIdentifier: 
   numberCoinsByLevel: 1
-  numberToDisplayByLevel: 10
-  delayAccrualSeconds: 60
+  numberToDisplayByLevel: 3
+  delayAccrualSeconds: 3
   maxAccumulationSeconds: 14400
   dailyRewards:
   - nameReward: 

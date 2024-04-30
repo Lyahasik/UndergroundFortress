@@ -17,7 +17,7 @@ MonoBehaviour:
   type: 20
   priceTime: 25
   probabilityWeight: 100
-  name: '@Wood'
-  description: '@WoodDescription'
+  name: '@ResourceWood'
+  description: '@ResourceWoodDescription'
   quality: 1
   maxNumberForCell: 99

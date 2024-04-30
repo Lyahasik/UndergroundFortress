@@ -4,6 +4,7 @@ using UnityEngine;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Shop;
+using UndergroundFortress.Gameplay.Tutorial.Services;
 using UndergroundFortress.UI.Craft;
 using UndergroundFortress.UI.MainMenu;
 
@@ -21,7 +22,8 @@ namespace UndergroundFortress.UI.Shop
         [SerializeField] private ListPurchasesView listPurchases;
 
         private IInventoryService _inventoryService;
-        
+        private ProgressTutorialService _progressTutorialService;
+
         private GroupPurchaseType _currentGroupType;
 
         private void OnEnable()
@@ -66,6 +68,24 @@ namespace UndergroundFortress.UI.Shop
                 groupPurchaseTypeButton.Change(_currentGroupType);
             
             listPurchases.ActivatePurchaseGroup(_currentGroupType);
+
+            if (groupType == GroupPurchaseType.Money1)
+                CheckTutorial();
+        }
+        
+        public void ActivateTutorial(ProgressTutorialService progressTutorialService)
+        {
+            _progressTutorialService = progressTutorialService;
+        }
+
+        public void DeactivateTutorial()
+        {
+            _progressTutorialService = null;
+        }
+
+        private void CheckTutorial()
+        {
+            _progressTutorialService?.SuccessStep();
         }
     }
 }

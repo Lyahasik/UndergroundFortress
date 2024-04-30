@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 using UndergroundFortress.Constants;
@@ -9,6 +10,7 @@ using UndergroundFortress.Core.Update;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Player.Level;
 using UndergroundFortress.Gameplay.StaticData;
+using UndergroundFortress.Gameplay.Tutorial.Services;
 using UndergroundFortress.UI.Inventory;
 using UndergroundFortress.UI.MainMenu;
 
@@ -23,6 +25,7 @@ namespace UndergroundFortress.Core.Services.Rewards
 
         private PlayerLevelData _levelData;
         private RewardsData _rewardsData;
+        private HashSet<int> _tutorialStages;
 
         private RewardsStaticData _rewardsStaticData;
         private int _maxRewardNumberCoins;
@@ -60,6 +63,7 @@ namespace UndergroundFortress.Core.Services.Rewards
         {
             _levelData = progress.LevelData;
             _rewardsData = progress.RewardsData;
+            _tutorialStages = progress.TutorialStages;
 
             UpdateProgress(progress);
             CalculateOfflineTime();
@@ -122,7 +126,8 @@ namespace UndergroundFortress.Core.Services.Rewards
             _rewardsData.LastCalculateTime = DateTime.Now.Ticks;
             WriteProgress();
 
-            if (_rewardsData.NumberCoins >= _levelData.Level * _rewardsStaticData.numberToDisplayByLevel)
+            if (_tutorialStages.Contains((int) TutorialStageType.FirstEquipmentPotion)
+                && _rewardsData.NumberCoins >= _levelData.Level * _rewardsStaticData.numberToDisplayByLevel)
                 _mainMenuView.ActivateAccumulatedRewardButton(_rewardsData);
             
             _delayIncreaseReward = _rewardsStaticData.delayAccrualSeconds;

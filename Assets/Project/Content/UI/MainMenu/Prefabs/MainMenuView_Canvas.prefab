@@ -1280,9 +1280,9 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 1
+  m_ChildAlignment: 2
   m_Spacing: 0
-  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
@@ -2162,6 +2162,11 @@ MonoBehaviour:
   offerButton: {fileID: 6610981339307001735}
   accumulatedRewardButton: {fileID: 2741995594037622344}
   listBuffs: {fileID: 320208132731925244}
+  unlocksByTutorial:
+  - {fileID: 95110970502145813}
+  - {fileID: 1208444205384213058}
+  - {fileID: 2749103639888896431}
+  - {fileID: 5205290274724053146}
 --- !u!1 &5992047348845169068
 GameObject:
   m_ObjectHideFlags: 0
@@ -3828,8 +3833,29 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3803962119476823588, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 95110970502145813}
   m_SourcePrefab: {fileID: 100100000, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
+--- !u!1 &580184264109630042 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3803962119476823588, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
+  m_PrefabInstance: {fileID: 4379568011597833342}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &95110970502145813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580184264109630042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b532080ae955f418bc44f184f89f22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageType: 7
 --- !u!224 &5954085686720384613 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7955169512083892763, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
@@ -4010,13 +4036,34 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3803962119476823588, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1208444205384213058}
   m_SourcePrefab: {fileID: 100100000, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
 --- !u!224 &4467048897386164681 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7955169512083892763, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
   m_PrefabInstance: {fileID: 6023658835678829522}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7445073261034135030 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3803962119476823588, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
+  m_PrefabInstance: {fileID: 6023658835678829522}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1208444205384213058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7445073261034135030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b532080ae955f418bc44f184f89f22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageType: 7
 --- !u!1001 &6390083091929818611
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4192,13 +4239,34 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3803962119476823588, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5205290274724053146}
   m_SourcePrefab: {fileID: 100100000, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
 --- !u!224 &3947495450582700008 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7955169512083892763, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
   m_PrefabInstance: {fileID: 6390083091929818611}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7810440032518513623 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3803962119476823588, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
+  m_PrefabInstance: {fileID: 6390083091929818611}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5205290274724053146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7810440032518513623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b532080ae955f418bc44f184f89f22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageType: 4
 --- !u!1001 &7758563787873851116
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4374,10 +4442,31 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3803962119476823588, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2749103639888896431}
   m_SourcePrefab: {fileID: 100100000, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
 --- !u!224 &418135670576987383 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7955169512083892763, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
   m_PrefabInstance: {fileID: 7758563787873851116}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6872941409731301576 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3803962119476823588, guid: 35752b1b1a5e83649a60a7e973373667, type: 3}
+  m_PrefabInstance: {fileID: 7758563787873851116}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2749103639888896431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6872941409731301576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b532080ae955f418bc44f184f89f22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageType: 3

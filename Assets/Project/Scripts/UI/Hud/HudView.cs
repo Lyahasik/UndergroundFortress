@@ -29,6 +29,9 @@ namespace UndergroundFortress.UI.Hud
         [Space]
         [SerializeField] private RestWindow restWindow;
 
+        [Space]
+        [SerializeField] private UnlockByTutorialStage unlockByTutorialStage;
+        
         private ISceneProviderService _sceneProviderService;
         
         public CurrentStatFillView PlayerHealthFill => playerHealthFill;
@@ -66,6 +69,8 @@ namespace UndergroundFortress.UI.Hud
                 progressDungeonService.StartBattle,
                 progressDungeonService.NextLevel, 
                 LoadMainScene);
+            
+            unlockByTutorialStage.Initialize(progressProviderService);
         }
         
         public void LoadMainScene()

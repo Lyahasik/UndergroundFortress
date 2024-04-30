@@ -107,9 +107,10 @@ namespace UndergroundFortress.UI.Information
             dailyRewardsView.Initialize(dailyRewardsService, CloseView);
         }
 
-        public void ShowSkill(SkillsType skillsType, SkillData skillData, bool isCanUpgrade, ProgressSkillData progressSkillData = null)
+        public void ShowSkill(SkillsType skillsType, SkillData skillData, bool isCanUpgrade, ProgressSkillData progressSkillData = null, bool isCapping = true)
         {
-            CapActivate();
+            if (isCapping)
+                CapActivate();
             
             if (progressSkillData == null)
                 skillView.Show(skillsType, skillData, isCanUpgrade);
@@ -127,14 +128,12 @@ namespace UndergroundFortress.UI.Information
                 ShowResource(itemData);
         }
 
-        public void ShowSaleItem(CellSaleView cellSale)
+        public void ShowSaleItem(CellSaleView cellSale, bool isCapping = true)
         {
-            CapActivate();
-            
             if (cellSale.ItemData.Type.IsEquipment())
                 ShowSaleEquipment(cellSale);
             else
-                ShowSaleResource(cellSale);
+                ShowSaleResource(cellSale, isCapping);
         }
 
         public void ShowEquipmentComparison(ItemData equipmentData1, ItemData equipmentData2)
@@ -170,9 +169,10 @@ namespace UndergroundFortress.UI.Information
             warningPrompt.Hide();
         }
 
-        private void ShowSaleResource(CellSaleView cellSale)
+        private void ShowSaleResource(CellSaleView cellSale, bool isCapping)
         {
-            CapActivate();
+            if (isCapping)
+                CapActivate();
             
             saleResourceView.Show(cellSale);
         }
@@ -197,9 +197,10 @@ namespace UndergroundFortress.UI.Information
             rewardItemsView.Show(rewardData);
         }
 
-        public void ShowPurchase(CellPurchaseView cellPurchase)
+        public void ShowPurchase(CellPurchaseView cellPurchase, bool isCapping = true)
         {
-            CapActivate();
+            if (isCapping)
+                CapActivate();
 
             purchaseRewardItemsView.Show(cellPurchase.PurchaseStaticData);
         }

@@ -8,8 +8,8 @@ using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Gameplay.Character;
-using UndergroundFortress.Gameplay.Craft.Services;
 using UndergroundFortress.Gameplay.StaticData;
+using UndergroundFortress.Gameplay.Tutorial.Services;
 using UndergroundFortress.UI.Craft;
 using UndergroundFortress.UI.Information.Services;
 using UndergroundFortress.UI.Inventory;
@@ -33,6 +33,9 @@ namespace UndergroundFortress.UI.MainMenu
         [SerializeField] private AccumulatedRewardButton accumulatedRewardButton;
         [SerializeField] private GameObject listBuffs;
 
+        [Space]
+        [SerializeField] private List<UnlockByTutorialStage> unlocksByTutorial;
+
         private IUIFactory _uiFactory;
         private IInformationService _informationService;
 
@@ -41,6 +44,8 @@ namespace UndergroundFortress.UI.MainMenu
 
         private BonusData _bonusData;
         private RewardsData _rewardsData;
+
+        private ProgressTutorialService _progressTutorialService;
 
         public CurrentStatFillView PlayerHealthFill => playerHealthFill;
 
@@ -79,6 +84,8 @@ namespace UndergroundFortress.UI.MainMenu
             
             offerButton.Initialize(ShowBonusOffer);
             accumulatedRewardButton.Initialize(ShowAccumulatedReward);
+            
+            unlocksByTutorial.ForEach(data => data.Initialize(progressProviderService));
         }
 
         public void ActivateWindow(int idWindow)
@@ -108,6 +115,8 @@ namespace UndergroundFortress.UI.MainMenu
             }
             
             listBuffs.SetActive(_currentWindowType == WindowType.StartLevel);
+
+            CheckTutorial();
         }
 
         public void ActivateBonusOfferButton(BonusData bonusData, Action onBonusActivate)
@@ -131,12 +140,6 @@ namespace UndergroundFortress.UI.MainMenu
             buffView.transform.SetParent(listBuffs.transform);
         }
 
-        private void ShowBonusOffer()
-        {
-            offerButton.Deactivate();
-            _informationService.ShowBonusOffer();
-        }
-
         public void ActivateAccumulatedRewardButton(RewardsData rewardsData)
         {
             _rewardsData = rewardsData;
@@ -151,10 +154,26 @@ namespace UndergroundFortress.UI.MainMenu
             _rewardsData = null;
         }
 
+        public void ActivateTutorial(ProgressTutorialService progressTutorialService)
+        {
+            _progressTutorialService = progressTutorialService;
+        }
+
+        private void ShowBonusOffer()
+        {
+            offerButton.Deactivate();
+            _informationService.ShowBonusOffer();
+        }
+
         private void ShowAccumulatedReward()
         {
             accumulatedRewardButton.Deactivate();
             _informationService.ShowAccumulatedReward();
+        }
+
+        private void CheckTutorial()
+        {
+            _progressTutorialService?.SuccessStep();
         }
     }
 }

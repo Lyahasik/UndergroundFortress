@@ -59,17 +59,17 @@ MonoBehaviour:
     targetExperience: 150
     numberSkillPoints: 3
   - level: 15
-    targetExperience: 850
+    targetExperience: 160
     numberSkillPoints: 1
   - level: 16
-    targetExperience: 900
+    targetExperience: 170
     numberSkillPoints: 1
   - level: 17
-    targetExperience: 950
+    targetExperience: 180
     numberSkillPoints: 1
   - level: 18
-    targetExperience: 1000
+    targetExperience: 200
     numberSkillPoints: 1
   - level: 19
-    targetExperience: 1050
+    targetExperience: 210
     numberSkillPoints: 3

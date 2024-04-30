@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a27ffef2bcd14ea6bfe8fe082cdf7a4e, type: 3}
   m_Name: DefenseStatData
   m_EditorClassIdentifier: 
-  keyName: '@defense'
+  keyName: '@StatDefense'
   type: 41
   icon: {fileID: 21300000, guid: 261395908a391e347be839142414d9ba, type: 3}
   qualityValues:

@@ -20,7 +20,7 @@ MonoBehaviour:
   minLevel: 6
   maxLevel: 10
   statValuePerLevel: 1
-  name: '@Dagger1'
+  name: '@EquipmentDagger1'
   maxNumberForCell: 1
   typeStat: 31
   additionalStatType: 51

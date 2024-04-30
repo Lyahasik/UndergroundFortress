@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 
 using UndergroundFortress.Core.Services;
+using UndergroundFortress.Gameplay.Tutorial.Services;
 using UndergroundFortress.UI.Inventory;
 
 namespace UndergroundFortress.Gameplay.Shop
@@ -13,5 +14,7 @@ namespace UndergroundFortress.Gameplay.Shop
         public void SaleResource(CellSaleView cellSale, int number, int price);
         public void SaleEquipment(CellSaleView selectedCell, int price);
         public List<PurchaseStaticData> GetPurchaseBagByMoneyType(MoneyType moneyType);
+        public void ActivateTutorial(ProgressTutorialService progressTutorialService);
+        public void DeactivateTutorial();
     }
 }

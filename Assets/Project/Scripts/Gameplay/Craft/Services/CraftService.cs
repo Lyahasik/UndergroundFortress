@@ -98,7 +98,7 @@ namespace UndergroundFortress.Gameplay.Craft.Services
                 _inventoryService.RemoveItemsByType(InventoryCellType.Bag, crystal.Type, 1);
             
             var wallet = _inventoryService.WalletOperationService;
-            if (!wallet.IsEnoughMoney(MoneyType.Money1, moneyPrice))
+            if (!wallet.IsEnoughMoney(MoneyType.Money1, moneyPrice, false))
                 wallet.RemoveMoney1(wallet.Money1);
             
             listPrice.PriceResources.ForEach(data =>

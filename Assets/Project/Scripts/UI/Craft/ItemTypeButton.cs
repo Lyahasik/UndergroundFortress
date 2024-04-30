@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Items;
+using UndergroundFortress.Gameplay.Tutorial.Services;
 using UndergroundFortress.UI.StaticData;
 
 namespace UndergroundFortress.UI.Craft
@@ -15,6 +16,7 @@ namespace UndergroundFortress.UI.Craft
 
         private IStaticDataService _staticDataService;
         private ListRecipesView _listRecipesView;
+        private ProgressTutorialService _progressTutorialService;
 
         private ItemType _itemType;
 
@@ -52,6 +54,17 @@ namespace UndergroundFortress.UI.Craft
         public void ActivateTypeList()
         {
             _listRecipesView.FillList(_itemType);
+            CheckTutorial();
+        }
+
+        public void ActivateTutorial(ProgressTutorialService progressTutorialService)
+        {
+            _progressTutorialService = progressTutorialService;
+        }
+        
+        private void CheckTutorial()
+        {
+            _progressTutorialService?.SuccessStep();
         }
     }
 }

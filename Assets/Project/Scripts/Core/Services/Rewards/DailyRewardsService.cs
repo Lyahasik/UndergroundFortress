@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+
 using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
@@ -7,6 +8,7 @@ using UndergroundFortress.Extensions;
 using UndergroundFortress.Gameplay.Inventory.Wallet.Services;
 using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.Gameplay.Player.Level;
+using UndergroundFortress.Gameplay.Tutorial.Services;
 using UndergroundFortress.UI.Information.Services;
 using UndergroundFortress.UI.Inventory;
 
@@ -22,7 +24,8 @@ namespace UndergroundFortress.Core.Services.Rewards
         
         private RewardsData _rewardsData;
         private PlayerLevelData _levelData;
-        
+        private HashSet<int> _tutorialStages;
+
         private List<MoneyNumberData> _rewardMoneys;
         private List<ItemNumberData> _rewardItems;
 
@@ -53,9 +56,11 @@ namespace UndergroundFortress.Core.Services.Rewards
         {
             _rewardsData = progress.RewardsData;
             _levelData = progress.LevelData;
+            _tutorialStages = progress.TutorialStages;
 
-            if (_rewardsData.LastDateAward == null
-                || _rewardsData.LastDateAward.IsNewDay(DateTime.Now))
+            if (_tutorialStages.Contains((int) TutorialStageType.FirstEquipmentPotion)
+                && (_rewardsData.LastDateAward == null
+                    || _rewardsData.LastDateAward.IsNewDay(DateTime.Now)))
                 PresentAward();
         }
 

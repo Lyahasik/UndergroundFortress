@@ -17,7 +17,7 @@ MonoBehaviour:
   type: 20
   priceTime: 375
   probabilityWeight: 33
-  name: '@BoneDust'
-  description: '@BoneDustDescription'
+  name: '@ResourceBoneDust'
+  description: '@ResourceBoneDustDescription'
   quality: 3
   maxNumberForCell: 99

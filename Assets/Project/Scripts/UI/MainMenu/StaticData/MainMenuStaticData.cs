@@ -20,5 +20,6 @@ namespace UndergroundFortress.UI.MainMenu.StaticData
         public ShopView shopViewPrefab;
         public StartLevelView startLevelViewPrefab;
         public BuffView buffViewPrefab;
+        public TutorialView tutorialView;
     }
 }

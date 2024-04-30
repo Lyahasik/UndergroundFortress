@@ -8,6 +8,7 @@ using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Skills.Services;
 using UndergroundFortress.Gameplay.StaticData;
+using UndergroundFortress.Gameplay.Tutorial.Services;
 using UndergroundFortress.UI.Core.Buttons;
 using UndergroundFortress.UI.Information.Services;
 using UndergroundFortress.UI.MainMenu;
@@ -88,6 +89,16 @@ namespace UndergroundFortress.UI.Skills
         private void ResetActiveSkills()
         {
             _skillsUpgradeService.ResetSkills();
+        }
+
+        public void ActivateTutorial(ProgressTutorialService progressTutorialService)
+        {
+            listsSkills.ForEach(data => data.ActivateTutorial(progressTutorialService));
+        }
+
+        public void DeactivateTutorial()
+        {
+            listsSkills.ForEach(data => data.DeactivateTutorial());
         }
     }
 }

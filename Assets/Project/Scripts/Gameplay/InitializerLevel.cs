@@ -18,6 +18,7 @@ using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.Gameplay.Player.Level.Services;
 using UndergroundFortress.Gameplay.Skills.Services;
 using UndergroundFortress.Gameplay.Stats.Services;
+using UndergroundFortress.Gameplay.Tutorial.Services;
 using UndergroundFortress.UI.Hud;
 
 namespace UndergroundFortress.Gameplay
@@ -60,6 +61,7 @@ namespace UndergroundFortress.Gameplay
             ISkillsUpgradeService skillsUpgradeService,
             IProcessingBonusesService processingBonusesService,
             IActivationRecipesService activationRecipesService,
+            IProgressTutorialService progressTutorialService,
             int dungeonId, int levelId)
         {
             RegisterGameplayServices(
@@ -70,7 +72,8 @@ namespace UndergroundFortress.Gameplay
                 progressProviderService,
                 skillsUpgradeService,
                 processingBonusesService,
-                activationRecipesService);
+                activationRecipesService,
+                progressTutorialService);
                 
             DungeonBackground dungeonBackground = _uiFactory.CreateDungeonBackground();
             HudView hudView = CreateHUD();
@@ -98,7 +101,8 @@ namespace UndergroundFortress.Gameplay
             IProgressProviderService progressProviderService,
             ISkillsUpgradeService skillsUpgradeService,
             IProcessingBonusesService processingBonusesService,
-            IActivationRecipesService activationRecipesService)
+            IActivationRecipesService activationRecipesService,
+            IProgressTutorialService progressTutorialService)
         {
             _gameplayServicesContainer = new ServicesContainer();
             
@@ -119,7 +123,8 @@ namespace UndergroundFortress.Gameplay
                 statsRestorationService,
                 playerUpdateLevelService,
                 progressProviderService,
-                activationRecipesService);
+                activationRecipesService,
+                progressTutorialService);
         }
 
         private void RegisterProgressDungeonService(IItemsGeneratorService itemsGeneratorService,
@@ -127,7 +132,8 @@ namespace UndergroundFortress.Gameplay
             IStatsRestorationService statsRestorationService,
             IPlayerUpdateLevelService playerUpdateLevelService,
             IProgressProviderService progressProviderService,
-            IActivationRecipesService activationRecipesService)
+            IActivationRecipesService activationRecipesService,
+            IProgressTutorialService progressTutorialService)
         {
             var service = new ProgressDungeonService(
                 _staticDataService,
@@ -139,7 +145,8 @@ namespace UndergroundFortress.Gameplay
                 playerUpdateLevelService,
                 itemsGeneratorService,
                 activationRecipesService,
-                walletOperationService);
+                walletOperationService,
+                progressTutorialService);
             _statsRestorationService.ProgressDungeonService = service;
             
             _gameplayServicesContainer.Register<IProgressDungeonService>(service);
@@ -169,6 +176,7 @@ namespace UndergroundFortress.Gameplay
                 _playerData,
                 dungeonId,
                 levelId);
+            
             progressDungeonService.StartBattle();
             
             hudView.Initialize(

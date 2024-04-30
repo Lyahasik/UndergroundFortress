@@ -16264,7 +16264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1355739943192768320, guid: 20ba918a8bd55824fabebf42dae1ec1c, type: 3}
       propertyPath: m_text
-      value: Reset
+      value: '@Reset'
       objectReference: {fileID: 0}
     - target: {fileID: 1355739943192768320, guid: 20ba918a8bd55824fabebf42dae1ec1c, type: 3}
       propertyPath: m_fontSize
