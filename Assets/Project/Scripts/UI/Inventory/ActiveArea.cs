@@ -16,7 +16,7 @@ namespace UndergroundFortress.UI.Inventory
 
         private bool _isMovement;
         
-        public event Action<Vector3> OnUp;
+        public event Action<Vector3, ActiveArea, bool> OnUp;
         public event Action<Vector3, ActiveArea, bool> OnStartMove;
         public event Action<Vector3, ActiveArea, bool> OnEndMove;
         public event Action<Vector3> OnDragItem;
@@ -41,7 +41,7 @@ namespace UndergroundFortress.UI.Inventory
             if (_isMovement)
                 OnEndMove?.Invoke(eventData.position, this, _rect.IsDotInside(eventData.position));
             else
-                OnUp?.Invoke(eventData.position);
+                OnUp?.Invoke(eventData.position, this, _rect.IsDotInside(eventData.position));
 
             EventSystem.current.SetSelectedGameObject(null, eventData);
             _isMovement = false;

@@ -166,10 +166,12 @@ namespace UndergroundFortress.UI.Inventory
             TryShowNumber(number.ToString());
         }
 
-        private void Hit(Vector3 position)
+        private void Hit(Vector3 position, ActiveArea activeArea, bool isDotInsideArea)
         {
             if (_itemData == null
-                || !_rect.IsDotInside(position))
+                || !_rect.IsDotInside(position)
+                || !isDotInsideArea && _parentArea == activeArea
+                || isDotInsideArea && _parentArea != activeArea)
                 return;
 
             _inventoryService.ShowItem(_itemData, _inventoryCellType);

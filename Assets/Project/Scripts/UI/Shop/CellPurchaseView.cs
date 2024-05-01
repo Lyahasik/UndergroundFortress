@@ -98,7 +98,7 @@ namespace UndergroundFortress.UI.Inventory
             _activeArea.OnUp -= Hit;
         }
 
-        private void Hit(Vector3 position)
+        private void Hit(Vector3 position, ActiveArea activeArea, bool isDotInsideArea)
         {
             if (!_rect.IsDotInside(position))
                 return;
