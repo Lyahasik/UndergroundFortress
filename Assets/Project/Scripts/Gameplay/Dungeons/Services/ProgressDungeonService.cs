@@ -273,6 +273,7 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
                 }
 
                 priceTimeEnemy -= priceTimeItem;
+                accident = Random.Range(0, totalWeight + 1);
             }
         }
 
