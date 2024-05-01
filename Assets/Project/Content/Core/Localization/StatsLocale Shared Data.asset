@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: StatsLocale Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: StatsLocale
+  m_TableCollectionNameGuidString: 55a331a0b0409de4f85b651eb6c6d700
+  m_Entries:
+  - m_Id: 55923191808
+    m_Key: '@StatAccuracy'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 59177971712
+    m_Key: '@StatBlockAttackDamage'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 61598085120
+    m_Key: '@StatBlock'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 115952070656
+    m_Key: '@StatBreakThrough'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 117600432128
+    m_Key: '@StatCritDamage'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 119475286016
+    m_Key: '@StatCrit'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 170951979008
+    m_Key: '@StatDamage'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 172155744256
+    m_Key: '@StatDefense'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 173468561408
+    m_Key: '@StatDodge'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 283153805312
+    m_Key: '@StatHealthRecovery'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 284529537024
+    m_Key: '@StatHealth'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 285771051008
+    m_Key: '@StatParry'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 335666491392
+    m_Key: '@StatStaminaCost'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 347276324864
+    m_Key: '@StatStaminaRecovery'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 348853383168
+    m_Key: '@StatStamina'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 413781209088
+    m_Key: '@StatStrength'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 427572080640
+    m_Key: '@StatStunDuration'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 428784234496
+    m_Key: '@StatStun'
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 2022668888489590801
+  references:
+    version: 2
+    RefIds:
+    - rid: 2022668888489590801
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1714524437860

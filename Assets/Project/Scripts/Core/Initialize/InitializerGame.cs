@@ -1,6 +1,8 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Services;
 using UndergroundFortress.Core.Services.Ads;
 using UndergroundFortress.Core.Services.Characters;
@@ -27,16 +29,22 @@ namespace UndergroundFortress.Core.Initialize
         [SerializeField] private StatsRestorationHandler statsRestorationHandlerPrefab;
 
         private ServicesContainer _servicesContainer;
-        
-        private void Awake()
+
+        private IEnumerator Start()
         {
-            RegisterServices();
+            var localizationService = new LocalizationService();
+            
+            yield return localizationService.Initialize();
+            
+            RegisterServices(localizationService);
             _servicesContainer.Single<IGameStateMachine>().Enter<LoadProgressState>();
         }
 
-        private void RegisterServices()
+        private void RegisterServices(LocalizationService localizationService)
         {
             _servicesContainer = new ServicesContainer();
+            
+            _servicesContainer.Register<ILocalizationService>(localizationService);
 
             UpdateHandler updateHandler = CreateUpdateHandler();
 
@@ -69,6 +77,7 @@ namespace UndergroundFortress.Core.Initialize
                     _servicesContainer.Single<IUIFactory>(),
                     _servicesContainer.Single<IGameplayFactory>(),
                     _servicesContainer.Single<IStaticDataService>(),
+                    _servicesContainer.Single<ILocalizationService>(),
                     _servicesContainer.Single<IProcessingAdsService>(),
                     _servicesContainer.Single<IProgressProviderService>(),
                     _servicesContainer.Single<IProcessingPlayerStatsService>(),

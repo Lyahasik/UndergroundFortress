@@ -1,0 +1,164 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: SkillsLocale Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: SkillsLocale
+  m_TableCollectionNameGuidString: 6ec453c43ea660e4ebaf83ec09359aa3
+  m_Entries:
+  - m_Id: 402041352192
+    m_Key: '@SkillAccuracy'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 405698785280
+    m_Key: '@SkillAccuracyDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 432173232128
+    m_Key: '@SkillBlock'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 435629338624
+    m_Key: '@SkillBlockDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468177137664
+    m_Key: '@SkillBlockAttackDamage'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 469217325056
+    m_Key: '@SkillBlockAttackDamageDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 498174799872
+    m_Key: '@SkillBreakThrough'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 499751858176
+    m_Key: '@SkillBreakThroughDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 530991034368
+    m_Key: '@SkillCrit'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 532169633792
+    m_Key: '@SkillCritDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 569079508992
+    m_Key: '@SkillCritDamage'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 570992111616
+    m_Key: '@SkillCritDamageDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 621185347584
+    m_Key: '@SkillDamage'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 622326198272
+    m_Key: '@SkillDamageDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 656857903104
+    m_Key: '@SkillDefense'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 657830981632
+    m_Key: '@SkillDefenseDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 682556403712
+    m_Key: '@SkillDodge'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 683428818944
+    m_Key: '@SkillDodgeDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 718157656064
+    m_Key: '@SkillHealth'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 719336255488
+    m_Key: '@SkillHealthDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783857233920
+    m_Key: '@SkillHealthRecovery'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 784796758016
+    m_Key: '@SkillHealthRecoveryDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 816644108288
+    m_Key: '@SkillParry'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 817717850112
+    m_Key: '@SkillParryDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 847379968000
+    m_Key: '@SkillStamina'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 848348852224
+    m_Key: '@SkillStaminaDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 875431473152
+    m_Key: '@SkillStaminaRecovery'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 876299694080
+    m_Key: '@SkillStaminaRecoveryDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 919387779072
+    m_Key: '@SkillStrength'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 920323108864
+    m_Key: '@SkillStrengthDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 952971571200
+    m_Key: '@SkillStun'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 954011758592
+    m_Key: '@SkillStunDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 984852475904
+    m_Key: '@SkillStunDuration'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 986563751936
+    m_Key: '@SkillStunDurationDescription'
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 2022668888489590802
+  references:
+    version: 2
+    RefIds:
+    - rid: 2022668888489590802
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1714524577667

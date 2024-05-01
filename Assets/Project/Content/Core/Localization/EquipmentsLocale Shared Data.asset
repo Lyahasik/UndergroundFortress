@@ -1,0 +1,120 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: EquipmentsLocale Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: EquipmentsLocale
+  m_TableCollectionNameGuidString: 287f19171f6333246be740722193175a
+  m_Entries:
+  - m_Id: 28073013248
+    m_Key: '@EquipmentBoots1'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30954500096
+    m_Key: '@EquipmentBoots2'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34108616704
+    m_Key: '@EquipmentBoots3'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 160441053184
+    m_Key: '@EquipmentChest1'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 162357850112
+    m_Key: '@EquipmentChest2'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 163762941952
+    m_Key: '@EquipmentChest3'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 212752412672
+    m_Key: '@EquipmentDagger1'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 214228807680
+    m_Key: '@EquipmentDagger2'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 265302847488
+    m_Key: '@EquipmentGloves1'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 266674384896
+    m_Key: '@EquipmentGloves2'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 268083671040
+    m_Key: '@EquipmentGloves3'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 320294367232
+    m_Key: '@EquipmentMace1'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 321435217920
+    m_Key: '@EquipmentMace2'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 361901862912
+    m_Key: '@EquipmentPants1'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 363717996544
+    m_Key: '@EquipmentPants2'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 365156642816
+    m_Key: '@EquipmentPants3'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 410153136128
+    m_Key: '@EquipmentShield1'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 411331735552
+    m_Key: '@EquipmentShield2'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 452465274880
+    m_Key: '@EquipmentSword1'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 453773897728
+    m_Key: '@EquipmentSword2'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457435525120
+    m_Key: '@EquipmentSword3'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 512531902464
+    m_Key: '@EquipmentTwoHandedWeapon1'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 513534341120
+    m_Key: '@EquipmentTwoHandedWeapon2'
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 2022668888489590799
+  references:
+    version: 2
+    RefIds:
+    - rid: 2022668888489590799
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1714523361429

@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 using UndergroundFortress.Constants;
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
@@ -18,6 +19,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
     public class InventoryService : IInventoryService, IWritingProgress
     {
         private readonly IStaticDataService _staticDataService;
+        private readonly ILocalizationService _localizationService;
         private readonly IProgressProviderService _progressProviderService;
         private readonly IInformationService _informationService;
         private readonly IWalletOperationService _walletOperationService;
@@ -33,11 +35,13 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
         public event Action<InventoryCellType, int, CellData> OnUpdateCell;
 
         public InventoryService(IStaticDataService staticDataService,
+            ILocalizationService localizationService,
             IProgressProviderService progressProviderService,
             IInformationService informationService,
             IWalletOperationService walletOperationService)
         {
             _staticDataService = staticDataService;
+            _localizationService = localizationService;
             _progressProviderService = progressProviderService;
             _informationService = informationService;
             _walletOperationService = walletOperationService;
@@ -74,7 +78,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             bool isFull = _inventory[InventoryCellType.Bag].All(cellData => cellData.ItemData != null);
             
             if (isShowMessage && isFull)
-                _informationService.ShowWarning("@Bag is full.");
+                _informationService.ShowWarning(_localizationService.LocaleMain(ConstantValues.KEY_LOCALE_BAG_FULL));
 
             return isFull;
         }
@@ -93,7 +97,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             bool isFull = cells.All(cellData => cellData.Number >= _staticDataService.GetItemMaxNumberForCellById(cellData.ItemData.Id));
             
             if (isFull)
-                _informationService.ShowWarning("@Bag is full.");
+                _informationService.ShowWarning(_localizationService.LocaleMain(ConstantValues.KEY_LOCALE_BAG_FULL));
 
             return isFull;
         }
@@ -141,7 +145,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             bool isFull = requiredCells > GetNumberEmptyCells();
             
             if (isFull)
-                _informationService.ShowWarning("@Bag is full.");
+                _informationService.ShowWarning(_localizationService.LocaleMain(ConstantValues.KEY_LOCALE_BAG_FULL));
 
             return isFull;
         }

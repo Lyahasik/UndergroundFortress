@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Services.Bonuses;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.Scene;
@@ -48,11 +49,12 @@ namespace UndergroundFortress.UI.MainMenu
         }
 
         public void Initialize(IStaticDataService staticDataService,
+            ILocalizationService localizationService,
             IProgressProviderService progressProviderService)
         {
             listDungeons.ForEach(data =>
             {
-                data.Construct(staticDataService);
+                data.Construct(staticDataService, localizationService);
                 data.Initialize(progressProviderService, UpdateSelectDungeon, StartLevel);
             });
         }

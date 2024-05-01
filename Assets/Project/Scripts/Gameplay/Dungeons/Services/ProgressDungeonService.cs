@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 
 using UndergroundFortress.Constants;
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Core.Services.Factories.Gameplay;
 using UndergroundFortress.Core.Services.Progress;
@@ -25,6 +26,7 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
     public class ProgressDungeonService : IProgressDungeonService, IWritingProgress
     {
         private readonly IStaticDataService _staticDataService;
+        private readonly ILocalizationService _localizationService;
         private readonly IProgressProviderService _progressProviderService;
         private readonly IGameplayFactory _gameplayFactory;
         private readonly IAttackService _attackService;
@@ -57,6 +59,7 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
         public event Action<int> OnUpdateSteps;
 
         public ProgressDungeonService(IStaticDataService staticDataService,
+            ILocalizationService localizationService,
             IProgressProviderService progressProviderService,
             IGameplayFactory gameplayFactory,
             IAttackService attackService,
@@ -69,6 +72,7 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
             IProgressTutorialService progressTutorialService)
         {
             _staticDataService = staticDataService;
+            _localizationService = localizationService;
             _progressProviderService = progressProviderService;
             _gameplayFactory = gameplayFactory;
             _attackService = attackService;
@@ -128,7 +132,7 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
             _currentDungeon = _staticDataService.GetDungeonById(dungeonId);
             _currentLevelId = levelId;
 
-            _nameLevelText.text = $"{_currentDungeon.name} { _currentLevelId + 1 }";
+            _nameLevelText.text = $"{_localizationService.LocaleMain(_currentDungeon.name)} { _currentLevelId + 1 }";
         }
 
         public void StartBattle()
@@ -172,6 +176,7 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
             _currentEnemy.Construct(
                 enemyStats,
                 _staticDataService,
+                _localizationService,
                 _walletOperationService,
                 _itemsGeneratorService,
                 _statsRestorationService,

@@ -12,24 +12,22 @@ namespace UndergroundFortress.Gameplay.Stats
         [SerializeField] private TMP_Text nameText;
         [SerializeField] private TMP_Text valueText;
 
-        public void SetValues(string keyName, Sprite iconSprite, QualityType qualityType, in float value)
+        public void SetValues(string name, Sprite iconSprite, QualityType qualityType, in float value)
         {
             background.color = GetColorQuality(qualityType);
             icon.sprite = iconSprite;
 
-            //TODO locale
-            nameText.text = keyName;
+            nameText.text = name;
             valueText.text = Math.Round(value, 2).ToString();
             
             gameObject.SetActive(true);
         }
 
-        public void SetValues(string keyName, Sprite iconSprite, in float minValue, in float maxValue)
+        public void SetValues(string name, Sprite iconSprite, in float minValue, in float maxValue)
         {
             icon.sprite = iconSprite;
 
-            //TODO locale
-            nameText.text = keyName;
+            nameText.text = name;
             valueText.text = $"{ minValue } - { maxValue }";
             
             gameObject.SetActive(true);

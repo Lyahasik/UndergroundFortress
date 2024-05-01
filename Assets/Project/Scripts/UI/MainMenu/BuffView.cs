@@ -2,6 +2,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+using UndergroundFortress.Constants;
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Services.Bonuses;
 using UndergroundFortress.Extensions;
 using UndergroundFortress.Gameplay.StaticData;
@@ -16,13 +18,16 @@ namespace UndergroundFortress
         [SerializeField] private Image lifetimeFill;
         [SerializeField] private TMP_Text lifetimeValueText;
 
+        private ILocalizationService _localizationService;
         private IProcessingBonusesService _processingBonusesService;
         private BonusType _bonusType;
         private float _lifetime;
-        
-        public void Construct(IProcessingBonusesService processingBonusesService,
+
+        public void Construct(ILocalizationService localizationService,
+            IProcessingBonusesService processingBonusesService,
             BonusData bonusData)
         {
+            _localizationService = localizationService;
             _processingBonusesService = processingBonusesService;
 
             icon.sprite = bonusData.iconOffer;
@@ -42,7 +47,9 @@ namespace UndergroundFortress
             if (leftToLive <= 0f)
                 Destroy(gameObject);
 
-            lifetimeValueText.text = leftToLive.ToStringTime();
+            lifetimeValueText.text = leftToLive.ToStringTime(
+                _localizationService.LocaleMain(ConstantValues.KEY_LOCALE_MINUTE),
+                _localizationService.LocaleMain(ConstantValues.KEY_LOCALE_SECOND));
             lifetimeFill.fillAmount = leftToLive / _lifetime;
         }
     }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Character.Services;
 using UndergroundFortress.Testing;
@@ -20,9 +21,9 @@ namespace UndergroundFortress.UI.MainMenu
             _processingPlayerStatsService = processingPlayerStatsService;
         }
 
-        public void Initialize(IStaticDataService staticDataService)
+        public void Initialize(IStaticDataService staticDataService, ILocalizationService localizationService)
         {
-            statsView.Construct(staticDataService);
+            statsView.Construct(staticDataService, localizationService);
         }
         
         public void ActivationUpdate(WindowType type)

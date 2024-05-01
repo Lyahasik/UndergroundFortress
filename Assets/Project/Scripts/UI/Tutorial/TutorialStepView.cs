@@ -1,5 +1,7 @@
 using UnityEngine;
 
+using UndergroundFortress.Core.Localization;
+
 namespace UndergroundFortress
 {
     public class TutorialStepView : MonoBehaviour
@@ -15,9 +17,9 @@ namespace UndergroundFortress
         public bool IsCapping => isCapping;
         public bool IsClosing => isClosing;
 
-        public void Activate()
+        public void Activate(ILocalizationService localizationService)
         {
-            mentorView?.Activate(keyMessageLocate, isSkipped);
+            mentorView?.Activate(localizationService.LocaleTutorial(keyMessageLocate), isSkipped);
             gameObject.SetActive(true);
         }
 

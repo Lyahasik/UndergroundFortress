@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats;
@@ -23,10 +24,12 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
         [SerializeField] private List<StoneView> stones;
 
         protected IStaticDataService _staticDataService;
+        private ILocalizationService _localizationService;
 
-        public void Construct(IStaticDataService staticDataService)
+        public void Construct(IStaticDataService staticDataService, ILocalizationService localizationService)
         {
             _staticDataService = staticDataService;
+            _localizationService = localizationService;
         }
 
         public void Initialize()
@@ -41,7 +44,7 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
         public void Show(ItemData equipmentData)
         {
             if (nameText != null)
-                nameText.text = equipmentData.Name;
+                nameText.text = _localizationService.LocaleEquipment(equipmentData.Name);
             
             if (cellItemView != null)
                 cellItemView.SetValues(
@@ -75,7 +78,11 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
                 {
                     StatItemData statData = statsData[i];
                     StatStaticData statStaticData = _staticDataService.GetStatByType(statData.Type);
-                    statViews[i].SetValues(statStaticData.keyName, statStaticData.icon, statData.QualityType, statData.Value);
+                    statViews[i].SetValues(
+                        _localizationService.LocaleStat(statStaticData.keyName),
+                        statStaticData.icon,
+                        statData.QualityType,
+                        statData.Value);
                 }
                 else
                 {

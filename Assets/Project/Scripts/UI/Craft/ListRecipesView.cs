@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
-using UndergroundFortress.Core.Progress;
-using UndergroundFortress.Core.Services.Progress;
 using UnityEngine;
 
+using UndergroundFortress.Core.Localization;
+using UndergroundFortress.Core.Progress;
+using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Craft.Services;
 using UndergroundFortress.Gameplay.Inventory.Services;
@@ -21,6 +22,7 @@ namespace UndergroundFortress.UI.Craft
 
         private CraftView _craftView;
         private IStaticDataService _staticDataService;
+        private ILocalizationService _localizationService;
         private IInventoryService _inventoryService;
         private IActivationRecipesService _activationRecipesService;
         private PlayerLevelData _levelData;
@@ -31,11 +33,13 @@ namespace UndergroundFortress.UI.Craft
 
         public void Construct(CraftView craftView,
             IStaticDataService staticDataService,
+            ILocalizationService localizationService,
             IInventoryService inventoryService,
             IActivationRecipesService activationRecipesService)
         {
             _craftView = craftView;
             _staticDataService = staticDataService;
+            _localizationService = localizationService;
             _inventoryService = inventoryService;
             _activationRecipesService = activationRecipesService;
         }
@@ -76,7 +80,7 @@ namespace UndergroundFortress.UI.Craft
                 RecipeStaticData recipeData = recipesStaticData.Find(v => v.itemData.id == itemId);
                 
                 RecipeView recipeView = Instantiate(prefabRecipeView, gameObject.transform);
-                recipeView.Construct(_staticDataService, _craftView, this, _inventoryService);
+                recipeView.Construct(_staticDataService, _localizationService, _craftView, this, _inventoryService);
                 
                 if (IsEquipment(itemType))
                 {

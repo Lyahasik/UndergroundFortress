@@ -17,8 +17,8 @@ MonoBehaviour:
   type: 200
   priceTime: 60
   probabilityWeight: 0
-  name: '@PotionHealth'
-  description: '@PotionHealthDescription'
+  name: '@ResourcePotionHealth'
+  description: '@ResourcePotionHealthDescription'
   quality: 1
   maxNumberForCell: 99
   consumableType: 1

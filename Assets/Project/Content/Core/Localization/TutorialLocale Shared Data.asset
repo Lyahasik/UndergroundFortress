@@ -1,0 +1,132 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: TutorialLocale Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: TutorialLocale
+  m_TableCollectionNameGuidString: ca0ff485440024347a7f4a8915b9c0b9
+  m_Entries:
+  - m_Id: 23660605440
+    m_Key: '@StageFirstStat_Step1'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1386608078848
+    m_Key: '@StageFirstStat_Step2'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1389393096704
+    m_Key: '@StageFirstStat_Step3'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1392710791168
+    m_Key: '@StageFirstStat_Step4'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1472671002624
+    m_Key: '@StageFirstBattle_Step1'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1544645259264
+    m_Key: '@StageFirstBattle_Step2'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1592296747008
+    m_Key: '@StageFirstCreateEquipment_Step1'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1692586749952
+    m_Key: '@StageFirstCreateEquipment_Step2'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1694734233600
+    m_Key: '@StageFirstCreateEquipment_Step4'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1697150152704
+    m_Key: '@StageFirstCreateEquipment_Step5'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1762182836224
+    m_Key: '@StageFirstShopping_Step1'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1910996742144
+    m_Key: '@StageFirstShopping_Step2'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1921163735040
+    m_Key: '@StageFirstShopping_Step4'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2286466641920
+    m_Key: '@StageSecondCreateEquipment_Step1'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2359044878336
+    m_Key: '@StageSecondCreateEquipment_Step12'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2360420610048
+    m_Key: '@StageFirstHealthPotion_Step1'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2362039611392
+    m_Key: '@StageFirstHealthPotion_Step2'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2822968455168
+    m_Key: '@StageFirstHealthPotion_Step3'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2824579067904
+    m_Key: '@StageFirstHealthPotion_Step4'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2876353556480
+    m_Key: '@StageUpgradeSkills_Step1'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3002384003072
+    m_Key: '@StageUpgradeSkills_Step3'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3004464377856
+    m_Key: '@StageUpgradeSkills_Step4'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3008759345152
+    m_Key: '@StageUpgradeSkills_Step5'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3041944678400
+    m_Key: '@StageUpgradeSkills_Step7'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3137507700736
+    m_Key: '@StageSuccessDungeon1'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3200288043008
+    m_Key: '@StageSuccessDungeon2'
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 5445722797085818894
+  references:
+    version: 2
+    RefIds:
+    - rid: 5445722797085818894
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1714568075446

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 using UndergroundFortress.Constants;
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Services.Ads;
 using UndergroundFortress.Core.Services.Bonuses;
 using UndergroundFortress.Core.Services.Characters;
@@ -34,6 +35,7 @@ namespace UndergroundFortress.Core.Services.Scene
         private readonly IUIFactory _uiFactory;
         private readonly IGameplayFactory _gameplayFactory;
         private readonly IStaticDataService _staticDataService;
+        private readonly ILocalizationService _localizationService;
         private readonly IProcessingAdsService _processingAdsService;
         private readonly IProgressProviderService _progressProviderService;
         private readonly IProcessingPlayerStatsService _processingPlayerStatsService;
@@ -61,6 +63,7 @@ namespace UndergroundFortress.Core.Services.Scene
             IUIFactory uiFactory,
             IGameplayFactory gameplayFactory,
             IStaticDataService staticDataService,
+            ILocalizationService localizationService,
             IProcessingAdsService processingAdsService,
             IProgressProviderService progressProviderService,
             IProcessingPlayerStatsService processingPlayerStatsService,
@@ -74,6 +77,7 @@ namespace UndergroundFortress.Core.Services.Scene
             _uiFactory = uiFactory;
             _gameplayFactory = gameplayFactory;
             _staticDataService = staticDataService;
+            _localizationService = localizationService;
             _processingAdsService = processingAdsService;
             _progressProviderService = progressProviderService;
             _processingPlayerStatsService = processingPlayerStatsService;
@@ -146,7 +150,12 @@ namespace UndergroundFortress.Core.Services.Scene
             {
                 InitializerMainMenu initializerMainMenu = new GameObject().AddComponent<InitializerMainMenu>();
                 initializerMainMenu.name = nameof(InitializerMainMenu);
-                initializerMainMenu.Construct(_staticDataService, _processingAdsService, _uiFactory, _progressProviderService);
+                initializerMainMenu.Construct(
+                    _staticDataService,
+                    _localizationService,
+                    _processingAdsService,
+                    _uiFactory,
+                    _progressProviderService);
                 initializerMainMenu.Initialize(
                     _updateHandler,
                     _processingPlayerStatsService,
@@ -169,6 +178,7 @@ namespace UndergroundFortress.Core.Services.Scene
             initializerLevel.name = nameof(InitializerLevel);
             initializerLevel.Construct(this,
                 _staticDataService,
+                _localizationService,
                 _gameplayFactory,
                 _uiFactory,
                 _processingPlayerStatsService,

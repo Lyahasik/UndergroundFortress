@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay;
 using UndergroundFortress.Gameplay.Inventory.Services;
@@ -29,6 +30,7 @@ namespace UndergroundFortress.UI.Craft.Recipe
         [SerializeField] private ListPrice listPrice;
 
         private IStaticDataService _staticDataService;
+        private ILocalizationService _localizationService;
         private CraftView _craftView;
         private ListRecipesView _listRecipesView;
         private IInventoryService _inventoryService;
@@ -39,11 +41,13 @@ namespace UndergroundFortress.UI.Craft.Recipe
         private int _moneyPrice;
 
         public void Construct(IStaticDataService staticDataService,
+            ILocalizationService localizationService,
             CraftView craftView,
             ListRecipesView listRecipesView,
             IInventoryService inventoryService)
         {
             _staticDataService = staticDataService;
+            _localizationService = localizationService;
             _craftView = craftView;
             _listRecipesView = listRecipesView;
             _inventoryService = inventoryService;
@@ -94,7 +98,7 @@ namespace UndergroundFortress.UI.Craft.Recipe
             _idItem = equipmentData.id;
             _itemType = equipmentData.type;
             iconImage.sprite = equipmentData.icon;
-            nameText.text = equipmentData.name;
+            nameText.text = _localizationService.LocaleEquipment(equipmentData.name);
             
             maximumLevelItem.SetValue(equipmentData.maxLevel);
 
@@ -106,7 +110,7 @@ namespace UndergroundFortress.UI.Craft.Recipe
                 = equipmentData.statValuePerLevel * Math.Clamp(currentLevel, equipmentData.minLevel, equipmentData.maxLevel);
             
             statView.SetValues(
-                statStaticData.keyName,
+                _localizationService.LocaleStat(statStaticData.keyName),
                 statStaticData.icon,
                 baseValue + qualityValueFirst.minValue,
                 baseValue + qualityValueLast.maxValue);
@@ -117,7 +121,7 @@ namespace UndergroundFortress.UI.Craft.Recipe
             _idItem = resourceData.id;
             _itemType = resourceData.type;
             iconImage.sprite = resourceData.icon;
-            nameText.text = resourceData.name;
+            nameText.text = _localizationService.LocaleResource(resourceData.name);
 
             maximumLevelItem.Hide();
             statView.Hide();
@@ -126,7 +130,7 @@ namespace UndergroundFortress.UI.Craft.Recipe
         private void ActivateRecipe()
         {
             _listRecipesView.ActivateRecipe(_idItem);
-            _craftView.SetRecipe(iconImage.sprite, _idItem, _itemType, _moneyPrice, listPrice);
+            _craftView.SetRecipe(nameText.text, iconImage.sprite, _idItem, _itemType, _moneyPrice, listPrice);
         }
 
         private void SetInteractable(int idItem)

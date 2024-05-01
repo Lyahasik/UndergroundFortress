@@ -17,7 +17,7 @@ MonoBehaviour:
   type: 24
   priceTime: 500
   probabilityWeight: 25
-  name: '@CrystalStun'
-  description: '@CrystalStunDescription'
+  name: '@ResourceCrystalStun'
+  description: '@ResourceCrystalStunDescription'
   quality: 4
   maxNumberForCell: 10

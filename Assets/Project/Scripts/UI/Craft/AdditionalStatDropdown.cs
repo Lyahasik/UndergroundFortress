@@ -3,6 +3,8 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 
+using UndergroundFortress.Constants;
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
@@ -14,6 +16,7 @@ namespace UndergroundFortress.UI.Craft
         [SerializeField] private TMP_Dropdown dropdown;
 
         private IStaticDataService _staticDataService;
+        private ILocalizationService _localizationService;
         private IInventoryService _inventoryService;
 
         private List<TMP_Dropdown.OptionData> _options;
@@ -24,9 +27,10 @@ namespace UndergroundFortress.UI.Craft
 
         public ItemData CurrentCrystal => _currentCrystal;
 
-        public void Construct(IStaticDataService staticDataService, IInventoryService inventoryService)
+        public void Construct(IStaticDataService staticDataService, ILocalizationService localizationService, IInventoryService inventoryService)
         {
             _staticDataService = staticDataService;
+            _localizationService = localizationService;
             _inventoryService = inventoryService;
         }
 
@@ -70,10 +74,9 @@ namespace UndergroundFortress.UI.Craft
             if (crystal == _currentCrystal)
                 _newId = _options.Count;
             
-            //TODO locale
             _options.Add(crystal != null
-                ? new TMP_Dropdown.OptionData(crystal.Name, _staticDataService.GetItemIcon(crystal.Id))
-                : new TMP_Dropdown.OptionData("@WithoutCrystal", null));
+                ? new TMP_Dropdown.OptionData(_localizationService.LocaleResource(crystal.Name), _staticDataService.GetItemIcon(crystal.Id))
+                : new TMP_Dropdown.OptionData(_localizationService.LocaleMain(ConstantValues.KEY_LOCALE_WITHOUT_CRYSTAL), null));
             
             _crystals.Add(crystal);
         }

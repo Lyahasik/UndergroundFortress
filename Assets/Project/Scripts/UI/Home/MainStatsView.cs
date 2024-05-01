@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay;
 using UndergroundFortress.Gameplay.Character;
@@ -43,10 +44,12 @@ namespace UndergroundFortress.Testing
         [SerializeField] private StatView strength;
 
         private IStaticDataService _staticDataService;
+        private ILocalizationService _localizationService;
 
-        public void Construct(IStaticDataService staticDataService)
+        public void Construct(IStaticDataService staticDataService, ILocalizationService localizationService)
         {
             _staticDataService = staticDataService;
+            _localizationService = localizationService;
         }
 
         public void UpdateValues(CharacterStats stats)
@@ -80,7 +83,7 @@ namespace UndergroundFortress.Testing
 
         private void SetStat(StatView statView, CharacterStats stats, StatType statType)
         {
-            statView.SetValues(_staticDataService.GetStatByType(statType).keyName,
+            statView.SetValues(_localizationService.LocaleStat(_staticDataService.GetStatByType(statType).keyName),
                 _staticDataService.GetStatByType(statType).icon,
                 QualityType.Grey,
                 stats.MainStats[statType]);

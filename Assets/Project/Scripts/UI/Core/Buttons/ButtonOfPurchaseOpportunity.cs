@@ -3,6 +3,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+using UndergroundFortress.Constants;
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.UI.Information.Services;
 using UndergroundFortress.UI.Inventory;
@@ -17,6 +19,7 @@ namespace UndergroundFortress.UI.Core.Buttons
         [SerializeField] private GameObject priceView;
         [SerializeField] private TMP_Text textPrice;
 
+        private ILocalizationService _localizationService;
         private IInventoryService _inventoryService;
         private IInformationService _informationService;
 
@@ -31,9 +34,11 @@ namespace UndergroundFortress.UI.Core.Buttons
             button.onClick.AddListener(Buy);
         }
 
-        public void Construct(IInventoryService inventoryService,
+        public void Construct(ILocalizationService localizationService,
+            IInventoryService inventoryService,
             IInformationService informationService)
         {
+            _localizationService = localizationService;
             _inventoryService = inventoryService;
             _informationService = informationService;
         }
@@ -65,7 +70,7 @@ namespace UndergroundFortress.UI.Core.Buttons
 
             if (!_inventoryService.WalletOperationService.IsEnoughMoney(MoneyType.Money2, _currentPrice))
             {
-                _informationService.ShowWarning("@Not enough diamonds");
+                _informationService.ShowWarning(_localizationService.LocaleMain(ConstantValues.KEY_LOCALE_NOT_DIAMONDS));
                 return;
             }
             

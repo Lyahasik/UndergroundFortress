@@ -17,7 +17,7 @@ MonoBehaviour:
   type: 21
   priceTime: 500
   probabilityWeight: 25
-  name: '@CrystalDodge'
-  description: '@CrystalDodgeDescription'
+  name: '@ResourceCrystalDodge'
+  description: '@ResourceCrystalDodgeDescription'
   quality: 4
   maxNumberForCell: 10

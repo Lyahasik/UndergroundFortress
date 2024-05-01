@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Gameplay.Tutorial.Services;
 
 namespace UndergroundFortress
@@ -9,18 +10,21 @@ namespace UndergroundFortress
     {
         [SerializeField] private List<TutorialStageView> stages;
 
+        private ILocalizationService _localizationService;
         private IProgressTutorialService _progressTutorialService;
-        private TutorialStageView _currentStageView;
         
+        private TutorialStageView _currentStageView;
 
-        public void Construct(IProgressTutorialService progressTutorialService)
+        public void Construct(ILocalizationService localizationService, IProgressTutorialService progressTutorialService)
         {
+            _localizationService = localizationService;
             _progressTutorialService = progressTutorialService;
         }
 
         public void ActivateStage(TutorialStageType stageType)
         {
             _currentStageView = stages.Find(data => data.StageType == stageType);
+            _currentStageView.Construct(_localizationService);
             _currentStageView?.Activate();
         }
 

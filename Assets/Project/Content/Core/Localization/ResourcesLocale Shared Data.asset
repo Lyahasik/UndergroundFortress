@@ -1,0 +1,196 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: ResourcesLocale Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: ResourcesLocale
+  m_TableCollectionNameGuidString: 3a831ffcb4153794781f09f6c95f5990
+  m_Entries:
+  - m_Id: 10104614912
+    m_Key: '@ResourceTornSkin'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31776583680
+    m_Key: '@ResourceTornSkinDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31501366865920
+    m_Key: '@ResourceMetalFragment'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31505385009152
+    m_Key: '@ResourceMetalFragmentDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36160634630144
+    m_Key: '@ResourceWoodChip'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36174459056128
+    m_Key: '@ResourceWoodChipDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36447659241472
+    m_Key: '@ResourceSlime'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36489627447296
+    m_Key: '@ResourceSlimeDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36508325654528
+    m_Key: '@ResourceSkin'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36542677004288
+    m_Key: '@ResourceSkinDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36566701977600
+    m_Key: '@ResourceCopperOre'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36572439785472
+    m_Key: '@ResourceCopperOreDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36606229098496
+    m_Key: '@ResourceWood'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36625321570304
+    m_Key: '@ResourceWoodDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36665955987456
+    m_Key: '@ResourceTrollFang'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36667767926784
+    m_Key: '@ResourceTrollFangDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36703167852544
+    m_Key: '@ResourceCoal'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36704879128576
+    m_Key: '@ResourceCoalDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36745110892544
+    m_Key: '@ResourceTextile'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36746721505280
+    m_Key: '@ResourceTextileDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36788027011072
+    m_Key: '@ResourceIronOre'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36790614896640
+    m_Key: '@ResourceIronOreDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36827994533888
+    m_Key: '@ResourceRivets'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36829869387776
+    m_Key: '@ResourceRivetsDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36867953668096
+    m_Key: '@ResourceImpHorn'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36869497171968
+    m_Key: '@ResourceImpHornDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36908957184000
+    m_Key: '@ResourceBoneDust'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36910634905600
+    m_Key: '@ResourceBoneDustDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42418234208256
+    m_Key: '@ResourcePotionHealth'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42420167782400
+    m_Key: '@ResourcePotionHealthDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42643711602688
+    m_Key: '@ResourcePotionDamage'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42645653565440
+    m_Key: '@ResourcePotionDamageDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42678306222080
+    m_Key: '@ResourcePotionVampirism'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42679983943680
+    m_Key: '@ResourcePotionVampirismDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42734342123520
+    m_Key: '@ResourceCrystalBlock'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42736623824896
+    m_Key: '@ResourceCrystalBlockDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42937883308032
+    m_Key: '@ResourceCrystalCrit'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42939561029632
+    m_Key: '@ResourceCrystalCritDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42969458028544
+    m_Key: '@ResourceCrystalDodge'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42971035086848
+    m_Key: '@ResourceCrystalDodgeDescription'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43006267240448
+    m_Key: '@ResourceCrystalStun'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43008079179776
+    m_Key: '@ResourceCrystalStunDescription'
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 2022668885741010987
+  references:
+    version: 2
+    RefIds:
+    - rid: 2022668885741010987
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1714511428157

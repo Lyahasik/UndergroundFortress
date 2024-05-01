@@ -3,6 +3,8 @@ using DG.Tweening;
 using MoreMountains.Feedbacks;
 using UnityEngine;
 
+using UndergroundFortress.Constants;
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Extensions;
 using UndergroundFortress.Gameplay.Inventory.Wallet.Services;
@@ -43,6 +45,7 @@ namespace UndergroundFortress.Gameplay.Character
         [SerializeField] private MMF_Player deadFeedback;
 
         private IStaticDataService _staticDataService;
+        private ILocalizationService _localizationService;
         private IWalletOperationService _walletOperationService;
         private IItemsGeneratorService _itemsGeneratorService;
         private IStatsRestorationService _statsRestorationService;
@@ -53,13 +56,14 @@ namespace UndergroundFortress.Gameplay.Character
         private Action _onStartDead;
         private Action _onDead;
         private Action<EnemyData> _onReady;
-        
+
         private bool _isDead;
 
         public bool IsDead => _isDead;
 
         public void Construct(CharacterStats stats,
             IStaticDataService staticDataService,
+            ILocalizationService localizationService,
             IWalletOperationService walletOperationService,
             IItemsGeneratorService itemsGeneratorService,
             IStatsRestorationService statsRestorationService,
@@ -73,6 +77,7 @@ namespace UndergroundFortress.Gameplay.Character
             base.Construct(stats);
 
             _staticDataService = staticDataService;
+            _localizationService = localizationService;
             _walletOperationService = walletOperationService;
             _itemsGeneratorService = itemsGeneratorService;
             _statsRestorationService = statsRestorationService;
@@ -119,8 +124,7 @@ namespace UndergroundFortress.Gameplay.Character
                     damageHitFeedback.PlayFeedbacks();
                     break;
                 case StatType.Dodge:
-                    //TODO locale
-                    GenerateDamageView("@Missed");
+                    GenerateDamageView(_localizationService.LocaleMain(ConstantValues.KEY_LOCALE_MISSED));
                     dodgeHitFeedback.PlayFeedbacks();
                     break;
                 case StatType.Parry:

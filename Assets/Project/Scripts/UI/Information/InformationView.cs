@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Core.Services.Ads;
@@ -61,6 +62,7 @@ namespace UndergroundFortress.UI.Information
         public CellItemView CellItemView => cellItemView;
 
         public void Initialize(IStaticDataService staticDataService,
+            ILocalizationService localizationService,
             IProcessingAdsService processingAdsService,
             IProgressProviderService progressProviderService,
             ISkillsUpgradeService skillsUpgradeService,
@@ -70,28 +72,34 @@ namespace UndergroundFortress.UI.Information
             IAccumulationRewardsService accumulationRewardsService,
             IDailyRewardsService dailyRewardsService)
         {
-            skillView.Construct(staticDataService, skillsUpgradeService);
+            skillView.Construct(staticDataService, localizationService, skillsUpgradeService);
             skillView.Initialize(CloseView);
             
-            progressSkillView.Construct(staticDataService, skillsUpgradeService);
+            progressSkillView.Construct(staticDataService, localizationService, skillsUpgradeService);
             progressSkillView.Initialize(CloseView);
             
-            equipmentView.Construct(staticDataService);
+            equipmentView.Construct(staticDataService, localizationService);
             equipmentView.Initialize();
-            saleEquipmentView.Construct(staticDataService, shoppingService);
+            saleEquipmentView.Construct(staticDataService, localizationService, shoppingService);
             saleEquipmentView.Initialize(progressProviderService, CloseView);
             
-            equipmentComparisonView.Initialize(staticDataService);
+            equipmentComparisonView.Initialize(staticDataService, localizationService);
             
-            resourceView.Construct(staticDataService);
-            saleResourceView.Construct(staticDataService, shoppingService);
+            resourceView.Construct(staticDataService, localizationService);
+            saleResourceView.Construct(staticDataService, localizationService, shoppingService);
             saleResourceView.Initialize(progressProviderService, CloseView);
             
-            rewardItemsView.Construct(staticDataService, progressProviderService, itemsGeneratorService, inventoryService);
+            rewardItemsView.Construct(
+                staticDataService,
+                localizationService,
+                progressProviderService,
+                itemsGeneratorService,
+                inventoryService);
             rewardItemsView.Initialize(CloseView);
 
             purchaseRewardItemsView.Construct(
                 staticDataService,
+                localizationService,
                 progressProviderService,
                 itemsGeneratorService,
                 inventoryService,
@@ -99,6 +107,7 @@ namespace UndergroundFortress.UI.Information
                 processingAdsService);
             purchaseRewardItemsView.Initialize(CloseView);
             
+            bonusOfferView.Construct(localizationService);
             bonusOfferView.Initialize(processingAdsService, CloseView);
             
             accumulatedRewardView.Construct(accumulationRewardsService);

@@ -17,7 +17,7 @@ MonoBehaviour:
   type: 22
   priceTime: 500
   probabilityWeight: 25
-  name: '@CrystalCrit'
-  description: '@CrystalCritDescription'
+  name: '@ResourceCrystalCrit'
+  description: '@ResourceCrystalCritDescription'
   quality: 4
   maxNumberForCell: 10

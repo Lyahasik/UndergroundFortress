@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Gameplay.Tutorial.Services;
 
 namespace UndergroundFortress
@@ -13,16 +14,22 @@ namespace UndergroundFortress
         [SerializeField] private TutorialStageType stageType;
         [SerializeField] private List<TutorialStepView> steps;
 
+        private ILocalizationService _localizationService;
         private TutorialStepView _currentStep;
         private int _currentStepId;
 
         public TutorialStageType StageType => stageType;
         public TutorialStepView CurrentStep => _currentStep;
 
+        public void Construct(ILocalizationService localizationService)
+        {
+            _localizationService = localizationService;
+        }
+
         public void Activate()
         {
             _currentStep = steps[_currentStepId];
-            _currentStep.Activate();
+            _currentStep.Activate(_localizationService);
             cap.SetActive(_currentStep.IsCapping);
 
             _currentStepId++;

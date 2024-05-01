@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9551f4528504448aff082e4c01fbe4a, type: 3}
   m_Name: BonusesData
   m_EditorClassIdentifier: 
-  unlockLevel: 1
+  unlockLevel: 3
   sentenceOffers: 90
   bonusesData:
   - name: '@BonusEquipment'
     description: '@BonusEquipmentDescription'
-    iconOffer: {fileID: 0}
+    iconOffer: {fileID: 21300000, guid: d2b72000e9905324abf34f89921f5dc9, type: 3}
     lifetimeOffer: 60
     rewardIdAds: 3
     bonusType: 1
@@ -26,7 +26,7 @@ MonoBehaviour:
     lifetimeBonus: 0
   - name: '@BonusDoubleRecoveryHealth'
     description: '@BonusDoubleRecoveryHealthDescription'
-    iconOffer: {fileID: 0}
+    iconOffer: {fileID: 21300000, guid: b86ea5279292d4a4f83a006e5b562fbd, type: 3}
     lifetimeOffer: 30
     rewardIdAds: 4
     bonusType: 2
@@ -35,7 +35,7 @@ MonoBehaviour:
     lifetimeBonus: 600
   - name: '@BonusInfiniteStamina'
     description: '@BonusInfiniteStaminaDescription'
-    iconOffer: {fileID: 0}
+    iconOffer: {fileID: 21300000, guid: 080bf218850ff624c89330755367c346, type: 3}
     lifetimeOffer: 30
     rewardIdAds: 5
     bonusType: 3
@@ -44,7 +44,7 @@ MonoBehaviour:
     lifetimeBonus: 300
   - name: '@BonusIncreasedDamage'
     description: '@BonusIncreasedDamageDescription'
-    iconOffer: {fileID: 0}
+    iconOffer: {fileID: 21300000, guid: 6f185262055ae1e4eb96e9c9129caff8, type: 3}
     lifetimeOffer: 30
     rewardIdAds: 6
     bonusType: 4
@@ -53,7 +53,7 @@ MonoBehaviour:
     lifetimeBonus: 600
   - name: '@BonusIncreasedDodge'
     description: '@BonusIncreasedDodgeDescription'
-    iconOffer: {fileID: 0}
+    iconOffer: {fileID: 21300000, guid: 52555e401f4e2eb45b692f790d14316d, type: 3}
     lifetimeOffer: 30
     rewardIdAds: 7
     bonusType: 5
@@ -62,7 +62,7 @@ MonoBehaviour:
     lifetimeBonus: 600
   - name: '@BonusIncreasedCrit'
     description: '@BonusIncreasedCritDescription'
-    iconOffer: {fileID: 0}
+    iconOffer: {fileID: 21300000, guid: 6c2f3e03eac53c142be2e63f92a07dbc, type: 3}
     lifetimeOffer: 30
     rewardIdAds: 8
     bonusType: 6
@@ -71,7 +71,7 @@ MonoBehaviour:
     lifetimeBonus: 600
   - name: '@BonusIncreasedBlock'
     description: '@BonusIncreasedBlockDescription'
-    iconOffer: {fileID: 0}
+    iconOffer: {fileID: 21300000, guid: ae6ce9bf8c88cdb4ca73eb33fc03389a, type: 3}
     lifetimeOffer: 30
     rewardIdAds: 9
     bonusType: 7
@@ -80,7 +80,7 @@ MonoBehaviour:
     lifetimeBonus: 600
   - name: '@BonusIncreasedStun'
     description: '@BonusIncreasedStunDescription'
-    iconOffer: {fileID: 0}
+    iconOffer: {fileID: 21300000, guid: d5ed9cb7506f3b640af9b79f8077d7d0, type: 3}
     lifetimeOffer: 30
     rewardIdAds: 10
     bonusType: 8

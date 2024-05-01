@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Extensions;
 using UndergroundFortress.Gameplay.Skills.Services;
@@ -24,14 +25,18 @@ namespace UndergroundFortress.UI.Skills
         [SerializeField] private Button confirmButton;
 
         protected IStaticDataService _staticDataService;
+        private ILocalizationService _localizationService;
         private ISkillsUpgradeService _skillsUpgradeService;
-        
+
         protected SkillsType _currentSkillsType;
         protected SkillData _currentSkillData;
 
-        public void Construct(IStaticDataService staticDataService, ISkillsUpgradeService skillsUpgradeService)
+        public void Construct(IStaticDataService staticDataService,
+            ILocalizationService localizationService,
+            ISkillsUpgradeService skillsUpgradeService)
         {
             _staticDataService = staticDataService;
+            _localizationService = localizationService;
             _skillsUpgradeService = skillsUpgradeService;
         }
 
@@ -47,8 +52,8 @@ namespace UndergroundFortress.UI.Skills
             _currentSkillData = skillData;
             
             icon.sprite = skillData.data.icon;
-            nameSkill.text = skillData.data.name;
-            description.text = skillData.data.description;
+            nameSkill.text = _localizationService.LocaleSkill(skillData.data.name);
+            description.text = _localizationService.LocaleSkill(skillData.data.description);
 
             statIcon.sprite = _staticDataService.GetStatByType(skillData.data.statType).icon;
             statValue.text = skillData.data.statType.IncreaseIndicatorToString(skillData.data.value);

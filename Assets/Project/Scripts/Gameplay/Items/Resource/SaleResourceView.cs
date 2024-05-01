@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 
 using UndergroundFortress.Core.Converters;
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
@@ -36,9 +37,10 @@ namespace UndergroundFortress.Gameplay.Items.Resource
         private int _selectedNumber;
 
         public void Construct(IStaticDataService staticDataService,
+            ILocalizationService localizationService,
             IShoppingService shoppingService)
         {
-            base.Construct(staticDataService);
+            base.Construct(staticDataService, localizationService);
 
             _shoppingService = shoppingService;
         }

@@ -17,7 +17,7 @@ MonoBehaviour:
   type: 23
   priceTime: 500
   probabilityWeight: 25
-  name: '@CrystalBlock'
-  description: '@CrystalBlockDescription'
+  name: '@ResourceCrystalBlock'
+  description: '@ResourceCrystalBlockDescription'
   quality: 4
   maxNumberForCell: 10

@@ -1,0 +1,156 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: MainLocale Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: MainLocale
+  m_TableCollectionNameGuidString: 1425a825d375d89419ed2aa96e75a7dc
+  m_Entries:
+  - m_Id: 65624616960
+    m_Key: '@Hike'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7797211672576
+    m_Key: "@Shop\r"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7808418852864
+    m_Key: "@Craft\r"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7833412710400
+    m_Key: "@Skills\r"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7836906565632
+    m_Key: '@Home'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8955808460800
+    m_Key: '@EXP'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9129624612864
+    m_Key: '@HP'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10705676283904
+    m_Key: '@SP'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 64841906139136
+    m_Key: '@Create'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 64844284309504
+    m_Key: '@WithoutCrystal'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 64848180817920
+    m_Key: '@Loading'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65101483225088
+    m_Key: '@Fortress'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65151982645248
+    m_Key: '@Continue'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65157514932224
+    m_Key: '@Recovery'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65159230402560
+    m_Key: '@Rest'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65217745137664
+    m_Key: '@Next'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65219355750400
+    m_Key: '@Donations'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65221138329600
+    m_Key: '@Get'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65223415836672
+    m_Key: '@DailyRewards'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65300326789120
+    m_Key: '@Activate'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65302369415168
+    m_Key: '@Sale'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65304453984256
+    m_Key: '@Close'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65306362392576
+    m_Key: '@m'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65358879272960
+    m_Key: '@s'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65360989007872
+    m_Key: '@Reset'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65366995251200
+    m_Key: '@Missed'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65453129478144
+    m_Key: '@Dungeon1'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65454706536448
+    m_Key: '@Dungeon2'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65456153571328
+    m_Key: '@Dungeon3'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 247573537894400
+    m_Key: '@BagFull'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 247583927185408
+    m_Key: '@NotCoins'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 247587983077376
+    m_Key: '@NotRubies'
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 2022668885741010968
+  references:
+    version: 2
+    RefIds:
+    - rid: 2022668885741010968
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1714507372407

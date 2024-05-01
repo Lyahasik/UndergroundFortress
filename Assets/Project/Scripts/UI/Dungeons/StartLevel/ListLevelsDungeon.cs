@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
@@ -25,13 +26,15 @@ namespace UndergroundFortress.UI.MainMenu
         private int KEY_ANIMATOR_HIDE;
 
         private IStaticDataService _staticDataService;
+        private ILocalizationService _localizationService;
 
         private Action<int> _onSelectDungeon;
         private bool _isSelected;
 
-        public void Construct(IStaticDataService staticDataService)
+        public void Construct(IStaticDataService staticDataService, ILocalizationService localizationService)
         {
             _staticDataService = staticDataService;
+            _localizationService = localizationService;
         }
         
         public void Initialize(IProgressProviderService progressProviderService,
@@ -43,7 +46,7 @@ namespace UndergroundFortress.UI.MainMenu
             
             _onSelectDungeon = onSelectDungeon;
 
-            nameDungeon.text = _staticDataService.GetDungeonById(id).name;
+            nameDungeon.text = _localizationService.LocaleMain(_staticDataService.GetDungeonById(id).name);
             
             button.onClick.AddListener(SelectDungeon);
             button.interactable = false;

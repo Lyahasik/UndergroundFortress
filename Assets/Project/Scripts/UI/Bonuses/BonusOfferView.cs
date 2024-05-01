@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Services.Ads;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.UI.Core.Buttons;
@@ -18,6 +19,13 @@ namespace UndergroundFortress.UI.Bonuses
 
         [Space]
         [SerializeField] private ButtonAds confirmButton;
+
+        private ILocalizationService _localizationService;
+
+        public void Construct(ILocalizationService localizationService)
+        {
+            _localizationService = localizationService;
+        }
 
         public void Initialize(IProcessingAdsService processingAdsService, UnityAction onClose)
         {
@@ -38,9 +46,9 @@ namespace UndergroundFortress.UI.Bonuses
 
         public void UpdateOffer(BonusData bonusData, Action onBonusActivate)
         {
-            nameOfferText.text = bonusData.name;
+            nameOfferText.text = _localizationService.LocaleBonus(bonusData.name);
             iconOffer.sprite = bonusData.iconOffer;
-            descriptionOfferText.text = bonusData.description;
+            descriptionOfferText.text = _localizationService.LocaleBonus(bonusData.description);
 
             confirmButton.UpdateRewardData(onBonusActivate, bonusData.rewardIdAds);
         }

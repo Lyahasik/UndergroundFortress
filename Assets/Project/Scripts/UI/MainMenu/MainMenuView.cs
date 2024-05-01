@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Services.Bonuses;
 using UndergroundFortress.Core.Services.Factories.UI;
 using UndergroundFortress.Core.Services.Progress;
@@ -37,6 +38,7 @@ namespace UndergroundFortress.UI.MainMenu
         [SerializeField] private List<UnlockByTutorialStage> unlocksByTutorial;
 
         private IUIFactory _uiFactory;
+        private ILocalizationService _localizationService;
         private IInformationService _informationService;
 
         private List<IWindow> _windows;
@@ -50,9 +52,11 @@ namespace UndergroundFortress.UI.MainMenu
         public CurrentStatFillView PlayerHealthFill => playerHealthFill;
 
         public void Construct(IUIFactory uiFactory,
+            ILocalizationService localizationService,
             IInformationService informationService)
         {
             _uiFactory = uiFactory;
+            _localizationService = localizationService;
             _informationService = informationService;
         }
 
@@ -82,6 +86,7 @@ namespace UndergroundFortress.UI.MainMenu
             
             amountSpaceBag.Register(progressProviderService);
             
+            offerButton.Construct(_localizationService);
             offerButton.Initialize(ShowBonusOffer);
             accumulatedRewardButton.Initialize(ShowAccumulatedReward);
             
@@ -136,7 +141,7 @@ namespace UndergroundFortress.UI.MainMenu
         public void ShowBuff(IProcessingBonusesService processingBonusesService, BonusData bonusData)
         {
             BuffView buffView = _uiFactory.CreateBuff();
-            buffView.Construct(processingBonusesService, bonusData);
+            buffView.Construct(_localizationService, processingBonusesService, bonusData);
             buffView.transform.SetParent(listBuffs.transform);
         }
 

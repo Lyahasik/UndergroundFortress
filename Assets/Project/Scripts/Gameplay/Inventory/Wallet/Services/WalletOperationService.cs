@@ -1,5 +1,7 @@
 ﻿using System;
 
+using UndergroundFortress.Constants;
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.UI.Information.Services;
@@ -9,16 +11,21 @@ namespace UndergroundFortress.Gameplay.Inventory.Wallet.Services
 {
     public class WalletOperationService : IWalletOperationService, IWritingProgress
     {
+        private ILocalizationService _localizationService;
         private IProgressProviderService _progressProviderService;
         private IInformationService _informationService;
 
         private WalletData _walletData;
 
         public int Money1 => _walletData.Money1;
+
         public int Money2 => _walletData.Money2;
 
-        public void Construct(IProgressProviderService progressProviderService, IInformationService informationService)
+        public void Construct(ILocalizationService localizationService,
+            IProgressProviderService progressProviderService,
+            IInformationService informationService)
         {
+            _localizationService = localizationService;
             _progressProviderService = progressProviderService;
             _informationService = informationService;
         }
@@ -82,12 +89,12 @@ namespace UndergroundFortress.Gameplay.Inventory.Wallet.Services
                 case MoneyType.Money1:
                     isEnough = _walletData.Money1 >= value;
                     if (isShowingWarning && !isEnough)
-                        _informationService.ShowWarning("@Not enough coins.");
+                        _informationService.ShowWarning(_localizationService.LocaleMain(ConstantValues.KEY_LOCALE_NOT_COINS));
                     break;
                 case MoneyType.Money2:
                     isEnough = _walletData.Money2 >= value;
                     if (isShowingWarning && !isEnough)
-                        _informationService.ShowWarning("@Not enough diamonds.");
+                        _informationService.ShowWarning(_localizationService.LocaleMain(ConstantValues.KEY_LOCALE_NOT_DIAMONDS));
                     break;
                 case MoneyType.Ads:
                     return true;

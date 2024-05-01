@@ -104,7 +104,8 @@ namespace UndergroundFortress.Core.Services.Rewards
             _rewardsData.NumberCoins = Math.Clamp(_rewardsData.NumberCoins + offlineReward, 0, _maxRewardNumberCoins);
             _rewardsData.LastCalculateTime = DateTime.Now.Ticks;
              
-            if (_rewardsData.NumberCoins >= _levelData.Level * _rewardsStaticData.numberToDisplayByLevel)
+            if (_tutorialStages.Contains((int) TutorialStageType.FirstEquipmentPotion)
+                && _rewardsData.NumberCoins >= _levelData.Level * _rewardsStaticData.numberToDisplayByLevel)
                 _mainMenuView.ActivateAccumulatedRewardButton(_rewardsData);
         }
 

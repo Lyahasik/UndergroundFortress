@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Localization-Assets-Shared
+  m_EditorClassIdentifier: 
+  m_GroupName: Localization-Assets-Shared
+  m_Data:
+    m_SerializedData: []
+  m_GUID: a78ef28c165753c4aa1f08a7a474714c
+  m_SerializeEntries:
+  - m_GUID: 1425a825d375d89419ed2aa96e75a7dc
+    m_Address: Assets/Project/Content/Core/Localization/TotalLocale Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3a831ffcb4153794781f09f6c95f5990
+    m_Address: Assets/Project/Content/Core/Localization/ResourcesLocale Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 00332bbf64fbe3e48adbc4c9f16b7d7e
+    m_Address: Assets/Project/Content/Core/Localization/BonusesLocale Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 287f19171f6333246be740722193175a
+    m_Address: Assets/Project/Content/Core/Localization/EquipmentsLocale Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ff8140127d1c8b640ae815e39f3431ce
+    m_Address: Assets/Project/Content/Core/Localization/PurchasesLocale Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 55a331a0b0409de4f85b651eb6c6d700
+    m_Address: Assets/Project/Content/Core/Localization/StatsLocale Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6ec453c43ea660e4ebaf83ec09359aa3
+    m_Address: Assets/Project/Content/Core/Localization/SkillsLocale Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ca0ff485440024347a7f4a8915b9c0b9
+    m_Address: Assets/Project/Content/Core/Localization/TutorialLocale Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 1
+  m_Settings: {fileID: 11400000, guid: 66ef74d62c5df6e4c931deb85c92c675, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 9386821698595af4b957f02d13be3ae9, type: 2}
+    - {fileID: 11400000, guid: 25e5844153002e34d85d5435c629081d, type: 2}

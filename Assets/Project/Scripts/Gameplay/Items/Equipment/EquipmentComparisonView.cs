@@ -1,5 +1,6 @@
 using UnityEngine;
 
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Services.StaticData;
 
 namespace UndergroundFortress.Gameplay.Items.Equipment
@@ -9,10 +10,10 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
         [SerializeField] private EquipmentView equipmentView1;
         [SerializeField] private EquipmentView equipmentView2;
 
-        public void Initialize(IStaticDataService staticDataService)
+        public void Initialize(IStaticDataService staticDataService, ILocalizationService localizationService)
         {
-            equipmentView1.Construct(staticDataService);
-            equipmentView2.Construct(staticDataService);
+            equipmentView1.Construct(staticDataService, localizationService);
+            equipmentView2.Construct(staticDataService, localizationService);
         }
 
         public void Show(ItemData equipmentData1, ItemData equipmentData2)

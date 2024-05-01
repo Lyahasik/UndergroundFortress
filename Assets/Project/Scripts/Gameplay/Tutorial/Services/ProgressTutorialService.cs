@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Gameplay.Items.Services;
@@ -16,6 +17,7 @@ namespace UndergroundFortress.Gameplay.Tutorial.Services
 {
     public class ProgressTutorialService : IProgressTutorialService, IWritingProgress
     {
+        private readonly ILocalizationService _localizationService;
         private readonly IProgressProviderService _progressProviderService;
         private readonly IItemsGeneratorService _itemsGeneratorService;
 
@@ -33,9 +35,11 @@ namespace UndergroundFortress.Gameplay.Tutorial.Services
         private TutorialStageType _currentStageType;
         private Action _onClose;
 
-        public ProgressTutorialService(IProgressProviderService progressProviderService,
+        public ProgressTutorialService(ILocalizationService localizationService,
+            IProgressProviderService progressProviderService,
             IItemsGeneratorService itemsGeneratorService)
         {
+            _localizationService = localizationService;
             _progressProviderService = progressProviderService;
             _itemsGeneratorService = itemsGeneratorService;
         }
@@ -57,7 +61,7 @@ namespace UndergroundFortress.Gameplay.Tutorial.Services
             _skillsUpgradeService = skillsUpgradeService;
             _skillsView = skillsView;
             _tutorialView = tutorialView;
-            _tutorialView.Construct(this);
+            _tutorialView.Construct(_localizationService, this);
             
             Register(_progressProviderService);
         }
@@ -122,6 +126,7 @@ namespace UndergroundFortress.Gameplay.Tutorial.Services
                     _skillsView.ActivateTutorial(this);
                     break;
                 case TutorialStageType.SuccessDungeon1:
+                    _itemsGeneratorService.GenerateEquipment(8, 1, qualityType: QualityType.Grey);
                     _itemsGeneratorService.GenerateEquipment(8, 1, qualityType: QualityType.Grey);
                     _itemsGeneratorService.GenerateEquipment(14, 1, qualityType: QualityType.Grey);
                     _itemsGeneratorService.GenerateEquipment(25, 1, qualityType: QualityType.Grey);

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Services;
 using UndergroundFortress.Core.Services.Ads;
 using UndergroundFortress.Core.Services.Bonuses;
@@ -31,6 +32,7 @@ namespace UndergroundFortress.UI.MainMenu
     public class InitializerMainMenu : MonoBehaviour
     {
         private IStaticDataService _staticDataService;
+        private ILocalizationService _localizationService;
         private IProcessingAdsService _processingAdsService;
         private IUIFactory _uiFactory;
         private IProgressProviderService _progressProviderService;
@@ -42,12 +44,13 @@ namespace UndergroundFortress.UI.MainMenu
             ClearMainMenuServices();
         }
 
-        public void Construct(IStaticDataService staticDataService,
+        public void Construct(IStaticDataService staticDataService, ILocalizationService localizationService,
             IProcessingAdsService processingAdsService,
             IUIFactory uiFactory,
             IProgressProviderService progressProviderService)
         {
             _staticDataService = staticDataService;
+            _localizationService = localizationService;
             _processingAdsService = processingAdsService;
             _uiFactory = uiFactory;
             _progressProviderService = progressProviderService;
@@ -107,6 +110,7 @@ namespace UndergroundFortress.UI.MainMenu
                     _mainMenuServicesContainer.Single<IItemsGeneratorService>()));
             
             _mainMenuServicesContainer.Register<IProgressTutorialService>(new ProgressTutorialService(
+                _localizationService,
                 _progressProviderService,
                 _mainMenuServicesContainer.Single<IItemsGeneratorService>()));
         }
@@ -145,6 +149,7 @@ namespace UndergroundFortress.UI.MainMenu
         {
             var service = new WalletOperationService();
             service.Construct(
+                _localizationService,
                 _progressProviderService,
                 _mainMenuServicesContainer.Single<IInformationService>());
             service.Initialize();
@@ -172,6 +177,7 @@ namespace UndergroundFortress.UI.MainMenu
         {
             InventoryService inventoryService = new InventoryService(
                 _staticDataService,
+                _localizationService,
                 _progressProviderService,
                 _mainMenuServicesContainer.Single<IInformationService>(),
                 _mainMenuServicesContainer.Single<IWalletOperationService>());
@@ -196,7 +202,7 @@ namespace UndergroundFortress.UI.MainMenu
         {
             HomeView home = _uiFactory.CreateHome();
             home.Construct(processingPlayerStatsService);
-            home.Initialize(_staticDataService);
+            home.Initialize(_staticDataService, _localizationService);
             
             SkillsView skills = _uiFactory.CreateSkills();
             skills.Construct(
@@ -215,6 +221,7 @@ namespace UndergroundFortress.UI.MainMenu
                 _mainMenuServicesContainer.Single<IInventoryService>(),
                 _mainMenuServicesContainer.Single<IInformationService>());
             craft.Initialize(
+                _localizationService,
                 _mainMenuServicesContainer.Single<IActivationRecipesService>(),
                 _mainMenuServicesContainer.Single<IProgressTutorialService>());
 
@@ -239,11 +246,12 @@ namespace UndergroundFortress.UI.MainMenu
                 _mainMenuServicesContainer.Single<IProcessingBonusesService>(),
                 _mainMenuServicesContainer.Single<IActivationRecipesService>(),
                 _mainMenuServicesContainer.Single<IProgressTutorialService>());
-            startLevel.Initialize(_staticDataService, _progressProviderService);
+            startLevel.Initialize(_staticDataService, _localizationService, _progressProviderService);
 
             MainMenuView mainMenu = _uiFactory.CreateMainMenu();
             mainMenu.Construct(
                 _uiFactory,
+                _localizationService,
                 _mainMenuServicesContainer.Single<IInformationService>());
             mainMenu.Initialize(home, skills, craft, inventory, shop, startLevel, _staticDataService, _progressProviderService);
             
@@ -251,6 +259,7 @@ namespace UndergroundFortress.UI.MainMenu
             
             InformationView information = _uiFactory.CreateInformation();
             information.Initialize(_staticDataService,
+                _localizationService,
                 _processingAdsService,
                 _progressProviderService,
                 _mainMenuServicesContainer.Single<ISkillsUpgradeService>(), 

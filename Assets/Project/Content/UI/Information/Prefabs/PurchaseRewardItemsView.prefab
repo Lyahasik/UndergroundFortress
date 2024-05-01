@@ -109,10 +109,10 @@ RectTransform:
   - {fileID: 1892812510227843840}
   m_Father: {fileID: 654157788454687270}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.045, y: 0.25912228}
-  m_AnchorMax: {x: 0.42416668, y: 0.7325612}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.093, y: 0.119122215}
+  m_AnchorMax: {x: 0.896, y: 0.86256105}
+  m_AnchoredPosition: {x: 0.8404846, y: 0.5}
+  m_SizeDelta: {x: -0.13890004, y: 2.6928005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3980467452615443382
 MonoBehaviour:
@@ -189,7 +189,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 43.8215, y: 29}
+  m_SizeDelta: {x: 78.6782, y: 36.7459}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &390229268673494839
 CanvasRenderer:
@@ -246,14 +246,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24.15
+  m_fontSize: 32.85
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -323,8 +323,8 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 45.8239, y: 47.0968}
-  m_Pivot: {x: 0, y: 1}
+  m_SizeDelta: {x: 70.017, y: 58.6934}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3732036743979267175
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -355,7 +355,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 723d38da8df017d42a2f920fe0fc78b0, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -529,8 +529,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -3.6228027, y: -61}
-  m_SizeDelta: {x: 827.7201, y: 50}
+  m_AnchoredPosition: {x: 0, y: -36}
+  m_SizeDelta: {x: 827.7201, y: 75}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &2076891061603555603
 CanvasRenderer:
@@ -588,11 +588,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3449463196532488033, guid: b9460c9271b1c024fad9f0263a13cc38, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.9422525
+      value: 0.9397919
       objectReference: {fileID: 0}
     - target: {fileID: 3449463196532488033, guid: b9460c9271b1c024fad9f0263a13cc38, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 3449463196532488033, guid: b9460c9271b1c024fad9f0263a13cc38, type: 3}
       propertyPath: m_AnchorMin.x
@@ -600,15 +600,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3449463196532488033, guid: b9460c9271b1c024fad9f0263a13cc38, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 0.16000001
       objectReference: {fileID: 0}
     - target: {fileID: 3449463196532488033, guid: b9460c9271b1c024fad9f0263a13cc38, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -0.2893982
+      value: 1.7106
       objectReference: {fileID: 0}
     - target: {fileID: 3449463196532488033, guid: b9460c9271b1c024fad9f0263a13cc38, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 2.1625996
       objectReference: {fileID: 0}
     - target: {fileID: 3449463196532488033, guid: b9460c9271b1c024fad9f0263a13cc38, type: 3}
       propertyPath: m_LocalPosition.x
@@ -640,11 +640,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3449463196532488033, guid: b9460c9271b1c024fad9f0263a13cc38, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000030517578
+      value: 1.0000305
       objectReference: {fileID: 0}
     - target: {fileID: 3449463196532488033, guid: b9460c9271b1c024fad9f0263a13cc38, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 2.0812988
       objectReference: {fileID: 0}
     - target: {fileID: 3449463196532488033, guid: b9460c9271b1c024fad9f0263a13cc38, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -664,12 +664,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9001595082139469515, guid: b9460c9271b1c024fad9f0263a13cc38, type: 3}
       propertyPath: m_text
-      value: "\u041B\u0443\u0447\u0448\u0435\u0435 \u043E\u0440\u0443\u0436\u0438\u0435
-        \u0437\u0430\u043A\u0430 \u0441\u043D\u0430\u0439\u0434\u0435\u0440\u0430"
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 9001595082139469515, guid: b9460c9271b1c024fad9f0263a13cc38, type: 3}
       propertyPath: m_fontSize
-      value: 44.75
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 9001595082139469515, guid: b9460c9271b1c024fad9f0263a13cc38, type: 3}
       propertyPath: m_fontStyle
@@ -861,7 +860,8 @@ PrefabInstance:
       value: 0.26812744
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1594892490568821505, guid: 5bc498739c1b4d6489b9708f331318cf, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7955169512083892763, guid: 5bc498739c1b4d6489b9708f331318cf, type: 3}
       insertIndex: -1
@@ -904,16 +904,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cb44f594664416ba0c81d71ab663d67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 6587424800184130285}
+  text: {fileID: 0}
   button: {fileID: 5606933432223030148}
---- !u!114 &6587424800184130285 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4330565613005071056, guid: 5bc498739c1b4d6489b9708f331318cf, type: 3}
-  m_PrefabInstance: {fileID: 7454153989146458173}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Services.Ads;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
@@ -22,13 +23,19 @@ namespace UndergroundFortress.UI.Information
         private PurchaseStaticData _purchaseStaticData;
 
         public void Construct(IStaticDataService staticDataService,
+            ILocalizationService localizationService,
             IProgressProviderService progressProviderService,
             IItemsGeneratorService itemsGeneratorService,
             IInventoryService inventoryService,
             IShoppingService shoppingService,
             IProcessingAdsService processingAdsService)
         {
-            base.Construct(staticDataService, progressProviderService, itemsGeneratorService, inventoryService);
+            base.Construct(
+                staticDataService,
+                localizationService,
+                progressProviderService,
+                itemsGeneratorService,
+                inventoryService);
 
             _shoppingService = shoppingService;
             _processingAdsService = processingAdsService;

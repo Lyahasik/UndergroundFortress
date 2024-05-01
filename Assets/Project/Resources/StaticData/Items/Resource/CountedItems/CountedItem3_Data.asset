@@ -17,8 +17,8 @@ MonoBehaviour:
   type: 200
   priceTime: 1050
   probabilityWeight: 0
-  name: '@PotionVampirism'
-  description: '@PotionVampirismDescription'
+  name: '@ResourcePotionVampirism'
+  description: '@ResourcePotionVampirismDescription'
   quality: 3
   maxNumberForCell: 99
   consumableType: 3

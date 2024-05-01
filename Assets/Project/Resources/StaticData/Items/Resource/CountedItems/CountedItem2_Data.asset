@@ -17,8 +17,8 @@ MonoBehaviour:
   type: 200
   priceTime: 300
   probabilityWeight: 0
-  name: '@PotionDamage'
-  description: '@PotionDamageDescription'
+  name: '@ResourcePotionDamage'
+  description: '@ResourcePotionDamageDescription'
   quality: 2
   maxNumberForCell: 99
   consumableType: 2

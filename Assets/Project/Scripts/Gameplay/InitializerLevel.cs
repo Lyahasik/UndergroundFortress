@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Services;
 using UndergroundFortress.Core.Services.Ads;
 using UndergroundFortress.Core.Services.Bonuses;
@@ -27,6 +28,7 @@ namespace UndergroundFortress.Gameplay
     {
         private ISceneProviderService _sceneProviderService;
         private IStaticDataService _staticDataService;
+        private ILocalizationService _localizationService;
         private IGameplayFactory _gameplayFactory;
         private IUIFactory _uiFactory;
         private IProcessingPlayerStatsService _processingPlayerStatsService;
@@ -39,6 +41,7 @@ namespace UndergroundFortress.Gameplay
 
         public void Construct(ISceneProviderService sceneProviderService,
             IStaticDataService staticDataService,
+            ILocalizationService localizationService,
             IGameplayFactory gameplayFactory,
             IUIFactory uiFactory,
             IProcessingPlayerStatsService processingPlayerStatsService,
@@ -46,6 +49,7 @@ namespace UndergroundFortress.Gameplay
         {
             _sceneProviderService = sceneProviderService;
             _staticDataService = staticDataService;
+            _localizationService = localizationService;
             _gameplayFactory = gameplayFactory;
             _uiFactory = uiFactory;
             _processingPlayerStatsService = processingPlayerStatsService;
@@ -137,6 +141,7 @@ namespace UndergroundFortress.Gameplay
         {
             var service = new ProgressDungeonService(
                 _staticDataService,
+                _localizationService,
                 progressProviderService,
                 _gameplayFactory,
                 _gameplayServicesContainer.Single<IAttackService>(),

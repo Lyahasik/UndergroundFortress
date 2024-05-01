@@ -3,6 +3,9 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
+using UndergroundFortress.Constants;
+using UndergroundFortress.Core.Localization;
+
 using UndergroundFortress.Extensions;
 
 namespace UndergroundFortress
@@ -18,11 +21,18 @@ namespace UndergroundFortress
         [Space]
         [SerializeField] private Button button;
 
+        private ILocalizationService _localizationService;
+
         private bool _isActive;
         private float _lifetime;
         private float _leftToLive;
 
         public bool IsActive => _isActive;
+
+        public void Construct(ILocalizationService localizationService)
+        {
+            _localizationService = localizationService;
+        }
 
         public void Initialize(UnityAction onClick)
         {
@@ -42,7 +52,9 @@ namespace UndergroundFortress
             _leftToLive = _lifetime;
             
             lifetimeFill.fillAmount = _leftToLive / _lifetime;
-            lifetimeValueText.text = _leftToLive.ToStringTime();
+            lifetimeValueText.text = _leftToLive.ToStringTime(
+                _localizationService.LocaleMain(ConstantValues.KEY_LOCALE_MINUTE),
+                _localizationService.LocaleMain(ConstantValues.KEY_LOCALE_SECOND));
 
             _isActive = true;
             gameObject.SetActive(true);
@@ -62,7 +74,9 @@ namespace UndergroundFortress
             _leftToLive -= Time.deltaTime;
 
             lifetimeFill.fillAmount = _leftToLive / _lifetime;
-            lifetimeValueText.text = _leftToLive.ToStringTime();
+            lifetimeValueText.text = _leftToLive.ToStringTime(
+                _localizationService.LocaleMain(ConstantValues.KEY_LOCALE_MINUTE),
+                _localizationService.LocaleMain(ConstantValues.KEY_LOCALE_SECOND));
             
             if (_leftToLive <= 0f)
                 gameObject.SetActive(false);

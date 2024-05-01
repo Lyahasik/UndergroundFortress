@@ -2,6 +2,23 @@
 {
     public static class ConstantValues
     {
+        public const string LOCALE_MAIN_TABLE = "MainLocale";
+        public const string LOCALE_RESOURCES_TABLE = "ResourcesLocale";
+        public const string LOCALE_EQUIPMENTS_TABLE = "EquipmentsLocale";
+        public const string LOCALE_BONUSES_TABLE = "BonusesLocale";
+        public const string LOCALE_PURCHASES_TABLE = "PurchasesLocale";
+        public const string LOCALE_STATS_TABLE = "StatsLocale";
+        public const string LOCALE_SKILLS_TABLE = "SkillsLocale";
+        public const string LOCALE_TUTORIAL_TABLE = "TutorialLocale";
+
+        public const string KEY_LOCALE_MISSED = "@Missed";
+        public const string KEY_LOCALE_BAG_FULL = "@BagFull";
+        public const string KEY_LOCALE_NOT_COINS = "@NotCoins";
+        public const string KEY_LOCALE_NOT_DIAMONDS= "@NotRubies";
+        public const string KEY_LOCALE_WITHOUT_CRYSTAL = "@WithoutCrystal";
+        public const string KEY_LOCALE_MINUTE = "@m";
+        public const string KEY_LOCALE_SECOND = "@s";
+
         public const float DELAY_SAVING = 3f;
         
         public const string SCENE_NAME_MAIN_MENU = "MainMenu";

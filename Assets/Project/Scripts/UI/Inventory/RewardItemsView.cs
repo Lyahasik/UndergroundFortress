@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Extensions;
@@ -22,19 +23,22 @@ namespace UndergroundFortress.UI.Information
         [SerializeField] protected Button confirmButton;
 
         protected IStaticDataService _staticDataService;
+        private ILocalizationService _localizationService;
         private IProgressProviderService _progressProviderService;
         private IInventoryService _inventoryService;
         private IItemsGeneratorService _itemsGeneratorService;
-        
+
         private List<MoneyNumberData> _rewardMoneys;
         private List<ItemNumberData> _rewardItems;
 
         public void Construct(IStaticDataService staticDataService,
+            ILocalizationService localizationService,
             IProgressProviderService progressProviderService,
             IItemsGeneratorService itemsGeneratorService,
             IInventoryService inventoryService)
         {
             _staticDataService = staticDataService;
+            _localizationService = localizationService;
             _progressProviderService = progressProviderService;
             _itemsGeneratorService = itemsGeneratorService;
             _inventoryService = inventoryService;
@@ -54,7 +58,7 @@ namespace UndergroundFortress.UI.Information
 
         public void Show(RewardData rewardData)
         {
-            nameText.text = rewardData.nameReward;
+            nameText.text = _localizationService.LocalePurchase(rewardData.nameReward);
 
             _rewardMoneys = rewardData.moneys;
             _rewardItems = rewardData.items;

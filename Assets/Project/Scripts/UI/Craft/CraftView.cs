@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 using UndergroundFortress.Core.Converters;
+using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Extensions;
@@ -25,6 +27,7 @@ namespace UndergroundFortress.UI.Craft
 
         [Space]
         [SerializeField] private GameObject itemWindow;
+        [SerializeField] private TMP_Text nameItemText;
         [SerializeField] private Image iconItem;
         [SerializeField] private EquipmentView equipmentInfo;
 
@@ -63,16 +66,16 @@ namespace UndergroundFortress.UI.Craft
             _informationService = informationService;
         }
 
-        public void Initialize(IActivationRecipesService activationRecipesService, IProgressTutorialService progressTutorialService)
+        public void Initialize(ILocalizationService localizationService, IActivationRecipesService activationRecipesService, IProgressTutorialService progressTutorialService)
         {
             _progressTutorialService = progressTutorialService;
             
-            equipmentInfo.Construct(_staticDataService);
+            equipmentInfo.Construct(_staticDataService, localizationService);
             equipmentInfo.Initialize();
             
-            additionalStatDropdown.Construct(_staticDataService, _inventoryService);
+            additionalStatDropdown.Construct(_staticDataService, localizationService, _inventoryService);
             additionalStatDropdown.Initialise();          
-            listRecipesView.Construct(this, _staticDataService, _inventoryService, activationRecipesService);
+            listRecipesView.Construct(this, _staticDataService, localizationService, _inventoryService, activationRecipesService);
             listRecipesView.Initialize(_progressProviderService);
 
             foreach (ItemGroupButton itemGroupButton in itemGroupButtons) 
@@ -83,7 +86,7 @@ namespace UndergroundFortress.UI.Craft
 
             UpdateGroupItems(ItemGroupType.Alchemy);
 
-            buttonStartCraft.Construct(_inventoryService, _informationService);
+            buttonStartCraft.Construct(localizationService, _inventoryService, _informationService);
             buttonStartCraft.Initialize(CreateItem);
         }
 
@@ -128,10 +131,11 @@ namespace UndergroundFortress.UI.Craft
             }
         }
 
-        public void SetRecipe(Sprite icon, int idItem, ItemType itemType, int moneyPrice, ListPrice listPrice)
+        public void SetRecipe(string nameItem, Sprite icon, int idItem, ItemType itemType, int moneyPrice, ListPrice listPrice)
         {
             _idItem = idItem;
             _itemType = itemType;
+            nameItemText.text = nameItem;
             iconItem.sprite = icon;
             _moneyPrice = moneyPrice;
             _listPrice = listPrice;
@@ -141,6 +145,7 @@ namespace UndergroundFortress.UI.Craft
 
             equipmentInfo.Hide();
             UpdateCraftState(_itemType.IsBaseEquipment());
+            buttonStartCraft.gameObject.SetActive(true);
             
             CheckTutorial();
         }
@@ -168,6 +173,8 @@ namespace UndergroundFortress.UI.Craft
         {
             if (_progressTutorialService.IdSuccessStage(TutorialStageType.SuccessDungeon2))
                 additionalStatDropdown.gameObject.SetActive(isEquipment);
+
+            buttonStartCraft.gameObject.SetActive(false);
         }
 
         private void CreateItem(bool isEnoughResources)
