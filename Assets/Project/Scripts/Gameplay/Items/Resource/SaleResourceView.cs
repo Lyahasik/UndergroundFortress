@@ -78,6 +78,7 @@ namespace UndergroundFortress.Gameplay.Items.Resource
             currentNumberText.text = _selectedCell.Number.ToString();
             numberSlider.maxValue = _selectedCell.Number;
             numberSlider.value = numberSlider.maxValue;
+            UpdateNumberSlider(numberSlider.value);
             
             base.Show(_selectedCell.ItemData);
         }
