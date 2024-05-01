@@ -99,7 +99,8 @@ namespace UndergroundFortress.Core.Services.Rewards
                             data.itemData.id,
                             data.number,
                             _levelData.Level,
-                            qualityType: data.qualityType);
+                            _staticDataService.GetEquipmentById(data.itemData.id).additionalStatType,
+                            data.qualityType);
                     else
                         _itemsGeneratorService.GenerateResourcesById(data.itemData.id, data.number);
                 });

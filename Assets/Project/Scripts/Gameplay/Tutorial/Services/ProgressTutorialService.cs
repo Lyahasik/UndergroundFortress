@@ -7,6 +7,7 @@ using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.Gameplay.Shop;
 using UndergroundFortress.Gameplay.Skills.Services;
+using UndergroundFortress.Gameplay.Stats;
 using UndergroundFortress.UI.Craft;
 using UndergroundFortress.UI.Inventory;
 using UndergroundFortress.UI.MainMenu;
@@ -126,11 +127,11 @@ namespace UndergroundFortress.Gameplay.Tutorial.Services
                     _skillsView.ActivateTutorial(this);
                     break;
                 case TutorialStageType.SuccessDungeon1:
-                    _itemsGeneratorService.GenerateEquipment(8, 1, qualityType: QualityType.Grey);
-                    _itemsGeneratorService.GenerateEquipment(8, 1, qualityType: QualityType.Grey);
-                    _itemsGeneratorService.GenerateEquipment(14, 1, qualityType: QualityType.Grey);
-                    _itemsGeneratorService.GenerateEquipment(25, 1, qualityType: QualityType.Grey);
-                    _itemsGeneratorService.GenerateEquipment(20, 1, qualityType: QualityType.Grey);
+                    _itemsGeneratorService.GenerateEquipment(8, 1, StatType.Dodge, QualityType.Grey);
+                    _itemsGeneratorService.GenerateEquipment(8, 1, StatType.Dodge, QualityType.Grey);
+                    _itemsGeneratorService.GenerateEquipment(14, 1, StatType.Stun, QualityType.Grey);
+                    _itemsGeneratorService.GenerateEquipment(25, 1, StatType.Crit, QualityType.Grey);
+                    _itemsGeneratorService.GenerateEquipment(20, 1, StatType.Block, QualityType.Grey);
                     break;
                 case TutorialStageType.SuccessDungeon2:
                     _itemsGeneratorService.GenerateResourcesById(1006, 5);

@@ -103,8 +103,8 @@ namespace UndergroundFortress.UI.Craft.Recipe
             maximumLevelItem.SetValue(equipmentData.maxLevel);
 
             StatStaticData statStaticData = _staticDataService.GetStatByType(equipmentData.typeStat);
-            QualityValue qualityValueFirst = equipmentData.qualityValues[(int)QualityType.Green - 1];
-            QualityValue qualityValueLast = equipmentData.qualityValues[(int)QualityType.Purple - 1];
+            QualityValue qualityValueFirst = equipmentData.qualityValues[(int)QualityType.Grey - 1];
+            QualityValue qualityValueLast = equipmentData.qualityValues[(int)QualityType.Yellow - 1];
             
             float baseValue
                 = equipmentData.statValuePerLevel * Math.Clamp(currentLevel, equipmentData.minLevel, equipmentData.maxLevel);

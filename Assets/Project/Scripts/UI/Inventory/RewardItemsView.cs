@@ -87,7 +87,8 @@ namespace UndergroundFortress.UI.Information
                             data.itemData.id,
                             data.number,
                             data.level,
-                            qualityType: data.qualityType);
+                            _staticDataService.GetEquipmentById(data.itemData.id).additionalStatType,
+                            data.qualityType);
                     else
                         _itemsGeneratorService.GenerateResourcesById(data.itemData.id, data.number);
                 });

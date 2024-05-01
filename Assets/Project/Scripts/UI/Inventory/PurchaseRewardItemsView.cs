@@ -72,7 +72,7 @@ namespace UndergroundFortress.UI.Information
                 return;
             }
             
-            _shoppingService.Pay(_purchaseStaticData.moneyType, (int) _purchaseStaticData.price);
+            _shoppingService.Pay(_purchaseStaticData.moneyType, _purchaseStaticData.price);
             
             base.ClaimRewards();
         }
