@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d5a7e64443b4cb4a81efc0997659849, type: 3}
   m_Name: Boots1_Data
   m_EditorClassIdentifier: 
-  id: 0
+  id: 27
   icon: {fileID: 21300000, guid: 277a4306a29dd8846882aa903443b466, type: 3}
   type: 8
   priceTime: 0
