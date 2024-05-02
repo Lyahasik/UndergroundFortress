@@ -145,9 +145,8 @@ namespace UndergroundFortress.UI.MainMenu
 
         public void ShowBuff(IProcessingBonusesService processingBonusesService, BonusData bonusData)
         {
-            BuffView buffView = _uiFactory.CreateBuff();
+            BuffView buffView = _uiFactory.CreateBuff(listBuffs.transform);
             buffView.Construct(_localizationService, processingBonusesService, bonusData);
-            buffView.transform.SetParent(listBuffs.transform);
         }
 
         public void ActivateAccumulatedRewardButton(RewardsData rewardsData)

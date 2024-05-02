@@ -5,6 +5,7 @@ using UndergroundFortress.UI.Inventory;
 using UndergroundFortress.UI.MainMenu;
 using UndergroundFortress.UI.Shop;
 using UndergroundFortress.UI.Skills;
+using UnityEngine;
 
 namespace UndergroundFortress.Core.Services.Factories.UI
 {
@@ -17,7 +18,7 @@ namespace UndergroundFortress.Core.Services.Factories.UI
         public CraftView CreateCraft();
         public InventoryView CreateInventory();
         public ShopView CreateShop();
-        public BuffView CreateBuff();
+        public BuffView CreateBuff(Transform parent);
         public StartLevelView CreateStartLevel();
         public TutorialView CreateTutorial();
         public DungeonBackground CreateDungeonBackground();

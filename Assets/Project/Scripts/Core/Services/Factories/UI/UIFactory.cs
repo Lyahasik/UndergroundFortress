@@ -1,3 +1,5 @@
+using UnityEngine;
+
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.UI.Craft;
 using UndergroundFortress.UI.Hud;
@@ -38,8 +40,8 @@ namespace UndergroundFortress.Core.Services.Factories.UI
             PrefabInstantiate(_staticDataService.ForMainMenu().shopViewPrefab);
         public StartLevelView CreateStartLevel() => 
             PrefabInstantiate(_staticDataService.ForMainMenu().startLevelViewPrefab);
-        public BuffView CreateBuff() => 
-            PrefabInstantiate(_staticDataService.ForMainMenu().buffViewPrefab);
+        public BuffView CreateBuff(Transform parent) => 
+            PrefabInstantiate(_staticDataService.ForMainMenu().buffViewPrefab, parent);
 
         public TutorialView CreateTutorial() => 
             PrefabInstantiate(_staticDataService.ForMainMenu().tutorialView);

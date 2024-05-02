@@ -17,7 +17,7 @@ MonoBehaviour:
   stamina: 300
   staminaRecoveryRate: 100
   staminaCost: 140
-  damage: 80
+  damage: 45
   defense: 0
   dodge: 0
   accuracy: 0
