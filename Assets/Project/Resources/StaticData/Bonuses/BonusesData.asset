@@ -41,7 +41,7 @@ MonoBehaviour:
     bonusType: 3
     probabilityWeight: 100
     value: 0
-    lifetimeBonus: 300
+    lifetimeBonus: 120
   - name: '@BonusIncreasedDamage'
     description: '@BonusIncreasedDamageDescription'
     iconOffer: {fileID: 21300000, guid: 6f185262055ae1e4eb96e9c9129caff8, type: 3}

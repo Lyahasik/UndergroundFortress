@@ -69,7 +69,12 @@ namespace UndergroundFortress
         private void UpdateFill()
         {
             if (_leftToLive <= 0f)
+            {
+                if (_isActive)
+                    Deactivate();
+                
                 return;
+            }
             
             _leftToLive -= Time.deltaTime;
 
@@ -77,9 +82,9 @@ namespace UndergroundFortress
             lifetimeValueText.text = _leftToLive.ToStringTime(
                 _localizationService.LocaleMain(ConstantValues.KEY_LOCALE_MINUTE),
                 _localizationService.LocaleMain(ConstantValues.KEY_LOCALE_SECOND));
-            
+
             if (_leftToLive <= 0f)
-                gameObject.SetActive(false);
+                Deactivate();
         }
     }
 }
