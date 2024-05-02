@@ -3,6 +3,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 using UndergroundFortress.Core.Localization;
+using UndergroundFortress.Core.Publish;
 using UndergroundFortress.Core.Services;
 using UndergroundFortress.Core.Services.Ads;
 using UndergroundFortress.Core.Services.Characters;
@@ -24,6 +25,7 @@ namespace UndergroundFortress.Core.Initialize
 {
     public class InitializerGame : MonoBehaviour
     {
+        [SerializeField] private PublishHandler publishHandlerPrefab;
         [SerializeField] private LoadingCurtain curtainPrefab;
         [SerializeField] private UpdateHandler updateHandlerPrefab;
         [SerializeField] private StatsRestorationHandler statsRestorationHandlerPrefab;
@@ -49,11 +51,15 @@ namespace UndergroundFortress.Core.Initialize
             UpdateHandler updateHandler = CreateUpdateHandler();
 
             RegisterStaticDataService();
-            _servicesContainer.Register<IProcessingAdsService>(new ProcessingAdsService());
+            RegisterProcessingAdsService();
+
+            PublishHandler publishHandler = CreatePublishHandler();
 
             GameStateMachine gameStateMachine = new GameStateMachine();
             
-            RegisterProgressProviderService(gameStateMachine, updateHandler);
+            RegisterProgressProviderService(gameStateMachine, publishHandler, updateHandler);
+            publishHandler.Initialize(_servicesContainer.Single<IProgressProviderService>(),
+                _servicesContainer.Single<IProcessingAdsService>());
             RegisterStatsRestorationService();
             RegisterProcessingPlayerStatsService();
             RegisterPlayerUpdateLevelService();
@@ -100,6 +106,13 @@ namespace UndergroundFortress.Core.Initialize
             DontDestroyOnLoad(gameData);
         }
 
+        private void RegisterProcessingAdsService()
+        {
+            var service = new ProcessingAdsService();
+            _servicesContainer.Register<IProcessingAdsService>(service);
+            service.Initialize();
+        }
+
         private void RegisterAccumulationRewardsService(UpdateHandler updateHandler)
         {
             AccumulationRewardsService service = new AccumulationRewardsService(
@@ -137,13 +150,16 @@ namespace UndergroundFortress.Core.Initialize
             _servicesContainer.Register<IStatsRestorationService>(statsRestorationService);
         }
 
-        private void RegisterProgressProviderService(GameStateMachine gameStateMachine, UpdateHandler updateHandler)
+        private void RegisterProgressProviderService(GameStateMachine gameStateMachine,
+            PublishHandler publishHandler,
+            UpdateHandler updateHandler)
         {
             var service = new ProgressProviderService(
+                publishHandler,
                 _servicesContainer.Single<IStaticDataService>(),
                 gameStateMachine);
             
-            service.Initialization(updateHandler);
+            service.Initialize(updateHandler);
             
             _servicesContainer.Register<IProgressProviderService>(service);
         }
@@ -156,6 +172,14 @@ namespace UndergroundFortress.Core.Initialize
             service.Initialize();
             
             _servicesContainer.Register<IPlayerUpdateLevelService>(service);
+        }
+
+        private PublishHandler CreatePublishHandler()
+        {
+            PublishHandler publishHandler = Instantiate(publishHandlerPrefab);
+            publishHandler.Construct(publishHandlerPrefab.name);
+            
+            return publishHandler;
         }
 
         private LoadingCurtain CreateLoadingCurtain()

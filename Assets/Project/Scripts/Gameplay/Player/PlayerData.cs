@@ -44,6 +44,8 @@ namespace UndergroundFortress.Gameplay.Character
             
             _healthFillView.Subscribe(Stats);
             _staminaFillView.Subscribe(Stats);
+            
+            Debug.Log($"[{ GetType() }] initialize");
         }
 
         private void OnDestroy()

@@ -71,6 +71,8 @@ namespace UndergroundFortress.UI.Hud
                 LoadMainScene);
             
             unlockByTutorialStage.Initialize(progressProviderService);
+            
+            Debug.Log($"[{ GetType() }] initialize");
         }
         
         public void LoadMainScene()

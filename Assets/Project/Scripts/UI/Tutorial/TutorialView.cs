@@ -24,7 +24,7 @@ namespace UndergroundFortress
         public void ActivateStage(TutorialStageType stageType)
         {
             _currentStageView = stages.Find(data => data.StageType == stageType);
-            _currentStageView.Construct(_localizationService);
+            _currentStageView?.Construct(_localizationService);
             _currentStageView?.Activate();
         }
 

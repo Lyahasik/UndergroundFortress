@@ -5,6 +5,7 @@ using UndergroundFortress.Core.Services.Bonuses;
 using UndergroundFortress.Gameplay.Character;
 using UndergroundFortress.Gameplay.Skills.Services;
 using UndergroundFortress.Gameplay.StaticData;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace UndergroundFortress.Gameplay.Stats.Services
@@ -31,6 +32,8 @@ namespace UndergroundFortress.Gameplay.Stats.Services
             _statsRestorationService = statsRestorationService;
             _skillsUpgradeService = skillsUpgradeService;
             _processingBonusesService = processingBonusesService;
+            
+            Debug.Log($"[{ GetType() }] initialize");
         }
 
         public void Attack(CharacterData dataAttacking,

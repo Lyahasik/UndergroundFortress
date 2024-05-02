@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
+
 using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.UI.Inventory;
-
 
 namespace UndergroundFortress.UI.Information.Services
 {
@@ -15,6 +16,7 @@ namespace UndergroundFortress.UI.Information.Services
         public void Initialize(InformationView informationView)
         {
             _informationView = informationView;
+            Debug.Log($"[{ GetType() }] initialize");
         }
 
         public void ShowSkill(SkillsType skillsType,

@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 using UndergroundFortress.Constants;
 using UndergroundFortress.Core.Localization;
@@ -33,6 +34,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Wallet.Services
         public void Initialize()
         {
             Register(_progressProviderService);
+            Debug.Log($"[{ GetType() }] initialize");
         }
 
         public void AddMoney(in MoneyType moneyType, in int value)

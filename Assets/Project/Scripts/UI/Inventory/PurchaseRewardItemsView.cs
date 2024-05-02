@@ -68,7 +68,7 @@ namespace UndergroundFortress.UI.Information
         {
             if (_purchaseStaticData.moneyType == MoneyType.Ads)
             {
-                _processingAdsService.ShowAds(_purchaseStaticData.rewardIdAds);
+                _processingAdsService.ShowAdsReward(_purchaseStaticData.rewardIdAds);
                 return;
             }
             

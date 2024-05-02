@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abfda4223caf8914988c75ff6ea058c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  publishHandlerPrefab: {fileID: 9164136190515525216, guid: 4edade6defb76014a9ee2ecef6721324, type: 3}
   curtainPrefab: {fileID: 5153848121341478921, guid: f04ac4650af75474eac9ef4423f31bc8, type: 3}
   updateHandlerPrefab: {fileID: 681844093930170911, guid: 3a0cfd78caaadfd448a56c64bf710a52, type: 3}
   statsRestorationHandlerPrefab: {fileID: 9077033777178638046, guid: 31a6608a54a89c246bef0c3a8e37fe73, type: 3}
@@ -207,7 +208,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.20000002, g: 0.20000002, b: 0.20000002, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

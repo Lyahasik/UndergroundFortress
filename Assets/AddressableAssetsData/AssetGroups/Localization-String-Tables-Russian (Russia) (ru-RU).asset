@@ -22,48 +22,56 @@ MonoBehaviour:
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-ru-RU
+    - Preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e673b42a9c2beb44fb57399d5f5b9bfd
     m_Address: ResourcesLocale_ru-RU
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-ru-RU
+    - Preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fbc30b409fd4f3d4aa4fcbd42a050454
     m_Address: BonusesLocale_ru-RU
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-ru-RU
+    - Preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e1e091f230990ef4c92087065f658e2a
     m_Address: EquipmentsLocale_ru-RU
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-ru-RU
+    - Preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d5c9e1849a5313e4288e5932aeeeb0f1
     m_Address: PurchasesLocale_ru-RU
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-ru-RU
+    - Preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ee361e81242710545a175cec5d65fd58
     m_Address: StatsLocale_ru-RU
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-ru-RU
+    - Preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7192199147716714bb3d66db34fb1d87
     m_Address: SkillsLocale_ru-RU
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-ru-RU
+    - Preload
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 84f9fffe88b57a244be9f32595456460
     m_Address: TutorialLocale_ru-RU
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-ru-RU
+    - Preload
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 66ef74d62c5df6e4c931deb85c92c675, type: 2}

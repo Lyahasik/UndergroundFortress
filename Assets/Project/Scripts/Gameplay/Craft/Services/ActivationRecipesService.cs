@@ -25,8 +25,11 @@ namespace UndergroundFortress.Gameplay.Craft.Services
             _progressProviderService = progressProviderService;
         }
 
-        public void Initialize() => 
+        public void Initialize()
+        {
             Register(_progressProviderService);
+            Debug.Log($"[{ GetType() }] initialize");
+        }
 
         public void Register(IProgressProviderService progressProviderService) => 
             progressProviderService.Register(this);

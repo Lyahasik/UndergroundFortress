@@ -17,7 +17,7 @@ namespace UndergroundFortress.Core.Services.GameStateMachine.States
         {
             Debug.Log($"Start state { GetType().Name }");
             
-            _progressProviderService.LoadProgress();
+            _progressProviderService.StartLoadData();
         }
 
         public void Exit() {}

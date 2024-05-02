@@ -4,7 +4,10 @@ namespace UndergroundFortress.Core.Services.Ads
 {
     public interface IProcessingAdsService : IService
     {
-        event Action<int> OnClaimReward;
-        void ShowAds(int rewardId);
+        public event Action<int> OnClaimReward;
+        public void ShowAdsReward(int rewardId);
+        public void ShowAdsInterstitial();
+        public void ClaimReward();
+        public void EndAds();
     }
 }

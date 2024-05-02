@@ -39,6 +39,9 @@ namespace UndergroundFortress.Core.Services.GameStateMachine
             state.Enter(data);
         }
 
+        public TState GetState<TState>() where TState : class, IOutputState => 
+            _states[typeof(TState)] as TState;
+
         private TState ChangeState<TState>() where TState : class, IOutputState
         {
             _activeState?.Exit();
@@ -48,8 +51,5 @@ namespace UndergroundFortress.Core.Services.GameStateMachine
       
             return state;
         }
-
-        private TState GetState<TState>() where TState : class, IOutputState => 
-            _states[typeof(TState)] as TState;
     }
 }

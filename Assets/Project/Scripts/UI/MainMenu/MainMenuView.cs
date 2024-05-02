@@ -8,6 +8,7 @@ using UndergroundFortress.Core.Services.Factories.UI;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Core.Progress;
+using UndergroundFortress.Core.Services.Ads;
 using UndergroundFortress.Gameplay.Character;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Tutorial.Services;
@@ -38,6 +39,7 @@ namespace UndergroundFortress.UI.MainMenu
         [SerializeField] private List<UnlockByTutorialStage> unlocksByTutorial;
 
         private IUIFactory _uiFactory;
+        private IProcessingAdsService _processingAdsService;
         private ILocalizationService _localizationService;
         private IInformationService _informationService;
 
@@ -52,10 +54,12 @@ namespace UndergroundFortress.UI.MainMenu
         public CurrentStatFillView PlayerHealthFill => playerHealthFill;
 
         public void Construct(IUIFactory uiFactory,
+            IProcessingAdsService processingAdsService,
             ILocalizationService localizationService,
             IInformationService informationService)
         {
             _uiFactory = uiFactory;
+            _processingAdsService = processingAdsService;
             _localizationService = localizationService;
             _informationService = informationService;
         }
@@ -120,7 +124,8 @@ namespace UndergroundFortress.UI.MainMenu
             }
             
             listBuffs.SetActive(_currentWindowType == WindowType.StartLevel);
-
+            _processingAdsService.ShowAdsInterstitial();
+            
             CheckTutorial();
         }
 

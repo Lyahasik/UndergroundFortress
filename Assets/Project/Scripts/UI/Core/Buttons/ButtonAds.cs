@@ -56,7 +56,7 @@ namespace UndergroundFortress.UI.Core.Buttons
 
         private void ShowAds()
         {
-            _processingAdsService.ShowAds(rewardId);
+            _processingAdsService.ShowAdsReward(rewardId);
         }
 
         private void ClaimReward(int rewardId)

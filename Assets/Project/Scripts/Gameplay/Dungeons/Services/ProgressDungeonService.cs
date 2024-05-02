@@ -111,6 +111,8 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
                 _attackService);
 
             hudView.LevelDungeonProgressBar.Subscribe(this);
+            
+            Debug.Log($"[{ GetType() }] initialize");
         }
 
         public void Register(IProgressProviderService progressProviderService)

@@ -251,6 +251,7 @@ namespace UndergroundFortress.UI.MainMenu
             MainMenuView mainMenu = _uiFactory.CreateMainMenu();
             mainMenu.Construct(
                 _uiFactory,
+                _processingAdsService,
                 _localizationService,
                 _mainMenuServicesContainer.Single<IInformationService>());
             mainMenu.Initialize(home, skills, craft, inventory, shop, startLevel, _staticDataService, _progressProviderService);

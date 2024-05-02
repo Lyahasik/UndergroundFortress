@@ -5,6 +5,7 @@ using UnityEngine;
 
 using UndergroundFortress.Constants;
 using UndergroundFortress.Core.Progress;
+using UndergroundFortress.Core.Publish;
 using UndergroundFortress.Core.Services.Bonuses;
 using UndergroundFortress.Core.Services.GameStateMachine;
 using UndergroundFortress.Core.Services.GameStateMachine.States;
@@ -15,11 +16,13 @@ using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.Player.Level;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats;
+using UndergroundFortress.Helpers;
 
 namespace UndergroundFortress.Core.Services.Progress
 {
     public partial class ProgressProviderService : IProgressProviderService, IUpdating
     {
+        private readonly PublishHandler _publishHandler;
         private readonly IStaticDataService _staticDataService;
         private readonly IGameStateMachine _gameStateMachine;
 
@@ -27,20 +30,24 @@ namespace UndergroundFortress.Core.Services.Progress
 
         private List<IReadingProgress> _progressReaders;
         private List<IWritingProgress> _progressWriters;
+
+        private bool _isLocalData;
         
         private bool _isWasChange;
         private float _waitingSavingTime;
 
         public ProgressData ProgressData => _progressData;
 
-        public ProgressProviderService(IStaticDataService staticDataService,
+        public ProgressProviderService(PublishHandler publishHandler,
+            IStaticDataService staticDataService,
             IGameStateMachine gameStateMachine)
         {
+            _publishHandler = publishHandler;
             _staticDataService = staticDataService;
             _gameStateMachine = gameStateMachine;
         }
 
-        public void Initialization(UpdateHandler updateHandler)
+        public void Initialize(UpdateHandler updateHandler)
         {
             _progressReaders ??= new List<IReadingProgress>();
             _progressWriters ??= new List<IWritingProgress>();
@@ -53,11 +60,31 @@ namespace UndergroundFortress.Core.Services.Progress
             RegularSave();
         }
 
-        public void LoadProgress()
+        public void StartLoadData()
+        {
+            if (OSManager.IsEditor())
+                LoadProgress(ConstantValues.KEY_LOCAL_PROGRESS);
+            else
+                _publishHandler.StartLoadData();
+        }
+
+        public void LoadProgress(string json)
         {
             Debug.Log("Loaded progress.");
             
-            _progressData = LoadData(PlayerPrefs.GetString(ConstantValues.KEY_LOCAL_PROGRESS)) ?? CreateNewProgress();
+            _isLocalData = json == ConstantValues.KEY_LOCAL_PROGRESS;
+
+            if (_isLocalData)
+            {
+                _progressData = LoadData(PlayerPrefs.GetString(ConstantValues.KEY_LOCAL_PROGRESS));
+            }
+            else
+            {
+                var localProgressData = LoadData(PlayerPrefs.GetString(ConstantValues.KEY_LOCAL_PROGRESS));
+                var serverProgressData = LoadData(json);
+                _progressData = localProgressData > serverProgressData ? localProgressData : serverProgressData;
+            }
+            _progressData ??= CreateNewProgress();
             
             foreach (IReadingProgress progressReader in _progressReaders)
                 progressReader.LoadProgress(_progressData);
@@ -76,6 +103,9 @@ namespace UndergroundFortress.Core.Services.Progress
             
             string json = JsonConvert.SerializeObject(_progressData, new JsonSerializerSettings());
             PlayerPrefs.SetString(ConstantValues.KEY_LOCAL_PROGRESS, json);
+            
+            if (!_isLocalData)
+                _publishHandler.SaveData(json);
             
             _waitingSavingTime = ConstantValues.DELAY_SAVING;
         }
@@ -130,6 +160,7 @@ namespace UndergroundFortress.Core.Services.Progress
 
         private void RegularSave()
         {
+            _progressData.TimeGame += Time.deltaTime;
             _waitingSavingTime -= Time.deltaTime;
             
             if (!_isWasChange
@@ -154,6 +185,8 @@ namespace UndergroundFortress.Core.Services.Progress
         {
             ProgressData progressData = new ProgressData
             {
+                TimeGame = 0f,
+                
                 TutorialStages = new HashSet<int>(),
                 
                 LevelData = new PlayerLevelData(),
@@ -162,7 +195,7 @@ namespace UndergroundFortress.Core.Services.Progress
                 ActiveSkills = CreateActiveSkills(),
                 ProgressSkills = CreateProgressSkills(),
                 
-                Wallet = new WalletData(0, 100),
+                Wallet = new WalletData(0, 10),
                 Equipment = CreateEquipment(),
                 ActiveRecipes = CreateActiveRecipes(),
                 Bag = CreateBag(),

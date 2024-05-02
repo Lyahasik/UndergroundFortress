@@ -1,11 +1,17 @@
 ﻿using System;
-
+using UndergroundFortress.Core.Publish;
 using UndergroundFortress.Gameplay.Character;
+using UnityEngine;
 
 namespace UndergroundFortress.Gameplay.Stats.Services
 {
     public class StatsWasteService : IStatsWasteService
     {
+        public StatsWasteService()
+        {
+            Debug.Log($"[{ GetType() }] initialize");
+        }
+        
         public void WasteHealth(CharacterStats characterStats, in float value)
         {
             float newHealth = characterStats.CurrentStats.Health - value;
