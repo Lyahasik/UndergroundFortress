@@ -1,10 +1,12 @@
 using UndergroundFortress.Core.Progress;
+using UndergroundFortress.Core.Services.Scene;
 
 namespace UndergroundFortress.Core.Services.Progress
 {
     public interface IProgressProviderService : IService
     {
         public ProgressData ProgressData { get; }
+        public ISceneProviderService SceneProviderService { set; }
         public void StartLoadData();
         public void LoadProgress(string json);
         public void SaveProgress();

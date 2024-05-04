@@ -11,6 +11,7 @@ using UndergroundFortress.Core.Services.Analytics;
 using UndergroundFortress.Core.Services.Bonuses;
 using UndergroundFortress.Core.Services.GameStateMachine;
 using UndergroundFortress.Core.Services.GameStateMachine.States;
+using UndergroundFortress.Core.Services.Scene;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Core.Update;
 using UndergroundFortress.Gameplay.Inventory;
@@ -31,6 +32,8 @@ namespace UndergroundFortress.Core.Services.Progress
         private readonly IStaticDataService _staticDataService;
         private readonly IProcessingAnalyticsService _processingAnalyticsService;
         private readonly IGameStateMachine _gameStateMachine;
+        
+        private ISceneProviderService _sceneProviderService;
 
         private ProgressData _progressData;
 
@@ -42,6 +45,10 @@ namespace UndergroundFortress.Core.Services.Progress
         private bool _isWasChange;
         private float _waitingSavingTime;
 
+        public ISceneProviderService SceneProviderService
+        {
+            set => _sceneProviderService = value;
+        }
         public ProgressData ProgressData => _progressData;
 
         public ProgressProviderService(PublishHandler publishHandler,
@@ -75,8 +82,7 @@ namespace UndergroundFortress.Core.Services.Progress
             if (OSManager.IsEditor())
                 LoadProgress(ConstantValues.KEY_LOCAL_PROGRESS);
             else
-                LoadProgress(ConstantValues.KEY_LOCAL_PROGRESS);
-                // _publishHandler.StartLoadData();
+                _publishHandler.StartLoadData();
         }
 
         public void LoadProgress(string json)
@@ -105,6 +111,8 @@ namespace UndergroundFortress.Core.Services.Progress
             
             Debug.Log("Loaded progress.");
             _gameStateMachine.Enter<LoadSceneState>();
+            
+            _sceneProviderService.LoadMainScene();
         }
 
         public void SaveProgress()

@@ -98,6 +98,8 @@ namespace UndergroundFortress.Core.Initialize
                     _servicesContainer.Single<IPlayerDressingService>(),
                     _servicesContainer.Single<IStatsRestorationService>(),
                     _servicesContainer.Single<IAccumulationRewardsService>()));
+            _servicesContainer.Single<IProgressProviderService>().SceneProviderService
+                = _servicesContainer.Single<ISceneProviderService>();
             
             LoadingCurtain curtain = CreateLoadingCurtain();
             CreateStatsRestorationHandler();
@@ -107,7 +109,6 @@ namespace UndergroundFortress.Core.Initialize
                 _servicesContainer.Single<IProgressProviderService>(),
                 gameData.CoroutinesContainer,
                 gameData.Curtain);
-            _servicesContainer.Single<ISceneProviderService>().LoadMainScene();
             _servicesContainer.Register<IGameStateMachine>(gameStateMachine);
             
             DontDestroyOnLoad(gameData);
