@@ -12,7 +12,11 @@ namespace UndergroundFortress.Core.Progress
     public class ProgressData
     {
         public float TimeGame;
-        
+
+        public int NumberCrafting;
+        public int NumberPurchases;
+        public int NumberKilling;
+            
         public HashSet<int> TutorialStages;
 
         public PlayerLevelData LevelData;

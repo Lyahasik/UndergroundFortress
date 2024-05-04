@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Progress;
+using UndergroundFortress.Core.Services.Analytics;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Gameplay.Items.Services;
 using UndergroundFortress.Gameplay.Shop;
@@ -19,6 +21,7 @@ namespace UndergroundFortress.Gameplay.Tutorial.Services
     public class ProgressTutorialService : IProgressTutorialService, IWritingProgress
     {
         private readonly ILocalizationService _localizationService;
+        private readonly IProcessingAnalyticsService _processingAnalyticsService;
         private readonly IProgressProviderService _progressProviderService;
         private readonly IItemsGeneratorService _itemsGeneratorService;
 
@@ -37,10 +40,12 @@ namespace UndergroundFortress.Gameplay.Tutorial.Services
         private Action _onClose;
 
         public ProgressTutorialService(ILocalizationService localizationService,
+            IProcessingAnalyticsService processingAnalyticsService,
             IProgressProviderService progressProviderService,
             IItemsGeneratorService itemsGeneratorService)
         {
             _localizationService = localizationService;
+            _processingAnalyticsService = processingAnalyticsService;
             _progressProviderService = progressProviderService;
             _itemsGeneratorService = itemsGeneratorService;
         }
@@ -65,6 +70,8 @@ namespace UndergroundFortress.Gameplay.Tutorial.Services
             _tutorialView.Construct(_localizationService, this);
             
             Register(_progressProviderService);
+            
+            Debug.Log($"[{ GetType() }] initialize");
         }
 
         public void Register(IProgressProviderService progressProviderService)
@@ -138,6 +145,7 @@ namespace UndergroundFortress.Gameplay.Tutorial.Services
                     break;
             }
             
+            _processingAnalyticsService.TargetTutorial((int) stageType);
             _tutorialView.ActivateStage(stageType);
             SuccessStage(stageType);
             

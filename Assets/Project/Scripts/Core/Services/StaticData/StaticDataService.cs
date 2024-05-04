@@ -41,6 +41,11 @@ namespace UndergroundFortress.Core.Services.StaticData
 
         private List<DungeonStaticData> _dungeons;
 
+        public StaticDataService()
+        {
+            Debug.Log($"[{ GetType() }] initialize");
+        }
+
         public void Load()
         {
             _ui = Resources
@@ -136,6 +141,9 @@ namespace UndergroundFortress.Core.Services.StaticData
             Debug.LogWarning($"[StaticDataService] Not found of money type for purchases");
             return null;
         }
+
+        public PurchaseStaticData GetPurchaseById(MoneyType moneyType, int id) => 
+            ForPurchasesByMoneyType(moneyType).Find(data => data.id == id);
 
         public QualitiesStaticData ForQualities() => 
             _qualities;

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Core.Services.Characters;
@@ -31,10 +32,14 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
         {
             _inventoryView = inventoryView;
             
+            Debug.Log("GetCellEquipment");
             _leftHandCell = _inventoryView.GetCellEquipmentByItemType(ItemType.Sword);
             _rightHandCell = _inventoryView.GetCellEquipmentByItemType(ItemType.Shield);
             
+            Debug.Log("Register");
             Register(_progressProviderService);
+            
+            Debug.Log($"[{ GetType() }] initialize");
         }
 
         public void Register(IProgressProviderService progressProviderService)

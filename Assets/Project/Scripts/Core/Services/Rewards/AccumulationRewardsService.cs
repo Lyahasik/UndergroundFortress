@@ -47,6 +47,8 @@ namespace UndergroundFortress.Core.Services.Rewards
             _delayIncreaseReward = _rewardsStaticData.delayAccrualSeconds;
                 
             Register(_progressProviderService);
+            
+            Debug.Log($"[{ GetType() }] initialize");
         }
 
         public void Update()

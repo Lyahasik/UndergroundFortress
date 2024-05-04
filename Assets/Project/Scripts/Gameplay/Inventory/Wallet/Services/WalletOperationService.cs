@@ -34,6 +34,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Wallet.Services
         public void Initialize()
         {
             Register(_progressProviderService);
+            
             Debug.Log($"[{ GetType() }] initialize");
         }
 

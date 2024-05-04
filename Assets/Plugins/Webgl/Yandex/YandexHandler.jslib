@@ -20,7 +20,7 @@ mergeInto(LibraryManager.library, {
         ysdk.adv.showRewardedVideo({
             callbacks: {
                 onRewarded: () => {
-                    myGameInstance.SendMessage('PublishHandler', 'ClaimReward');
+                    myGameInstance.SendMessage('PublishHandler', 'ClaimRewardAds');
                 },
                 onClose: () => {
                     myGameInstance.SendMessage('PublishHandler', 'EndAds');  
@@ -28,6 +28,34 @@ mergeInto(LibraryManager.library, {
             }
         })
     },
+     
+     CheckPurchasesExtern: function () {
+         if (!payments)
+             return;
+             
+         payments
+         .getPurchases()
+         .then(purchases => purchases.forEach((purchase) => {
+             console.log('Подтверждение покупки ' + purchase.productID);
+             myGameInstance.SendMessage('PublishHandler', 'ClaimRewardPurchaseId', purchase.productID);
+             payments.consumePurchase(purchase.purchaseToken)}))
+         .catch(err => { console.log('check goods exception') })
+     },
+ 
+     BuyPurchaseExtern: function (idPurchase) {
+         if (!payments)
+             return;
+ 
+         var idString = UTF8ToString(idPurchase);
+ 
+         payments
+         .purchase({ id: idString })
+         .then(purchase => {
+             myGameInstance.SendMessage('PublishHandler', 'ClaimRewardPurchase');
+             payments.consumePurchase(purchase.purchaseToken);
+             })
+         .catch(err => { console.log('buy goods exception') })
+     },
 
     LoadDataExtern: function () {
         if (player && player.getMode() !== 'lite') {

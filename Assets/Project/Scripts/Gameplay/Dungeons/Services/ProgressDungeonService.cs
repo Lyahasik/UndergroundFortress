@@ -7,6 +7,7 @@ using UnityEngine;
 using UndergroundFortress.Constants;
 using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Progress;
+using UndergroundFortress.Core.Services.Analytics;
 using UndergroundFortress.Core.Services.Factories.Gameplay;
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
@@ -27,6 +28,7 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
     {
         private readonly IStaticDataService _staticDataService;
         private readonly ILocalizationService _localizationService;
+        private readonly IProcessingAnalyticsService _processingAnalyticsService;
         private readonly IProgressProviderService _progressProviderService;
         private readonly IGameplayFactory _gameplayFactory;
         private readonly IAttackService _attackService;
@@ -60,6 +62,7 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
 
         public ProgressDungeonService(IStaticDataService staticDataService,
             ILocalizationService localizationService,
+            IProcessingAnalyticsService processingAnalyticsService,
             IProgressProviderService progressProviderService,
             IGameplayFactory gameplayFactory,
             IAttackService attackService,
@@ -73,6 +76,7 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
         {
             _staticDataService = staticDataService;
             _localizationService = localizationService;
+            _processingAnalyticsService = processingAnalyticsService;
             _progressProviderService = progressProviderService;
             _gameplayFactory = gameplayFactory;
             _attackService = attackService;
@@ -232,6 +236,8 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
             
             if (_isPause)
                 return;
+            
+            _progressProviderService.IncreaseKilling();
                 
             _playerUpdateLevelService.IncreaseExperience(_currentEnemyStaticData.experience);
             
@@ -310,6 +316,12 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
             }
             else
             {
+                if (!dungeons[idDungeon].Contains(idLevel + 1))
+                {
+                    int totalLevelId = idDungeon * (ConstantValues.MAX_DUNGEON_LEVEL_ID + 1) + idLevel;
+                    _processingAnalyticsService.TargetLevels(totalLevelId + 1);
+                }
+                
                 dungeons[idDungeon].Add(idLevel + 1);
             }
             

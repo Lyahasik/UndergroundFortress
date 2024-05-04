@@ -4,6 +4,7 @@ using UnityEngine.Events;
 using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Services.Ads;
 using UndergroundFortress.Core.Services.Progress;
+using UndergroundFortress.Core.Services.Publish.Purchases;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items.Services;
@@ -19,7 +20,8 @@ namespace UndergroundFortress.UI.Information
         
         private IShoppingService _shoppingService;
         private IProcessingAdsService _processingAdsService;
-        
+        private IProcessingPurchasesService _processingPurchasesService;
+
         private PurchaseStaticData _purchaseStaticData;
 
         public void Construct(IStaticDataService staticDataService,
@@ -28,7 +30,8 @@ namespace UndergroundFortress.UI.Information
             IItemsGeneratorService itemsGeneratorService,
             IInventoryService inventoryService,
             IShoppingService shoppingService,
-            IProcessingAdsService processingAdsService)
+            IProcessingAdsService processingAdsService,
+            IProcessingPurchasesService processingPurchasesService)
         {
             base.Construct(
                 staticDataService,
@@ -39,6 +42,7 @@ namespace UndergroundFortress.UI.Information
 
             _shoppingService = shoppingService;
             _processingAdsService = processingAdsService;
+            _processingPurchasesService = processingPurchasesService;
         }
 
         public override void Initialize(UnityAction onClose)
@@ -51,7 +55,8 @@ namespace UndergroundFortress.UI.Information
 
         private void Subscribe()
         {
-            _processingAdsService.OnClaimReward += ClaimRewards;
+            _processingAdsService.OnClaimReward += ClaimRewardsAds;
+            _processingPurchasesService.OnClaimReward += ClaimRewardsPurchase;
         }
         
         public void Show(PurchaseStaticData purchaseStaticData)
@@ -72,16 +77,41 @@ namespace UndergroundFortress.UI.Information
                 return;
             }
             
-            _shoppingService.Pay(_purchaseStaticData.moneyType, _purchaseStaticData.price);
-            
+            if (_purchaseStaticData.moneyType is MoneyType.Money1 or MoneyType.Money2)
+                _progressProviderService.IncreasePurchases();
+
+            if (_purchaseStaticData.moneyType == MoneyType.Money3)
+            {
+                _processingPurchasesService.StartBuyPurchase(_purchaseStaticData.id);
+            }
+            else
+            {
+                _shoppingService.Pay(_purchaseStaticData.moneyType, _purchaseStaticData.price);
+                base.ClaimRewards();
+            }
+        }
+
+        private void ClaimRewardsAds(int rewardId)
+        {
+            if (_purchaseStaticData == null
+                || rewardId != _purchaseStaticData.rewardIdAds)
+                return;
+
             base.ClaimRewards();
         }
 
-        private void ClaimRewards(int rewardIdAds)
+        private void ClaimRewardsPurchase(int rewardId)
         {
-            if (_purchaseStaticData == null
-                || rewardIdAds != _purchaseStaticData.rewardIdAds)
+            if (_purchaseStaticData == null)
+                _purchaseStaticData = _staticDataService.GetPurchaseById(MoneyType.Money3, rewardId);
+
+            if (rewardId != _purchaseStaticData.id)
                 return;
+
+            _rewardMoneys = _purchaseStaticData.rewardData.moneys;
+            _rewardItems = _purchaseStaticData.rewardData.items;
+            
+            Debug.Log($"Reward claim: {rewardId}");
 
             base.ClaimRewards();
         }

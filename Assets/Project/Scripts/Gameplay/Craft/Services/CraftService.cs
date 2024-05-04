@@ -1,4 +1,7 @@
-﻿using UndergroundFortress.Gameplay.Inventory.Services;
+﻿using UnityEngine;
+
+using UndergroundFortress.Core.Services.Progress;
+using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.Items.Equipment;
 using UndergroundFortress.Gameplay.Items.Resource;
@@ -11,14 +14,19 @@ namespace UndergroundFortress.Gameplay.Craft.Services
 {
     public class CraftService : ICraftService
     {
+        private readonly IProgressProviderService _progressProviderService;
         private readonly IInventoryService _inventoryService;
         private readonly IItemsGeneratorService _itemsGeneratorService;
 
-        public CraftService(IInventoryService inventoryService,
+        public CraftService(IProgressProviderService progressProviderService,
+            IInventoryService inventoryService,
             IItemsGeneratorService itemsGeneratorService)
         {
+            _progressProviderService = progressProviderService;
             _inventoryService = inventoryService;
             _itemsGeneratorService = itemsGeneratorService;
+            
+            Debug.Log($"[{ GetType() }] initialize");
         }
 
         public EquipmentData TryCreateEquipment(int itemId,
@@ -40,6 +48,7 @@ namespace UndergroundFortress.Gameplay.Craft.Services
                 PayPrice(moneyPrice, listPrice, crystal);
             else
                 PayPriceWithSurcharge(moneyPrice, listPrice, crystal);
+            _progressProviderService.IncreaseCrafting();
 
             return equipmentData;
         }

@@ -52,6 +52,7 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
             _inventory = new Dictionary<InventoryCellType, List<CellData>>();
             
             Register(_progressProviderService);
+            
             Debug.Log($"[{ GetType() }] initialize");
         }
 

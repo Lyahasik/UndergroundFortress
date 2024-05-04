@@ -24,12 +24,12 @@ namespace UndergroundFortress.UI.Information
 
         protected IStaticDataService _staticDataService;
         private ILocalizationService _localizationService;
-        private IProgressProviderService _progressProviderService;
+        protected IProgressProviderService _progressProviderService;
         private IInventoryService _inventoryService;
         private IItemsGeneratorService _itemsGeneratorService;
 
-        private List<MoneyNumberData> _rewardMoneys;
-        private List<ItemNumberData> _rewardItems;
+        protected List<MoneyNumberData> _rewardMoneys;
+        protected List<ItemNumberData> _rewardItems;
 
         public void Construct(IStaticDataService staticDataService,
             ILocalizationService localizationService,

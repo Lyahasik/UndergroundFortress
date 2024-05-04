@@ -29,6 +29,8 @@ namespace UndergroundFortress.Gameplay.Inventory.Services
         public void Initialize(CellItemView cellItemView)
         {
             _cellItemView = cellItemView;
+            
+            Debug.Log($"[{ GetType() }] initialize");
         }
 
         public void Subscribe(ActiveArea bagActiveArea)

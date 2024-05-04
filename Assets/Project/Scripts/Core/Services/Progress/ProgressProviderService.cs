@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using Newtonsoft.Json;
 using UnityEngine;
 
 using UndergroundFortress.Constants;
 using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Core.Publish;
+using UndergroundFortress.Core.Services.Analytics;
 using UndergroundFortress.Core.Services.Bonuses;
 using UndergroundFortress.Core.Services.GameStateMachine;
 using UndergroundFortress.Core.Services.GameStateMachine.States;
@@ -22,8 +24,12 @@ namespace UndergroundFortress.Core.Services.Progress
 {
     public partial class ProgressProviderService : IProgressProviderService, IUpdating
     {
+        [DllImport("__Internal")]
+        private static extern void LoadedExtern();
+        
         private readonly PublishHandler _publishHandler;
         private readonly IStaticDataService _staticDataService;
+        private readonly IProcessingAnalyticsService _processingAnalyticsService;
         private readonly IGameStateMachine _gameStateMachine;
 
         private ProgressData _progressData;
@@ -32,7 +38,7 @@ namespace UndergroundFortress.Core.Services.Progress
         private List<IWritingProgress> _progressWriters;
 
         private bool _isLocalData;
-        
+
         private bool _isWasChange;
         private float _waitingSavingTime;
 
@@ -40,10 +46,12 @@ namespace UndergroundFortress.Core.Services.Progress
 
         public ProgressProviderService(PublishHandler publishHandler,
             IStaticDataService staticDataService,
+            IProcessingAnalyticsService processingAnalyticsService,
             IGameStateMachine gameStateMachine)
         {
             _publishHandler = publishHandler;
             _staticDataService = staticDataService;
+            _processingAnalyticsService = processingAnalyticsService;
             _gameStateMachine = gameStateMachine;
         }
 
@@ -53,6 +61,8 @@ namespace UndergroundFortress.Core.Services.Progress
             _progressWriters ??= new List<IWritingProgress>();
             
             updateHandler.AddUpdatedObject(this);
+            
+            Debug.Log($"[{ GetType() }] initialize");
         }
 
         public void Update()
@@ -65,13 +75,12 @@ namespace UndergroundFortress.Core.Services.Progress
             if (OSManager.IsEditor())
                 LoadProgress(ConstantValues.KEY_LOCAL_PROGRESS);
             else
-                _publishHandler.StartLoadData();
+                LoadProgress(ConstantValues.KEY_LOCAL_PROGRESS);
+                // _publishHandler.StartLoadData();
         }
 
         public void LoadProgress(string json)
         {
-            Debug.Log("Loaded progress.");
-            
             _isLocalData = json == ConstantValues.KEY_LOCAL_PROGRESS;
 
             if (_isLocalData)
@@ -90,7 +99,11 @@ namespace UndergroundFortress.Core.Services.Progress
                 progressReader.LoadProgress(_progressData);
             
             _waitingSavingTime = ConstantValues.DELAY_SAVING;
-
+            
+            if (!OSManager.IsEditor())
+                LoadedExtern();
+            
+            Debug.Log("Loaded progress.");
             _gameStateMachine.Enter<LoadSceneState>();
         }
 
@@ -158,6 +171,24 @@ namespace UndergroundFortress.Core.Services.Progress
             _isWasChange = true;
         }
 
+        public void IncreaseCrafting()
+        {
+            _progressData.NumberCrafting++;
+            _processingAnalyticsService.TargetActivity(ActivityType.Craft, _progressData.NumberCrafting);
+        }
+
+        public void IncreasePurchases()
+        {
+            _progressData.NumberPurchases++;
+            _processingAnalyticsService.TargetActivity(ActivityType.Purchases, _progressData.NumberPurchases);
+        }
+
+        public void IncreaseKilling()
+        {
+            _progressData.NumberKilling++;
+            _processingAnalyticsService.TargetActivity(ActivityType.Killing, _progressData.NumberKilling);
+        }
+
         private void RegularSave()
         {
             _progressData.TimeGame += Time.deltaTime;
@@ -186,6 +217,10 @@ namespace UndergroundFortress.Core.Services.Progress
             ProgressData progressData = new ProgressData
             {
                 TimeGame = 0f,
+                
+                NumberCrafting = 0,
+                NumberPurchases = 0,
+                NumberKilling = 0,
                 
                 TutorialStages = new HashSet<int>(),
                 
@@ -300,6 +335,14 @@ namespace UndergroundFortress.Core.Services.Progress
         {
             foreach (IReadingProgress progressReader in _progressReaders)
                 progressReader.UpdateProgress(_progressData);
+        }
+        
+        public void Clear()
+        {
+            if (!_isLocalData)
+                _publishHandler.SaveData(JsonConvert.SerializeObject(new ProgressData(), new JsonSerializerSettings()));
+            
+            PlayerPrefs.DeleteAll();
         }
     }
 }

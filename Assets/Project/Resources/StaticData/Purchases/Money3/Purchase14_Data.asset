@@ -16,7 +16,8 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 6ed206268e8b74d468adf4b4bdd5354e, type: 3}
   qualityType: 5
   moneyType: 2
-  price: 90
+  price: 45
+  rewardIdAds: 0
   dungeonIdUnlock: 1
   dungeonIdLock: 2
   rewardData:

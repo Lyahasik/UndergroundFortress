@@ -3,10 +3,12 @@
 using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Services;
 using UndergroundFortress.Core.Services.Ads;
+using UndergroundFortress.Core.Services.Analytics;
 using UndergroundFortress.Core.Services.Bonuses;
 using UndergroundFortress.Core.Services.Characters;
 using UndergroundFortress.Core.Services.Factories.UI;
 using UndergroundFortress.Core.Services.Progress;
+using UndergroundFortress.Core.Services.Publish.Purchases;
 using UndergroundFortress.Core.Services.Rewards;
 using UndergroundFortress.Core.Services.Scene;
 using UndergroundFortress.Core.Services.StaticData;
@@ -33,7 +35,9 @@ namespace UndergroundFortress.UI.MainMenu
     {
         private IStaticDataService _staticDataService;
         private ILocalizationService _localizationService;
+        private IProcessingAnalyticsService _processingAnalyticsService;
         private IProcessingAdsService _processingAdsService;
+        private IProcessingPurchasesService _processingPurchasesService;
         private IUIFactory _uiFactory;
         private IProgressProviderService _progressProviderService;
 
@@ -44,14 +48,19 @@ namespace UndergroundFortress.UI.MainMenu
             ClearMainMenuServices();
         }
 
-        public void Construct(IStaticDataService staticDataService, ILocalizationService localizationService,
+        public void Construct(IStaticDataService staticDataService,
+            ILocalizationService localizationService,
+            IProcessingAnalyticsService processingAnalyticsService,
             IProcessingAdsService processingAdsService,
+            IProcessingPurchasesService processingPurchasesService,
             IUIFactory uiFactory,
             IProgressProviderService progressProviderService)
         {
             _staticDataService = staticDataService;
             _localizationService = localizationService;
+            _processingAnalyticsService = processingAnalyticsService;
             _processingAdsService = processingAdsService;
+            _processingPurchasesService = processingPurchasesService;
             _uiFactory = uiFactory;
             _progressProviderService = progressProviderService;
         }
@@ -106,11 +115,13 @@ namespace UndergroundFortress.UI.MainMenu
 
             _mainMenuServicesContainer.Register<ICraftService>(
                 new CraftService(
+                    _progressProviderService,
                     _mainMenuServicesContainer.Single<IInventoryService>(),
                     _mainMenuServicesContainer.Single<IItemsGeneratorService>()));
             
             _mainMenuServicesContainer.Register<IProgressTutorialService>(new ProgressTutorialService(
                 _localizationService,
+                _processingAnalyticsService,
                 _progressProviderService,
                 _mainMenuServicesContainer.Single<IItemsGeneratorService>()));
         }
@@ -262,6 +273,7 @@ namespace UndergroundFortress.UI.MainMenu
             information.Initialize(_staticDataService,
                 _localizationService,
                 _processingAdsService,
+                _processingPurchasesService,
                 _progressProviderService,
                 _mainMenuServicesContainer.Single<ISkillsUpgradeService>(), 
                 _mainMenuServicesContainer.Single<IItemsGeneratorService>(),
@@ -293,6 +305,8 @@ namespace UndergroundFortress.UI.MainMenu
                 tutorialView);
 
             _mainMenuServicesContainer.Single<IProcessingBonusesService>().Initialize(mainMenu);
+            
+            _processingPurchasesService.CheckPurchases();
         }
         
         private void ClearMainMenuServices()

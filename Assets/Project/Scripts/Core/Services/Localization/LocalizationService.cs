@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using TMPro;
+using UnityEngine;
 using UnityEngine.Localization.Settings;
 
 using UndergroundFortress.Constants;
@@ -11,6 +12,8 @@ namespace UndergroundFortress.Core.Localization
         public IEnumerator Initialize()
         {
             yield return LocalizationSettings.InitializationOperation;
+            
+            Debug.Log($"[{ GetType() }] initialize");
         }
         
         public string LocaleMain(string keyValue) =>

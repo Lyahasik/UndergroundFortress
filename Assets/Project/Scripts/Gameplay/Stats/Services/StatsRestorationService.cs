@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using UndergroundFortress.Constants;
 using UndergroundFortress.Core.Services.Bonuses;
 using UndergroundFortress.Gameplay.Character;
 using UndergroundFortress.Gameplay.Dungeons.Services;
@@ -29,6 +28,8 @@ namespace UndergroundFortress.Gameplay.Stats.Services
         public void Initialize()
         {
             _statCharacters = new();
+            
+            Debug.Log($"[{ GetType() }] initialize");
         }
 
         public void AddStats(CharacterStats stats)

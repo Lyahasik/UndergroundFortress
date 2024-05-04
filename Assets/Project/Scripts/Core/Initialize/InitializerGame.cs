@@ -6,12 +6,14 @@ using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Publish;
 using UndergroundFortress.Core.Services;
 using UndergroundFortress.Core.Services.Ads;
+using UndergroundFortress.Core.Services.Analytics;
 using UndergroundFortress.Core.Services.Characters;
 using UndergroundFortress.Core.Services.Factories.Gameplay;
 using UndergroundFortress.Core.Services.Factories.UI;
 using UndergroundFortress.Core.Services.GameStateMachine;
 using UndergroundFortress.Core.Services.GameStateMachine.States;
 using UndergroundFortress.Core.Services.Progress;
+using UndergroundFortress.Core.Services.Publish.Purchases;
 using UndergroundFortress.Core.Services.Rewards;
 using UndergroundFortress.Core.Services.Scene;
 using UndergroundFortress.Core.Services.StaticData;
@@ -51,7 +53,9 @@ namespace UndergroundFortress.Core.Initialize
             UpdateHandler updateHandler = CreateUpdateHandler();
 
             RegisterStaticDataService();
+            RegisterProcessingAnalyticsService();
             RegisterProcessingAdsService();
+            RegisterProcessingPurchasesService();
 
             PublishHandler publishHandler = CreatePublishHandler();
 
@@ -59,7 +63,8 @@ namespace UndergroundFortress.Core.Initialize
             
             RegisterProgressProviderService(gameStateMachine, publishHandler, updateHandler);
             publishHandler.Initialize(_servicesContainer.Single<IProgressProviderService>(),
-                _servicesContainer.Single<IProcessingAdsService>());
+                _servicesContainer.Single<IProcessingAdsService>(),
+                _servicesContainer.Single<IProcessingPurchasesService>());
             RegisterStatsRestorationService();
             RegisterProcessingPlayerStatsService();
             RegisterPlayerUpdateLevelService();
@@ -84,7 +89,9 @@ namespace UndergroundFortress.Core.Initialize
                     _servicesContainer.Single<IGameplayFactory>(),
                     _servicesContainer.Single<IStaticDataService>(),
                     _servicesContainer.Single<ILocalizationService>(),
+                    _servicesContainer.Single<IProcessingAnalyticsService>(),
                     _servicesContainer.Single<IProcessingAdsService>(),
+                    _servicesContainer.Single<IProcessingPurchasesService>(),
                     _servicesContainer.Single<IProgressProviderService>(),
                     _servicesContainer.Single<IProcessingPlayerStatsService>(),
                     _servicesContainer.Single<IPlayerUpdateLevelService>(),
@@ -106,10 +113,24 @@ namespace UndergroundFortress.Core.Initialize
             DontDestroyOnLoad(gameData);
         }
 
+        private void RegisterProcessingAnalyticsService()
+        {
+            var service = new ProcessingAnalyticsService();
+            _servicesContainer.Register<IProcessingAnalyticsService>(service);
+            service.Initialize();
+        }
+
         private void RegisterProcessingAdsService()
         {
-            var service = new ProcessingAdsService();
+            var service = new ProcessingAdsService(_servicesContainer.Single<IProcessingAnalyticsService>());
             _servicesContainer.Register<IProcessingAdsService>(service);
+            service.Initialize();
+        }
+
+        private void RegisterProcessingPurchasesService()
+        {
+            var service = new ProcessingPurchasesService(_servicesContainer.Single<IProcessingAnalyticsService>());
+            _servicesContainer.Register<IProcessingPurchasesService>(service);
             service.Initialize();
         }
 
@@ -157,6 +178,7 @@ namespace UndergroundFortress.Core.Initialize
             var service = new ProgressProviderService(
                 publishHandler,
                 _servicesContainer.Single<IStaticDataService>(),
+                _servicesContainer.Single<IProcessingAnalyticsService>(),
                 gameStateMachine);
             
             service.Initialize(updateHandler);

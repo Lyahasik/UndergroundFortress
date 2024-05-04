@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Core.Services.Progress;
@@ -45,6 +46,8 @@ namespace UndergroundFortress.Core.Services.Rewards
         public void Initialize()
         {
             Register(_progressProviderService);
+            
+            Debug.Log($"[{ GetType() }] initialize");
         }
 
         public void Register(IProgressProviderService progressProviderService)

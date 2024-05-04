@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using UnityEngine;
+
 using UndergroundFortress.Gameplay.Character.Services;
-using UndergroundFortress.Gameplay.Inventory;
-using UndergroundFortress.Gameplay.Inventory.Services;
 using UndergroundFortress.Gameplay.Items;
 using UndergroundFortress.Gameplay.Stats;
 
@@ -16,6 +15,7 @@ namespace UndergroundFortress.Core.Services.Characters
         public PlayerDressingService(IProcessingPlayerStatsService processingPlayerStatsService)
         {
             _processingPlayerStatsService = processingPlayerStatsService;
+            Debug.Log($"[{ GetType() }] initialize");
         }
 
         public void PutOnAnItem(ItemData itemData)

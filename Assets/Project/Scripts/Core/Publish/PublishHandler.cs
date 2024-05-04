@@ -4,6 +4,7 @@ using UnityEngine;
 using UndergroundFortress.Core.Services.Ads;
 using UndergroundFortress.Core.Publish.Web.Yandex;
 using UndergroundFortress.Core.Services.Progress;
+using UndergroundFortress.Core.Services.Publish.Purchases;
 using UndergroundFortress.Helpers;
 
 namespace UndergroundFortress.Core.Publish
@@ -17,6 +18,7 @@ namespace UndergroundFortress.Core.Publish
 
         private IProgressProviderService _progressProviderService;
         private IProcessingAdsService _processingAdsService;
+        private IProcessingPurchasesService _processingPurchasesService;
 
         private DataModule _dataModule;
 
@@ -25,12 +27,15 @@ namespace UndergroundFortress.Core.Publish
             name = newName;
         }
 
-        public void Initialize(IProgressProviderService progressProviderService, IProcessingAdsService processingAdsService)
+        public void Initialize(IProgressProviderService progressProviderService,
+            IProcessingAdsService processingAdsService,
+            IProcessingPurchasesService processingPurchasesService)
         {
             _dataModule = new YandexDataModule();
 
             _progressProviderService = progressProviderService;
             _processingAdsService = processingAdsService;
+            _processingPurchasesService = processingPurchasesService;
         }
 
 #region data
@@ -57,10 +62,20 @@ namespace UndergroundFortress.Core.Publish
         
 #endregion
         
-        public void ClaimReward()
+        public void ClaimRewardAds()
         {
             _processingAdsService.ClaimReward();
             EndAds();
+        }
+        
+        public void ClaimRewardPurchase()
+        {
+            _processingPurchasesService.ClaimReward();
+        }
+        
+        public void ClaimRewardPurchaseId(string id)
+        {
+            _processingPurchasesService.ClaimReward(int.Parse(id));
         }
         
         public void EndAds()

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 using UndergroundFortress.Core.Services.Progress;
 using UndergroundFortress.Core.Services.StaticData;
@@ -33,6 +34,8 @@ namespace UndergroundFortress.Gameplay.Shop
             _walletOperationService = walletOperationService;
             _inventoryService = inventoryService;
             _informationService = informationService;
+
+            Debug.Log($"[{ GetType() }] initialize");
         }
 
         public void ShowSaleItem(CellSaleView cellSale)

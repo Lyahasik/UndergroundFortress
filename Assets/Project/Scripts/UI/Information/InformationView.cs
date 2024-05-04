@@ -7,6 +7,7 @@ using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Core.Services.Ads;
 using UndergroundFortress.Core.Services.Progress;
+using UndergroundFortress.Core.Services.Publish.Purchases;
 using UndergroundFortress.Core.Services.Rewards;
 using UndergroundFortress.Extensions;
 using UndergroundFortress.Gameplay.Inventory.Services;
@@ -64,6 +65,7 @@ namespace UndergroundFortress.UI.Information
         public void Initialize(IStaticDataService staticDataService,
             ILocalizationService localizationService,
             IProcessingAdsService processingAdsService,
+            IProcessingPurchasesService processingPurchasesService,
             IProgressProviderService progressProviderService,
             ISkillsUpgradeService skillsUpgradeService,
             IItemsGeneratorService itemsGeneratorService,
@@ -104,7 +106,8 @@ namespace UndergroundFortress.UI.Information
                 itemsGeneratorService,
                 inventoryService,
                 shoppingService,
-                processingAdsService);
+                processingAdsService,
+                processingPurchasesService);
             purchaseRewardItemsView.Initialize(CloseView);
             
             bonusOfferView.Construct(localizationService);

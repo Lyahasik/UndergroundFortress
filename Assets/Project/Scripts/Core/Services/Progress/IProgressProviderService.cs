@@ -5,6 +5,7 @@ namespace UndergroundFortress.Core.Services.Progress
     public interface IProgressProviderService : IService
     {
         public ProgressData ProgressData { get; }
+        public void StartLoadData();
         public void LoadProgress(string json);
         public void SaveProgress();
         public void Register(IReadingProgress progressReader);
@@ -13,6 +14,8 @@ namespace UndergroundFortress.Core.Services.Progress
         public void Unregister(IWritingProgress progressWriter);
         public void ResetActiveSkills();
         public void WasChange();
-        public void StartLoadData();
+        public void IncreaseCrafting();
+        public void IncreasePurchases();
+        public void IncreaseKilling();
     }
 }

@@ -1,34 +1,26 @@
 mergeInto(LibraryManager.library, {
 
     LoadedExtern: function () {
-        ym(94529710,'reachGoal','Loaded');
+        ym(97174711,'reachGoal','loaded');
     },
 
-    StartGameExtern: function () {
-        ym(94529710,'reachGoal','Start_game');
+    TargetAdsExtern: function (id) {
+        ym(97174711,'reachGoal','ads' + id);
     },
 
-    TimeStayExtern: function (target) {
-        ym(94529710,'reachGoal','Time_stay_' + target);
+    TargetPurchasesExtern: function (id) {
+        ym(97174711,'reachGoal','purchase' + id);
     },
 
-    LevelSuccessExtern: function (numberLevel) {
-        ym(94529710,'reachGoal','Level_success_' + numberLevel);
+    TargetLevelsExtern: function (number) {
+        ym(97174711,'reachGoal','level' + number);
     },
 
-    ActiveAdsSpawnPointExtern: function () {
-        ym(94529710,'reachGoal','Total_spawn_points');
+    TargetTutorialExtern: function (number) {
+        ym(97174711,'reachGoal','tutorial' + number);
     },
 
-    ActiveAdsSpawnPointsExtern: function (numberBowls) {
-        ym(94529710,'reachGoal','Spawn_point_' + numberBowls);
-    },
-
-    OpenAdsLevelExtern: function () {
-        ym(94529710,'reachGoal','Total_ads_levels');
-    },
-     
-    OpenAdsLevelsExtern: function (numberLevels) {
-        ym(94529710,'reachGoal','Ads_level_' + numberLevels);
+    TargetActivityExtern: function (number) {
+        ym(97174711,'reachGoal','activity' + number);
     }
 });

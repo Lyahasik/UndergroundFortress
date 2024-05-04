@@ -47,6 +47,8 @@ namespace UndergroundFortress.Core.Services.Bonuses
             ActivateBuffs();
 
             _delayNextTimeShowOffer = _staticDataService.ForBonuses().sentenceOffers;
+            
+            Debug.Log($"[{ GetType() }] initialize");
         }
 
         public void Update()

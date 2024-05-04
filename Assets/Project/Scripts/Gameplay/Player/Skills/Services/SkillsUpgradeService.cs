@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Core.Services.Progress;
@@ -7,7 +8,6 @@ using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Stats;
 using UndergroundFortress.Gameplay.Tutorial.Services;
-using UnityEngine;
 
 namespace UndergroundFortress.Gameplay.Skills.Services
 {
@@ -35,6 +35,7 @@ namespace UndergroundFortress.Gameplay.Skills.Services
         public void Initialize()
         {
             Register(_progressProviderService);
+            
             Debug.Log($"[{ GetType() }] initialize");
         }
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Core.Services.Progress;
@@ -40,6 +41,7 @@ namespace UndergroundFortress.Gameplay.Character.Services
             _skillsPlayerStats = new Dictionary<StatType, float>();
 
             Register(_progressProviderService);
+            Debug.Log($"[{ GetType() }] initialize");
         }
             
         public void Register(IProgressProviderService progressProviderService)

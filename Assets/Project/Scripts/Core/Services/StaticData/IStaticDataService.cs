@@ -23,6 +23,7 @@ namespace UndergroundFortress.Core.Services.StaticData
         public List<ResourceStaticData> ForResources();
         public List<RecipeStaticData> ForRecipes();
         public List<PurchaseStaticData> ForPurchasesByMoneyType(MoneyType moneyType);
+        public PurchaseStaticData GetPurchaseById(MoneyType moneyType, int id);
         public QualitiesStaticData ForQualities();
         public StatStaticData GetStatByType(StatType statType);
         public Sprite GetItemIcon(int itemDataId);

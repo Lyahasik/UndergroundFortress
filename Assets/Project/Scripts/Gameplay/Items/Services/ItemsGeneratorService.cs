@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 using UndergroundFortress.Constants;
 using UndergroundFortress.Core.Services.StaticData;
@@ -24,6 +25,8 @@ namespace UndergroundFortress.Gameplay.Items.Services
         {
             _staticDataService = staticDataService;
             _inventoryService = inventoryService;
+            
+            Debug.Log($"[{ GetType() }] initialize");
         }
 
         public ResourceData GenerateResource()

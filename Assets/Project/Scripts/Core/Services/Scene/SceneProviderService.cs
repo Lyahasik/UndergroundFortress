@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UndergroundFortress.Constants;
 using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Services.Ads;
+using UndergroundFortress.Core.Services.Analytics;
 using UndergroundFortress.Core.Services.Bonuses;
 using UndergroundFortress.Core.Services.Characters;
 using UndergroundFortress.Core.Services.Factories.Gameplay;
@@ -12,6 +13,7 @@ using UndergroundFortress.Core.Services.Factories.UI;
 using UndergroundFortress.Core.Services.GameStateMachine;
 using UndergroundFortress.Core.Services.GameStateMachine.States;
 using UndergroundFortress.Core.Services.Progress;
+using UndergroundFortress.Core.Services.Publish.Purchases;
 using UndergroundFortress.Core.Services.Rewards;
 using UndergroundFortress.Core.Services.StaticData;
 using UndergroundFortress.Core.Update;
@@ -36,7 +38,9 @@ namespace UndergroundFortress.Core.Services.Scene
         private readonly IGameplayFactory _gameplayFactory;
         private readonly IStaticDataService _staticDataService;
         private readonly ILocalizationService _localizationService;
+        private readonly IProcessingAnalyticsService _processingAnalyticsService;
         private readonly IProcessingAdsService _processingAdsService;
+        private readonly IProcessingPurchasesService _processingPurchasesService;
         private readonly IProgressProviderService _progressProviderService;
         private readonly IProcessingPlayerStatsService _processingPlayerStatsService;
         private readonly IPlayerUpdateLevelService _playerUpdateLevelService;
@@ -64,7 +68,9 @@ namespace UndergroundFortress.Core.Services.Scene
             IGameplayFactory gameplayFactory,
             IStaticDataService staticDataService,
             ILocalizationService localizationService,
+            IProcessingAnalyticsService processingAnalyticsService,
             IProcessingAdsService processingAdsService,
+            IProcessingPurchasesService processingPurchasesService,
             IProgressProviderService progressProviderService,
             IProcessingPlayerStatsService processingPlayerStatsService,
             IPlayerUpdateLevelService playerUpdateLevelService,
@@ -78,13 +84,17 @@ namespace UndergroundFortress.Core.Services.Scene
             _gameplayFactory = gameplayFactory;
             _staticDataService = staticDataService;
             _localizationService = localizationService;
+            _processingAnalyticsService = processingAnalyticsService;
             _processingAdsService = processingAdsService;
+            _processingPurchasesService = processingPurchasesService;
             _progressProviderService = progressProviderService;
             _processingPlayerStatsService = processingPlayerStatsService;
             _playerUpdateLevelService = playerUpdateLevelService;
             _playerDressingService = playerDressingService;
             _statsRestorationService = statsRestorationService;
             _accumulationRewardsService = accumulationRewardsService;
+            
+            Debug.Log($"[{ GetType() }] initialize");
         }
 
         public void LoadMainScene()
@@ -153,7 +163,9 @@ namespace UndergroundFortress.Core.Services.Scene
                 initializerMainMenu.Construct(
                     _staticDataService,
                     _localizationService,
+                    _processingAnalyticsService,
                     _processingAdsService,
+                    _processingPurchasesService,
                     _uiFactory,
                     _progressProviderService);
                 initializerMainMenu.Initialize(
@@ -179,6 +191,7 @@ namespace UndergroundFortress.Core.Services.Scene
             initializerLevel.Construct(this,
                 _staticDataService,
                 _localizationService,
+                _processingAnalyticsService,
                 _gameplayFactory,
                 _uiFactory,
                 _processingPlayerStatsService,
