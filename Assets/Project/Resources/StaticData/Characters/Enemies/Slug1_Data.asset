@@ -31,7 +31,7 @@ MonoBehaviour:
   strength: 0
   stunDuration: 0
   id: 0
-  experience: 1
+  experience: 100
   enemyData: {fileID: 196345577061169572, guid: 2af187f85a3832e4ab5a1dcfdf59c78a, type: 3}
   priceTime: 15
   lootItems:
