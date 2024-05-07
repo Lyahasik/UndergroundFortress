@@ -24,6 +24,8 @@ namespace UndergroundFortress.Gameplay.StaticData
         private void Start()
         {
             lifeFeedback.GetFeedbackOfType<MMF_ImageAlpha>().SetInitialDelay(durationDrop);
+            lifeFeedback.Initialization();
+            lifeFeedback.PlayFeedbacks();
         }
 
         public void Construct(IWalletOperationService walletOperationService,

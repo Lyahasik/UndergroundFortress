@@ -195,7 +195,7 @@ namespace UndergroundFortress.Gameplay.Character
             float duration = dropItem.DurationDrop;
             dropItem.transform.DOJump(dropItemArea.RandomInsidePoint(), 250f, 1, duration);
             dropItem.transform.DORotate(new Vector3(0f, 0f, Random.Range(0f, 360f)), duration);
-            dropItem.Initialize();
+            // dropItem.Initialize();
         }
 
         public override void StartDead()

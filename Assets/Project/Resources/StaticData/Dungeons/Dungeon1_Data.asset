@@ -24,19 +24,19 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b7608fa8f23d855478306d4ae46ff367, type: 2}
   levels:
   - id: 0
-    numberStages: 1
+    numberStages: 10
     enemies:
     - probabilityWeight: 100
       enemyStaticData: {fileID: 11400000, guid: 7a05bd75be288c245b44d989829e481d, type: 2}
   - id: 1
-    numberStages: 1
+    numberStages: 10
     enemies:
     - probabilityWeight: 50
       enemyStaticData: {fileID: 11400000, guid: 7a05bd75be288c245b44d989829e481d, type: 2}
     - probabilityWeight: 100
       enemyStaticData: {fileID: 11400000, guid: cb94a759526a02548853e665cc7c559c, type: 2}
   - id: 2
-    numberStages: 1
+    numberStages: 10
     enemies:
     - probabilityWeight: 25
       enemyStaticData: {fileID: 11400000, guid: 7a05bd75be288c245b44d989829e481d, type: 2}
@@ -45,7 +45,7 @@ MonoBehaviour:
     - probabilityWeight: 100
       enemyStaticData: {fileID: 11400000, guid: 869fcc9f36654f1409fbc2723af64e62, type: 2}
   - id: 3
-    numberStages: 1
+    numberStages: 10
     enemies:
     - probabilityWeight: 25
       enemyStaticData: {fileID: 11400000, guid: cb94a759526a02548853e665cc7c559c, type: 2}
@@ -54,7 +54,7 @@ MonoBehaviour:
     - probabilityWeight: 100
       enemyStaticData: {fileID: 11400000, guid: ba746e09d085c4641915722266cfadbd, type: 2}
   - id: 4
-    numberStages: 1
+    numberStages: 10
     enemies:
     - probabilityWeight: 25
       enemyStaticData: {fileID: 11400000, guid: 869fcc9f36654f1409fbc2723af64e62, type: 2}
