@@ -12,9 +12,9 @@ namespace UndergroundFortress.Gameplay.Character
 
         [SerializeField] private TMP_Text valueText;
         [SerializeField] private bool isVisibleValue;
-        [SerializeField] private Image fill;
+        [SerializeField] protected Image fill;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             valueText.gameObject.SetActive(isVisibleValue);
         }
@@ -30,7 +30,7 @@ namespace UndergroundFortress.Gameplay.Character
             characterStats.OnUpdateCurrent -= UpdateValue;
         }
 
-        public void UpdateValue(CharacterStats characterStats)
+        public virtual void UpdateValue(CharacterStats characterStats)
         {
             switch (statType)
             {

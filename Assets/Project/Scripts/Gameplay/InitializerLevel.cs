@@ -196,6 +196,7 @@ namespace UndergroundFortress.Gameplay
                 processingAdsService,
                 progressProviderService,
                 statsRestorationService,
+                _gameplayServicesContainer.Single<ICheckerCurrentStatsService>(),
                 _gameplayServicesContainer.Single<IAttackService>(),
                 _playerData);
         }

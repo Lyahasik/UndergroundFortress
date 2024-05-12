@@ -19,7 +19,7 @@ namespace UndergroundFortress.UI.Hud
         
         [Space]
         [SerializeField] private CurrentStatFillView playerHealthFill;
-        [SerializeField] private CurrentStatFillView playerStaminaFill;
+        [SerializeField] private CurrentStaminaFillView playerStaminaFill;
         [SerializeField] private ConsumableItemView consumableItemView;
 
         [Space]
@@ -51,9 +51,13 @@ namespace UndergroundFortress.UI.Hud
             IProcessingAdsService processingAdsService,
             IProgressProviderService progressProviderService,
             IStatsRestorationService statsRestorationService,
+            ICheckerCurrentStatsService checkerCurrentStatsService,
             IAttackService attackService,
             PlayerData playerData)
         {
+            playerStaminaFill.Construct(checkerCurrentStatsService);
+            playerStaminaFill.Initialize(playerData.Stats);
+            
             levelNumberView.Initialize(progressProviderService);
             
             experienceBarView.Construct(staticDataService, progressProviderService);
