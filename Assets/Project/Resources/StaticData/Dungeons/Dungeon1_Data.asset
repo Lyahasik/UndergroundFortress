@@ -24,7 +24,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b7608fa8f23d855478306d4ae46ff367, type: 2}
   levels:
   - id: 0
-    numberStages: 10
+    numberStages: 1
     enemies:
     - probabilityWeight: 100
       enemyStaticData: {fileID: 11400000, guid: 7a05bd75be288c245b44d989829e481d, type: 2}
