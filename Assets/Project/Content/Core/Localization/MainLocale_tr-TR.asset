@@ -1,0 +1,151 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: MainLocale_tr-TR
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: tr-TR
+  m_SharedData: {fileID: 11400000, guid: 1425a825d375d89419ed2aa96e75a7dc, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 65624616960
+    m_Localized: "Y\xFCr\xFCy\xFC\u015F"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7797211672576
+    m_Localized: "Ma\u011Faza"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7808418852864
+    m_Localized: Zanaat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7833412710400
+    m_Localized: Yetenekler
+    m_Metadata:
+      m_Items: []
+  - m_Id: 7836906565632
+    m_Localized: Ev
+    m_Metadata:
+      m_Items: []
+  - m_Id: 64841906139136
+    m_Localized: Yaratmak
+    m_Metadata:
+      m_Items: []
+  - m_Id: 64844284309504
+    m_Localized: Kristal olmadan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 64848180817920
+    m_Localized: "Y\xFCkleniyor..."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9129624612864
+    m_Localized: HP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10705676283904
+    m_Localized: SP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8955808460800
+    m_Localized: EXP
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65101483225088
+    m_Localized: Kale
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65157514932224
+    m_Localized: "\u0130yile\u015Fmek"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65151982645248
+    m_Localized: Devam etmek
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65159230402560
+    m_Localized: Dinlenmek
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65217745137664
+    m_Localized: Sonraki
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65219355750400
+    m_Localized: "Ba\u011F\u0131\u015Flar"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65221138329600
+    m_Localized: Elde etmek
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65223415836672
+    m_Localized: "G\xFCnl\xFCk \xF6d\xFCller"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65300326789120
+    m_Localized: "Etkinle\u015Ftir"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65302369415168
+    m_Localized: Satmak
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65304453984256
+    m_Localized: "Kapal\u0131"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65306362392576
+    m_Localized: d
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65358879272960
+    m_Localized: s
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65360989007872
+    m_Localized: "S\u0131f\u0131rla"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65366995251200
+    m_Localized: "Kay\u0131p"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65453129478144
+    m_Localized: "S\xFCm\xFCkl\xFCb\xF6cek Ma\u011Faras\u0131"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65454706536448
+    m_Localized: "Trol Ge\xE7idi"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 65456153571328
+    m_Localized: Lanet derin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 247573537894400
+    m_Localized: "S\u0131rt \xE7antas\u0131 dolu"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 247583927185408
+    m_Localized: Yeterli bozuk para yok
+    m_Metadata:
+      m_Items: []
+  - m_Id: 247587983077376
+    m_Localized: Yeterli yakut yok
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Localization-String-Tables-Turkish (Turkey) (tr-TR)
+  m_EditorClassIdentifier: 
+  m_GroupName: Localization-String-Tables-Turkish (Turkey) (tr-TR)
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 5e23d8a800a5d1b43a73c4fe6d3f7da6
+  m_SerializeEntries:
+  - m_GUID: fec82f5b8b251ed4da6bb197310a11ce
+    m_Address: BonusesLocale_tr-TR
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-tr-TR
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 04c94466a7c4a064e98838c7aec83290
+    m_Address: EquipmentsLocale_tr-TR
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-tr-TR
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 924bac4913764374fb15d25cd795dc57
+    m_Address: MainLocale_tr-TR
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-tr-TR
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a4acb81acdc6dd344900de41161096d9
+    m_Address: PurchasesLocale_tr-TR
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-tr-TR
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 728878b41d383574499e2faad01d2b73
+    m_Address: ResourcesLocale_tr-TR
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-tr-TR
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d5da3d381cbe81c45b3679d03b6065b3
+    m_Address: SkillsLocale_tr-TR
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-tr-TR
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 673d83678e06c624f82c48f99e9a129b
+    m_Address: StatsLocale_tr-TR
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-tr-TR
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 18d5a89e233763242b5e22db97825cea
+    m_Address: TutorialLocale_tr-TR
+    m_ReadOnly: 1
+    m_SerializedLabels:
+    - Locale-tr-TR
+    - Preload
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 1
+  m_Settings: {fileID: 11400000, guid: 66ef74d62c5df6e4c931deb85c92c675, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: f722c657ac6a7874a90859634e7f0ed9, type: 2}
+    - {fileID: 11400000, guid: 94058eea6f9b55c44b90799724756fe6, type: 2}

@@ -19,5 +19,6 @@ namespace UndergroundFortress.Core.Services.Progress
         public void IncreaseCrafting();
         public void IncreasePurchases();
         public void IncreaseKilling();
+        public void SetLocale(int localeId);
     }
 }

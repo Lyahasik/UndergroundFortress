@@ -1,0 +1,165 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: SkillsLocale_tr-TR
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: tr-TR
+  m_SharedData: {fileID: 11400000, guid: 6ec453c43ea660e4ebaf83ec09359aa3, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 986563751936
+    m_Localized: "D\xFC\u015Fman\u0131n sersemletme s\xFCresini art\u0131r\u0131r."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 984852475904
+    m_Localized: "Ge\xE7ici sersemletme becerisi"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 954011758592
+    m_Localized: "D\xFC\u015Fman\u0131 sersemletme \u015Fans\u0131n\u0131 art\u0131r\u0131r."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 952971571200
+    m_Localized: Sersemletme becerisi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 920323108864
+    m_Localized: "D\xFC\u015Fman\u0131n sersemletmelerini g\xF6rmezden gelme \u015Fans\u0131n\u0131
+      art\u0131r\u0131r."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 919387779072
+    m_Localized: "G\xFC\xE7 becerileri"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 876299694080
+    m_Localized: "Saniye ba\u015F\u0131na dayan\u0131kl\u0131l\u0131k iyile\u015Fmesini
+      art\u0131r\u0131r."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 875431473152
+    m_Localized: "Dayan\u0131kl\u0131l\u0131k kurtarma becerisi"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 848348852224
+    m_Localized: "Dayan\u0131kl\u0131l\u0131k miktar\u0131n\u0131 art\u0131r\u0131r"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 847379968000
+    m_Localized: "Dayan\u0131kl\u0131l\u0131k becerisi"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 817717850112
+    m_Localized: "D\xFC\u015Fman\u0131n kritik hasar\u0131n\u0131 savu\u015Fturma
+      \u015Fans\u0131n\u0131 art\u0131r\u0131r."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 816644108288
+    m_Localized: Siper becerisi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 784796758016
+    m_Localized: "Saniyede sa\u011Fl\u0131k yenilenmesini art\u0131r\u0131r"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783857233920
+    m_Localized: "Sa\u011Fl\u0131\u011F\u0131 iyile\u015Ftirme becerisi"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 719336255488
+    m_Localized: "Sa\u011Fl\u0131\u011F\u0131 art\u0131r\u0131r"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 718157656064
+    m_Localized: "Sa\u011Fl\u0131k becerisi"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 683428818944
+    m_Localized: "Bir darbeden ka\xE7ma \u015Fans\u0131n\u0131 art\u0131r\u0131r."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 682556403712
+    m_Localized: "Ka\xE7\u0131\u015F becerisi"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 657830981632
+    m_Localized: "D\xFC\u015Fman hasar\u0131n\u0131 azalt\u0131r"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 656857903104
+    m_Localized: Savunma becerisi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 622326198272
+    m_Localized: "\u0130sabet halinde hasar\u0131 art\u0131r\u0131r"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 621185347584
+    m_Localized: Hasar becerisi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 570992111616
+    m_Localized: "Ba\u015Far\u0131l\u0131 bir kritik vuru\u015Fta hasar y\xFCzdesini
+      art\u0131r\u0131r."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 569079508992
+    m_Localized: Kritik hasar becerisi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 532169633792
+    m_Localized: "Kritik hasar verme \u015Fans\u0131n\u0131 art\u0131r\u0131r."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 530991034368
+    m_Localized: "Kritik \u015Fans"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 499751858176
+    m_Localized: "D\xFC\u015Fman blo\u011Funu k\u0131rma \u015Fans\u0131n\u0131 art\u0131r\u0131r."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 498174799872
+    m_Localized: "Blok becerisini k\u0131rma"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 469217325056
+    m_Localized: "Ba\u015Far\u0131l\u0131 bir blokta engellenen hasar y\xFCzdesini
+      art\u0131r\u0131r."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468177137664
+    m_Localized: Hasar engelleme becerisi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 435629338624
+    m_Localized: "Bir sald\u0131r\u0131y\u0131 engelleme \u015Fans\u0131n\u0131 art\u0131r\u0131r."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 432173232128
+    m_Localized: Beceriyi engelle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 405698785280
+    m_Localized: "D\xFC\u015Fman ka\xE7t\u0131\u011F\u0131nda vurma \u015Fans\u0131n\u0131
+      art\u0131r\u0131r."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 402041352192
+    m_Localized: "Do\u011Fruluk becerisi"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

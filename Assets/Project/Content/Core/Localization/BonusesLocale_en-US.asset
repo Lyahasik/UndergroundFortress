@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: BonusesLocale_en-US
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en-US
+  m_SharedData: {fileID: 11400000, guid: 00332bbf64fbe3e48adbc4c9f16b7d7e, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 21227909120
+    m_Localized: Random equip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26491760640
+    m_Localized: Get a random purple item of your level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29645877248
+    m_Localized: Double health recovery
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34444161024
+    m_Localized: Double health regeneration for a while
+    m_Metadata:
+      m_Items: []
+  - m_Id: 37535363072
+    m_Localized: Infinite stamina
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40446210048
+    m_Localized: Activate infinite stamina for a time
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5983045169152
+    m_Localized: Increased damage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5984852914176
+    m_Localized: Increases damage for a while
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6071490457600
+    m_Localized: Increased dodge
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6075009478656
+    m_Localized: Increases the chance of dodging for a while
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6122526748672
+    m_Localized: Increased crit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6123965394944
+    m_Localized: Increases crit chance for a while
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6167254806528
+    m_Localized: Increased block
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6168391462912
+    m_Localized: Increases block chance for a while
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6225874399232
+    m_Localized: Increased stun
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6227183022080
+    m_Localized: Increases the chance of stun for a while
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

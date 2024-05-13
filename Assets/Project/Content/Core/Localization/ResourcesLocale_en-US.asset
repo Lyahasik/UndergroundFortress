@@ -1,0 +1,193 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: ResourcesLocale_en-US
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en-US
+  m_SharedData: {fileID: 11400000, guid: 3a831ffcb4153794781f09f6c95f5990, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 10104614912
+    m_Localized: Torn skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31776583680
+    m_Localized: A piece of skin from some creature
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31501366865920
+    m_Localized: Metal fragment
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31505385009152
+    m_Localized: Metal fragment, unknown from what thing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36160634630144
+    m_Localized: Wood chip
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36174459056128
+    m_Localized: A piece of wood that was once a strong handle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36447659241472
+    m_Localized: Drop of slime
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36489627447296
+    m_Localized: The residue from the slime is surprisingly dense
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36508325654528
+    m_Localized: Skin
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36542677004288
+    m_Localized: Whole leather from a troll handcuff
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36566701977600
+    m_Localized: Copper ore
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36572439785472
+    m_Localized: A piece of copper ore, trolls love to lick it
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36606229098496
+    m_Localized: Wood
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36625321570304
+    m_Localized: A piece of solid wood, good material
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36665955987456
+    m_Localized: Troll fang
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36667767926784
+    m_Localized: Sometimes trolls' teeth fall out, especially when hit with a mace.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36703167852544
+    m_Localized: Coal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36704879128576
+    m_Localized: A pile of coals, a stash for a rainy day
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36745110892544
+    m_Localized: Textile
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36746721505280
+    m_Localized: Piece of demons rag cloth
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36788027011072
+    m_Localized: Iron ore
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36790614896640
+    m_Localized: A piece of iron ore, entertainment for demons - hitting a rat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36827994533888
+    m_Localized: Rivets
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36829869387776
+    m_Localized: Processed metal, used in armor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36867953668096
+    m_Localized: Demon horn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36869497171968
+    m_Localized: The demons' horns were broken off
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36908957184000
+    m_Localized: Bone dust
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36910634905600
+    m_Localized: A pile of bone dust, they say demons brush their teeth with it
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42418234208256
+    m_Localized: Health Potion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42420167782400
+    m_Localized: Restores health in battle by 30%
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42643711602688
+    m_Localized: Damage Potion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42645653565440
+    m_Localized: Allows you to increase damage by x2 in battle. Only works on the
+      next hit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42678306222080
+    m_Localized: Potion of Vampirism
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42679983943680
+    m_Localized: Allows you to restore health by 50% of damage in battle. Only works
+      on the next hit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42734342123520
+    m_Localized: Block crystal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42736623824896
+    m_Localized: Allows you to add a block chance to a regular item
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42937883308032
+    m_Localized: Crit crystal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42939561029632
+    m_Localized: Allows you to add a critical chance to an ordinary item
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42969458028544
+    m_Localized: Dodge crystal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42971035086848
+    m_Localized: Allows you to add a chance to dodge to an ordinary item
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43006267240448
+    m_Localized: Stun crystal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43008079179776
+    m_Localized: Allows you to add a stun chance to an ordinary item
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

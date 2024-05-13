@@ -15,6 +15,8 @@ MonoBehaviour:
   m_SharedTableData: {fileID: 11400000, guid: 55a331a0b0409de4f85b651eb6c6d700, type: 2}
   m_Tables:
   - {fileID: 11400000, guid: ee361e81242710545a175cec5d65fd58, type: 2}
+  - {fileID: 11400000, guid: c8db6e45eb9fbe2478eae5d7e25bd8e1, type: 2}
+  - {fileID: 11400000, guid: 673d83678e06c624f82c48f99e9a129b, type: 2}
   m_Extensions: []
   m_Group: String Table
   references:

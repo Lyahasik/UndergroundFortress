@@ -12,6 +12,7 @@ using UndergroundFortress.Core.Services.Ads;
 using UndergroundFortress.Gameplay.Character;
 using UndergroundFortress.Gameplay.StaticData;
 using UndergroundFortress.Gameplay.Tutorial.Services;
+using UndergroundFortress.UI.Core.Localization;
 using UndergroundFortress.UI.Craft;
 using UndergroundFortress.UI.Information.Services;
 using UndergroundFortress.UI.Inventory;
@@ -28,6 +29,7 @@ namespace UndergroundFortress.UI.MainMenu
 
         [Space]
         [SerializeField] private WalletView walletView;
+        [SerializeField] private LocaleDropdown localeDropdown;
         [SerializeField] private AmountSpaceBag amountSpaceBag;
 
         [Space]
@@ -87,6 +89,9 @@ namespace UndergroundFortress.UI.MainMenu
             experienceBarView.Construct(staticDataService, progressProviderService);
             experienceBarView.Initialize();
             walletView.Initialize(progressProviderService);
+            
+            localeDropdown.Construct(_localizationService, progressProviderService);
+            localeDropdown.Initialize();
             
             amountSpaceBag.Register(progressProviderService);
             

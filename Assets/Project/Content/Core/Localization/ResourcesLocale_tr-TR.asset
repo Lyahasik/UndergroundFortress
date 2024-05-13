@@ -1,0 +1,201 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: ResourcesLocale_tr-TR
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: tr-TR
+  m_SharedData: {fileID: 11400000, guid: 3a831ffcb4153794781f09f6c95f5990, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 42679983943680
+    m_Localized: "Sava\u015Fta ald\u0131\u011F\u0131n\u0131z hasar\u0131n %50'si
+      oran\u0131nda sa\u011Fl\u0131\u011F\u0131n\u0131z\u0131 yenilemenizi sa\u011Flar.
+      Yaln\u0131zca bir sonraki vuru\u015Fta \xE7al\u0131\u015F\u0131r"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42678306222080
+    m_Localized: "Vampirizm \u0130ksiri"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42645653565440
+    m_Localized: "Sava\u015Fta hasar\u0131 2 kat art\u0131rman\u0131z\u0131 sa\u011Flar.
+      Yaln\u0131zca bir sonraki vuru\u015Fta \xE7al\u0131\u015F\u0131r"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42643711602688
+    m_Localized: "Hasar \u0130ksiri"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42420167782400
+    m_Localized: "Sava\u015Fta sa\u011Fl\u0131\u011F\u0131 %30 oran\u0131nda yeniler"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42418234208256
+    m_Localized: Can iksiri
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36910634905600
+    m_Localized: "Bir y\u0131\u011F\u0131n kemik tozu, iblislerin onunla di\u015Flerini
+      f\u0131r\xE7alad\u0131\u011F\u0131n\u0131 s\xF6yl\xFCyorlar"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36908957184000
+    m_Localized: Kemik tozu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36869497171968
+    m_Localized: "\u015Eeytanlar\u0131n boynuzlar\u0131 k\u0131r\u0131ld\u0131"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36867953668096
+    m_Localized: "\u015Eeytan boynuzu"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36829869387776
+    m_Localized: "Z\u0131rhta kullan\u0131lan i\u015Flenmi\u015F metal"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36827994533888
+    m_Localized: "Per\xE7inler"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36790614896640
+    m_Localized: "Bir par\xE7a demir cevheri, \u015Feytanlar\u0131n e\u011Flencesi;
+      bir fareye vurmak"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36788027011072
+    m_Localized: Demir cevheri
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36746721505280
+    m_Localized: "Bir par\xE7a \u015Feytan pa\xE7avra bezi"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36745110892544
+    m_Localized: Tekstil
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36704879128576
+    m_Localized: "Bir y\u0131\u011F\u0131n k\xF6m\xFCr, ya\u011Fmurlu bir g\xFCn
+      i\xE7in bir zula"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36703167852544
+    m_Localized: "K\xF6m\xFCr"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36667767926784
+    m_Localized: "Bazen trollerin di\u015Fleri d\xFC\u015Fer, \xF6zellikle de topuzla
+      vuruldu\u011Funda."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36665955987456
+    m_Localized: "Trol di\u015Fi"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36625321570304
+    m_Localized: "Bir par\xE7a masif ah\u015Fap, iyi malzeme"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36606229098496
+    m_Localized: Odun
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36572439785472
+    m_Localized: "Bir par\xE7a bak\u0131r cevheri, troller onu yalamay\u0131 sever"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36566701977600
+    m_Localized: "Bak\u0131r cevheri"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36542677004288
+    m_Localized: "Trol kelep\xE7esinden tamamen deri"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36508325654528
+    m_Localized: Deri
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36489627447296
+    m_Localized: "Slime'\u0131n kal\u0131nt\u0131s\u0131 \u015Fa\u015F\u0131rt\u0131c\u0131
+      derecede yo\u011Fun"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36447659241472
+    m_Localized: "Damla bal\xE7\u0131k"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36174459056128
+    m_Localized: "Bir zamanlar g\xFC\xE7l\xFC bir sap olan bir tahta par\xE7as\u0131"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 36160634630144
+    m_Localized: "Tahta k\u0131ym\u0131\u011F\u0131"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31505385009152
+    m_Localized: "Hangi \u015Feyden geldi\u011Fi bilinmeyen metal par\xE7as\u0131"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31501366865920
+    m_Localized: "Metal par\xE7as\u0131"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31776583680
+    m_Localized: "Bir yarat\u0131ktan bir par\xE7a deri"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10104614912
+    m_Localized: "Y\u0131rt\u0131k cilt"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42734342123520
+    m_Localized: Blok kristal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42736623824896
+    m_Localized: "Normal bir \xF6\u011Feye blok \u015Fans\u0131 eklemenizi sa\u011Flar"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42937883308032
+    m_Localized: Kritik kristal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42939561029632
+    m_Localized: "S\u0131radan bir e\u015Fyaya kritik \u015Fans eklemenizi sa\u011Flar"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42969458028544
+    m_Localized: Kristali atlat
+    m_Metadata:
+      m_Items: []
+  - m_Id: 42971035086848
+    m_Localized: "S\u0131radan bir e\u015Fyadan ka\xE7ma \u015Fans\u0131 eklemenizi
+      sa\u011Flar"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43006267240448
+    m_Localized: Sersemletme kristali
+    m_Metadata:
+      m_Items: []
+  - m_Id: 43008079179776
+    m_Localized: "S\u0131radan bir e\u015Fyaya sersemletme \u015Fans\u0131 eklemenizi
+      sa\u011Flar"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

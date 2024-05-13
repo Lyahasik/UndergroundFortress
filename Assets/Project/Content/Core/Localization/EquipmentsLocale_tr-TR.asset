@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: EquipmentsLocale_tr-TR
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: tr-TR
+  m_SharedData: {fileID: 11400000, guid: 287f19171f6333246be740722193175a, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 513534341120
+    m_Localized: Demir balta
+    m_Metadata:
+      m_Items: []
+  - m_Id: 512531902464
+    m_Localized: "Bak\u0131r balta"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457435525120
+    m_Localized: "Demir k\u0131l\u0131\xE7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 453773897728
+    m_Localized: "Bak\u0131r k\u0131l\u0131\xE7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 452465274880
+    m_Localized: "Basit k\u0131l\u0131\xE7"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 411331735552
+    m_Localized: Demir kalkan
+    m_Metadata:
+      m_Items: []
+  - m_Id: 410153136128
+    m_Localized: "Ah\u015Fap kalkan"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 365156642816
+    m_Localized: Demir pantolon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 363717996544
+    m_Localized: "Bak\u0131r pantolon"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 361901862912
+    m_Localized: Deri pantalon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 321435217920
+    m_Localized: Demir topuz
+    m_Metadata:
+      m_Items: []
+  - m_Id: 320294367232
+    m_Localized: "Bak\u0131r topuz"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 268083671040
+    m_Localized: Demir eldiven
+    m_Metadata:
+      m_Items: []
+  - m_Id: 266674384896
+    m_Localized: "Bak\u0131r eldiven"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 265302847488
+    m_Localized: Deri eldivenler
+    m_Metadata:
+      m_Items: []
+  - m_Id: 214228807680
+    m_Localized: "Demir han\xE7er"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 212752412672
+    m_Localized: "Bak\u0131r han\xE7er"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 163762941952
+    m_Localized: "Demir sand\u0131k"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 162357850112
+    m_Localized: "Bak\u0131r sand\u0131k"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 160441053184
+    m_Localized: "Deri sand\u0131k"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34108616704
+    m_Localized: "Demir \xE7izmeler"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30954500096
+    m_Localized: "Bak\u0131r \xE7izmeler"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 28073013248
+    m_Localized: "Deri \xE7izmeler"
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

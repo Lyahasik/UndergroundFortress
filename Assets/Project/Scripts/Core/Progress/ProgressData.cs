@@ -12,6 +12,7 @@ namespace UndergroundFortress.Core.Progress
     public class ProgressData
     {
         public float TimeGame;
+        public int LocaleId;
 
         public int NumberCrafting;
         public int NumberPurchases;

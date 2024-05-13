@@ -197,6 +197,12 @@ namespace UndergroundFortress.Core.Services.Progress
             _processingAnalyticsService.TargetActivity(ActivityType.Killing, _progressData.NumberKilling);
         }
 
+        public void SetLocale(int localeId)
+        {
+            _progressData.LocaleId = localeId;
+            SaveProgress();
+        }
+
         private void RegularSave()
         {
             _progressData.TimeGame += Time.deltaTime;
@@ -225,6 +231,7 @@ namespace UndergroundFortress.Core.Services.Progress
             ProgressData progressData = new ProgressData
             {
                 TimeGame = 0f,
+                LocaleId = 0,
                 
                 NumberCrafting = 0,
                 NumberPurchases = 0,

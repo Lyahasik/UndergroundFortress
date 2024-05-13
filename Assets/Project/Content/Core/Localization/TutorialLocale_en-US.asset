@@ -1,0 +1,225 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: TutorialLocale_en-US
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en-US
+  m_SharedData: {fileID: 11400000, guid: ca0ff485440024347a7f4a8915b9c0b9, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 23660605440
+    m_Localized: 'wow, there''s a new addition to our ranks. Greetings.
+
+      time
+      is short, take the sword and repeat after me.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1386608078848
+    m_Localized: 'Here you have all your items that you can use.
+
+      What are
+      the numbers? How much space is occupied/available.
+
+      Press and move on.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1389393096704
+    m_Localized: 'Every thing has a level. is displayed on the icon.
+
+      Hold
+      your finger on the sword and drag it into the cell.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1392710791168
+    m_Localized: "This is enough for slugs.\r\nGo hiking on level 1, I\u2019ll catch
+      up with you."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1472671002624
+    m_Localized: 'Your stamina bar. Consumed with each hit depending on the weapon.
+
+      Is
+      constantly being restored.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1544645259264
+    m_Localized: 'The health bar, if you get hit in the head, decreases.
+
+      Does
+      not recover in battle, you need to rest.
+
+      How not to die? Hit the monster.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1592296747008
+    m_Localized: 'It''ll do for a start.
+
+      Let''s go get you dressed again.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1692586749952
+    m_Localized: Here we create different things, we are only interested in armor.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1694734233600
+    m_Localized: 'The recipe is engraved on the tile: two coins, two torns... in
+      general, you can see for yourself - we get a bib.
+
+      Why is the defense
+      different? It depends on the quality of the item.
+
+      Usually an item is
+      created at your current level, but in the upper right is the maximum level
+      for the item.
+
+      Choose this recipe.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1697150152704
+    m_Localized: 'Depending on the rarity, an item may have several additional characteristics.
+
+      click
+      create.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1762182836224
+    m_Localized: 'Great. We need to create the rest.
+
+      Let''s restock the store.
+
+      Take
+      this crystal and blow into the shop.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1910996742144
+    m_Localized: Click on this crystal and sell it.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1921163735040
+    m_Localized: 'Now there are enough coins to buy resources.
+
+      Go to the
+      coins section and buy everything I show you.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2286466641920
+    m_Localized: 'Great, now you can create the remaining things.
+
+      Let''s
+      do it quickly, without further ado.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2359044878336
+    m_Localized: 'Now go to inventory and get dressed.
+
+      Don''t forget to change
+      clothes when you level up.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2360420610048
+    m_Localized: 'Why are you so fast, I barely caught up with you.
+
+      Let''s
+      go to the fortress, I forgot to share potions.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2362039611392
+    m_Localized: 'Yes, it''s a health potion.
+
+      Can be used in battle to restore.
+
+      Let
+      me show you where to throw them.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2822968455168
+    m_Localized: Each armor has a potion bag, drag the potion there.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2824579067904
+    m_Localized: "I don\u2019t think there\u2019s any need to explain how to activate
+      it in battle.\r\nOh yes, people also donate coins for protection, after all,
+      we protect them.\r\nWhen I have enough, I\u2019ll let you know."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2876353556480
+    m_Localized: 'You move quickly.
+
+      Take a break, let''s go teach you something.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3002384003072
+    m_Localized: 'Every fighter with a level can develop their skills.
+
+      There
+      are 4 directions: dodge, critical damage, blocking, stunning.
+
+      Each
+      has its own path of development.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3004464377856
+    m_Localized: 'The first skill is open to everyone, regardless of level.
+
+      Is
+      pumped passively and many times.
+
+      To dodge, you need to dodge, etc.
+
+      There
+      is also a more complex passive skill that you will discover over time.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3008759345152
+    m_Localized: 'Regular skills are improved only 1 time.
+
+      There is no such
+      thing as too much health, click and activate.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3041944678400
+    m_Localized: 'Here we have the number of points available, earned when leveling
+      up.
+
+      With us you can always reset, the master will simply erase your
+      memory and you can distribute the points again.
+
+      The young fighter''s
+      course is over, good luck in the battles.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3137507700736
+    m_Localized: "So so, you don\u2019t stand still, you need better things next.\r\nNow
+      you have access to special weapons, each with a second characteristic and different
+      attack speed. Take it for practice.\r\nI gave you the recipes and opened the
+      goods in the shop."
+    m_Metadata:
+      m_Items: []
+  - m_Id: 3200288043008
+    m_Localized: 'Looks like it''s time for you to go deeper into the depths.
+
+      Then
+      crystals with the skill will occasionally drop out.
+
+      You can use them
+      when creating ordinary things to add a skill to an item. Take some to try,
+      now you can select them before creating the item.
+
+      Updated recipes and
+      products.'
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

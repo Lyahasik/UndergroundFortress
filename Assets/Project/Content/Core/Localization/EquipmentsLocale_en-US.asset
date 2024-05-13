@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: EquipmentsLocale_en-US
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en-US
+  m_SharedData: {fileID: 11400000, guid: 287f19171f6333246be740722193175a, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 28073013248
+    m_Localized: Leather boots
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30954500096
+    m_Localized: Copper boots
+    m_Metadata:
+      m_Items: []
+  - m_Id: 34108616704
+    m_Localized: Iron boots
+    m_Metadata:
+      m_Items: []
+  - m_Id: 160441053184
+    m_Localized: Leather chest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 162357850112
+    m_Localized: Copper chest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 163762941952
+    m_Localized: Iron chest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 212752412672
+    m_Localized: Copper dagger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 214228807680
+    m_Localized: Iron dagger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 265302847488
+    m_Localized: Leather gloves
+    m_Metadata:
+      m_Items: []
+  - m_Id: 266674384896
+    m_Localized: Copper gloves
+    m_Metadata:
+      m_Items: []
+  - m_Id: 268083671040
+    m_Localized: Iron gloves
+    m_Metadata:
+      m_Items: []
+  - m_Id: 320294367232
+    m_Localized: Copper mace
+    m_Metadata:
+      m_Items: []
+  - m_Id: 321435217920
+    m_Localized: Iron mace
+    m_Metadata:
+      m_Items: []
+  - m_Id: 361901862912
+    m_Localized: Leather pants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 363717996544
+    m_Localized: Copper pants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 365156642816
+    m_Localized: Iron pants
+    m_Metadata:
+      m_Items: []
+  - m_Id: 410153136128
+    m_Localized: Wooden shield
+    m_Metadata:
+      m_Items: []
+  - m_Id: 411331735552
+    m_Localized: Iron shield
+    m_Metadata:
+      m_Items: []
+  - m_Id: 452465274880
+    m_Localized: Simple sword
+    m_Metadata:
+      m_Items: []
+  - m_Id: 453773897728
+    m_Localized: Copper sword
+    m_Metadata:
+      m_Items: []
+  - m_Id: 457435525120
+    m_Localized: Iron sword
+    m_Metadata:
+      m_Items: []
+  - m_Id: 512531902464
+    m_Localized: Copper ax
+    m_Metadata:
+      m_Items: []
+  - m_Id: 513534341120
+    m_Localized: Iron ax
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

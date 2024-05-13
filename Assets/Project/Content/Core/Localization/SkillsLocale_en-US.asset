@@ -1,0 +1,159 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: SkillsLocale_en-US
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en-US
+  m_SharedData: {fileID: 11400000, guid: 6ec453c43ea660e4ebaf83ec09359aa3, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 402041352192
+    m_Localized: Accuracy skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 405698785280
+    m_Localized: Increases chance to hit when enemy dodges.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 432173232128
+    m_Localized: Block skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 435629338624
+    m_Localized: Increases the chance to block a strike.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 468177137664
+    m_Localized: Damage blocking skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 469217325056
+    m_Localized: Increases the percentage of damage blocked on a successful block.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 498174799872
+    m_Localized: Breaking through block skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 499751858176
+    m_Localized: Increases the chance of breaking through an enemy block.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 530991034368
+    m_Localized: Critical chance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 532169633792
+    m_Localized: Increases the chance to deal critical damage.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 569079508992
+    m_Localized: Critical damage skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 570992111616
+    m_Localized: Increases the damage percentage on a successful critical hit.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 621185347584
+    m_Localized: Damage skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 622326198272
+    m_Localized: Increases damage on hit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 656857903104
+    m_Localized: Defense skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 657830981632
+    m_Localized: Reduces enemy damage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 682556403712
+    m_Localized: Dodge skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 683428818944
+    m_Localized: Increases the chance to dodge a blow.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 718157656064
+    m_Localized: Health skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 719336255488
+    m_Localized: Increases health
+    m_Metadata:
+      m_Items: []
+  - m_Id: 783857233920
+    m_Localized: Health recovery skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 784796758016
+    m_Localized: Increases health regeneration per second
+    m_Metadata:
+      m_Items: []
+  - m_Id: 816644108288
+    m_Localized: Parry skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 817717850112
+    m_Localized: Increases the chance of parrying enemy critical damage.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 847379968000
+    m_Localized: Stamina skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 848348852224
+    m_Localized: Increases the amount of stamina
+    m_Metadata:
+      m_Items: []
+  - m_Id: 875431473152
+    m_Localized: Stamina recovery skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 876299694080
+    m_Localized: Increases stamina recovery per second.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 919387779072
+    m_Localized: Strength skills
+    m_Metadata:
+      m_Items: []
+  - m_Id: 920323108864
+    m_Localized: Increases the chance to ignore enemy stuns.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 952971571200
+    m_Localized: Stun skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 954011758592
+    m_Localized: Increases the chance to stun an enemy.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 984852475904
+    m_Localized: Temporary stun skill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 986563751936
+    m_Localized: Increases the duration of enemy stun.
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
