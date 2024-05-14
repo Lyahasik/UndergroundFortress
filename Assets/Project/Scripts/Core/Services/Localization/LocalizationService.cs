@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
@@ -9,6 +10,15 @@ namespace UndergroundFortress.Core.Localization
 {
     public class LocalizationService : ILocalizationService
     {
+        public event Action OnUpdateLocale;
+
+        public void UpdateLocale(int localeId)
+        {
+            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[localeId];
+            
+            OnUpdateLocale?.Invoke();
+        }
+
         public IEnumerator Initialize()
         {
             yield return LocalizationSettings.InitializationOperation;

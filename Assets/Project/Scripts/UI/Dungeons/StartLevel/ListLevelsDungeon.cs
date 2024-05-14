@@ -46,7 +46,7 @@ namespace UndergroundFortress.UI.MainMenu
             
             _onSelectDungeon = onSelectDungeon;
 
-            nameDungeon.text = _localizationService.LocaleMain(_staticDataService.GetDungeonById(id).name);
+            UpdateLocale();
             
             button.onClick.AddListener(SelectDungeon);
             button.interactable = false;
@@ -55,6 +55,18 @@ namespace UndergroundFortress.UI.MainMenu
             listLevelButton.ForEach(data => data.Initialize(onStartLevel));
             
             Register(progressProviderService);
+
+            _localizationService.OnUpdateLocale += UpdateLocale;
+        }
+
+        private void OnDestroy()
+        {
+            _localizationService.OnUpdateLocale -= UpdateLocale;
+        }
+
+        private void UpdateLocale()
+        {
+            nameDungeon.text = _localizationService.LocaleMain(_staticDataService.GetDungeonById(id).name);
         }
 
         public void Register(IProgressProviderService progressProviderService)

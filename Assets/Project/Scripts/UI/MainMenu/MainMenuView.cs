@@ -29,6 +29,7 @@ namespace UndergroundFortress.UI.MainMenu
 
         [Space]
         [SerializeField] private WalletView walletView;
+        [SerializeField] private GameObject localeObject;
         [SerializeField] private LocaleDropdown localeDropdown;
         [SerializeField] private AmountSpaceBag amountSpaceBag;
 
@@ -128,6 +129,7 @@ namespace UndergroundFortress.UI.MainMenu
                 }
             }
             
+            localeObject.SetActive(_currentWindowType is WindowType.StartLevel);
             listBuffs.SetActive(_currentWindowType == WindowType.StartLevel);
             _processingAdsService.ShowAdsInterstitial();
             

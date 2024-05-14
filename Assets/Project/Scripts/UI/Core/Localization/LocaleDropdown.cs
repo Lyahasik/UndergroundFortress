@@ -67,10 +67,9 @@ namespace UndergroundFortress.UI.Core.Localization
         void LocaleSelected(int index)
         {
             _localeId = index;
-            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[_localeId];
+            _localizationService.UpdateLocale(_localeId);
             
             WriteProgress();
-            // _localizationService.Change();
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 
@@ -7,6 +8,8 @@ namespace UndergroundFortress.Core.Localization
 {
     public interface ILocalizationService : IService
     {
+        public event Action OnUpdateLocale;
+        public void UpdateLocale(int localeId);
         public IEnumerator Initialize();
         public string LocaleMain(string keyValue);
         public string LocaleResource(string keyValue);
