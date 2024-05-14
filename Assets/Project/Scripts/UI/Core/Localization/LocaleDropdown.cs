@@ -5,23 +5,18 @@ using UnityEngine.Localization.Settings;
 using UndergroundFortress.Core.Localization;
 using UndergroundFortress.Core.Progress;
 using UndergroundFortress.Core.Services.Progress;
+using UndergroundFortress.Gameplay.Tutorial.Services;
 
 namespace UndergroundFortress.UI.Core.Localization
 {
-    [RequireComponent(typeof(TMP_Dropdown))]
-    public class LocaleDropdown : MonoBehaviour, IWritingProgress
+    public class LocaleDropdown : TMP_Dropdown, IWritingProgress
     {
         private IProgressProviderService _progressProviderService;
         private ILocalizationService _localizationService;
 
-        private TMP_Dropdown _dropdown;
-        
-        private int _localeId;
+        private ProgressTutorialService _progressTutorialService;
 
-        private void Awake()
-        {
-            _dropdown = GetComponent<TMP_Dropdown>();
-        }
+        private int _localeId;
 
         public void Construct(ILocalizationService localizationService,
             IProgressProviderService progressProviderService)
@@ -32,6 +27,8 @@ namespace UndergroundFortress.UI.Core.Localization
 
         public void Initialize()
         {
+            onValueChanged.AddListener(LocaleSelected);
+            
             Register(_progressProviderService);
         }
 
@@ -53,21 +50,31 @@ namespace UndergroundFortress.UI.Core.Localization
             _progressProviderService.SetLocale(_localeId);
         }
 
-        private void UpdateValues()
+        public void ActivateTutorial(ProgressTutorialService progressTutorialService)
         {
-            _dropdown.value = _localeId;
-            
-            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[_dropdown.value];
-            
-            _dropdown.onValueChanged.AddListener(LocaleSelected);
-            
-            _dropdown.interactable = true;
+            _progressTutorialService = progressTutorialService;
         }
 
-        void LocaleSelected(int index)
+        public void CheckTutorial()
+        {
+            Debug.Log("CONFIRM");
+            _progressTutorialService?.SuccessStep();
+        }
+
+        private void UpdateValues()
+        {
+            value = _localeId;
+            
+            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[value];
+
+            interactable = true;
+        }
+
+        private void LocaleSelected(int index)
         {
             _localeId = index;
             _localizationService.UpdateLocale(_localeId);
+            // CheckTutorial();
             
             WriteProgress();
         }

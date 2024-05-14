@@ -173,6 +173,7 @@ namespace UndergroundFortress.UI.MainMenu
         public void ActivateTutorial(ProgressTutorialService progressTutorialService)
         {
             _progressTutorialService = progressTutorialService;
+            localeDropdown.ActivateTutorial(_progressTutorialService);
         }
 
         private void ShowBonusOffer()
