@@ -46,9 +46,9 @@ namespace UndergroundFortress.UI.Bonuses
 
         public void UpdateOffer(BonusData bonusData, Action onBonusActivate)
         {
-            nameOfferText.text = _localizationService.LocaleBonus(bonusData.name);
+            _localizationService.LocaleBonus(bonusData.name, nameOfferText);
             iconOffer.sprite = bonusData.iconOffer;
-            descriptionOfferText.text = _localizationService.LocaleBonus(bonusData.description);
+            _localizationService.LocaleBonus(bonusData.description, descriptionOfferText);
 
             confirmButton.UpdateRewardData(onBonusActivate, bonusData.rewardIdAds);
         }

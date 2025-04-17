@@ -12,6 +12,13 @@ namespace UndergroundFortress.Core.Localization
     {
         public event Action OnUpdateLocale;
 
+        public IEnumerator Initialize()
+        {
+            yield return LocalizationSettings.InitializationOperation;
+            
+            Debug.Log($"[{ GetType() }] initialize");
+        }
+
         public void UpdateLocale(int localeId)
         {
             LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[localeId];
@@ -19,62 +26,48 @@ namespace UndergroundFortress.Core.Localization
             OnUpdateLocale?.Invoke();
         }
 
-        public IEnumerator Initialize()
+        public string LocaleMain(string keyValue, TMP_Text textObject) => 
+            LocaleResourceAsync(ConstantValues.LOCALE_MAIN_TABLE, keyValue, textObject);
+
+        public string LocaleResource(string keyValue, TMP_Text textObject) => 
+            LocaleResourceAsync(ConstantValues.LOCALE_RESOURCES_TABLE, keyValue, textObject);
+        
+        public string LocaleEquipment(string keyValue, TMP_Text textObject) => 
+            LocaleResourceAsync(ConstantValues.LOCALE_EQUIPMENTS_TABLE, keyValue, textObject);
+        
+        public string LocaleBonus(string keyValue, TMP_Text textObject) => 
+            LocaleResourceAsync(ConstantValues.LOCALE_BONUSES_TABLE, keyValue, textObject);
+        
+        public string LocalePurchase(string keyValue, TMP_Text textObject) => 
+            LocaleResourceAsync(ConstantValues.LOCALE_PURCHASES_TABLE, keyValue, textObject);
+        
+        public string LocaleStat(string keyValue, TMP_Text textObject) => 
+            LocaleResourceAsync(ConstantValues.LOCALE_STATS_TABLE, keyValue, textObject);
+        
+        public string LocaleSkill(string keyValue, TMP_Text textObject) => 
+            LocaleResourceAsync(ConstantValues.LOCALE_SKILLS_TABLE, keyValue, textObject);
+        
+        public string LocaleTutorial(string keyValue, TMP_Text textObject) => 
+            LocaleResourceAsync(ConstantValues.LOCALE_TUTORIAL_TABLE, keyValue, textObject);
+        
+        private string LocaleResourceAsync(string tableName, string keyValue, TMP_Text textObject = null)
         {
-            yield return LocalizationSettings.InitializationOperation;
-            
-            Debug.Log($"[{ GetType() }] initialize");
-        }
-        
-        public string LocaleMain(string keyValue) =>
-            LocalizationSettings
-                .StringDatabase
-                .GetLocalizedString(ConstantValues.LOCALE_MAIN_TABLE, keyValue);
-        
-        public string LocaleResource(string keyValue) =>
-            LocalizationSettings
-                .StringDatabase
-                .GetLocalizedString(ConstantValues.LOCALE_RESOURCES_TABLE, keyValue);
-        
-        public string LocaleEquipment(string keyValue) =>
-            LocalizationSettings
-                .StringDatabase
-                .GetLocalizedString(ConstantValues.LOCALE_EQUIPMENTS_TABLE, keyValue);
-        
-        public string LocaleBonus(string keyValue) =>
-            LocalizationSettings
-                .StringDatabase
-                .GetLocalizedString(ConstantValues.LOCALE_BONUSES_TABLE, keyValue);
-        
-        public string LocalePurchase(string keyValue) =>
-            LocalizationSettings
-                .StringDatabase
-                .GetLocalizedString(ConstantValues.LOCALE_PURCHASES_TABLE, keyValue);
-        
-        public string LocaleStat(string keyValue) =>
-            LocalizationSettings
-                .StringDatabase
-                .GetLocalizedString(ConstantValues.LOCALE_STATS_TABLE, keyValue);
-        
-        public string LocaleSkill(string keyValue) =>
-            LocalizationSettings
-                .StringDatabase
-                .GetLocalizedString(ConstantValues.LOCALE_SKILLS_TABLE, keyValue);
-        
-        public string LocaleTutorial(string keyValue) =>
-            LocalizationSettings
-                .StringDatabase
-                .GetLocalizedString(ConstantValues.LOCALE_TUTORIAL_TABLE, keyValue);
-        
-        public void LocaleResourceAsync(TMP_Text textObject, string keyValue)
-        {
-            var op = LocalizationSettings
-                .StringDatabase
-                .GetLocalizedStringAsync(ConstantValues.LOCALE_RESOURCES_TABLE, keyValue);
-            if (op.IsDone)
-                textObject.text = op.Result;
+            if (textObject != null)
+            {
+                var op = LocalizationSettings
+                    .StringDatabase
+                    .GetLocalizedStringAsync(tableName, keyValue);
+                if (op.IsDone)
+                    textObject.text = op.Result;
+                else
+                    op.Completed += data => textObject.text = data.Result;
+            }
             else
-                op.Completed += data => textObject.text = data.Result;
+            {
+                return LocalizationSettings.StringDatabase.GetLocalizedString(tableName, keyValue);
+            }
+            
+            return null;
         }
     }
 }

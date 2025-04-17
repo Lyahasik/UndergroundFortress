@@ -44,7 +44,7 @@ namespace UndergroundFortress.Gameplay.Items.Equipment
         public void Show(ItemData equipmentData)
         {
             if (nameText != null)
-                nameText.text = _localizationService.LocaleEquipment(equipmentData.Name);
+                _localizationService.LocaleEquipment(equipmentData.Name, nameText);
             
             if (cellItemView != null)
                 cellItemView.SetValues(

@@ -26,8 +26,8 @@ namespace UndergroundFortress.Gameplay.Items.Resource
 
         public void Show(ItemData resourceData)
         {
-            nameText.text = _localizationService.LocaleResource(resourceData.Name);
-            descriptionText.text = _localizationService.LocaleResource(_staticDataService.GetItemDescriptionById(resourceData.Id));
+            _localizationService.LocaleResource(resourceData.Name, nameText);
+            _localizationService.LocaleResource(_staticDataService.GetItemDescriptionById(resourceData.Id), descriptionText);
 
             cellItemView.SetValues(
                 _staticDataService.GetItemIcon(resourceData.Id),

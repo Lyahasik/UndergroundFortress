@@ -58,7 +58,7 @@ namespace UndergroundFortress.UI.Information
 
         public void Show(RewardData rewardData)
         {
-            nameText.text = _localizationService.LocalePurchase(rewardData.nameReward);
+            _localizationService.LocalePurchase(rewardData.nameReward, nameText);
 
             _rewardMoneys = rewardData.moneys;
             _rewardItems = rewardData.items;

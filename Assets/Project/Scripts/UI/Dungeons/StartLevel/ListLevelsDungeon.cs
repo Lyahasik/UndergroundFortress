@@ -66,7 +66,7 @@ namespace UndergroundFortress.UI.MainMenu
 
         private void UpdateLocale()
         {
-            nameDungeon.text = _localizationService.LocaleMain(_staticDataService.GetDungeonById(id).name);
+            _localizationService.LocaleMain(_staticDataService.GetDungeonById(id).name, nameDungeon);
         }
 
         public void Register(IProgressProviderService progressProviderService)

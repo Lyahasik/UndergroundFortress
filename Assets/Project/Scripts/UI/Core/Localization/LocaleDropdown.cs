@@ -1,5 +1,4 @@
 ﻿using TMPro;
-using UnityEngine;
 using UnityEngine.Localization.Settings;
 
 using UndergroundFortress.Core.Localization;
@@ -57,7 +56,6 @@ namespace UndergroundFortress.UI.Core.Localization
 
         public void CheckTutorial()
         {
-            Debug.Log("CONFIRM");
             _progressTutorialService?.SuccessStep();
         }
 
@@ -74,7 +72,6 @@ namespace UndergroundFortress.UI.Core.Localization
         {
             _localeId = index;
             _localizationService.UpdateLocale(_localeId);
-            // CheckTutorial();
             
             WriteProgress();
         }

@@ -52,8 +52,8 @@ namespace UndergroundFortress.UI.Skills
             _currentSkillData = skillData;
             
             icon.sprite = skillData.data.icon;
-            nameSkill.text = _localizationService.LocaleSkill(skillData.data.name);
-            description.text = _localizationService.LocaleSkill(skillData.data.description);
+            _localizationService.LocaleSkill(skillData.data.name, nameSkill);
+            _localizationService.LocaleSkill(skillData.data.description, description);
 
             statIcon.sprite = _staticDataService.GetStatByType(skillData.data.statType).icon;
             statValue.text = skillData.data.statType.IncreaseIndicatorToString(skillData.data.value);

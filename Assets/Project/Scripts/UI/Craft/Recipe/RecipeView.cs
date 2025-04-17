@@ -98,7 +98,7 @@ namespace UndergroundFortress.UI.Craft.Recipe
             _idItem = equipmentData.id;
             _itemType = equipmentData.type;
             iconImage.sprite = equipmentData.icon;
-            nameText.text = _localizationService.LocaleEquipment(equipmentData.name);
+            _localizationService.LocaleEquipment(equipmentData.name, nameText);
             
             maximumLevelItem.SetValue(equipmentData.maxLevel);
 
@@ -121,7 +121,7 @@ namespace UndergroundFortress.UI.Craft.Recipe
             _idItem = resourceData.id;
             _itemType = resourceData.type;
             iconImage.sprite = resourceData.icon;
-            nameText.text = _localizationService.LocaleResource(resourceData.name);
+            _localizationService.LocaleResource(resourceData.name, nameText);
 
             maximumLevelItem.Hide();
             statView.Hide();

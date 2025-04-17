@@ -67,7 +67,6 @@ mergeInto(LibraryManager.library, {
         } else {
             myGameInstance.SendMessage('PublishHandler', 'LoadProgress', 'LocalProgress');
         }
-        
     },
 
     SaveDataExtern: function (data) {

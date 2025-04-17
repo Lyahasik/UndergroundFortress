@@ -138,7 +138,8 @@ namespace UndergroundFortress.Gameplay.Dungeons.Services
             _currentDungeon = _staticDataService.GetDungeonById(dungeonId);
             _currentLevelId = levelId;
 
-            _nameLevelText.text = $"{_localizationService.LocaleMain(_currentDungeon.name)} { _currentLevelId + 1 }";
+            _localizationService.LocaleMain(_currentDungeon.name, _nameLevelText);
+            // _nameLevelText.text = $"{_localizationService.LocaleMain(_currentDungeon.name)} { _currentLevelId + 1 }";
         }
 
         public void StartBattle()

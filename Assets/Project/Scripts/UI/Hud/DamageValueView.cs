@@ -7,6 +7,8 @@ namespace UndergroundFortress.Gameplay.Character
     {
         [SerializeField] private TMP_Text valueText;
 
+        public TMP_Text Text => valueText;
+
         public void SetValue(string value)
         {
             valueText.text = value;
